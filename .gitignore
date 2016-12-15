@@ -1,48 +1,31 @@
-# Cache and logs (Symfony2)
-/app/cache/*
-/app/logs/*
-!app/cache/.gitkeep
-!app/logs/.gitkeep
-
-# Email spool folder
-/app/spool/*
-
-# Cache, session files and logs (Symfony3)
-/var/cache/*
-/var/logs/*
-/var/sessions/*
-!var/cache/.gitkeep
-!var/logs/.gitkeep
-!var/sessions/.gitkeep
-
-# Parameters
-/app/config/parameters.yml
-/app/config/parameters.ini
-
-# Managed by Composer
 /app/bootstrap.php.cache
-/var/bootstrap.php.cache
-/bin/*
-!bin/console
-!bin/symfony_requirements
-/vendor/
-
-# Assets and user uploads
-/web/bundles/
-/web/uploads/
-
-# Assets managed by Bower
-/web/assets/vendor/
-
-# PHPUnit
+/app/config/parameters.yml
+/app/config/deploy.rb
+/app/cache/*
+!app/cache/.gitkeep
+/app/databases/*
+!/app/databases/.gitkeep
+/app/logs/*
+!app/logs/.gitkeep
 /app/phpunit.xml
-/phpunit.xml
-
-# Build data
-/build/
-
-# Composer PHAR
+/bin/
 /composer.phar
-
-# Backup entities generated with doctrine:generate:entities command
-*/Entity/*~
+/vendor/
+/web/bundles/
+/web/assetic/*
+/web/css/*
+!/web/css/.gitkeep
+/web/js/*
+!/web/js/.gitkeep
+/web/media/*
+!/web/media/.gitkeep
+/web/uploads/*
+!/web/uploads/.gitkeep
+/web/images/*
+!/web/images/.gitkeep
+/Capfile
+/backups/
+/test.sh
+/dbreset.sh
+!.travis.yml
+/src/AppBundle/Resources/public/img/originals/
