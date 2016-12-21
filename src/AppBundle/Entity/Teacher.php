@@ -4,8 +4,8 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\DescriptionTrait;
 use AppBundle\Entity\Traits\ImageTrait;
-use AppBundle\Entity\Traits\PositionTrait;
 use AppBundle\Entity\Traits\SlugTrait;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class Teacher
@@ -20,7 +20,6 @@ class Teacher extends AbstractBase
 {
     use DescriptionTrait;
     use ImageTrait;
-    use PositionTrait;
     use SlugTrait;
 
     /**
@@ -33,7 +32,7 @@ class Teacher extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", nullable=true, length=255)
      */
     private $slug;
 
