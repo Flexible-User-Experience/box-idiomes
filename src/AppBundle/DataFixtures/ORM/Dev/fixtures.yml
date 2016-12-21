@@ -1,0 +1,6 @@
+# Teachers
+AppBundle\Entity\Teacher:
+  teacher{1..5}:
+    name: <name()>
+    description: <paragraph()>
+    position: <numberBetween(1, 5)>
