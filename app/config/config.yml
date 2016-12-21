@@ -56,6 +56,46 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
+# Sonata Block
+sonata_block:
+    default_contexts: [ cms ]
+    blocks:
+        sonata.admin.block.admin_list:  ~
+
+# Admin
+sonata_admin:
+#    title: "%project_web_title%"
+#    title_logo: "/bundles/app/img/logo-espai-kowo-backend.png"
+    options:
+        html5_validate: true
+        confirm_exit:   true
+        use_select2:    true
+        pager_links:    10
+    persist_filters: true
+    templates:
+        layout: "::Admin/layout.html.twig"
+#        edit:   "::Admin/edit.html.twig"
+#        show:   "::Admin/show.html.twig"
+    dashboard:
+        groups:
+            Teachers:
+                icon: "<i class='fa fa-users'></i>"
+        blocks:
+            -
+                position: top
+                type: sonata.block.service.text
+                class: col-md-12
+                settings:
+                    content: >
+                        <h1 style="margin-top:0">Content Management System</h1>
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Teacher ]
+
+
 # Stof Doctrine Extensions
 stof_doctrine_extensions:
     default_locale: "%locale%"
