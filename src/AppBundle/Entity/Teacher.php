@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Traits\DescriptionTrait;
 use AppBundle\Entity\Traits\ImageTrait;
+use AppBundle\Entity\Traits\PositionTrait;
 use AppBundle\Entity\Traits\SlugTrait;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,6 +21,7 @@ class Teacher extends AbstractBase
 {
     use DescriptionTrait;
     use ImageTrait;
+    use PositionTrait;
     use SlugTrait;
 
     /**

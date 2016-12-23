@@ -19,7 +19,7 @@ class TeacherAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Teacher';
     protected $baseRoutePattern = 'teachers/teacher';
     protected $datagridValues = array(
-        '_sort_by'    => 'name',
+        '_sort_by'    => 'position',
         '_sort_order' => 'asc',
     );
 
@@ -50,6 +50,13 @@ class TeacherAdmin extends AbstractBaseAdmin
             )
             ->end()
             ->with('Controls', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'position',
+                null,
+                array(
+                    'label' => 'Posició',
+                )
+            )
             ->add(
                 'enabled',
                 'checkbox',
@@ -90,6 +97,14 @@ class TeacherAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
+            ->add(
+                'position',
+                'decimal',
+                array(
+                    'label'    => 'Ordre',
+                    'editable' => false,
+                )
+            )
             ->add(
                 'name',
                 null,
