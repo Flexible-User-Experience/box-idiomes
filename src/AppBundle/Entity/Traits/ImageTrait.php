@@ -3,17 +3,17 @@
 namespace AppBundle\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Image trait
  *
  * @category Trait
  * @package  AppBundle\Entity\Traits
- * @author   Anton Serra <aserratorta@gmail.com>
+ * @author   David Romaní <david@flux.cat>
  */
 Trait ImageTrait
 {
@@ -25,37 +25,10 @@ Trait ImageTrait
     private $imageName;
 
     /**
-     * @var string
+     * Set imageFile
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $alt;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(type="integer")
-     */
-    private $position = 1;
-
-    /**
-     *
-     *
-     * Methods
-     *
-     *
-     */
-
-    /**
-     * @return File|UploadedFile
-     */
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
-    /**
      * @param File|UploadedFile $imageFile
+     *
      * @return $this
      */
     public function setImageFile(File $imageFile = null)
@@ -71,19 +44,20 @@ Trait ImageTrait
     }
 
     /**
-     * Get ImageName
+     * Get imageFile
      *
-     * @return string
+     * @return File|UploadedFile
      */
-    public function getImageName()
+    public function getImageFile()
     {
-        return $this->imageName;
+        return $this->imageFile;
     }
 
     /**
-     * Set ImageName
+     * Set imageName
      *
      * @param string $imageName
+     *
      * @return $this
      */
     public function setImageName($imageName)
@@ -94,48 +68,12 @@ Trait ImageTrait
     }
 
     /**
-     * Get Alt
+     * Get imageName
      *
      * @return string
      */
-    public function getAlt()
+    public function getImageName()
     {
-        return $this->alt;
-    }
-
-    /**
-     * Set alt
-     *
-     * @param string $alt
-     * @return $this
-     */
-    public function setAlt($alt)
-    {
-        $this->alt = $alt;
-
-        return $this;
-    }
-
-    /**
-     * Get Position
-     *
-     * @return int
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
-     * Set Position
-     *
-     * @param int $position
-     * @return $this
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
+        return $this->imageName;
     }
 }
