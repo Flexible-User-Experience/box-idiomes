@@ -97,6 +97,8 @@ sonata_admin:
         groups:
             Teachers:
                 icon: "<i class='fa fa-users'></i>"
+            Usuaris:
+                icon: "<i class='fa fa-user'></i>"
         blocks:
             -
                 position: top
@@ -111,7 +113,12 @@ sonata_admin:
                 class: col-md-6
                 settings:
                     groups: [ Teachers ]
-
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Usuaris ]
 
 # Stof Doctrine Extensions
 stof_doctrine_extensions:
