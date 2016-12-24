@@ -4,3 +4,16 @@ AppBundle\Entity\Teacher:
     name: <name()>
     description: <paragraph()>
     position: <numberBetween(1, 2)>
+
+## Users
+AppBundle\Entity\User:
+    admin:
+        username: <{private_admin_test_user}>
+        plainPassword: <{private_admin_test_pass}>
+        email: <safeEmail()>
+        firstname: <name()>
+        lastname: <lastname()>
+        enabled: true
+        roles:
+            - ROLE_SUPER_ADMIN
+
