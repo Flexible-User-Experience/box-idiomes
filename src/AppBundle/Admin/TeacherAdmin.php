@@ -42,6 +42,15 @@ class TeacherAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('General', $this->getFormMdSuccessBoxArray(6))
             ->add(
+                'imageFile',
+                'file',
+                array(
+                    'label'    => 'backend.admin.post.image',
+                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
+                    'required' => false,
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -103,6 +112,14 @@ class TeacherAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'Ordre',
                     'editable' => false,
+                )
+            )
+            ->add(
+                'image',
+                null,
+                array(
+                    'label'    => 'backend.admin.event.image',
+                    'template' => '::Admin/Cells/list__cell_image_field.html.twig'
                 )
             )
             ->add(
