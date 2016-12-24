@@ -5,6 +5,11 @@ services:
         arguments: [ ~ , AppBundle\Entity\Teacher, ~ ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Teacher", group: "Teachers" }
+    admin.service:
+        class: AppBundle\Admin\ServiceAdmin
+        arguments: [ ~ , AppBundle\Entity\Service, ~ ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Service", group: "Services" }
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
