@@ -4,7 +4,12 @@ AppBundle\Entity\Teacher:
     name: <name()>
     description: <paragraph()>
     position: <numberBetween(1, 2)>
-
+# Services
+AppBundle\Entity\Service:
+  service{1..2}:
+    title: <name()>
+    description: <paragraph()>
+    position: <numberBetween(1, 2)>
 ## Users
 AppBundle\Entity\User:
     admin:
