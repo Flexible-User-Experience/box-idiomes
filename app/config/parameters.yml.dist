@@ -27,4 +27,6 @@ parameters:
     private_editor_test_user: ~
     private_editor_test_pass: ~
 
+    project_web_title: "Project Name"
+
 

@@ -32,6 +32,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        main_brand_title:         "%project_web_title%"
+        admin_tag_version:        "v1.0.1"
 
 # Doctrine Configuration
 doctrine:
