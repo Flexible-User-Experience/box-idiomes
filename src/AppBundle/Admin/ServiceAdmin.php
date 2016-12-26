@@ -40,12 +40,12 @@ class ServiceAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('General', $this->getFormMdSuccessBoxArray(6))
+            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'imageFile',
                 'file',
                 array(
-                    'label'    => 'backend.admin.post.image',
+                    'label'    => 'backend.admin.image',
                     'help'     => $this->getImageHelperFormMapperWithThumbnail(),
                     'required' => false,
                 )
@@ -54,23 +54,23 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'title',
                 null,
                 array(
-                    'label' => 'Títol',
+                    'label' => 'backend.admin.service.title',
                 )
             )
             ->end()
-            ->with('Controls', $this->getFormMdSuccessBoxArray(6))
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'position',
                 null,
                 array(
-                    'label' => 'Posició',
+                    'label' => 'backend.admin.position',
                 )
             )
             ->add(
                 'enabled',
                 'checkbox',
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'backend.admin.enabled',
                     'required' => false,
                 )
             )
@@ -87,14 +87,14 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'title',
                 null,
                 array(
-                    'label' => 'Títol',
+                    'label' => 'backend.admin.service.title',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label' => 'Actiu',
+                    'label' => 'backend.admin.enabled',
                 )
             );
     }
@@ -110,7 +110,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'position',
                 'decimal',
                 array(
-                    'label'    => 'Ordre',
+                    'label'    => 'backend.admin.position',
                     'editable' => false,
                 )
             )
@@ -118,7 +118,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'image',
                 null,
                 array(
-                    'label'    => 'backend.admin.event.image',
+                    'label'    => 'backend.admin.image',
                     'template' => '::Admin/Cells/list__cell_image_field.html.twig'
                 )
             )
@@ -126,7 +126,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'title',
                 null,
                 array(
-                    'label'    => 'Títol',
+                    'label'    => 'backend.admin.service.name',
                     'editable' => true,
                 )
             )
@@ -134,7 +134,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'Actiu',
+                    'label'    => 'backend.admin.enabled',
                     'editable' => true,
                 )
             )
@@ -146,7 +146,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                         'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
-                    'label'   => 'Accions',
+                    'label'   => 'backend.admin.actions',
                 )
             );
     }
