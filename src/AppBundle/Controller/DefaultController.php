@@ -24,11 +24,10 @@ class DefaultController extends Controller
     public function teachersAction()
     {
         return $this->render(
-            ':Front/teachers.html.twig'
+            'Front/teachers.html.twig'
 //            ['teachers' => $teachers]
         );
     }
-
 
     /**
      * @Route("/serveis", name="app_services")
@@ -36,7 +35,7 @@ class DefaultController extends Controller
     public function servicesAction()
     {
         return $this->render(
-            ':Front/services.html.twig'
+            'Front/services.html.twig'
 //            ['teachers' => $teachers]
         );
     }
@@ -47,7 +46,7 @@ class DefaultController extends Controller
     public function contactAction()
     {
         return $this->render(
-            ':Front/contact.html.twig'
+            'Front/contact.html.twig'
 //            ['teachers' => $teachers]
         );
     }
