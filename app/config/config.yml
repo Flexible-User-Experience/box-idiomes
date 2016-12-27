@@ -32,9 +32,36 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        - "bootstrap_3_layout.html.twig"
+        - "SonataCoreBundle:Form:datepicker.html.twig"
     globals:
+        google_analytics_enabled: "%google_analytics_enabled%"
+        google_analytics_account: "%google_analytics_account%"
+        facebook_pixel_enabled:   "%facebook_pixel_enabled%"
+        facebook_pixel_id:        "%facebook_pixel_id%"
         main_brand_title:         "%project_web_title%"
         admin_tag_version:        "v1.0.1"
+
+# Assetic
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    java:           "%path_java%"
+    node:           "%path_node%"
+    filters:
+        cssrewrite: ~
+        less:
+            node:       "%path_node%"
+            node_paths: [ "%path_node_modules%" ]
+    assets:
+        mycss:
+            inputs:
+                - "@AppBundle/Resources/public/css/frontend.less"
+        myjs:
+            inputs:
+                - "%kernel.root_dir%/../vendor/components/jquery/jquery.js"
+                - "%kernel.root_dir%/../vendor/twbs/bootstrap/dist/js/bootstrap.js"
 
 # Doctrine Configuration
 doctrine:

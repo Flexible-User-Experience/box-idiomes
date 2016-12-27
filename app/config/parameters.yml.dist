@@ -22,11 +22,22 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
     locale: ca
 
+    google_analytics_enabled: false
+    google_analytics_account: "UA-fake..."
+
+    path_java:         /usr/bin/java
+    path_node:         /usr/bin/nodejs
+    path_node_modules: /home/<user>/node_modules
+
+
     private_admin_test_user: ~
     private_admin_test_pass: ~
     private_editor_test_user: ~
     private_editor_test_pass: ~
 
     project_web_title: "Project Name"
+
+    facebook_pixel_enabled: false
+    facebook_pixel_id: XXXXXX
 
 
