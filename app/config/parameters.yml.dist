@@ -7,6 +7,7 @@ parameters:
     database_name:     symfony
     database_user:     root
     database_password: ~
+    database_server_version: 5.5
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 
@@ -14,6 +15,29 @@ parameters:
     mailer_host:       127.0.0.1
     mailer_user:       ~
     mailer_password:   ~
+    mailer_destination: dummy@gmail.com
+    mailer_url_base: dummy.dev
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+    locale: ca
+
+    google_analytics_enabled: false
+    google_analytics_account: "UA-fake..."
+
+    path_java:         /usr/bin/java
+    path_node:         /usr/bin/nodejs
+    path_node_modules: /home/<user>/node_modules
+
+
+    private_admin_test_user: ~
+    private_admin_test_pass: ~
+    private_editor_test_user: ~
+    private_editor_test_pass: ~
+
+    project_web_title: "Project Name"
+
+    facebook_pixel_enabled: false
+    facebook_pixel_id: XXXXXX
+
+

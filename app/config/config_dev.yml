@@ -30,5 +30,15 @@ monolog:
         #    type:   chromephp
         #    level:  info
 
-#swiftmailer:
-#    delivery_address: me@example.com
+assetic:
+    use_controller: true
+
+swiftmailer:
+    delivery_address: "%mailer_destination%"
+
+cypress_git_elephant:
+    enable_profiler: false
+    profiler_repository_path: "%kernel.root_dir%/../"
+    repositories:
+        "BoxIdiomes": "%kernel.root_dir%/../"
+

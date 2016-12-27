@@ -1,0 +1,26 @@
+backend:
+    admin:
+        actions: Accions
+        controls: Controls
+        general: General
+        date: Data creació
+        enabled: Actiu
+        submit: Enviar
+        published_date: Data de publicació
+        image: Imatge
+        position: Ordre
+        user:
+            user: Usuari
+            editor: Editor
+            admin: Administrador
+            superadmin: Superadministrador
+            firstname: Nom
+            lastname: Cognoms
+            username: Nom usuari
+            email: Correu electrònic
+            plain_password: Contrasenya
+            roles: Rols
+        teacher:
+            name: Nom
+        service:
+            title: Nom

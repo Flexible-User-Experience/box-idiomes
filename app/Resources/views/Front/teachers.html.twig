@@ -1,0 +1,18 @@
+{% extends 'Front/layout.html.twig' %}
+
+{% block main %}
+    <div class="container container-main">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>TEACHERS</h1>
+            </div>
+        </div>
+        <div class="row">
+            {% for teacher in teachers  %}
+                <div class="col-sm-4">
+                    <h2>{{ teacher.name }}</h2>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

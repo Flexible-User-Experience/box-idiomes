@@ -1,0 +1,28 @@
+# Liip Imagine
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+    filter_sets:
+        cache: ~
+        480xY:
+            quality: 100
+            filters:
+                thumbnail: { size: [ 480, null ], mode: outbound }
+        60x60:
+            quality: 95
+            filters:
+                thumbnail: { size: [ 60, 60 ], mode: outbound }
+
+# Vich
+vich_uploader:
+    db_driver: orm
+    mappings:
+        teacher:
+            uri_prefix:         /uploads/images/teacher
+            upload_destination: '%kernel.root_dir%/../web/uploads/images/teacher'
+            namer:              vich_uploader.namer_uniqid
+        service:
+            uri_prefix:         /uploads/images/service
+            upload_destination: '%kernel.root_dir%/../web/uploads/images/service'
+            namer:              vich_uploader.namer_uniqid
