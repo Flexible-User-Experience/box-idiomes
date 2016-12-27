@@ -15,6 +15,16 @@ services:
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "User", group: "Users" }
+# Menu
+    app.frontend_menu_builder:
+        class: AppBundle\Menu\FrontendMenuBuilder
+        arguments: [ "@knp_menu.factory", "@security.authorization_checker" ]
+    app.frontend_top_menu:
+        class: Knp\Menu\MenuItem
+        factory: [ "@app.frontend_menu_builder", createTopMenu ]
+        arguments: [ "@request_stack" ]
+        tags:
+            - { name: knp_menu.menu, alias: top }
 # Twig
     app.twig_extension:
         class: AppBundle\Twig\AppExtension

@@ -51,7 +51,7 @@ class FrontendMenuBuilder
      */
     public function createTopMenu(RequestStack $requestStack)
     {
-        $route = $requestStack->getCurrentRequest()->get('_route');
+//        $route = $requestStack->getCurrentRequest()->get('_route');
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');
         if ($this->ac->isGranted('ROLE_CMS')) {
@@ -64,34 +64,24 @@ class FrontendMenuBuilder
             );
         }
         $menu->addChild(
-            'front_blog',
+            'app_teachers',
             array(
-                'label' => 'frontend.menu.blog',
-                'route' => 'front_blog',
-                'current' => $route == 'front_blog' || $route == 'front_blog_detail' || $route == 'front_blog_tag_detail',
+                'label' => 'frontend.menu.teachers',
+                'route' => 'app_teachers',
             )
         );
         $menu->addChild(
-            'front_coworkers_list',
+            'app_services',
             array(
-                'label'   => 'frontend.menu.coworkers',
-                'route'   => 'front_coworkers_list',
-                'current' => $route == 'front_coworkers_list' || $route == 'front_coworker_detail',
+                'label'   => 'frontend.menu.services',
+                'route'   => 'app_services',
             )
         );
         $menu->addChild(
-            'front_events_list',
-            array(
-                'label'   => 'frontend.menu.events',
-                'route'   => 'front_events_list',
-                'current' => $route == 'front_events_list' || $route == 'front_event_detail' || $route == 'front_category_event',
-            )
-        );
-        $menu->addChild(
-            'front_contact',
+            'app_contact',
             array(
                 'label'   => 'frontend.menu.contact',
-                'route'   => 'front_contact',
+                'route'   => 'app_contact',
             )
         );
 
