@@ -13,5 +13,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class ServiceRepository extends EntityRepository
 {
+    public function findAllEnabledSortedByPosition()
+    {
+        $query = $this
+            ->createQueryBuilder('s')
+            ->where('s.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->orderBy('s.position', 'ASC');
 
+        return $query->getQuery()->getResult();
+    }
 }
