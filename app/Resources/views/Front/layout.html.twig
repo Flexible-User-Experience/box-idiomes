@@ -69,26 +69,21 @@
 {% block footer %}
     <footer class="footer">
         <div class="container">
-            {#<div class="row">#}
+            <div class="row">
                 {#<div class="col-sm-4 col-xs-10">#}
                     {#<span class="text-title">ESPAI KOWO</span><br>#}
                     {#C. Primer de maig, 1 3r B<br>#}
                     {#43870 Amposta<br>#}
                     {#(Tarragona)#}
                 {#</div>#}
-                {#<div class="col-sm-4 col-xs-2 text-center">#}
-                    {#<a href="https://www.facebook.com/espaikowo/"><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a>#}
-                    {#<a href="https://twitter.com/espaikowo"><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></a>#}
-                {#</div>#}
-                {#<div class="col-sm-4 hidden-xs text-right">#}
-                    {#<a href="{{ path('front_privacy_policy') }}">privacitat</a> · <a href="{{ path('front_credits') }}">crèdits</a><br>#}
-                    {#<i class="fa fa-copyright" aria-hidden="true"></i> {{ "now" | date("Y") }}#}
-                {#</div>#}
-                {#<div class="col-xs-12 visible-xs normal-m-top">#}
-                    {#<a href="{{ path('front_privacy_policy') }}">privacitat</a> · <a href="{{ path('front_credits') }}">crèdits</a><br>#}
-                    {#<i class="fa fa-copyright" aria-hidden="true"></i> {{ "now" | date("Y") }}#}
-                {#</div>#}
-            {#</div>#}
+                <div class="col-sm-4 col-xs-2 text-center">
+                    <a href="https://www.facebook.com/boxviuelsidiomes/"><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a>
+                </div>
+                <div class="col-sm-4 text-right">
+                    <a href="{{ path('app_privacy_policy') }}">privacitat</a> · <a href="{{ path('app_credits') }}">crèdits</a><br>
+                    <i class="fa fa-copyright" aria-hidden="true"></i> {{ "now" | date("Y") }}
+                </div>
+            </div>
         </div>
     </footer>
 {% endblock %}

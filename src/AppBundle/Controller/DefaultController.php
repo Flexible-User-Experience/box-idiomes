@@ -5,11 +5,14 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
     /**
      * @Route("/", name="app_homepage")
+     *
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -18,6 +21,8 @@ class DefaultController extends Controller
 
     /**
      * @Route("/professors", name="app_teachers")
+     *
+     * @return Response
      */
     public function teachersAction()
     {
@@ -29,6 +34,8 @@ class DefaultController extends Controller
 
     /**
      * @Route("/serveis", name="app_services")
+     *
+     * @return Response
      */
     public function servicesAction()
     {
@@ -40,6 +47,8 @@ class DefaultController extends Controller
 
     /**
      * @Route("/contacte", name="app_contact")
+     *
+     * @return Response
      */
     public function contactAction()
     {
@@ -47,5 +56,25 @@ class DefaultController extends Controller
             'Front/contact.html.twig'
 //            ['teachers' => $teachers]
         );
+    }
+
+    /**
+     * @Route("/politica-de-privacitat", name="app_privacy_policy")
+     *
+     * @return Response
+     */
+    public function privacyPolicyAction()
+    {
+        return $this->render('Front/privacy_policy.html.twig', array());
+    }
+
+    /**
+     * @Route("/credits", name="app_credits")
+     *
+     * @return Response
+     */
+    public function creditsAction()
+    {
+        return $this->render('Front/credits.html.twig');
     }
 }
