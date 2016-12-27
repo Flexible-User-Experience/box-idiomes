@@ -26,9 +26,11 @@ class DefaultController extends Controller
      */
     public function teachersAction()
     {
+        $teachers = $this->getDoctrine()->getRepository('AppBundle:Teacher')->findAllEnabledSortedByPosition();
+
         return $this->render(
-            'Front/teachers.html.twig'
-//            ['teachers' => $teachers]
+            'Front/teachers.html.twig',
+            ['teachers' => $teachers]
         );
     }
 

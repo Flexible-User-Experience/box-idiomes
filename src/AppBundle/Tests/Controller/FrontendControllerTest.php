@@ -32,8 +32,8 @@ class FrontendControllerTest extends AbstractBaseTest
             array('/professors'),
             array('/serveis'),
             array('/contacte'),
-//            array('/politica-de-privacitat'),
-//            array('/credits'),
+            array('/politica-de-privacitat'),
+            array('/credits'),
 //            array('/sitemap/sitemap.default.xml'),
         );
     }

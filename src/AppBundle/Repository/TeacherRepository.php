@@ -13,5 +13,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class TeacherRepository extends EntityRepository
 {
+    public function findAllEnabledSortedByPosition()
+    {
+        $query = $this
+            ->createQueryBuilder('t')
+            ->where('t.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->orderBy('t.position', 'ASC');
 
+        return $query->getQuery()->getResult();
+    }
 }
