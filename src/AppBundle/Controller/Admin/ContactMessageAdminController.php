@@ -98,7 +98,7 @@ class ContactMessageAdminController extends BaseAdminController
             $em->flush();
             // send notifications
             $messenger = $this->get('app.notification');
-            $messenger->sendUserBackendAnswerNotification($object);
+            $messenger->senddUserBackendNotification($object);
             // build flash message
             $this->addFlash('success', 'Your answer has been sent.');
 

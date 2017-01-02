@@ -1,0 +1,7 @@
+{% block body %}
+    <h1>New contact form message "{{ contact.subject }}" received</h1>
+    <p>Check it inside your CMS messages list <a href="{{ url('admin_app_contactmessage_list') }}">here</a>, or answer it directly <a
+                href="{{ url('admin_app_contactmessage_answer', { id: contact.id }) }}">here</a></p>
+    <br>
+    <p>Good luck!</p>
+{% endblock %}

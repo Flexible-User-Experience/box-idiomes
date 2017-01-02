@@ -20,7 +20,13 @@ services:
         arguments: [ ~, AppBundle\Entity\ContactMessage, AppBundle:Admin\ContactMessageAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Contact Message", group: "Contacts" }
-
+# Messaging
+    app.courier:
+        class: AppBundle\Service\CourierService
+        arguments: [ "@swiftmailer.mailer" ]
+    app.notification:
+        class: AppBundle\Service\NotificationService
+        arguments: [ "@app.courier", "@twig", "%mailer_destination%", "%mailer_url_base%" ]
 # Menu
     app.frontend_menu_builder:
         class: AppBundle\Menu\FrontendMenuBuilder

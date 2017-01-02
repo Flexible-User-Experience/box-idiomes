@@ -1,0 +1,13 @@
+{% block body %}
+    <h1>{{ 'mail.thanks' | trans }}!</h1>
+    <p>
+        {{ 'mail.yourquestion' | trans }} "{{ contact.subject }}":<br><br>
+        <em>"{{ contact.message | raw }}"</em><br><br>
+        {{ 'mail.recived' | trans }}.
+    </p>
+    <br>
+    <br>
+    <p>{{ 'mail.asap' | trans }}</p>
+    <br>
+    <br>
+{% endblock %}
