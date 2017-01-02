@@ -1,0 +1,20 @@
+{% extends 'Front/layout.html.twig' %}
+
+{% block title %}Error · {{ parent() }}{% endblock %}
+
+{% block main %}
+    <div class="container container-main">
+        <div class="row">
+            <div class="col-xs-12 c-grey">
+                <p class="no-m-bottom">{{ randomErrorText() }}</p>
+            </div>
+            <div class="col-xs-12">
+                <h1 class="no-m-top no-m-bottom text-center"><i
+                            class="fa fa-exclamation-triangle"></i> {% block error_text %}Error{% endblock %}</h1>
+            </div>
+            <div class="col-xs-12 c-grey">
+                <p class="no-m-bottom">{{ randomErrorText() }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
