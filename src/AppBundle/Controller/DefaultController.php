@@ -16,7 +16,11 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('Front/homepage.html.twig');
+        $teachers = $this->getDoctrine()->getRepository('AppBundle:Teacher')->findAllEnabledSortedByPosition();
+
+        return $this->render('Front/homepage.html.twig',
+            ['teachers' => $teachers]
+        );
     }
 
     /**
