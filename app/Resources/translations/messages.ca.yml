@@ -1,3 +1,9 @@
+frontend:
+    menu:
+        teachers: PROFESSORS
+        services: SERVEIS
+        contact: CONTACTE
+        cms: "[ CMS ]"
 backend:
     admin:
         actions: Accions
