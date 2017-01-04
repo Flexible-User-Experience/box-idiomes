@@ -63,18 +63,25 @@ class FrontendMenuBuilder
                 )
             );
         }
-        $menu->addChild(
-            'app_teachers',
-            array(
-                'label' => 'frontend.menu.teachers',
-                'route' => 'app_teachers',
-            )
-        );
+//        $menu->addChild(
+//            'app_teachers',
+//            array(
+//                'label' => 'frontend.menu.teachers',
+//                'route' => 'app_teachers',
+//            )
+//        );
         $menu->addChild(
             'app_services',
             array(
                 'label'   => 'frontend.menu.services',
                 'route'   => 'app_services',
+            )
+        );
+        $menu->addChild(
+            'app_aboutus',
+            array(
+                'label'   => 'frontend.menu.aboutus',
+                'route'   => 'app_aboutus',
             )
         );
         $menu->addChild(

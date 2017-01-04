@@ -1,5 +1,20 @@
 {% extends 'Front/layout.html.twig' %}
 
 {% block main %}
-    <h1>CREDITS</h1>
+    <div class="container">
+        <div class="row extra-m-top">
+            <div class="col-xs-12">
+                <h1><i class="fa fa-coffee"></i> {{ 'frontend.credits.credits' | trans | upper }}</h1>
+            </div>
+            <div class="col-xs-12 extra-m-top extra-m-bottom">
+                <p>
+                    Disseny gràfic: <a href="http://tuijodisseny.com" target="_blank">Tu&Jo Disseny</a><br>
+                    {#Fotografia: <a href="http://www.pinapli.com" target="_blank">Pinapli</a><br>#}
+                    {#Gestió de continguts: <a href="http://www.contents.cat" target="_blank">Contents</a><br>#}
+                    Desenvolupament web: <a href="http://www.flux.cat" target="_blank">Flux</a><br>
+                    Agraïments: <a href="https://github.com/aserratorta" target="_blank">Anton Serra</a>
+                </p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

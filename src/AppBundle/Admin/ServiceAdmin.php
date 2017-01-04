@@ -126,7 +126,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'title',
                 null,
                 array(
-                    'label'    => 'backend.admin.service.name',
+                    'label'    => 'backend.admin.service.title',
                     'editable' => true,
                 )
             )
