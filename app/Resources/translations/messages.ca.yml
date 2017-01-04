@@ -4,6 +4,8 @@ frontend:
         services: serveis
         contact: contacte
         cms: "[ CMS ]"
+    credits:
+        credits: credits
 backend:
     admin:
         actions: Accions
