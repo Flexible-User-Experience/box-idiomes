@@ -1,8 +1,8 @@
 frontend:
     menu:
-        teachers: PROFESSORS
-        services: SERVEIS
-        contact: CONTACTE
+        aboutus: qui som
+        services: serveis
+        contact: contacte
         cms: "[ CMS ]"
 backend:
     admin:

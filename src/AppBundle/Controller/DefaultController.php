@@ -55,6 +55,16 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/quisom", name="app_aboutus")
+     *
+     * @return Response
+     */
+    public function aboutusAction()
+    {
+        return $this->render('Front/about_us.html.twig');
+    }
+
+    /**
      * @Route("/contacte", name="app_contact")
      *
      * @return Response
