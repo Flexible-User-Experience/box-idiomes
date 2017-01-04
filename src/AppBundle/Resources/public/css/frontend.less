@@ -50,7 +50,7 @@
 
 // Custom buttons
 .ek-button-mixin(btn-kowo, @ek-c-white, @ek-c-green);
-.ek-button-mixin(btn-kowo-orange, @ek-c-white, @ek-c-orange);
+.ek-button-mixin(btn-kowo-orange, @ek-c-white, @ek-c-yellow);
 
 // Custom anchors
 .underlined-anchors {
@@ -105,7 +105,7 @@
 }
 
 .alert-orange {
-  .alert-variant(@ek-c-orange; @ek-c-orange; @body-bg);
+  .alert-variant(@ek-c-yellow; @ek-c-yellow; @body-bg);
   @media(max-width: @screen-xs-max) {
     h4 { font-size: 1em; }
   }
@@ -120,13 +120,6 @@
 
 .alert-magenta {
   .alert-variant(@ek-c-magenta; @ek-c-magenta; @body-bg);
-  @media(max-width: @screen-xs-max) {
-    h4 { font-size: 1em; }
-  }
-}
-
-.alert-dark-cyan {
-  .alert-variant(@ek-c-dark-cyan; @ek-c-dark-cyan; @body-bg);
   @media(max-width: @screen-xs-max) {
     h4 { font-size: 1em; }
   }

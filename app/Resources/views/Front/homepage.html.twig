@@ -20,7 +20,7 @@
                             <img src="{{ asset('bundles/app/img/1teacher.jpeg') | imagine_filter('480xY') }}" alt="1teacher">
                         {% endif %}
                         <div class="caption">
-                            <h2>{{ teacher.name }}</h2>
+                            <h2 class="{{ teacher.cssColor }}">{{ teacher.name }}</h2>
                             <p>{{ teacher.description }}</p>
                         </div>
                     </div>

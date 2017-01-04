@@ -30,6 +30,7 @@ backend:
             roles: Rols
         teacher:
             name: Nom
+            color: Color
         service:
             title: Nom
         contact:

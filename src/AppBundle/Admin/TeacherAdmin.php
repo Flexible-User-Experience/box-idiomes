@@ -144,10 +144,10 @@ class TeacherAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'color',
-                'decimal',
+                null,
                 array(
-                    'label'    => 'backend.admin.color',
-                    'editable' => false,
+                    'label'    => 'backend.admin.teacher.color',
+                    'template' => '::Admin/Cells/list__cell_teacher_color.html.twig'
                 )
             )
             ->add(

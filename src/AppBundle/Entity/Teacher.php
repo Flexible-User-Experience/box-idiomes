@@ -6,6 +6,7 @@ use AppBundle\Entity\Traits\DescriptionTrait;
 use AppBundle\Entity\Traits\ImageTrait;
 use AppBundle\Entity\Traits\PositionTrait;
 use AppBundle\Entity\Traits\SlugTrait;
+use AppBundle\Enum\TeacherColorEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -94,6 +95,29 @@ class Teacher extends AbstractBase
      */
     public function getColor()
     {
+        return $this->color;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCssColor()
+    {
+        if ($this->getColor() === TeacherColorEnum::MAGENTA) {
+
+            return 'c-magenta';
+        } else if ($this->getColor() == TeacherColorEnum::BLUE) {
+
+            return 'c-blue';
+        }  else if ($this->getColor() == TeacherColorEnum::YELLOW) {
+
+            return 'c-yellow';
+        }
+        if ($this->getColor() == TeacherColorEnum::GREEN) {
+
+            return 'c-green';
+        }
+
         return $this->color;
     }
 
