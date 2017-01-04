@@ -11,14 +11,14 @@
     {# Teachers section #}
     <div class="container container-main">
         <div class="row">
-            <div class="col-md-12">
-            </div>
-        </div>
-        <div class="row">
             {% for teacher in teachers  %}
                 <div class="col-sm-4">
                     <div class="thumbnail">
-                        <img src="{{ asset('bundles/app/img/1teacher.jpeg') | imagine_filter('480xY') }}" alt="1teacher">
+                        {% if teacher.imageName is not null %}
+                            <img src="{{ vich_uploader_asset(teacher, 'imageFile') | imagine_filter('480xY') }}" class="img-responsive" alt="{{ teacher.imageName }}">
+                        {% else %}
+                            <img src="{{ asset('bundles/app/img/1teacher.jpeg') | imagine_filter('480xY') }}" alt="1teacher">
+                        {% endif %}
                         <div class="caption">
                             <h2>{{ teacher.name }}</h2>
                             <p>{{ teacher.description }}</p>
@@ -32,7 +32,9 @@
     <div class="p-vertical magenta-background-light">
         <div class="container text-center">
             <div class="row normal-m-top">
-                <h1>NEWSLETTER</h1>
+                <div class="col-md-12">
+                    <h1>NEWSLETTER</h1>
+                </div>
             </div>
         </div>
     </div>
