@@ -103,22 +103,7 @@ class Teacher extends AbstractBase
      */
     public function getCssColor()
     {
-        if ($this->getColor() === TeacherColorEnum::MAGENTA) {
-
-            return 'c-magenta';
-        } else if ($this->getColor() == TeacherColorEnum::BLUE) {
-
-            return 'c-blue';
-        }  else if ($this->getColor() == TeacherColorEnum::YELLOW) {
-
-            return 'c-yellow';
-        }
-        if ($this->getColor() == TeacherColorEnum::GREEN) {
-
-            return 'c-green';
-        }
-
-        return $this->color;
+        return 'c-' . TeacherColorEnum::getEnumArray()[ $this->getColor() ];
     }
 
     /**
