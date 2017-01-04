@@ -29,12 +29,20 @@
         </div>
     </div>
     {# Newsletter section #}
-    <div class="p-vertical magenta-background-light">
-        <div class="container text-center">
+    <div class="p-vertical magenta-background">
+        <div class="container">
             <div class="row normal-m-top">
-                <div class="col-md-12">
-                    <h1>NEWSLETTER</h1>
+                <div class="col-md-4">
+                    <h2 class="c-white no-m-top">NEWSLETTER</h2>
                 </div>
+                {{ form_start(newsletterForm) }}
+                <div class="col-md-4">
+                    {{ form_row(newsletterForm.email) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_rest(newsletterForm) }}
+                </div>
+                {{ form_end(newsletterForm) }}
             </div>
         </div>
     </div>

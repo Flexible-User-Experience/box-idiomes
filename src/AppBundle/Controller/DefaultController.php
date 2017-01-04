@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\Type\ContactHomepageType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,8 +19,14 @@ class DefaultController extends Controller
     {
         $teachers = $this->getDoctrine()->getRepository('AppBundle:Teacher')->findAllEnabledSortedByPosition();
 
+        $newsletterForm = $this->createForm(ContactHomepageType::class);
+        $newsletterForm->handleRequest($request);
+
         return $this->render('Front/homepage.html.twig',
-            ['teachers' => $teachers]
+            [
+                'teachers'       => $teachers,
+                'newsletterForm' => $newsletterForm->createView(),
+            ]
         );
     }
 
