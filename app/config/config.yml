@@ -124,7 +124,9 @@ sonata_admin:
             Teachers:
                 icon: "<i class='fa fa-users'></i>"
             Services:
-                icon: "<i class='fa fa-users'></i>"
+                icon: "<i class='fa fa-list-ol'></i>"
+            Contacts:
+                icon: "<i class='fa fa-envelope'></i>"
             Users:
                 icon: "<i class='fa fa-user'></i>"
         blocks:
@@ -146,7 +148,13 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ Service ]
+                    groups: [ Services ]
+            -
+                position: top
+                type: sonata.admin.block.admin_list
+                class: col-md-6
+                settings:
+                    groups: [ Contacts ]
             -
                 position: top
                 type: sonata.admin.block.admin_list

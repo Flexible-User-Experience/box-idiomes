@@ -31,6 +31,7 @@ class FrontendControllerTest extends AbstractBaseTest
             array('/'),
             array('/professors'),
             array('/serveis'),
+            array('/quisom'),
             array('/contacte'),
             array('/politica-de-privacitat'),
             array('/credits'),

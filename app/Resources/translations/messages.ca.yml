@@ -1,3 +1,11 @@
+frontend:
+    menu:
+        aboutus: qui som
+        services: serveis
+        contact: contacte
+        cms: "[ CMS ]"
+    credits:
+        credits: credits
 backend:
     admin:
         actions: Accions
@@ -24,3 +32,15 @@ backend:
             name: Nom
         service:
             title: Nom
+        contact:
+            name: Nom
+            email: Correu electrònic
+            checked: Llegit
+            date: Data
+            subject: Tema
+            answered: Contestat
+            answer: Resposta
+            message: Missatge
+            description: Descripció
+            user_question: Pregunta del usuari
+            your_answer: La teva resposta

@@ -1,3 +1,18 @@
+# Contact messages
+AppBundle\Entity\ContactMessage:
+  contactmessage{1..20}:
+    name: <name()>
+    subject: <word()>
+    email: <safeEmail()>
+    phone: <phoneNumber()>
+    message: <paragraph()>
+    description: <paragraph()>
+    checked: <boolean(70)>
+    answered: <boolean(30)>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 # Teachers
 AppBundle\Entity\Teacher:
   teacher{1..5}:

@@ -38,7 +38,7 @@
 <body{% block body_class %}{% endblock %}>
 {#<!-- Head content -->#}
 {% block header %}
-    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <nav class="navbar navbar-default" role="navigation">
         <div class="container">
             {#<!-- Brand and toggle get grouped for better mobile display -->#}
             <div class="navbar-header">
@@ -70,14 +70,15 @@
     <footer class="footer">
         <div class="container">
             <div class="row">
-                {#<div class="col-sm-4 col-xs-10">#}
-                    {#<span class="text-title">ESPAI KOWO</span><br>#}
-                    {#C. Primer de maig, 1 3r B<br>#}
-                    {#43870 Amposta<br>#}
-                    {#(Tarragona)#}
-                {#</div>#}
-                <div class="col-sm-4 col-xs-2 text-center">
+                <div class="col-sm-4 col-xs-2 text-left">
+                    <span class="text-title">Segueix-nos</span><br>
                     <a href="https://www.facebook.com/boxviuelsidiomes/"><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a>
+                </div>
+                <div class="col-sm-4 col-xs-10">
+                    <span class="text-title">Adreça</span><br>
+                    C. Góngora, 40 <br>
+                    43870 Amposta<br>
+                    (Tarragona)
                 </div>
                 <div class="col-sm-4 text-right">
                     <a href="{{ path('app_privacy_policy') }}">privacitat</a> · <a href="{{ path('app_credits') }}">crèdits</a><br>

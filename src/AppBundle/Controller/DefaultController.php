@@ -16,7 +16,11 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('Front/homepage.html.twig');
+        $teachers = $this->getDoctrine()->getRepository('AppBundle:Teacher')->findAllEnabledSortedByPosition();
+
+        return $this->render('Front/homepage.html.twig',
+            ['teachers' => $teachers]
+        );
     }
 
     /**
@@ -48,6 +52,16 @@ class DefaultController extends Controller
             'Front/services.html.twig',
             ['services' => $services]
         );
+    }
+
+    /**
+     * @Route("/quisom", name="app_aboutus")
+     *
+     * @return Response
+     */
+    public function aboutusAction()
+    {
+        return $this->render('Front/about_us.html.twig');
     }
 
     /**
