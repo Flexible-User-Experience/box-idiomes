@@ -6,7 +6,11 @@
             {% for service in services %}
                 <div class="col-md-6">
                     <div class="thumbnail">
-                        <img src="{{ asset('bundles/app/img/serveis.jpeg') | imagine_filter('480xY') }}" alt="serveis">
+                        {% if service.imageName is not null %}
+                            <img src="{{ vich_uploader_asset(service, 'imageFile') | imagine_filter('480xY') }}" class="img-responsive" alt="{{ service.imageName }}">
+                        {% else %}
+                            <img src="{{ asset('bundles/app/img/serveis.jpeg') | imagine_filter('480xY') }}" alt="serveis">
+                        {% endif %}
                         <div class="caption">
                             <h4>{{ service.title }}</h4>
                             <p>{{ service.description }}</p>
