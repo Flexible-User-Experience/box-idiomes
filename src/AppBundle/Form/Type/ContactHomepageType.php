@@ -28,11 +28,8 @@ class ContactHomepageType extends AbstractType
                 'email',
                 EmailType::class,
                 array(
-                    'label'    => false,
+                    'label'    => 'frontend.forms.email',
                     'required' => false,
-                    'attr'     => array(
-                        'placeholder' => 'frontend.forms.phone',
-                    ),
                 )
             )
             ->add(
@@ -41,7 +38,7 @@ class ContactHomepageType extends AbstractType
                 array(
                     'label' => 'frontend.forms.send',
                     'attr'  => array(
-                        'class' => 'btn-kowo',
+                        'class' => 'btn-newsletter',
                     ),
                 )
             );

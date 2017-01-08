@@ -6,6 +6,9 @@ frontend:
         cms: "[ CMS ]"
     credits:
         credits: credits
+    forms:
+        email: Email
+        send: SUBSCRIU-T'HI
 backend:
     admin:
         actions: Accions
