@@ -7,6 +7,17 @@
 // Fonts
 @icon-font-path: "/bundles/app/fonts/";
 @fa-font-path:   "/bundles/app/fonts";
+@font-face {
+  font-family: 'futura';
+  src:url('@{fa-font-path}/original_FuturaStd-Medium.eot');
+  src:url('@{fa-font-path}/original_FuturaStd-Medium.eot?#iefix') format('embedded-opentype'),
+  url('@{fa-font-path}/original_FuturaStd-Medium.ttf') format('truetype'),
+  url('@{fa-font-path}/original_FuturaStd-Medium.woff') format('woff'),
+  url('@{fa-font-path}/original_FuturaStd-Medium.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-family-sans-serif: "futura", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 // Custom Bootstrap vars
 @link-color: @gray-base;
@@ -15,7 +26,8 @@
 @ek-s-base: 20px;
 @ek-s-base-plus: 60px;
 @ek-s-base-minus: 10px;
-@gap-extra-big: @gap-big * 2;
+@gap-double-extra-big: @gap-normal * 4;
+@gap-extra-big: @gap-normal * 3;
 @gap-big:       @gap-normal * 2;
 @gap-normal:    20px;
 @gap-small:     @gap-normal / 2;
@@ -24,13 +36,14 @@
 @ek-font-size-small: ceil((@font-size-base * 0.95));
 
 // Custom Navbar
-@navbar-inverse-bg: @ek-c-green;
-@navbar-inverse-link-active-bg: @ek-c-black;
-@navbar-inverse-link-hover-bg: darken(@ek-c-green, 10%);
+@navbar-default-bg: transparent;
+@navbar-default-link-active-bg: transparent;
+@navbar-default-link-active-color: @ek-c-violet;
+@navbar-default-link-color: @ek-c-blue;
+@navbar-default-link-hover-color: darken(@ek-c-blue, 10%);
+@navbar-default-link-hover-bg: transparent;
 @navbar-height: 110px;
 @navbar-border-radius: 0;
-@navbar-inverse-link-active-color: @ek-c-white;
-@navbar-inverse-link-color: @ek-c-white;
 
 .navbar {
   margin-bottom: 0;
@@ -49,8 +62,8 @@
 }
 
 // Custom buttons
-.ek-button-mixin(btn-kowo, @ek-c-white, @ek-c-green);
-.ek-button-mixin(btn-kowo-orange, @ek-c-white, @ek-c-orange);
+.ek-button-mixin(btn-newsletter, @ek-c-white, @ek-c-violet);
+.ek-button-mixin(btn-kowo-orange, @ek-c-white, @ek-c-yellow);
 
 // Custom anchors
 .underlined-anchors {
@@ -80,7 +93,10 @@
 .no-m-top { margin-top: 0; }
 .no-m-bottom { margin-bottom: 0; }
 .extra-m-top    { margin-top: @ek-s-base-plus; }
+.extra-big-m-top{ margin-top: @gap-extra-big; }
+.extra-double-m-top{ margin-top: @gap-double-extra-big; }
 .normal-m-top   { margin-top: @gap-normal; }
+.normal-m-bottom{ margin-bottom: @gap-normal; }
 .extra-m-bottom { margin-bottom: @gap-big; }
 .small-m-top    { margin-top: @gap-small; }
 .small-m-bottom { margin-bottom: @gap-small; }
@@ -105,7 +121,7 @@
 }
 
 .alert-orange {
-  .alert-variant(@ek-c-orange; @ek-c-orange; @body-bg);
+  .alert-variant(@ek-c-yellow; @ek-c-yellow; @body-bg);
   @media(max-width: @screen-xs-max) {
     h4 { font-size: 1em; }
   }
@@ -120,13 +136,6 @@
 
 .alert-magenta {
   .alert-variant(@ek-c-magenta; @ek-c-magenta; @body-bg);
-  @media(max-width: @screen-xs-max) {
-    h4 { font-size: 1em; }
-  }
-}
-
-.alert-dark-cyan {
-  .alert-variant(@ek-c-dark-cyan; @ek-c-dark-cyan; @body-bg);
   @media(max-width: @screen-xs-max) {
     h4 { font-size: 1em; }
   }
@@ -164,7 +173,7 @@ ul.categories-selector {
   overflow: hidden;
   text-align: center;
   z-index: 2000;
-  background-color: @ek-c-green;
+  background-color: @ek-c-violet;
   color: @ek-c-white;
   width: 50px;
   height: 48px;
@@ -227,13 +236,13 @@ footer {
   padding: 40px 0;
   margin: 0;
   &.footer {
-    background-color: lightgrey;
+    background-color: @ek-c-light-grey;
   }
   a {
     color: @ek-c-grey;
     &:hover {
       text-decoration: none;
-      color: @ek-c-magenta;
+      color: @ek-c-violet;
     }
   }
 }

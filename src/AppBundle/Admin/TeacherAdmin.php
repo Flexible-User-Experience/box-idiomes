@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\TeacherColorEnum;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -67,6 +68,17 @@ class TeacherAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'color',
+                'choice',
+                array(
+                    'label' => 'backend.admin.teacher.color',
+                    'choices'  => TeacherColorEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => true,
+                )
+            )
+            ->add(
                 'enabled',
                 'checkbox',
                 array(
@@ -128,6 +140,14 @@ class TeacherAdmin extends AbstractBaseAdmin
                 array(
                     'label'    => 'backend.admin.teacher.name',
                     'editable' => true,
+                )
+            )
+            ->add(
+                'color',
+                null,
+                array(
+                    'label'    => 'backend.admin.teacher.color',
+                    'template' => '::Admin/Cells/list__cell_teacher_color.html.twig'
                 )
             )
             ->add(

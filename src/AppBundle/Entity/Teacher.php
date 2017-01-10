@@ -6,6 +6,7 @@ use AppBundle\Entity\Traits\DescriptionTrait;
 use AppBundle\Entity\Traits\ImageTrait;
 use AppBundle\Entity\Traits\PositionTrait;
 use AppBundle\Entity\Traits\SlugTrait;
+use AppBundle\Enum\TeacherColorEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -55,6 +56,13 @@ class Teacher extends AbstractBase
     private $imageFile;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", options={"default"=0})
+     */
+    private $color = 0;
+
+    /**
      *
      *
      * Methods
@@ -66,7 +74,8 @@ class Teacher extends AbstractBase
      * @return string
      */
     public function getName()
-    {        return $this->name;
+    {
+        return $this->name;
     }
 
     /**
@@ -77,6 +86,34 @@ class Teacher extends AbstractBase
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCssColor()
+    {
+        return 'c-' . TeacherColorEnum::getEnumArray()[ $this->getColor() ];
+    }
+
+    /**
+     * @param int $color
+     *
+     * @return Teacher
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
 
         return $this;
     }

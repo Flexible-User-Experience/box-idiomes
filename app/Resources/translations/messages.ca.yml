@@ -6,6 +6,9 @@ frontend:
         cms: "[ CMS ]"
     credits:
         credits: credits
+    forms:
+        email: Email
+        send: SUBSCRIU-T'HI
 backend:
     admin:
         actions: Accions
@@ -16,7 +19,7 @@ backend:
         submit: Enviar
         published_date: Data de publicació
         image: Imatge
-        position: Ordre
+        position: Posició
         user:
             user: Usuari
             editor: Editor
@@ -30,6 +33,7 @@ backend:
             roles: Rols
         teacher:
             name: Nom
+            color: Color
         service:
             title: Nom
         contact:

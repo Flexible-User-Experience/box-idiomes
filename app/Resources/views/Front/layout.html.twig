@@ -48,10 +48,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand navbar-brand-logo" href="{{ path('app_homepage') }}">{{ main_brand_title }}
-                    {#<svg height="70" width="70" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">#}
-                        {#<image height="70" width="70" class="navbar-logo" xlink:href="{{ asset('bundles/app/svg/logo-header.svg') }}" alt="Espai Kowo Logo"></image>#}
-                    {#</svg>#}
+                <a class="navbar-brand navbar-brand-logo" href="{{ path('app_homepage') }}">
+                    <svg height="70" width="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <image height="70" width="100" class="navbar-logo" xlink:href="{{ asset('bundles/app/svg/box-logo-header.svg') }}" alt="Box Idiomes Logo"></image>
+                    </svg>
                 </a>
             </div>
             {#<!-- Collect the nav links, forms, and other content for toggling -->#}
@@ -70,17 +70,17 @@
     <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-sm-4 col-xs-2 text-left">
+                <div class="col-sm-4 col-xs-4 text-left">
                     <span class="text-title">Segueix-nos</span><br>
                     <a href="https://www.facebook.com/boxviuelsidiomes/"><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a>
                 </div>
-                <div class="col-sm-4 col-xs-10">
+                <div class="col-sm-4 col-xs-4">
                     <span class="text-title">Adreça</span><br>
                     C. Góngora, 40 <br>
                     43870 Amposta<br>
                     (Tarragona)
                 </div>
-                <div class="col-sm-4 text-right">
+                <div class="col-sm-4 col-xs-4 text-right">
                     <a href="{{ path('app_privacy_policy') }}">privacitat</a> · <a href="{{ path('app_credits') }}">crèdits</a><br>
                     <i class="fa fa-copyright" aria-hidden="true"></i> {{ "now" | date("Y") }}
                 </div>
