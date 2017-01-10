@@ -7,6 +7,17 @@
 // Fonts
 @icon-font-path: "/bundles/app/fonts/";
 @fa-font-path:   "/bundles/app/fonts";
+@font-face {
+  font-family: 'futura';
+  src:url('@{fa-font-path}/original_FuturaStd-Medium.eot');
+  src:url('@{fa-font-path}/original_FuturaStd-Medium.eot?#iefix') format('embedded-opentype'),
+  url('@{fa-font-path}/original_FuturaStd-Medium.ttf') format('truetype'),
+  url('@{fa-font-path}/original_FuturaStd-Medium.woff') format('woff'),
+  url('@{fa-font-path}/original_FuturaStd-Medium.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-family-sans-serif: "futura", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 // Custom Bootstrap vars
 @link-color: @gray-base;
