@@ -35,13 +35,14 @@
 @ek-font-size-small: ceil((@font-size-base * 0.95));
 
 // Custom Navbar
-@navbar-inverse-bg: @ek-c-green;
-@navbar-inverse-link-active-bg: @ek-c-black;
-@navbar-inverse-link-hover-bg: darken(@ek-c-green, 10%);
+@navbar-default-bg: transparent;
+@navbar-default-link-active-bg: transparent;
+@navbar-default-link-active-color: @ek-c-violet;
+@navbar-default-link-color: @ek-c-blue;
+@navbar-default-link-hover-color: darken(@ek-c-blue, 10%);
+@navbar-default-link-hover-bg: transparent;
 @navbar-height: 110px;
 @navbar-border-radius: 0;
-@navbar-inverse-link-active-color: @ek-c-white;
-@navbar-inverse-link-color: @ek-c-white;
 
 .navbar {
   margin-bottom: 0;
@@ -237,7 +238,7 @@ footer {
     color: @ek-c-grey;
     &:hover {
       text-decoration: none;
-      color: @ek-c-magenta;
+      color: @ek-c-violet;
     }
   }
 }
