@@ -125,4 +125,23 @@ class NotificationService
             ))
         );
     }
+
+    /**
+     * Send a newsletter subscription form notification to admin user
+     *
+     * @param ContactMessage $contactMessage
+     */
+    public function sendNewsletterSubscriptionAdminNotification(ContactMessage $contactMessage)
+    {
+        $this->messenger->sendEmail(
+            $this->amd,
+            $this->amd,
+            'Missatge de newsletter pàgina web ' . $this->urlBase,
+            $this->twig->render(':Mails:newsletter_form_admin_notification.html.twig', array(
+                'contact' => $contactMessage,
+            )),
+            $contactMessage->getEmail()
+        );
+    }
+
 }

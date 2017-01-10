@@ -2,7 +2,9 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Entity\Teacher;
 use AppBundle\Entity\User;
+use AppBundle\Enum\TeacherColorEnum;
 use AppBundle\Enum\UserRolesEnum;
 
 /**
@@ -63,6 +65,7 @@ class AppExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFilter('draw_role_span', array($this, 'drawRoleSpan')),
+            new \Twig_SimpleFilter('draw_teacher_color', array($this, 'drawTeacherColorSpan')),
         );
     }
 
@@ -87,6 +90,31 @@ class AppExtension extends \Twig_Extension
                     $span .= '<span class="label label-danger" style="margin-right:10px">superadministrador</span>';
                 }
             }
+        } else {
+            $span = '<span class="label label-success" style="margin-right:10px">---</span>';
+        }
+
+        return $span;
+    }
+
+    /**
+     * @param Teacher $object
+     *
+     * @return string
+     */
+    public function drawTeacherColorSpan($object)
+    {
+        $span = '';
+        if ($object instanceof Teacher) {
+                if ($object->getColor() == TeacherColorEnum::MAGENTA) {
+                    $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #EE388A"></span>';
+                } else if ($object->getColor() == TeacherColorEnum::BLUE) {
+                    $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #00ABE0"></span>';
+                } else if ($object->getColor() == TeacherColorEnum::YELLOW) {
+                    $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #FFCD38"></span>';
+                } else if ($object->getColor() == TeacherColorEnum::GREEN) {
+                    $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #CEC533"></span>';
+                }
         } else {
             $span = '<span class="label label-success" style="margin-right:10px">---</span>';
         }

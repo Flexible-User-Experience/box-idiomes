@@ -2,6 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\ContactMessage;
+use AppBundle\Form\Type\ContactHomepageType;
+use AppBundle\Service\NotificationService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,8 +21,38 @@ class DefaultController extends Controller
     {
         $teachers = $this->getDoctrine()->getRepository('AppBundle:Teacher')->findAllEnabledSortedByPosition();
 
+        $contact = new ContactMessage();
+        $newsletterForm = $this->createForm(ContactHomepageType::class, $contact);
+        $newsletterForm->handleRequest($request);
+
+        if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
+            $this->setFlashMessageAndEmailNotifications($contact);
+            // Clean up new form
+            $newsletterForm = $this->createForm(ContactHomepageType::class);
+        }
+
         return $this->render('Front/homepage.html.twig',
-            ['teachers' => $teachers]
+            [
+                'teachers'       => $teachers,
+                'newsletterForm' => $newsletterForm->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @param ContactMessage $contact
+     */
+    private function setFlashMessageAndEmailNotifications($contact)
+    {
+        /** @var NotificationService $messenger */
+        $messenger = $this->get('app.notification');
+            // Send email notifications
+//        $messenger->sendCommonUserNotification($contact);
+        $messenger->sendNewsletterSubscriptionAdminNotification($contact);
+        // Set frontend flash message
+        $this->addFlash(
+            'notice',
+            'El teu missatge s\'ha enviat correctament'
         );
     }
 

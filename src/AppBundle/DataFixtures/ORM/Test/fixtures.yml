@@ -19,6 +19,7 @@ AppBundle\Entity\Teacher:
     name: <name()>
     description: <paragraph()>
     position: <numberBetween(1, 2)>
+    color: <numberBetween(0, 3)>
 # Services
 AppBundle\Entity\Service:
   service{1..2}:
