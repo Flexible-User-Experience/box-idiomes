@@ -26,7 +26,8 @@
 @ek-s-base: 20px;
 @ek-s-base-plus: 60px;
 @ek-s-base-minus: 10px;
-@gap-extra-big: @gap-big * 2;
+@gap-double-extra-big: @gap-normal * 4;
+@gap-extra-big: @gap-normal * 3;
 @gap-big:       @gap-normal * 2;
 @gap-normal:    20px;
 @gap-small:     @gap-normal / 2;
@@ -92,7 +93,10 @@
 .no-m-top { margin-top: 0; }
 .no-m-bottom { margin-bottom: 0; }
 .extra-m-top    { margin-top: @ek-s-base-plus; }
+.extra-big-m-top{ margin-top: @gap-extra-big; }
+.extra-double-m-top{ margin-top: @gap-double-extra-big; }
 .normal-m-top   { margin-top: @gap-normal; }
+.normal-m-bottom{ margin-bottom: @gap-normal; }
 .extra-m-bottom { margin-bottom: @gap-big; }
 .small-m-top    { margin-top: @gap-small; }
 .small-m-bottom { margin-bottom: @gap-small; }
