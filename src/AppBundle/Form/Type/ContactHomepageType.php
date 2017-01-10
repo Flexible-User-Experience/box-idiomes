@@ -28,8 +28,10 @@ class ContactHomepageType extends AbstractType
                 'email',
                 EmailType::class,
                 array(
-                    'label'    => 'frontend.forms.email',
                     'required' => false,
+                    'attr'  => array(
+                        'placeholder' => 'frontend.forms.email',
+                    ),
                 )
             )
             ->add(

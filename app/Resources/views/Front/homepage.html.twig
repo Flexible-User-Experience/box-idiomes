@@ -32,14 +32,15 @@
     <div class="p-vertical violet-background">
         <div class="container">
             <div class="row normal-m-top">
-                <div class="col-md-4">
+                <div class="col-sm-4">
                     <h4 class="c-white no-m-top">NEWSLETTER</h4>
                 </div>
                 {{ form_start(newsletterForm) }}
-                <div class="col-md-4">
-                    {{ form_row(newsletterForm.email) }}
+                <div class="col-sm-4">
+                    {{ form_widget(newsletterForm.email) }}
+                    {{ form_errors(newsletterForm.email) }}
                 </div>
-                <div class="col-md-4">
+                <div class="col-sm-4">
                     {{ form_rest(newsletterForm) }}
                 </div>
                 {{ form_end(newsletterForm) }}
