@@ -58,6 +58,7 @@ assetic:
         mycss:
             inputs:
                 - "@AppBundle/Resources/public/css/frontend.less"
+                - "@AppBundle/Resources/public/css/icomoon.less"
         myjs:
             inputs:
                 - "%kernel.root_dir%/../vendor/components/jquery/jquery.js"
