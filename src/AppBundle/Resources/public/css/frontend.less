@@ -61,9 +61,26 @@
   margin-top: -25px;
 }
 
-// Custom buttons
-.ek-button-mixin(btn-newsletter, @ek-c-white, @ek-c-violet);
-.ek-button-mixin(btn-kowo-orange, @ek-c-white, @ek-c-yellow);
+// Newsletter form
+.newsletter-email {
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 2px @ek-c-white;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 6px 0;
+}
+
+.btn-newsletter {
+  color: @ek-c-white;
+  background-color: @ek-c-violet;
+  border-color: @ek-c-white;
+  border-radius: 8px;
+  &:hover {
+    color: @ek-c-grey;
+    background-color: @ek-c-light-grey;
+  }
+}
 
 // Custom anchors
 .underlined-anchors {

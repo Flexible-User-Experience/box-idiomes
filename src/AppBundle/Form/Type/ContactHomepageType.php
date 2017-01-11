@@ -31,6 +31,7 @@ class ContactHomepageType extends AbstractType
                     'required' => false,
                     'attr'  => array(
                         'placeholder' => 'frontend.forms.email',
+                        'class' => 'newsletter-email'
                     ),
                 )
             )
