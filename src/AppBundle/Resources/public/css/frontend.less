@@ -61,6 +61,22 @@
   margin-top: -25px;
 }
 
+//Mixins
+.placeholder-newsletter-mixin(@darken) {
+  &::-webkit-input-placeholder {
+    color: darken(@ek-c-white, @darken);
+  }
+  &:-moz-placeholder {
+    color: darken(@ek-c-white, @darken);
+  }
+  &::-moz-placeholder {
+    color: darken(@ek-c-white, @darken);
+  }
+  &:-ms-input-placeholder {
+    color: darken(@ek-c-white, @darken);
+  }
+}
+
 // Newsletter form
 .newsletter-email {
   background-color: transparent;
@@ -69,6 +85,14 @@
   border-radius: 0;
   box-shadow: none;
   padding: 6px 0;
+  .placeholder-newsletter-mixin(0%);
+  &:focus {
+    outline: none !important;
+    border: 0;
+    box-shadow: none;
+    border-bottom: solid 2px @ek-c-white;
+    .placeholder-newsletter-mixin(20%);
+  }
 }
 
 .btn-newsletter {
