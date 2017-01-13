@@ -39,7 +39,7 @@ class ContactHomepageType extends AbstractType
                 'send',
                 SubmitType::class,
                 array(
-                    'label' => 'frontend.forms.send',
+                    'label' => 'frontend.forms.subscribe',
                     'attr'  => array(
                         'class' => 'btn-newsletter',
                     ),

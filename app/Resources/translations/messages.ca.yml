@@ -7,8 +7,13 @@ frontend:
     credits:
         credits: credits
     forms:
+        name: Nom
+        phone: Telèfon
         email: Email
-        send: SUBSCRIU-T'HI
+        message: Missatge
+        subscribe: SUBSCRIU-T'HI
+        send: Envia
+
 backend:
     admin:
         actions: Accions
