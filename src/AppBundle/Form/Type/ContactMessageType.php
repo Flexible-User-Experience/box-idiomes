@@ -34,6 +34,7 @@ class ContactMessageType extends AbstractType
                     'required'    => true,
                     'attr'        => array(
                         'placeholder' => 'frontend.forms.name',
+                        'class'       => 'common-fields'
                     ),
                     'constraints' => array(
                         new Assert\NotBlank(),
@@ -48,6 +49,7 @@ class ContactMessageType extends AbstractType
                     'required'    => true,
                     'attr'        => array(
                         'placeholder' => 'frontend.forms.email',
+                        'class'       => 'common-fields'
                     ),
                     'constraints' => array(
                         new Assert\NotBlank(),
@@ -67,6 +69,7 @@ class ContactMessageType extends AbstractType
                     'required' => false,
                     'attr'     => array(
                         'placeholder' => 'frontend.forms.phone',
+                        'class'       => 'common-fields'
                     ),
                 )
             )
@@ -74,11 +77,12 @@ class ContactMessageType extends AbstractType
                 'message',
                 TextareaType::class,
                 array(
-                    'label'       => false,
+                    'label'       => 'frontend.forms.message',
                     'required'    => true,
                     'attr'        => array(
                         'rows'        => 5,
-                        'placeholder' => 'frontend.forms.message',
+//                        'placeholder' => 'frontend.forms.message',
+                        'class'       => 'message-field'
                     ),
                     'constraints' => array(
                         new Assert\NotBlank(),

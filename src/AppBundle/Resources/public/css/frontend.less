@@ -77,6 +77,21 @@
   }
 }
 
+.placeholder-contact-message-mixin(@darken) {
+  &::-webkit-input-placeholder {
+    color: darken(@ek-c-light-grey, @darken);
+  }
+  &:-moz-placeholder {
+    color: darken(@ek-c-light-grey, @darken);
+  }
+  &::-moz-placeholder {
+    color: darken(@ek-c-light-grey, @darken);
+  }
+  &:-ms-input-placeholder {
+    color: darken(@ek-c-light-grey, @darken);
+  }
+}
+
 // Newsletter form
 .newsletter-email {
   background-color: transparent;
@@ -105,6 +120,33 @@
     background-color: @ek-c-light-grey;
   }
 }
+
+//Contact Message Form
+.common-fields {
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 2px darken(@ek-c-light-grey, 20%);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 6px 0;
+  .placeholder-contact-message-mixin(20%);
+  &:focus {
+    outline: none !important;
+    border: 0;
+    box-shadow: none;
+    border-bottom: solid 2px darken(@ek-c-light-grey, 20%);
+    .placeholder-contact-message-mixin(0%);
+  }
+}
+
+.message-field {
+  background-color: transparent;
+  border: solid 2px darken(@ek-c-light-grey, 20%);
+  border-radius: 16px;
+  box-shadow: none;
+  padding: 6px 0;
+}
+
 
 //Overlay image
 .overlay-image-abs {
