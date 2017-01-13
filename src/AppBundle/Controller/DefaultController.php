@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\ContactMessage;
 use AppBundle\Form\Type\ContactHomepageType;
+use AppBundle\Form\Type\ContactMessageType;
 use AppBundle\Service\NotificationService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -102,11 +103,21 @@ class DefaultController extends Controller
      *
      * @return Response
      */
-    public function contactAction()
+    public function contactAction(Request $request)
     {
+        $contact = new ContactMessage();
+        $contactMessageForm = $this->createForm(ContactMessageType::class, $contact);
+        $contactMessageForm->handleRequest($request);
+
+        if ($contactMessageForm->isSubmitted() && $contactMessageForm->isValid()) {
+            $this->setFlashMessageAndEmailNotifications($contact);
+            // Clean up new form
+            $contactMessageForm = $this->createForm(ContactHomepageType::class);
+        }
+
         return $this->render(
-            'Front/contact.html.twig'
-//            ['teachers' => $teachers]
+            'Front/contact.html.twig',
+            ['contactMessageForm' => $contactMessageForm->createView()]
         );
     }
 
