@@ -13,6 +13,9 @@
                 {{ form_rest(contactMessageForm) }}
                 {{ form_end(contactMessageForm) }}
             </div>
-        </div>
+            <div class="col-sm-7 no-m">
+                <img src="{{ asset('bundles/app/img/front-contact-picture.png') | imagine_filter('480xY') }}" class="img-responsive" alt="contact picture">
+            </div>
+            </div>
     </div>
 {% endblock %}
