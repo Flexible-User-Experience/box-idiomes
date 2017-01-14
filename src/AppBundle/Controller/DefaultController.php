@@ -48,7 +48,7 @@ class DefaultController extends Controller
         /** @var NotificationService $messenger */
         $messenger = $this->get('app.notification');
             // Send email notifications
-//        $messenger->sendCommonUserNotification($contact);
+        $messenger->sendCommonUserNotification($contact);
         $messenger->sendNewsletterSubscriptionAdminNotification($contact);
         // Set frontend flash message
         $this->addFlash(
@@ -101,16 +101,31 @@ class DefaultController extends Controller
     /**
      * @Route("/contacte", name="app_contact")
      *
+     * @param Request $request
+     *
      * @return Response
      */
     public function contactAction(Request $request)
     {
-        $contact = new ContactMessage();
-        $contactMessageForm = $this->createForm(ContactMessageType::class, $contact);
+        $contactMessage = new ContactMessage();
+        $contactMessageForm = $this->createForm(ContactMessageType::class, $contactMessage);
         $contactMessageForm->handleRequest($request);
 
         if ($contactMessageForm->isSubmitted() && $contactMessageForm->isValid()) {
-            $this->setFlashMessageAndEmailNotifications($contact);
+            // Set frontend flash message
+            $this->addFlash(
+                'notice',
+                'El teu missatge s\'ha enviat correctament'
+            );
+            // Persist new contact message into DB
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contactMessage);
+            $em->flush();
+            // Send email notifications
+            /** @var NotificationService $messenger */
+            $messenger = $this->get('app.notification');
+            $messenger->sendCommonUserNotification($contactMessage);
+            $messenger->sendContactAdminNotification($contactMessage);
             // Clean up new form
             $contactMessageForm = $this->createForm(ContactHomepageType::class);
         }
