@@ -81,7 +81,6 @@ class ContactMessageType extends AbstractType
                     'required'    => true,
                     'attr'        => array(
                         'rows'        => 5,
-//                        'placeholder' => 'frontend.forms.message',
                         'class'       => 'message-field'
                     ),
                     'constraints' => array(
