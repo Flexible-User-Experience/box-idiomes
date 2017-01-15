@@ -4,6 +4,12 @@ liip_imagine:
        default:
           web_path: ~
     filter_sets:
+        teacher_mask_filter:
+            filters:
+                watermark:
+                    image: Resources/public/img/teacher-mask.png
+                    size: 1
+                    position: center
         cache: ~
         2400xY:
             quality: 75
