@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
+            new Presta\SitemapBundle\PrestaSitemapBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             // App
