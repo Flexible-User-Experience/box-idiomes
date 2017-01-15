@@ -4,13 +4,13 @@
     <div class="container container-main">
         <div class="row">
             <div class="col-sm-5">
-                {#{% include ':Frontend/includes:notice_flash.html.twig' %}#}
+                {% include ':Front/includes:notice_flash.html.twig' %}
                 {{ form_start(contactMessageForm) }}
-                {{ form_row(contactMessageForm.name) }}
-                {{ form_row(contactMessageForm.phone) }}
-                {{ form_row(contactMessageForm.email) }}
-                {{ form_row(contactMessageForm.message) }}
-                {{ form_rest(contactMessageForm) }}
+                    {{ form_row(contactMessageForm.name) }}
+                    {{ form_row(contactMessageForm.phone) }}
+                    {{ form_row(contactMessageForm.email) }}
+                    {{ form_row(contactMessageForm.message) }}
+                    {{ form_rest(contactMessageForm) }}
                 {{ form_end(contactMessageForm) }}
             </div>
             <div class="col-sm-7 no-m">
