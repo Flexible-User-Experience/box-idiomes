@@ -58,21 +58,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/professors", name="app_teachers")
-     *
-     * @return Response
-     */
-    public function teachersAction()
-    {
-        $teachers = $this->getDoctrine()->getRepository('AppBundle:Teacher')->findAllEnabledSortedByPosition();
-
-        return $this->render(
-            'Front/teachers.html.twig',
-            ['teachers' => $teachers]
-        );
-    }
-
-    /**
      * @Route("/serveis", name="app_services")
      *
      * @return Response
