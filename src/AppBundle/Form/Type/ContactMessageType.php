@@ -95,7 +95,7 @@ class ContactMessageType extends AbstractType
                 array(
                     'label' => 'frontend.forms.send',
                     'attr'  => array(
-                        'class' => 'btn-newsletter',
+                        'class' => 'btn-newsletter center-block',
                     ),
                 )
             );

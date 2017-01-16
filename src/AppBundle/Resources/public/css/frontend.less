@@ -115,6 +115,7 @@
   background-color: @ek-c-violet;
   border-color: @ek-c-white;
   border-radius: 8px;
+  width: 50%;
   &:hover {
     color: @ek-c-grey;
     background-color: @ek-c-light-grey;
@@ -140,8 +141,8 @@
 }
 
 .message-field {
+  resize: none;
   background-color: transparent;
-  
   border: solid 2px darken(@ek-c-light-grey, 20%);
   border-radius: 16px;
   box-shadow: none;
@@ -151,6 +152,10 @@
     border: solid 2px darken(@ek-c-light-grey, 20%);;
     box-shadow: none;
   }
+}
+
+label.control-label {
+  color: darken(@ek-c-light-grey, 20%);
 }
 
 // Custom anchors
