@@ -112,7 +112,8 @@ class DefaultController extends Controller
             $messenger->sendCommonUserNotification($contactMessage);
             $messenger->sendContactAdminNotification($contactMessage);
             // Clean up new form
-            $contactMessageForm = $this->createForm(ContactHomepageType::class);
+            $contactMessage = new ContactMessage();
+            $contactMessageForm = $this->createForm(ContactMessageType::class, $contactMessage);
         }
 
         return $this->render(
