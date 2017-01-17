@@ -42,12 +42,13 @@ twig:
         facebook_pixel_enabled:   "%facebook_pixel_enabled%"
         facebook_pixel_id:        "%facebook_pixel_id%"
         main_brand_title:         "%project_web_title%"
-        admin_tag_version:        "v1.0.3"
+        admin_tag_version:        "v1.0.4"
 
 # Assetic
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
+    bundles:        [ AppBundle ]
     java:           "%path_java%"
     node:           "%path_node%"
     filters:
@@ -78,11 +79,14 @@ doctrine:
         charset:  UTF8
         types:
             json: Sonata\Doctrine\Types\JsonType
-
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+
+doctrine_migrations:
+    dir_name:  "%kernel.root_dir%/../src/AppBundle/DoctrineMigrations"
+    namespace: AppBundle\DoctrineMigrations
 
 # Sonata Block
 sonata_block:
