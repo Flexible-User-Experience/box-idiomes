@@ -48,6 +48,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
+    bundles:        [ AppBundle ]
     java:           "%path_java%"
     node:           "%path_node%"
     filters:
