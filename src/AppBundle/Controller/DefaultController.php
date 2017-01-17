@@ -74,7 +74,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/quisom", name="app_aboutus")
+     * @Route("/qui-som", name="app_aboutus")
      *
      * @return Response
      */
