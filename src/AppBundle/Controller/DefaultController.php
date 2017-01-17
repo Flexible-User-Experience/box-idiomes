@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\ContactMessage;
 use AppBundle\Form\Type\ContactHomepageType;
+use AppBundle\Form\Type\ContactMessageType;
 use AppBundle\Service\NotificationService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -47,27 +48,12 @@ class DefaultController extends Controller
         /** @var NotificationService $messenger */
         $messenger = $this->get('app.notification');
             // Send email notifications
-//        $messenger->sendCommonUserNotification($contact);
+        $messenger->sendCommonUserNotification($contact);
         $messenger->sendNewsletterSubscriptionAdminNotification($contact);
         // Set frontend flash message
         $this->addFlash(
             'notice',
             'El teu missatge s\'ha enviat correctament'
-        );
-    }
-
-    /**
-     * @Route("/professors", name="app_teachers")
-     *
-     * @return Response
-     */
-    public function teachersAction()
-    {
-        $teachers = $this->getDoctrine()->getRepository('AppBundle:Teacher')->findAllEnabledSortedByPosition();
-
-        return $this->render(
-            'Front/teachers.html.twig',
-            ['teachers' => $teachers]
         );
     }
 
@@ -88,7 +74,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/quisom", name="app_aboutus")
+     * @Route("/qui-som", name="app_aboutus")
      *
      * @return Response
      */
@@ -100,13 +86,39 @@ class DefaultController extends Controller
     /**
      * @Route("/contacte", name="app_contact")
      *
+     * @param Request $request
+     *
      * @return Response
      */
-    public function contactAction()
+    public function contactAction(Request $request)
     {
+        $contactMessage = new ContactMessage();
+        $contactMessageForm = $this->createForm(ContactMessageType::class, $contactMessage);
+        $contactMessageForm->handleRequest($request);
+
+        if ($contactMessageForm->isSubmitted() && $contactMessageForm->isValid()) {
+            // Set frontend flash message
+            $this->addFlash(
+                'notice',
+                'El teu missatge s\'ha enviat correctament'
+            );
+            // Persist new contact message into DB
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contactMessage);
+            $em->flush();
+            // Send email notifications
+            /** @var NotificationService $messenger */
+            $messenger = $this->get('app.notification');
+            $messenger->sendCommonUserNotification($contactMessage);
+            $messenger->sendContactAdminNotification($contactMessage);
+            // Clean up new form
+            $contactMessage = new ContactMessage();
+            $contactMessageForm = $this->createForm(ContactMessageType::class, $contactMessage);
+        }
+
         return $this->render(
-            'Front/contact.html.twig'
-//            ['teachers' => $teachers]
+            'Front/contact.html.twig',
+            ['contactMessageForm' => $contactMessageForm->createView()]
         );
     }
 

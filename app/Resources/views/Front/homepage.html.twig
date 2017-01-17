@@ -1,10 +1,12 @@
 {% extends 'Front/layout.html.twig' %}
 
+{% block body_class %} class="no-p-top"{% endblock %}
+
 {% block main %}
     <div class="container-fluid">
         <div class="row">
             <div class="text-center">
-                <img src="{{ asset('bundles/app/img/head.jpeg') | imagine_filter('2400xY') }}"
+                <img src="{{ asset('bundles/app/img/image-homepage-box.jpg') }}"
                      class="img-responsive center-block" alt="head">
             </div>
         </div>
@@ -13,36 +15,44 @@
     <div class="container container-main">
         <div class="row">
             {% for teacher in teachers %}
-                <div class="col-sm-4">
-                    {% if teacher.imageName is not null %}
-                        <img src="{{ vich_uploader_asset(teacher, 'imageFile') | imagine_filter('480xY') }}"
-                             class="img-responsive" alt="{{ teacher.imageName }}">
-                    {% else %}
-                        <img src="{{ asset('bundles/app/img/1teacher.jpeg') | imagine_filter('480xY') }}" class="img-responsive" alt="1teacher">
-                    {% endif %}
-                    <h4 class="{{ teacher.cssColor }} normal-m-top">{{ teacher.name }}</h4>
-                    <p>{{ teacher.description }}</p>
-                </div>
+            <div class="col-sm-4">
+                {% if teacher.imageName is not null %}
+                    <img src="{{ vich_uploader_asset(teacher, 'imageFile') | imagine_filter('480x620') }}"
+                         class="img-responsive" alt="{{ teacher.imageName }}">
+                {% else %}
+                    <img src="{{ asset('bundles/app/img/1teacher.jpeg') | imagine_filter('480x620_teacher_mask') }}"
+                         class="img-responsive" alt="1teacher">
+                {% endif %}
+                <h4 class="{{ teacher.cssColor }} normal-m-top">{{ teacher.name }}</h4>
+                <p>{{ teacher.description }}</p>
+            </div>
             {% if loop.index is divisible by(3) %}
-                </div>
-                <div class="row extra-big-m-top">
+        </div>
+        <div class="row extra-big-m-top">
             {% endif %}
             {% endfor %}
         </div>
     </div>
     {# Newsletter section #}
+    {% include ':Front/includes:notice_flash.html.twig' %}
     <div class="p-vertical violet-background">
         <div class="container">
             <div class="row normal-m-top">
+                <div class="col-sm-12">
+                    <h4 class="c-white no-m-top">Newsletter</h4>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-4">
-                    <h4 class="c-white no-m-top">NEWSLETTER</h4>
+                    <p class="c-white no-m-top">Lorem ipsum dolor sit amet,<br>
+                        consectetur adipiscing elit.</p>
                 </div>
                 {{ form_start(newsletterForm) }}
                 <div class="col-sm-4">
                     {{ form_widget(newsletterForm.email) }}
                     {{ form_errors(newsletterForm.email) }}
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-4 text-center">
                     {{ form_rest(newsletterForm) }}
                 </div>
                 {{ form_end(newsletterForm) }}

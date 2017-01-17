@@ -34,16 +34,21 @@
 @ek-font-size-base:  16px;
 @ek-font-size-large: ceil((@font-size-base * 1.25));
 @ek-font-size-small: ceil((@font-size-base * 0.95));
+@ek-custom-navbar-height: 90px;
 
 // Custom Navbar
-@navbar-default-bg: transparent;
-@navbar-default-link-active-bg: transparent;
+@navbar-default-bg: rgba(255,255,255,0.75);
+@navbar-default-link-active-bg: rgba(255,255,255,0.75);
 @navbar-default-link-active-color: @ek-c-violet;
 @navbar-default-link-color: @ek-c-blue;
 @navbar-default-link-hover-color: darken(@ek-c-blue, 10%);
-@navbar-default-link-hover-bg: transparent;
-@navbar-height: 110px;
+@navbar-default-link-hover-bg: rgba(255,255,255,0.75);
+@navbar-height: @ek-custom-navbar-height;
 @navbar-border-radius: 0;
+
+body {
+  padding-top: @ek-custom-navbar-height;
+}
 
 .navbar {
   margin-bottom: 0;
@@ -55,15 +60,111 @@
 
 .navbar-brand-logo {
   padding: 20px 15px;
+  & svg {
+    margin-top: -10px;
+  }
 }
 
 .navbar-logo {
   margin-top: -25px;
 }
 
-// Custom buttons
-.ek-button-mixin(btn-newsletter, @ek-c-white, @ek-c-violet);
-.ek-button-mixin(btn-kowo-orange, @ek-c-white, @ek-c-yellow);
+//Mixins
+.placeholder-newsletter-mixin(@darken) {
+  &::-webkit-input-placeholder {
+    color: darken(@ek-c-white, @darken);
+  }
+  &:-moz-placeholder {
+    color: darken(@ek-c-white, @darken);
+  }
+  &::-moz-placeholder {
+    color: darken(@ek-c-white, @darken);
+  }
+  &:-ms-input-placeholder {
+    color: darken(@ek-c-white, @darken);
+  }
+}
+
+.placeholder-contact-message-mixin(@darken) {
+  &::-webkit-input-placeholder {
+    color: darken(@ek-c-light-grey, @darken);
+  }
+  &:-moz-placeholder {
+    color: darken(@ek-c-light-grey, @darken);
+  }
+  &::-moz-placeholder {
+    color: darken(@ek-c-light-grey, @darken);
+  }
+  &:-ms-input-placeholder {
+    color: darken(@ek-c-light-grey, @darken);
+  }
+}
+
+// Newsletter form
+.newsletter-email {
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 2px @ek-c-white;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 6px 0;
+  .placeholder-newsletter-mixin(0%);
+  &:focus {
+    outline: none !important;
+    border: 0;
+    box-shadow: none;
+    border-bottom: solid 2px @ek-c-white;
+    .placeholder-newsletter-mixin(20%);
+  }
+}
+
+.btn-newsletter {
+  color: @ek-c-white;
+  background-color: @ek-c-violet;
+  border-color: @ek-c-white;
+  border-radius: 8px;
+  width: 50%;
+  &:hover {
+    color: @ek-c-grey;
+    background-color: @ek-c-light-grey;
+  }
+}
+
+//Contact Message Form
+.common-fields {
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 2px darken(@ek-c-light-grey, 20%);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 6px 0;
+  .placeholder-contact-message-mixin(20%);
+  &:focus {
+    outline: none !important;
+    border: 0;
+    box-shadow: none;
+    border-bottom: solid 2px darken(@ek-c-light-grey, 20%);
+    .placeholder-contact-message-mixin(0%);
+  }
+}
+
+.message-field {
+  resize: none;
+  background-color: transparent;
+  border: solid 2px darken(@ek-c-light-grey, 20%);
+  border-radius: 16px;
+  box-shadow: none;
+  padding: 6px 0;
+  &:focus {
+    outline: none !important;
+    border: solid 2px darken(@ek-c-light-grey, 20%);;
+    box-shadow: none;
+  }
+}
+
+label.control-label {
+  color: darken(@ek-c-light-grey, 20%);
+}
 
 // Custom anchors
 .underlined-anchors {
@@ -91,7 +192,9 @@
 
 .no-m { margin: 0; }
 .no-m-top { margin-top: 0; }
+.no-p-top { padding-top: 0; }
 .no-m-bottom { margin-bottom: 0; }
+.no-m-right  { margin-right: 0; }
 .extra-m-top    { margin-top: @ek-s-base-plus; }
 .extra-big-m-top{ margin-top: @gap-extra-big; }
 .extra-double-m-top{ margin-top: @gap-double-extra-big; }
@@ -110,43 +213,6 @@
 .p-vertical-small {
   padding-top: @gap-normal;
   padding-bottom: @gap-normal;
-}
-
-// Custom alerts
-.alert-green {
-  .alert-variant(@ek-c-green; @ek-c-green; @body-bg);
-  @media(max-width: @screen-xs-max) {
-    h4 { font-size: 1em; }
-  }
-}
-
-.alert-orange {
-  .alert-variant(@ek-c-yellow; @ek-c-yellow; @body-bg);
-  @media(max-width: @screen-xs-max) {
-    h4 { font-size: 1em; }
-  }
-}
-
-.alert-violet {
-  .alert-variant(@ek-c-violet; @ek-c-violet; @body-bg);
-  @media(max-width: @screen-xs-max) {
-    h4 { font-size: 1em; }
-  }
-}
-
-.alert-magenta {
-  .alert-variant(@ek-c-magenta; @ek-c-magenta; @body-bg);
-  @media(max-width: @screen-xs-max) {
-    h4 { font-size: 1em; }
-  }
-}
-
-.alert {
-  h4 {
-    font-weight: normal;
-    line-height: 1.5;
-    white-space: nowrap;
-  }
 }
 
 // Pagination

@@ -38,10 +38,11 @@ twig:
     globals:
         google_analytics_enabled: "%google_analytics_enabled%"
         google_analytics_account: "%google_analytics_account%"
+        google_maps_api_key:      "%google_maps_api_key%"
         facebook_pixel_enabled:   "%facebook_pixel_enabled%"
         facebook_pixel_id:        "%facebook_pixel_id%"
         main_brand_title:         "%project_web_title%"
-        admin_tag_version:        "v1.0.2"
+        admin_tag_version:        "v1.0.3"
 
 # Assetic
 assetic:
@@ -58,6 +59,7 @@ assetic:
         mycss:
             inputs:
                 - "@AppBundle/Resources/public/css/frontend.less"
+                - "@AppBundle/Resources/public/css/icomoon.less"
         myjs:
             inputs:
                 - "%kernel.root_dir%/../vendor/components/jquery/jquery.js"

@@ -47,7 +47,7 @@ class TeacherAdmin extends AbstractBaseAdmin
                 'file',
                 array(
                     'label'    => 'backend.admin.image',
-                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
+                    'help'     => $this->getImageHelperFormMapperWithThumbnailAspectRatio(),
                     'required' => false,
                 )
             )

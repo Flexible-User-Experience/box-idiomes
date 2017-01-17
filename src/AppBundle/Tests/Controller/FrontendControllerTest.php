@@ -29,13 +29,12 @@ class FrontendControllerTest extends AbstractBaseTest
     {
         return array(
             array('/'),
-            array('/professors'),
             array('/serveis'),
-            array('/quisom'),
+            array('/qui-som'),
             array('/contacte'),
             array('/politica-de-privacitat'),
             array('/credits'),
-//            array('/sitemap/sitemap.default.xml'),
+            array('/sitemap/sitemap.default.xml'),
         );
     }
 

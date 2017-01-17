@@ -51,7 +51,7 @@ class Teacher extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif"}
      * )
-     * @Assert\Image(minWidth=1200)
+     * @Assert\Image(allowLandscape=false, allowPortrait=true)
      */
     private $imageFile;
 

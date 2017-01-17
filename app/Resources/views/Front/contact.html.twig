@@ -1,5 +1,21 @@
 {% extends 'Front/layout.html.twig' %}
 
 {% block main %}
-    <h1>CONTACT</h1>
+    <div class="container container-main">
+        <div class="row">
+            <div class="col-sm-5 col-md-4">
+                {% include ':Front/includes:notice_flash.html.twig' %}
+                {{ form_start(contactMessageForm) }}
+                    {{ form_row(contactMessageForm.name) }}
+                    {{ form_row(contactMessageForm.phone) }}
+                    {{ form_row(contactMessageForm.email) }}
+                    {{ form_row(contactMessageForm.message) }}
+                    {{ form_rest(contactMessageForm) }}
+                {{ form_end(contactMessageForm) }}
+            </div>
+            <div class="col-sm-6 col-sm-offset-1 col-md-7 col-sm-offset-1 text-center">
+                <iframe src="https://www.google.com/maps/embed/v1/place?key={{ google_maps_api_key }}&q=place_id:ChIJk0-vzHP-oBIRBya0lR_KnxE" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 {% endblock %}
