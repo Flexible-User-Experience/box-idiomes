@@ -75,10 +75,10 @@ class FrontendMenuBuilder
             )
         );
         $menu->addChild(
-            'app_aboutus',
+            'app_academy',
             array(
-                'label'   => 'frontend.menu.aboutus',
-                'route'   => 'app_aboutus',
+                'label'   => 'frontend.menu.academy',
+                'route'   => 'app_academy',
             )
         );
         $menu->addChild(
