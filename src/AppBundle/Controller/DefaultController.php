@@ -74,13 +74,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/qui-som", name="app_aboutus")
+     * @Route("/academia", name="app_academy")
      *
      * @return Response
      */
-    public function aboutusAction()
+    public function academyAction()
     {
-        return $this->render('Front/about_us.html.twig');
+        return $this->render('Front/academy.html.twig');
     }
 
     /**
