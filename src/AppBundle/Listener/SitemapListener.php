@@ -67,7 +67,7 @@ class SitemapListener implements SitemapListenerInterface
                 ->getUrlContainer()
                 ->addUrl($this->makeUrlConcrete($url, 1), 'default');
             // About us view
-            $url = $this->makeUrl('app_aboutus');
+            $url = $this->makeUrl('app_academy');
             $event
                 ->getUrlContainer()
                 ->addUrl($this->makeUrlConcrete($url, 1), 'default');
