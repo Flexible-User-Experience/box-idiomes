@@ -113,8 +113,8 @@ fos_user:
 
 # Admin
 sonata_admin:
-#    title: "%project_web_title%"
-#    title_logo: "/bundles/app/img/logo-espai-kowo-backend.png"
+    title: "%project_web_title%"
+    title_logo: "/bundles/app/img/menu-logo.jpg"
     options:
         html5_validate: true
         confirm_exit:   true
