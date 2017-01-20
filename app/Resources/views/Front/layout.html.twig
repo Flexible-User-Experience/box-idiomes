@@ -4,7 +4,7 @@
 <!--[if IE 8]>        <html lang="{{ app.request.locale }}" class="no-js lt-ie9"><![endif]-->
 <!--[if gt IE 8]><!--><html lang="{{ app.request.locale }}" class="no-js"><!--<![endif]-->
 <head>
-    <meta name="description" content="{% block metadescription %}{% endblock %}">
+    <meta name="description" content="{% block metadescription %}academia anglès box idiomes amposta{% endblock %}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="author" content="www.flux.cat">
     <meta charset="UTF-8">
@@ -49,6 +49,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand navbar-brand-logo" href="{{ path('app_homepage') }}">
+                    <h1 class="hidden">{{ main_brand_title }}</h1>
                     <svg height="70" width="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <image height="70" width="100" class="navbar-logo" xlink:href="{{ asset('bundles/app/svg/box-logo-header.svg') }}" alt="Box Idiomes Logo"></image>
                     </svg>
