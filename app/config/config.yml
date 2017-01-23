@@ -187,3 +187,10 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# CKEditor
+ivory_ck_editor:
+    inline: false
+    configs:
+        my_config:
+            toolbar: standard
