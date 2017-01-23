@@ -42,7 +42,7 @@ twig:
         facebook_pixel_enabled:   "%facebook_pixel_enabled%"
         facebook_pixel_id:        "%facebook_pixel_id%"
         main_brand_title:         "%project_web_title%"
-        admin_tag_version:        "v1.0.8"
+        admin_tag_version:        "v1.0.9"
 
 # Assetic
 assetic:

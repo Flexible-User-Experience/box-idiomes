@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class TeacherAdmin
@@ -56,6 +57,16 @@ class TeacherAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.teacher.name',
+                )
+            )
+            ->add(
+                'description',
+                TextareaType::class,
+                array(
+                    'label' => 'backend.admin.description',
+                    'attr'     => array(
+                        'rows' => 10,
+                    )
                 )
             )
             ->end()
