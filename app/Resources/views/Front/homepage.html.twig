@@ -25,7 +25,7 @@
                          class="img-responsive" alt="1teacher">
                 {% endif %}
                 <h4 class="{{ teacher.cssColor }} normal-m-top">{{ teacher.name }}</h4>
-                <p>{{ teacher.description }}</p>
+                <p>{{ teacher.description | raw }}</p>
             </div>
             {% if loop.index is divisible by(3) %}
         </div>

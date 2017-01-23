@@ -3,11 +3,11 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Enum\TeacherColorEnum;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class TeacherAdmin
@@ -61,12 +61,10 @@ class TeacherAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'description',
-                TextareaType::class,
+                CKEditorType::class,
                 array(
                     'label' => 'backend.admin.description',
-                    'attr'     => array(
-                        'rows' => 10,
-                    )
+                    'config_name' => 'my_config',
                 )
             )
             ->end()
