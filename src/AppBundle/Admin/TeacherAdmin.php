@@ -64,6 +64,9 @@ class TeacherAdmin extends AbstractBaseAdmin
                 TextareaType::class,
                 array(
                     'label' => 'backend.admin.description',
+                    'attr'     => array(
+                        'rows' => 10,
+                    )
                 )
             )
             ->end()
