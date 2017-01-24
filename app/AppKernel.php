@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             // Vendors
             new FOS\UserBundle\FOSUserBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
+            new Hampe\Bundle\ZurbInkBundle\HampeZurbInkBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
