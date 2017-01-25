@@ -141,4 +141,19 @@ class DefaultController extends Controller
     {
         return $this->render('Front/credits.html.twig');
     }
+
+    /**
+     * @Route("/test-email", name="app_test_email")
+     *
+     * @return Response
+     */
+    public function testEmailAction()
+    {
+        $contact = new ContactMessage();
+        $contact->setName('Anton');
+
+        return$this->render(':Mails:common_user_notification.html.twig', array(
+            'contact'=> $contact
+        ));
+    }
 }
