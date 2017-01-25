@@ -23,3 +23,10 @@
 .left-margin-negative {
    margin-left: 15px;
 }
+
+/* Size icons */
+.footer-icon {
+   float: left;
+   display: inline-block;
+   width: 30px;
+}

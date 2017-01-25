@@ -149,6 +149,11 @@ class DefaultController extends Controller
      */
     public function testEmailAction()
     {
-        return$this->render(':Mails:base.html.twig', array());
+        $contact = new ContactMessage();
+        $contact->setName('Anton');
+
+        return$this->render(':Mails:common_user_notification.html.twig', array(
+            'contact'=> $contact
+        ));
     }
 }

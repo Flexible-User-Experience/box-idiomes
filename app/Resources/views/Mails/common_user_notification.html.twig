@@ -1,3 +1,5 @@
+{% extends ':Mails:base.html.twig' %}
+
 {% block subject %}Notificació{% endblock %}
 
 {% block content %}
@@ -8,8 +10,12 @@
                 <table>
                     <tr>
                         <th>
-                            <h4>Gràcies per contactar amb nosaltres <br> {{ contact.name }}</h4>
-                            <p class="grey-color">Et respondrem el més aviat possible. Seguim en contacte.</p>
+                            <h4 class="grey-color text-center">Gràcies per contactar amb nosaltres</h4>
+                            <h4 class="grey-color text-center">{{ contact.name }}</h4>
+                            <p class="blue-color text-center">
+                                Et respondrem el més aviat possible.<br>
+                                Seguim en contacte.
+                            </p>
                         </th>
                         <th class="expander"></th>
                     </tr>
