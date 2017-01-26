@@ -48,13 +48,19 @@ class DefaultController extends Controller
         /** @var NotificationService $messenger */
         $messenger = $this->get('app.notification');
             // Send email notifications
-        $messenger->sendCommonUserNotification($contact);
+        if ($messenger->sendCommonUserNotification($contact) != 0) {
+            // Set frontend flash message
+            $this->addFlash(
+                'notice',
+                'El teu missatge s\'ha enviat correctament'
+            );
+        } else {
+            $this->addFlash(
+                'danger',
+                'El teu missatge no s\'ha enviat'
+            );
+        }
         $messenger->sendNewsletterSubscriptionAdminNotification($contact);
-        // Set frontend flash message
-        $this->addFlash(
-            'notice',
-            'El teu missatge s\'ha enviat correctament'
-        );
     }
 
     /**
