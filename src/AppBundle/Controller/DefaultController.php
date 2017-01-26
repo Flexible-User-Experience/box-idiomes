@@ -48,13 +48,19 @@ class DefaultController extends Controller
         /** @var NotificationService $messenger */
         $messenger = $this->get('app.notification');
             // Send email notifications
-        $messenger->sendCommonUserNotification($contact);
+        if ($messenger->sendCommonUserNotification($contact) != 0) {
+            // Set frontend flash message
+            $this->addFlash(
+                'notice',
+                'El teu missatge s\'ha enviat correctament'
+            );
+        } else {
+            $this->addFlash(
+                'danger',
+                'El teu missatge no s\'ha enviat'
+            );
+        }
         $messenger->sendNewsletterSubscriptionAdminNotification($contact);
-        // Set frontend flash message
-        $this->addFlash(
-            'notice',
-            'El teu missatge s\'ha enviat correctament'
-        );
     }
 
     /**
@@ -97,11 +103,6 @@ class DefaultController extends Controller
         $contactMessageForm->handleRequest($request);
 
         if ($contactMessageForm->isSubmitted() && $contactMessageForm->isValid()) {
-            // Set frontend flash message
-            $this->addFlash(
-                'notice',
-                'El teu missatge s\'ha enviat correctament'
-            );
             // Persist new contact message into DB
             $em = $this->getDoctrine()->getManager();
             $em->persist($contactMessage);
@@ -109,7 +110,18 @@ class DefaultController extends Controller
             // Send email notifications
             /** @var NotificationService $messenger */
             $messenger = $this->get('app.notification');
-            $messenger->sendCommonUserNotification($contactMessage);
+            if ($messenger->sendCommonUserNotification($contactMessage) != 0) {
+                // Set frontend flash message
+                $this->addFlash(
+                    'notice',
+                    'El teu missatge s\'ha enviat correctament'
+                );
+            } else {
+                $this->addFlash(
+                    'danger',
+                    'El teu missatge no s\'ha enviat'
+                );
+            }
             $messenger->sendContactAdminNotification($contactMessage);
             // Clean up new form
             $contactMessage = new ContactMessage();
@@ -151,8 +163,10 @@ class DefaultController extends Controller
     {
         $contact = new ContactMessage();
         $contact->setName('Anton');
+//        $contact->setEmail('Anton@gmail.com');
+//        $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(1);
 
-        return$this->render(':Mails:common_user_notification.html.twig', array(
+        return$this->render(':Mails:base.html.twig', array(
             'contact'=> $contact
         ));
     }

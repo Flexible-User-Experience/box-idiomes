@@ -1,10 +1,8 @@
 /* Colors */
 .black-background      { background-color: #000000; }
-.green-background      { background-color: #A1C548; }
 .white-background      { background-color: #FFFFFF; }
 .light-grey-background { background-color: #E3E3E3; }
 .white-color      { color: #FFFFFF; }
-.green-color      { color: #A1C548; }
 .grey-color       { color: #6F6F6F; }
 .blue-color       { color: #009CC2; }
 
@@ -20,9 +18,9 @@
 }
 
 /* Custom margins */
-.left-margin-negative {
-   margin-left: 15px;
-}
+.no-m-bottom  { margin-bottom: 0; }
+.normal-m-top { margin: 30px; }
+.left-margin-negative { margin-left: 15px; }
 
 /* Size icons */
 .footer-icon {
