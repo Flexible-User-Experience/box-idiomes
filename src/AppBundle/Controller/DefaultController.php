@@ -97,11 +97,6 @@ class DefaultController extends Controller
         $contactMessageForm->handleRequest($request);
 
         if ($contactMessageForm->isSubmitted() && $contactMessageForm->isValid()) {
-            // Set frontend flash message
-            $this->addFlash(
-                'notice',
-                'El teu missatge s\'ha enviat correctament'
-            );
             // Persist new contact message into DB
             $em = $this->getDoctrine()->getManager();
             $em->persist($contactMessage);
@@ -109,7 +104,18 @@ class DefaultController extends Controller
             // Send email notifications
             /** @var NotificationService $messenger */
             $messenger = $this->get('app.notification');
-            $messenger->sendCommonUserNotification($contactMessage);
+            if ($messenger->sendCommonUserNotification($contactMessage) != 0) {
+                // Set frontend flash message
+                $this->addFlash(
+                    'notice',
+                    'El teu missatge s\'ha enviat correctament'
+                );
+            } else {
+                $this->addFlash(
+                    'error',
+                    'El teu missatge no s\'ha enviat'
+                );
+            }
             $messenger->sendContactAdminNotification($contactMessage);
             // Clean up new form
             $contactMessage = new ContactMessage();
@@ -149,10 +155,12 @@ class DefaultController extends Controller
      */
     public function testEmailAction()
     {
-        $contact = new ContactMessage();
-        $contact->setEmail('aserratorta@gmail.com');
+//        $contact = new ContactMessage();
+//        $contact->setEmail('Anton@gmail.com');
+//        $contact->setEmail('Anton@gmail.com');
+        $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(1);
 
-        return$this->render(':Mails:newsletter_form_admin_notification.html.twig', array(
+        return$this->render(':Mails:contact_form_admin_notification.html.twig', array(
             'contact'=> $contact
         ));
     }

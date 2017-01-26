@@ -62,10 +62,11 @@ class NotificationService
      *
      * @param ContactMessage $contactMessage
      *
+     * @return int If is 0 failure otherwise amount of recipients
      */
     public function sendCommonUserNotification(ContactMessage $contactMessage)
     {
-        $this->messenger->sendEmail(
+        return $this->messenger->sendEmail(
             $this->amd,
             $contactMessage->getEmail(),
             'Notificació pàgina web ' . $this->urlBase,
