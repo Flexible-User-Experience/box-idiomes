@@ -1,0 +1,28 @@
+{% extends ':Mails:base.html.twig' %}
+
+{% block subject %}Notificació{% endblock %}
+
+{% block content %}
+    <table class="row">
+        <tbody>
+        <tr>
+            <th class="small-12 large-12 columns first last vertical-padding">
+                <table>
+                    <tr>
+                        <th>
+                            <h4>Benvolgut {{ contact.name }},</h4>
+                            <p class="grey-color">En resposta a la teva pregunta:</p>
+                            <p class="grey-color">{{ contact.message }}</p>
+                            <p class="grey-color">T'hem de dir que:</p>
+                            <p>{{ contact.description | nl2br }}</p>
+                            <br>
+                            <p class="grey-color">Salutacions</p>
+                        </th>
+                        <th class="expander"></th>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

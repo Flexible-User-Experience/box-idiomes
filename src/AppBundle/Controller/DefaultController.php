@@ -112,7 +112,7 @@ class DefaultController extends Controller
                 );
             } else {
                 $this->addFlash(
-                    'error',
+                    'danger',
                     'El teu missatge no s\'ha enviat'
                 );
             }
@@ -160,7 +160,7 @@ class DefaultController extends Controller
 //        $contact->setEmail('Anton@gmail.com');
         $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(1);
 
-        return$this->render(':Mails:contact_form_admin_notification.html.twig', array(
+        return$this->render(':Mails:contact_form_user_backend_notification.html.twig', array(
             'contact'=> $contact
         ));
     }
