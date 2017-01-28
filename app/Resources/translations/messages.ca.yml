@@ -5,7 +5,7 @@ frontend:
         contact: contacte
         cms: "[ CMS ]"
     credits:
-        credits: credits
+        credits: crèdits
     forms:
         name: Nom
         phone: Telèfon
