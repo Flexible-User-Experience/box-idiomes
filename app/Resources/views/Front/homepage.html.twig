@@ -3,22 +3,22 @@
 {% block body_class %} class="no-p-top"{% endblock %}
 
 {% block main %}
-    <div class="container">
-        <div class="row">
-            <h2 class="hidden">Viu els idiomes</h2>
-            <div class="text-center">
-                <img src="{{ asset('bundles/app/img/image-homepage-box.jpg') }}"
-                     class="img-responsive center-block" alt="imatge portada">
+    <div class="container container-main">
+        <div class="row extra-m-bottom">
+            <div class="col-xs-12">
+                <h2 class="hidden">Viu els idiomes</h2>
+                <div class="text-center">
+                    <img src="{{ asset('bundles/app/img/image-homepage-box.jpg') }}"
+                         class="img-responsive center-block" alt="imatge portada">
+                </div>
             </div>
         </div>
-    </div>
-    {# Teachers section #}
-    <div class="container container-main">
+        {# Teachers section #}
         <div class="row">
             {% for teacher in teachers %}
             <div class="col-sm-4">
                 {% if teacher.imageName is not null %}
-                    <img src="{{ vich_uploader_asset(teacher, 'imageFile') | imagine_filter('480x620') }}"
+                    <img src="{{ vich_uploader_asset(teacher, 'imageFile') | imagine_filter('480x620_teacher_mask') }}"
                          class="img-responsive" alt="{{ teacher.imageName }}">
                 {% else %}
                     <img src="{{ asset('bundles/app/img/1teacher.jpeg') | imagine_filter('480x620_teacher_mask') }}"
