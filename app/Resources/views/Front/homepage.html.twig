@@ -3,12 +3,12 @@
 {% block body_class %} class="no-p-top"{% endblock %}
 
 {% block main %}
-    <div class="container container-main">
+    <div class="container">
         <div class="row extra-m-bottom">
             <div class="col-xs-12">
                 <h2 class="hidden">Viu els idiomes</h2>
                 <div class="text-center">
-                    <img src="{{ asset('bundles/app/img/image-homepage-box.jpg') }}"
+                    <img src="{{ asset('bundles/app/img/homepage_def.png') }}"
                          class="img-responsive center-block" alt="imatge portada">
                 </div>
             </div>
@@ -34,8 +34,17 @@
             {% endfor %}
         </div>
     </div>
+    {# Flash message#}
+    <div class="p-vertical">
+        <div class="container">
+            <div class="row normal-m-top">
+                <div class="col-sm-12">
+                    {% include ':Front/includes:notice_flash.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
     {# Newsletter section #}
-    {% include ':Front/includes:notice_flash.html.twig' %}
     <div class="p-vertical violet-background">
         <div class="container">
             <div class="row normal-m-top">
@@ -64,7 +73,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
             var errorNode = jQuery(".glyphicon-exclamation-sign");
             var envelopeNode = jQuery(".fa-paper-plane-o");
             if (errorNode.length > 0) {
