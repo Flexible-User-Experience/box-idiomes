@@ -34,8 +34,17 @@
             {% endfor %}
         </div>
     </div>
+    {# Flash message#}
+    <div class="p-vertical">
+        <div class="container">
+            <div class="row normal-m-top">
+                <div class="col-sm-12">
+                    {% include ':Front/includes:notice_flash.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
     {# Newsletter section #}
-    {% include ':Front/includes:notice_flash.html.twig' %}
     <div class="p-vertical violet-background">
         <div class="container">
             <div class="row normal-m-top">
@@ -64,7 +73,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
             var errorNode = jQuery(".glyphicon-exclamation-sign");
             var envelopeNode = jQuery(".fa-paper-plane-o");
             if (errorNode.length > 0) {
