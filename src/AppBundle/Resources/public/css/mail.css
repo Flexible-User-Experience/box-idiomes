@@ -20,6 +20,7 @@
 /* Custom margins */
 .no-m-bottom  { margin-bottom: 0; }
 .normal-m-top { margin: 30px; }
+.only-normal-m-top { margin-top: 30px; }
 .left-margin-negative { margin-left: 15px; }
 
 /* Size icons */
