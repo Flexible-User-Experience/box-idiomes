@@ -60,3 +60,19 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            var errorNode = jQuery(".glyphicon-exclamation-sign");
+            var envelopeNode = jQuery(".fa-paper-plane-o");
+            if (errorNode.length > 0) {
+                jQuery('html,body').animate({scrollTop: errorNode.offset().top - 100}, "slow");
+            }
+            if (envelopeNode.length > 0) {
+                jQuery('html,body').animate({scrollTop: envelopeNode.offset().top - 100}, "slow");
+            }
+        });
+    </script>
+{% endblock %}

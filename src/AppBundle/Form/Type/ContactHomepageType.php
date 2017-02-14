@@ -5,7 +5,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -32,6 +32,14 @@ class ContactHomepageType extends AbstractType
                     'attr'  => array(
                         'placeholder' => 'frontend.forms.email',
                         'class' => 'newsletter-email'
+                    ),
+                    'constraints' => array(
+                        new Assert\NotBlank(),
+                        new Assert\Email(array(
+                            'strict'    => true,
+                            'checkMX'   => true,
+                            'checkHost' => true,
+                        )),
                     ),
                 )
             )
