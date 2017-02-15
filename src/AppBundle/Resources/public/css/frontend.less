@@ -30,7 +30,8 @@
 @gap-extra-big: @gap-normal * 3;
 @gap-big:       @gap-normal * 2;
 @gap-normal:    20px;
-@gap-small:     @gap-normal / 2;
+@gap-small:           @gap-normal / 2;
+@gap-extra-small:     @gap-normal / 20;
 @ek-font-size-base:  16px;
 @ek-font-size-large: ceil((@font-size-base * 1.25));
 @ek-font-size-small: ceil((@font-size-base * 0.95));
@@ -218,6 +219,7 @@ label.control-label {
 .extra-m-bottom { margin-bottom: @gap-big; }
 .small-m-top    { margin-top: @gap-small; }
 .small-m-bottom { margin-bottom: @gap-small; }
+.extra-small-m-bottom { margin-bottom: @gap-extra-small; }
 
 // Custom paddings
 .p-vertical {
