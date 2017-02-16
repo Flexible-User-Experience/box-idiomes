@@ -11,8 +11,8 @@
                 {% else %}
                     <img src="{{ asset('bundles/app/img/serveis.jpeg') | imagine_filter('480xY') }}" class="img-responsive img-rounded" alt="serveis">
                 {% endif %}
-                <h4 class="c-blue extra-big-m-top extra-m-bottom">{{ service.title }}</h4>
-                <p class="no-m">{{ service.description | raw }}</p>
+                <h4 class="c-blue m-top-30 normal-m-bottom">{{ service.title }}</h4>
+                <p class="extra-m-bottom">{{ service.description | raw }}</p>
             </div>
             {% if loop.index is divisible by(2) %}
                 </div>

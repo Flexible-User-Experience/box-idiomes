@@ -213,6 +213,13 @@ label.control-label {
   }
 }
 
+.bottom-margin-responsive {
+  margin-bottom: 0;
+  @media(max-width: @screen-sm-min) {
+    margin-bottom: @gap-big;
+  }
+}
+
 .no-m { margin: 0; }
 .no-m-top { margin-top: 0; }
 .no-p-top { padding-top: 0; }
@@ -222,6 +229,7 @@ label.control-label {
 .extra-big-m-top{ margin-top: @gap-extra-big; }
 .extra-double-m-top{ margin-top: @gap-double-extra-big; }
 .normal-m-top   { margin-top: @gap-normal; }
+.m-top-30   { margin-top: 30px; }
 .normal-m-bottom{ margin-bottom: @gap-normal; }
 .extra-m-bottom { margin-bottom: @gap-big; }
 .small-m-top    { margin-top: @gap-small; }
