@@ -16,7 +16,7 @@
         {# Teachers section #}
         <div class="row">
             {% for teacher in teachers %}
-            <div class="col-sm-4">
+            <div class="col-sm-4 col-xs-8 col-sm-offset-0 col-xs-offset-2">
                 {% if teacher.imageName is not null %}
                     <img src="{{ vich_uploader_asset(teacher, 'imageFile') | imagine_filter('480x620_teacher_mask') }}"
                          class="img-responsive" alt="{{ teacher.imageName }}">
@@ -35,15 +35,7 @@
         </div>
     </div>
     {# Flash message#}
-    <div class="p-vertical">
-        <div class="container">
-            <div class="row normal-m-top">
-                <div class="col-sm-12">
-                    {% include ':Front/includes:notice_flash.html.twig' %}
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include ':Front/includes:notice_flash.html.twig' %}
     {# Newsletter section #}
     <div class="p-vertical violet-background">
         <div class="container">
@@ -61,7 +53,7 @@
                     {{ form_widget(newsletterForm.email) }}
                     {{ form_errors(newsletterForm.email) }}
                 </div>
-                <div class="col-sm-4 text-center">
+                <div class="col-sm-4 text-center top-margin-responsive">
                     {{ form_rest(newsletterForm) }}
                 </div>
                 {{ form_end(newsletterForm) }}
@@ -72,16 +64,5 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            var errorNode = jQuery(".glyphicon-exclamation-sign");
-            var envelopeNode = jQuery(".fa-paper-plane-o");
-            if (errorNode.length > 0) {
-                jQuery('html,body').animate({scrollTop: errorNode.offset().top - 100}, "slow");
-            }
-            if (envelopeNode.length > 0) {
-                jQuery('html,body').animate({scrollTop: envelopeNode.offset().top - 100}, "slow");
-            }
-        });
-    </script>
+    {% include ':Front/includes:scroll-to-flash-js.html.twig' %}
 {% endblock %}

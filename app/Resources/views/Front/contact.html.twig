@@ -4,7 +4,6 @@
     <div class="container container-main">
         <div class="row">
             <div class="col-sm-5 col-md-4">
-                {% include ':Front/includes:notice_flash.html.twig' %}
                 {{ form_start(contactMessageForm) }}
                     {{ form_row(contactMessageForm.name) }}
                     {{ form_row(contactMessageForm.phone) }}
@@ -18,20 +17,10 @@
             </div>
         </div>
     </div>
+    {% include ':Front/includes:notice_flash.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-            var errorNode = jQuery(".glyphicon-exclamation-sign");
-            var envelopeNode = jQuery(".fa-paper-plane-o");
-            if (errorNode.length > 0) {
-                jQuery('html,body').animate({scrollTop: errorNode.offset().top - 100}, "slow");
-            }
-            if (envelopeNode.length > 0) {
-                jQuery('html,body').animate({scrollTop: envelopeNode.offset().top - 100}, "slow");
-            }
-        });
-    </script>
+    {% include ':Front/includes:scroll-to-flash-js.html.twig' %}
 {% endblock %}
