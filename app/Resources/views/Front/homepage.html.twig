@@ -16,7 +16,7 @@
         {# Teachers section #}
         <div class="row">
             {% for teacher in teachers %}
-            <div class="col-sm-4 col-xs-8 col-xs-offset-2">
+            <div class="col-sm-4 col-xs-8 col-sm-offset-0 col-xs-offset-2">
                 {% if teacher.imageName is not null %}
                     <img src="{{ vich_uploader_asset(teacher, 'imageFile') | imagine_filter('480x620_teacher_mask') }}"
                          class="img-responsive" alt="{{ teacher.imageName }}">
@@ -53,7 +53,7 @@
                     {{ form_widget(newsletterForm.email) }}
                     {{ form_errors(newsletterForm.email) }}
                 </div>
-                <div class="col-sm-4 text-center">
+                <div class="col-sm-4 text-center top-margin-responsive">
                     {{ form_rest(newsletterForm) }}
                 </div>
                 {{ form_end(newsletterForm) }}
