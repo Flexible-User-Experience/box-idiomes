@@ -16,7 +16,7 @@
         {# Teachers section #}
         <div class="row">
             {% for teacher in teachers %}
-            <div class="col-sm-4">
+            <div class="col-sm-4 col-xs-8 col-xs-offset-2">
                 {% if teacher.imageName is not null %}
                     <img src="{{ vich_uploader_asset(teacher, 'imageFile') | imagine_filter('480x620_teacher_mask') }}"
                          class="img-responsive" alt="{{ teacher.imageName }}">
