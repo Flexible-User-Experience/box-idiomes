@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ContactMessageRepository")
  */
-class ContactMessage extends AbstractBase
+class ContactMessage extends NewsletterContact
 {
     use DescriptionTrait;
 
@@ -37,13 +37,6 @@ class ContactMessage extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $phone;
@@ -56,50 +49,12 @@ class ContactMessage extends AbstractBase
     private $message;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $checked = false;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $answered = false;
-
-    /**
      *
      *
      * Methods
      *
      *
      */
-
-    /**
-     * Set Email
-     *
-     * @param string $email
-     *
-     * @return $this
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get Email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
 
     /**
      * Get Name
@@ -171,54 +126,6 @@ class ContactMessage extends AbstractBase
     public function getMessage()
     {
         return $this->message;
-    }
-
-    /**
-     * Set Checked
-     *
-     * @param boolean $checked
-     *
-     * @return $this
-     */
-    public function setChecked($checked)
-    {
-        $this->checked = $checked;
-
-        return $this;
-    }
-
-    /**
-     * Get Checked
-     *
-     * @return boolean
-     */
-    public function getChecked()
-    {
-        return $this->checked;
-    }
-
-    /**
-     * Set Answered
-     *
-     * @param boolean $answered
-     *
-     * @return $this
-     */
-    public function setAnswered($answered)
-    {
-        $this->answered = $answered;
-
-        return $this;
-    }
-
-    /**
-     * Get Answered
-     *
-     * @return boolean
-     */
-    public function getAnswered()
-    {
-        return $this->answered;
     }
 
     /**
