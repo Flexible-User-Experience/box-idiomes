@@ -17,7 +17,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
 class NewsletterContactAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Newsletter Contact ';
-    protected $baseRoutePattern = 'contact/newsletter';
+    protected $baseRoutePattern = 'newsletter/contacts';
     protected $datagridValues = array(
         '_sort_by'    => 'createdAt',
         '_sort_order' => 'desc',
@@ -34,8 +34,8 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
             ->remove('create')
             ->remove('edit')
             ->remove('delete')
-            ->remove('batch')
-            ->add('answer', $this->getRouterIdParameter() . '/answer');
+            ->remove('batch');
+//            ->add('answer', $this->getRouterIdParameter() . '/answer');
     }
 
     /**
@@ -75,41 +75,41 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
             );
     }
 
-    /**
-     * @param ShowMapper $showMapper
-     */
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add(
-                'checked',
-                null,
-                array(
-                    'label' => 'backend.admin.contact.checked',
-                )
-            )
-            ->add(
-                'createdAt',
-                'date',
-                array(
-                    'label'  => 'backend.admin.date',
-                    'format' => 'd/m/Y H:i',
-                )
-            )
-            ->add(
-                'email',
-                null,
-                array(
-                    'label' => 'backend.admin.contact.email',
-                )
-            )
-            ->add(
-                'answered',
-                null,
-                array(
-                    'label' => 'backend.admin.contact.answered',
-                )
-            );
+//    /**
+//     * @param ShowMapper $showMapper
+//     */
+//    protected function configureShowFields(ShowMapper $showMapper)
+//    {
+//        $showMapper
+//            ->add(
+//                'checked',
+//                null,
+//                array(
+//                    'label' => 'backend.admin.contact.checked',
+//                )
+//            )
+//            ->add(
+//                'createdAt',
+//                'date',
+//                array(
+//                    'label'  => 'backend.admin.date',
+//                    'format' => 'd/m/Y H:i',
+//                )
+//            )
+//            ->add(
+//                'email',
+//                null,
+//                array(
+//                    'label' => 'backend.admin.contact.email',
+//                )
+//            )
+//            ->add(
+//                'answered',
+//                null,
+//                array(
+//                    'label' => 'backend.admin.contact.answered',
+//                )
+//            );
 //        if ($this->getSubject()->getAnswered()) {
 //            $showMapper
 //                ->add(
@@ -120,7 +120,7 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
 //                    )
 //                );
 //        }
-    }
+//    }
 
     /**
      * @param ListMapper $listMapper
@@ -162,14 +162,14 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-                    'actions' => array(
-                        'show'   => array(
-                            'template' => '::Admin/Buttons/list__action_show_button.html.twig'
-                        ),
-                        'answer' => array(
-                            'template' => '::Admin/Cells/list__action_answer.html.twig'
-                        )
-                    ),
+//                    'actions' => array(
+//                        'show'   => array(
+//                            'template' => '::Admin/Buttons/list__action_show_button.html.twig'
+//                        ),
+//                        'answer' => array(
+//                            'template' => '::Admin/Cells/list__action_answer.html.twig'
+//                        )
+//                    ),
                 )
             );
     }
