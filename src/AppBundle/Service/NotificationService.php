@@ -148,18 +148,20 @@ class NotificationService
     /**
      * Send a newsletter subscription form notification to admin user
      *
-     * @param ContactMessage $contactMessage
+     * @param NewsletterContact $newsletterContact
+     *
+     * @internal param ContactMessage $contactMessage
      */
-    public function sendNewsletterSubscriptionAdminNotification(ContactMessage $contactMessage)
+    public function sendNewsletterSubscriptionAdminNotification(NewsletterContact $newsletterContact)
     {
         $this->messenger->sendEmail(
             $this->amd,
             $this->amd,
             'Missatge de newsletter pàgina web ' . $this->urlBase,
             $this->twig->render(':Mails:newsletter_form_admin_notification.html.twig', array(
-                'contact' => $contactMessage,
+                'contact' => $newsletterContact,
             )),
-            $contactMessage->getEmail()
+            $newsletterContact->getEmail()
         );
     }
 
@@ -178,7 +180,7 @@ class NotificationService
             $this->amd,
             $newsletterContact->getEmail(),
             'Notificació pàgina web ' . $this->urlBase,
-            $this->twig->render(':Mails:common_user_notification.html.twig', array(
+            $this->twig->render(':Mails:common_newsletter_user_notification.html.twig', array(
                 'contact' => $newsletterContact,
             ))
         );
