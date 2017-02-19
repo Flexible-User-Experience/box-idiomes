@@ -26,21 +26,6 @@ class NewsletterContact extends AbstractBase
     private $email;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $checked = false;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $answered = false;
-
-
-    /**
      *
      *
      * Methods
@@ -70,53 +55,5 @@ class NewsletterContact extends AbstractBase
     public function getEmail()
     {
         return $this->email;
-    }
-
-    /**
-     * Set Checked
-     *
-     * @param boolean $checked
-     *
-     * @return $this
-     */
-    public function setChecked($checked)
-    {
-        $this->checked = $checked;
-
-        return $this;
-    }
-
-    /**
-     * Get Checked
-     *
-     * @return boolean
-     */
-    public function getChecked()
-    {
-        return $this->checked;
-    }
-
-    /**
-     * Set Answered
-     *
-     * @param boolean $answered
-     *
-     * @return $this
-     */
-    public function setAnswered($answered)
-    {
-        $this->answered = $answered;
-
-        return $this;
-    }
-
-    /**
-     * Get Answered
-     *
-     * @return boolean
-     */
-    public function getAnswered()
-    {
-        return $this->answered;
     }
 }

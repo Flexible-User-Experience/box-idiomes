@@ -17,8 +17,6 @@ AppBundle\Entity\ContactMessage:
 AppBundle\Entity\NewsletterContact:
   newslettercontact{1..20}:
     email: <safeEmail()>
-    checked: <boolean(70)>
-    answered: <boolean(30)>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
