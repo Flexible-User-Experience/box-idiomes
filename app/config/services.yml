@@ -53,3 +53,7 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+# Mailchimp Manager
+    app.mailchimp_manager:
+        class: AppBundle\Manager\MailchimpManager
+        arguments: [ "@app.notification", "%mailchimp_api_key%" ]

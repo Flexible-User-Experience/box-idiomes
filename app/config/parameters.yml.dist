@@ -37,3 +37,8 @@ parameters:
 
     facebook_pixel_enabled: false
     facebook_pixel_id: XXXXXX
+
+    mailchimp_api_key: xxxxxxx-us5
+    mailchimp_newsletter_list_id: xxxxxxx
+    mailchimp_test_list_id: xxxxxxx
+

@@ -23,6 +23,7 @@
         "doctrine/doctrine-migrations-bundle": "^1.2",
         "doctrine/migrations": "^1.0",
         "doctrine/orm": "^2.4.8",
+        "drewm/mailchimp-api": "^2.2",
         "egeloen/ckeditor-bundle": "^4.0",
         "egulias/email-validator": "^1.2",
         "excelwebzone/recaptcha-bundle": "^1.4",
