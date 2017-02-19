@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\ContactMessage;
+use AppBundle\Entity\NewsletterContact;
 
 /**
  * Class NotificationService
@@ -162,4 +163,24 @@ class NotificationService
         );
     }
 
+    /**
+     * Send a common notification mail to frontend user
+     *
+     * @param NewsletterContact $newsletterContact
+     *
+     * @return int If is 0 failure otherwise amount of recipients
+     * @internal param ContactMessage $contactMessage
+     *
+     */
+    public function sendCommonNewsletterUserNotification(NewsletterContact $newsletterContact)
+    {
+        return $this->messenger->sendEmail(
+            $this->amd,
+            $newsletterContact->getEmail(),
+            'Notificació pàgina web ' . $this->urlBase,
+            $this->twig->render(':Mails:common_user_notification.html.twig', array(
+                'contact' => $newsletterContact,
+            ))
+        );
+    }
 }
