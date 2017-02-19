@@ -45,13 +45,6 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'checked',
-                null,
-                array(
-                    'label' => 'backend.admin.contact.checked',
-                )
-            )
-            ->add(
                 'createdAt',
                 'doctrine_orm_date',
                 array(
@@ -66,61 +59,8 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.contact.email',
                 )
             )
-            ->add(
-                'answered',
-                null,
-                array(
-                    'label' => 'backend.admin.contact.answered',
-                )
-            );
+        ;
     }
-
-//    /**
-//     * @param ShowMapper $showMapper
-//     */
-//    protected function configureShowFields(ShowMapper $showMapper)
-//    {
-//        $showMapper
-//            ->add(
-//                'checked',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.contact.checked',
-//                )
-//            )
-//            ->add(
-//                'createdAt',
-//                'date',
-//                array(
-//                    'label'  => 'backend.admin.date',
-//                    'format' => 'd/m/Y H:i',
-//                )
-//            )
-//            ->add(
-//                'email',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.contact.email',
-//                )
-//            )
-//            ->add(
-//                'answered',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.contact.answered',
-//                )
-//            );
-//        if ($this->getSubject()->getAnswered()) {
-//            $showMapper
-//                ->add(
-//                    'description',
-//                    'textarea',
-//                    array(
-//                        'label' => 'backend.admin.contact.answered',
-//                    )
-//                );
-//        }
-//    }
 
     /**
      * @param ListMapper $listMapper
@@ -129,13 +69,6 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
     {
         unset($this->listModes['mosaic']);
         $listMapper
-            ->add(
-                'checked',
-                null,
-                array(
-                    'label' => 'backend.admin.contact.checked',
-                )
-            )
             ->add(
                 'createdAt',
                 'date',
@@ -151,23 +84,6 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.contact.email',
                 )
             )
-            ->add(
-                'answered',
-                null,
-                array(
-                    'label' => 'backend.admin.contact.answered',
-                )
-            )
-            ->add(
-                '_action',
-                'actions',
-                array(
-                    'actions' => array(
-                        'answer' => array(
-                            'template' => '::Admin/Cells/list__action_answer.html.twig'
-                        )
-                    ),
-                )
-            );
+        ;
     }
 }
