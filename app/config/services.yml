@@ -20,6 +20,11 @@ services:
         arguments: [ ~, AppBundle\Entity\ContactMessage, AppBundle:Admin\ContactMessageAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Contact Message", group: "Contacts" }
+    admin.newslettercontact:
+        class: AppBundle\Admin\NewsletterContactAdmin
+        arguments: [ ~, AppBundle\Entity\NewsletterContact, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Newsletter Contact ", group: "Contacts" }
 # Messaging
     app.courier:
         class: AppBundle\Service\CourierService
@@ -48,3 +53,7 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+# Mailchimp Manager
+    app.mailchimp_manager:
+        class: AppBundle\Manager\MailchimpManager
+        arguments: [ "@app.notification", "%mailchimp_api_key%" ]

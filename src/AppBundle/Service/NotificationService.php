@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\ContactMessage;
+use AppBundle\Entity\NewsletterContact;
 
 /**
  * Class NotificationService
@@ -147,19 +148,41 @@ class NotificationService
     /**
      * Send a newsletter subscription form notification to admin user
      *
-     * @param ContactMessage $contactMessage
+     * @param NewsletterContact $newsletterContact
+     *
+     * @internal param ContactMessage $contactMessage
      */
-    public function sendNewsletterSubscriptionAdminNotification(ContactMessage $contactMessage)
+    public function sendNewsletterSubscriptionAdminNotification(NewsletterContact $newsletterContact)
     {
         $this->messenger->sendEmail(
             $this->amd,
             $this->amd,
             'Missatge de newsletter pàgina web ' . $this->urlBase,
             $this->twig->render(':Mails:newsletter_form_admin_notification.html.twig', array(
-                'contact' => $contactMessage,
+                'contact' => $newsletterContact,
             )),
-            $contactMessage->getEmail()
+            $newsletterContact->getEmail()
         );
     }
 
+    /**
+     * Send a common notification mail to frontend user
+     *
+     * @param NewsletterContact $newsletterContact
+     *
+     * @return int If is 0 failure otherwise amount of recipients
+     * @internal param ContactMessage $contactMessage
+     *
+     */
+    public function sendCommonNewsletterUserNotification(NewsletterContact $newsletterContact)
+    {
+        return $this->messenger->sendEmail(
+            $this->amd,
+            $newsletterContact->getEmail(),
+            'Notificació pàgina web ' . $this->urlBase,
+            $this->twig->render(':Mails:common_newsletter_user_notification.html.twig', array(
+                'contact' => $newsletterContact,
+            ))
+        );
+    }
 }
