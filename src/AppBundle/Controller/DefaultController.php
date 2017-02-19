@@ -31,6 +31,10 @@ class DefaultController extends Controller
         $newsletterForm->handleRequest($request);
 
         if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
+            // Persist new contact message into DB
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contact);
+            $em->flush();
             /** @var MailchimpManager $mailchimpManager */
             $mailchimpManager = $this->get('app.mailchimp_manager');
 
