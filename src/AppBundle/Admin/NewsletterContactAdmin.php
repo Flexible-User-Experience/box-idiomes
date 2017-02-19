@@ -34,8 +34,8 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
             ->remove('create')
             ->remove('edit')
             ->remove('delete')
-            ->remove('batch');
-//            ->add('answer', $this->getRouterIdParameter() . '/answer');
+            ->remove('batch')
+            ->add('answer', $this->getRouterIdParameter() . '/answer');
     }
 
     /**
@@ -162,14 +162,11 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
                 '_action',
                 'actions',
                 array(
-//                    'actions' => array(
-//                        'show'   => array(
-//                            'template' => '::Admin/Buttons/list__action_show_button.html.twig'
-//                        ),
-//                        'answer' => array(
-//                            'template' => '::Admin/Cells/list__action_answer.html.twig'
-//                        )
-//                    ),
+                    'actions' => array(
+                        'answer' => array(
+                            'template' => '::Admin/Cells/list__action_answer.html.twig'
+                        )
+                    ),
                 )
             );
     }
