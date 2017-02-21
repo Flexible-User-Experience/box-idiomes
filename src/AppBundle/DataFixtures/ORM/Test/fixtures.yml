@@ -13,6 +13,14 @@ AppBundle\Entity\ContactMessage:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
+# NewsletterContact
+AppBundle\Entity\NewsletterContact:
+  newslettercontact{1..5}:
+    email: <safeEmail()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 # Teachers
 AppBundle\Entity\Teacher:
   teacher{1..2}:

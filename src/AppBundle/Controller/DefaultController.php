@@ -3,8 +3,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\ContactMessage;
+use AppBundle\Entity\NewsletterContact;
 use AppBundle\Form\Type\ContactHomepageType;
 use AppBundle\Form\Type\ContactMessageType;
+use AppBundle\Manager\MailchimpManager;
 use AppBundle\Service\NotificationService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,20 +18,32 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="app_homepage")
      *
+     * @param Request $request
+     *
      * @return Response
      */
     public function indexAction(Request $request)
     {
         $teachers = $this->getDoctrine()->getRepository('AppBundle:Teacher')->findAllEnabledSortedByPosition();
 
-        $contact = new ContactMessage();
+        $contact = new NewsletterContact();
         $newsletterForm = $this->createForm(ContactHomepageType::class, $contact);
         $newsletterForm->handleRequest($request);
 
         if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
+            // Persist new contact message into DB
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contact);
+            $em->flush();
+            /** @var MailchimpManager $mailchimpManager */
+//            $mailchimpManager = $this->get('app.mailchimp_manager');
+
             $this->setFlashMessageAndEmailNotifications($contact);
+            // Subscribe contact to mailchimp list
+//            $mailchimpManager->subscribeContactToList($contact, $this->getParameter('mailchimp_test_list_id'));
             // Clean up new form
-            $newsletterForm = $this->createForm(ContactHomepageType::class);
+            $contact = new NewsletterContact();
+            $newsletterForm = $this->createForm(ContactHomepageType::class, $contact);
         }
 
         return $this->render('Front/homepage.html.twig',
@@ -41,14 +55,14 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param ContactMessage $contact
+     * @param NewsletterContact $newsletterContact
      */
-    private function setFlashMessageAndEmailNotifications($contact)
+    private function setFlashMessageAndEmailNotifications($newsletterContact)
     {
         /** @var NotificationService $messenger */
         $messenger = $this->get('app.notification');
             // Send email notifications
-        if ($messenger->sendCommonUserNotification($contact) != 0) {
+        if ($messenger->sendCommonNewsletterUserNotification($newsletterContact) != 0) {
             // Set frontend flash message
             $this->addFlash(
                 'notice',
@@ -60,7 +74,7 @@ class DefaultController extends Controller
                 'El teu missatge no s\'ha enviat'
             );
         }
-        $messenger->sendNewsletterSubscriptionAdminNotification($contact);
+        $messenger->sendNewsletterSubscriptionAdminNotification($newsletterContact);
     }
 
     /**

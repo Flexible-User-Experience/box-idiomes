@@ -30,16 +30,31 @@ class ContactMessage extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $subject;
+    private $email;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $checked = false;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $answered = false;
+
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $email;
+    private $subject;
 
     /**
      * @var string
@@ -56,50 +71,12 @@ class ContactMessage extends AbstractBase
     private $message;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $checked = false;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $answered = false;
-
-    /**
      *
      *
      * Methods
      *
      *
      */
-
-    /**
-     * Set Email
-     *
-     * @param string $email
-     *
-     * @return $this
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get Email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
 
     /**
      * Get Name
@@ -126,51 +103,27 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Get Subject
+     * Set Email
      *
-     * @return string
-     */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
-    /**
-     * Set Subject
-     *
-     * @param string $subject
+     * @param string $email
      *
      * @return $this
      */
-    public function setSubject($subject)
+    public function setEmail($email)
     {
-        $this->subject = $subject;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Set Message
-     *
-     * @param string $message
-     *
-     * @return $this
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-
-        return $this;
-    }
-
-    /**
-     * Get Message
+     * Get Email
      *
      * @return string
      */
-    public function getMessage()
+    public function getEmail()
     {
-        return $this->message;
+        return $this->email;
     }
 
     /**
@@ -219,6 +172,54 @@ class ContactMessage extends AbstractBase
     public function getAnswered()
     {
         return $this->answered;
+    }
+
+    /**
+     * Get Subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * Set Subject
+     *
+     * @param string $subject
+     *
+     * @return $this
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Set Message
+     *
+     * @param string $message
+     *
+     * @return $this
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * Get Message
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
     }
 
     /**
