@@ -4,6 +4,7 @@ namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 
@@ -31,11 +32,23 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection
-            ->remove('create')
-            ->remove('edit')
-            ->remove('delete')
-            ->remove('batch')
-            ->add('answer', $this->getRouterIdParameter() . '/answer');
+            ->remove('batch');
+    }
+
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->add(
+                'email',
+                null,
+                array(
+                    'label' => 'backend.admin.contact.email',
+                )
+            )
+            ->end();
     }
 
     /**
@@ -84,6 +97,17 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.contact.email',
                 )
             )
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'actions' => array(
+                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
+                    ),
+                    'label'   => 'backend.admin.actions',
+                )
+            );
         ;
     }
 }
