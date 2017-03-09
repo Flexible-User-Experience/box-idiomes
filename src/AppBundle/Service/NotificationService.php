@@ -179,7 +179,7 @@ class NotificationService
         return $this->messenger->sendEmail(
             $this->amd,
             $newsletterContact->getEmail(),
-            'Notificació pàgina web ' . $this->urlBase,
+            'Notificació newsletter pàgina web ' . $this->urlBase,
             $this->twig->render(':Mails:common_newsletter_user_notification.html.twig', array(
                 'contact' => $newsletterContact,
             ))
