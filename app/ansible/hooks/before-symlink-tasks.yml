@@ -1,0 +1,27 @@
+- name: refresh cache
+  shell: chdir={{ ansistrano_release_path.stdout }}
+    SYMFONY_ENV={{ symfony_env }} {{ symfony_php_path }} {{ symfony_console_path }} cache:clear --no-warmup {{ symfony_cache_options }}
+- name: warm-up cache again
+  shell: chdir={{ ansistrano_release_path.stdout }}
+    SYMFONY_ENV={{ symfony_env }} {{ symfony_php_path }} {{ symfony_console_path }} cache:warmup {{ symfony_cache_options }}
+- name: fix symfony cache directory apache ownership
+  file:
+    path: "{{ ansistrano_release_path.stdout }}/var/cache/prod"
+    recurse: yes
+    owner: www-data
+    group: www-data
+- name: copy local web assets directory to remote
+  synchronize:
+    mode: push
+    recursive: yes
+    perms: yes
+    times: yes
+    src: "{{ playbook_dir }}/../../web/assets"
+    dest: "{{ ansistrano_release_path.stdout }}/web"
+- name: fix web assets directory to apache ownership
+  file:
+    path: "{{ ansistrano_release_path.stdout }}/web/assets"
+    recurse: yes
+    follow: yes
+    owner: www-data
+    group: www-data
