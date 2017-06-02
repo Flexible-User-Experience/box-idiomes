@@ -14,8 +14,9 @@
     ansistrano_keep_releases: 3
     # ansistrano shared resources
     ansistrano_shared_paths:
-      - "var/logs"
+      - "app/logs"
       - "web/media"
+      - "web/uploads"
     ansistrano_shared_files: []
     ansistrano_ensure_shared_paths_exist: yes
     ansistrano_ensure_basedirs_shared_files_exist: yes
@@ -29,12 +30,12 @@
     ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/hooks/after-symlink-tasks.yml"
     ansistrano_after_cleanup_tasks_file: "{{ playbook_dir }}/hooks/after-cleanup-tasks.yml"
     # symfony config
-    symfony_console_path: "bin/console"
+    symfony_console_path: "app/console"
     symfony_run_composer: true
     symfony_composer_path: "{{ ansistrano_deploy_to }}/composer.phar"
-    symfony_composer_options: "--no-dev --optimize-autoloader --no-interaction --no-scripts"
+    symfony_composer_options: "--no-dev --optimize-autoloader --no-interaction"
     symfony_composer_self_update: false
     symfony_run_assets_install: true
-    symfony_run_assetic_dump: false
+    symfony_run_assetic_dump: true
     symfony_run_cache_clear_and_warmup: true
     symfony_run_doctrine_migrations: true
