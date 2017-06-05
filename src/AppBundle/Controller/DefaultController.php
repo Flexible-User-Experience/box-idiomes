@@ -36,11 +36,11 @@ class DefaultController extends Controller
             $em->persist($contact);
             $em->flush();
             /** @var MailchimpManager $mailchimpManager */
-//            $mailchimpManager = $this->get('app.mailchimp_manager');
+            $mailchimpManager = $this->get('app.mailchimp_manager');
 
             $this->setFlashMessageAndEmailNotifications($contact);
             // Subscribe contact to mailchimp list
-//            $mailchimpManager->subscribeContactToList($contact, $this->getParameter('mailchimp_test_list_id'));
+            $mailchimpManager->subscribeContactToList($contact, $this->getParameter('mailchimp_test_list_id'));
             // Clean up new form
             $contact = new NewsletterContact();
             $newsletterForm = $this->createForm(ContactHomepageType::class, $contact);

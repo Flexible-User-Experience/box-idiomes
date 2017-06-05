@@ -166,6 +166,26 @@ class NotificationService
     }
 
     /**
+     * Send a newsletter subscription form notification to admin user on Mailchimp failure
+     *
+     * @param NewsletterContact $newsletterContact
+     *
+     * @internal param ContactMessage $contactMessage
+     */
+    public function sendFailureNewsletterSubscriptionAdminNotification(NewsletterContact $newsletterContact)
+    {
+        $this->messenger->sendEmail(
+            $this->amd,
+            $this->amd,
+            'Missatge de newsletter pàgina web ' . $this->urlBase,
+            $this->twig->render(':Mails:newsletter_form_admin_notification.html.twig', array(
+                'contact' => $newsletterContact,
+            )),
+            $newsletterContact->getEmail()
+        );
+    }
+
+    /**
      * Send a common notification mail to frontend user
      *
      * @param NewsletterContact $newsletterContact

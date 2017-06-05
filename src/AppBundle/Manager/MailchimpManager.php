@@ -65,7 +65,7 @@ class MailchimpManager
 
         // check error
         if ($result === false) {
-            $this->messenger->sendCommonNewsletterUserNotification('En ' . $newsletterContact->getEmail() . ' no s\'ha pogut registrar a la llista de Mailchimp');
+            $this->messenger->sendCommonNewsletterUserNotification($newsletterContact);
         }
 
         return $result;
