@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -55,6 +56,14 @@ class ServiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.service.title',
+                )
+            )
+            ->add(
+                'description',
+                CKEditorType::class,
+                array(
+                    'label'       => 'backend.admin.description',
+                    'config_name' => 'my_config',
                 )
             )
             ->end()

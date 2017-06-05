@@ -1,0 +1,27 @@
+{% extends ':Mails:base.html.twig' %}
+
+{% block subject %}Notificació{% endblock %}
+
+{% block content %}
+    <table class="row">
+        <tbody>
+        <tr>
+            <th class="small-12 large-12 columns first last vertical-padding">
+                <table>
+                    <tr>
+                        <th>
+                            <h4 class="grey-color text-center">Gràcies per contactar amb nosaltres</h4>
+                            <h4 class="grey-color text-center">{{ contact.name }}</h4>
+                            <p class="blue-color text-center normal-m-top">
+                                Et respondrem el més aviat possible.<br>
+                                Seguim en contacte.
+                            </p>
+                        </th>
+                        <th class="expander"></th>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

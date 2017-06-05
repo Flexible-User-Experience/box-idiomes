@@ -22,6 +22,7 @@ parameters:
 
     google_analytics_enabled: false
     google_analytics_account: "UA-fake..."
+    google_maps_api_key: "UA-fake..."
 
     path_java:         /usr/bin/java
     path_node:         /usr/bin/nodejs
@@ -36,3 +37,7 @@ parameters:
 
     facebook_pixel_enabled: false
     facebook_pixel_id: XXXXXX
+
+    mailchimp_api_key: xxxxxxx-us5
+    mailchimp_newsletter_list_id: xxxxxxx
+

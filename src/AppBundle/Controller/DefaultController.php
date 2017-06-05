@@ -3,7 +3,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\ContactMessage;
+use AppBundle\Entity\NewsletterContact;
 use AppBundle\Form\Type\ContactHomepageType;
+use AppBundle\Form\Type\ContactMessageType;
+use AppBundle\Manager\MailchimpManager;
 use AppBundle\Service\NotificationService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,20 +18,41 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="app_homepage")
      *
+     * @param Request $request
+     *
      * @return Response
      */
     public function indexAction(Request $request)
     {
         $teachers = $this->getDoctrine()->getRepository('AppBundle:Teacher')->findAllEnabledSortedByPosition();
 
-        $contact = new ContactMessage();
+        $contact = new NewsletterContact();
         $newsletterForm = $this->createForm(ContactHomepageType::class, $contact);
         $newsletterForm->handleRequest($request);
 
         if ($newsletterForm->isSubmitted() && $newsletterForm->isValid()) {
-            $this->setFlashMessageAndEmailNotifications($contact);
-            // Clean up new form
-            $newsletterForm = $this->createForm(ContactHomepageType::class);
+            // Persist new contact message into DB
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contact);
+            $em->flush();
+            /** @var MailchimpManager $mailchimpManager */
+            $mailchimpManager = $this->get('app.mailchimp_manager');
+            // Subscribe contact to mailchimp list
+            $result = $mailchimpManager->subscribeContactToList($contact, $this->getParameter('mailchimp_test_list_id'));
+
+            if ($result === false) {
+                // Send notification and OK flash
+                $this->setFlashMessageAndEmailNotifications($contact);
+                // Clean up new form
+                $contact = new NewsletterContact();
+                $newsletterForm = $this->createForm(ContactHomepageType::class, $contact);
+            } else {
+                // Mailchimp error
+                $this->addFlash(
+                    'danger',
+                    'S\'ha produït un error durant el procés de registre al newsletter. Torna a provar-ho més tard o contacta a través del formulari web.'
+                );
+            }
         }
 
         return $this->render('Front/homepage.html.twig',
@@ -40,35 +64,26 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param ContactMessage $contact
+     * @param NewsletterContact $newsletterContact
      */
-    private function setFlashMessageAndEmailNotifications($contact)
+    private function setFlashMessageAndEmailNotifications($newsletterContact)
     {
         /** @var NotificationService $messenger */
         $messenger = $this->get('app.notification');
             // Send email notifications
-//        $messenger->sendCommonUserNotification($contact);
-        $messenger->sendNewsletterSubscriptionAdminNotification($contact);
-        // Set frontend flash message
-        $this->addFlash(
-            'notice',
-            'El teu missatge s\'ha enviat correctament'
-        );
-    }
-
-    /**
-     * @Route("/professors", name="app_teachers")
-     *
-     * @return Response
-     */
-    public function teachersAction()
-    {
-        $teachers = $this->getDoctrine()->getRepository('AppBundle:Teacher')->findAllEnabledSortedByPosition();
-
-        return $this->render(
-            'Front/teachers.html.twig',
-            ['teachers' => $teachers]
-        );
+        if ($messenger->sendCommonNewsletterUserNotification($newsletterContact) != 0) {
+            // Set frontend flash message
+            $this->addFlash(
+                'notice',
+                'El teu missatge s\'ha enviat correctament'
+            );
+        } else {
+            $this->addFlash(
+                'danger',
+                'El teu missatge no s\'ha enviat'
+            );
+        }
+        $messenger->sendNewsletterSubscriptionAdminNotification($newsletterContact);
     }
 
     /**
@@ -88,25 +103,57 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/quisom", name="app_aboutus")
+     * @Route("/academia", name="app_academy")
      *
      * @return Response
      */
-    public function aboutusAction()
+    public function academyAction()
     {
-        return $this->render('Front/about_us.html.twig');
+        return $this->render('Front/academy.html.twig');
     }
 
     /**
      * @Route("/contacte", name="app_contact")
      *
+     * @param Request $request
+     *
      * @return Response
      */
-    public function contactAction()
+    public function contactAction(Request $request)
     {
+        $contactMessage = new ContactMessage();
+        $contactMessageForm = $this->createForm(ContactMessageType::class, $contactMessage);
+        $contactMessageForm->handleRequest($request);
+
+        if ($contactMessageForm->isSubmitted() && $contactMessageForm->isValid()) {
+            // Persist new contact message into DB
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contactMessage);
+            $em->flush();
+            // Send email notifications
+            /** @var NotificationService $messenger */
+            $messenger = $this->get('app.notification');
+            if ($messenger->sendCommonUserNotification($contactMessage) != 0) {
+                // Set frontend flash message
+                $this->addFlash(
+                    'notice',
+                    'El teu missatge s\'ha enviat correctament'
+                );
+            } else {
+                $this->addFlash(
+                    'danger',
+                    'El teu missatge no s\'ha enviat'
+                );
+            }
+            $messenger->sendContactAdminNotification($contactMessage);
+            // Clean up new form
+            $contactMessage = new ContactMessage();
+            $contactMessageForm = $this->createForm(ContactMessageType::class, $contactMessage);
+        }
+
         return $this->render(
-            'Front/contact.html.twig'
-//            ['teachers' => $teachers]
+            'Front/contact.html.twig',
+            ['contactMessageForm' => $contactMessageForm->createView()]
         );
     }
 
@@ -128,5 +175,22 @@ class DefaultController extends Controller
     public function creditsAction()
     {
         return $this->render('Front/credits.html.twig');
+    }
+
+    /**
+     * @Route("/test-email", name="app_test_email")
+     *
+     * @return Response
+     */
+    public function testEmailAction()
+    {
+        $contact = new ContactMessage();
+        $contact->setName('Anton');
+//        $contact->setEmail('Anton@gmail.com');
+//        $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(1);
+
+        return$this->render(':Mails:base.html.twig', array(
+            'contact'=> $contact
+        ));
     }
 }

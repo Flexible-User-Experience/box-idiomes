@@ -146,4 +146,12 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
                 '480xY'
             ) . '" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '') . '<span style="width:100%;display:block;">mida 780x1168px (màx. 10MB amb GIF)</span>';
     }
+
+    protected function getImageHelperFormMapperWithThumbnailAspectRatio()
+    {
+        return ($this->getSubject() ? $this->getSubject()->getImageName() ? '<img src="' . $this->lis->getBrowserPath(
+                    $this->vus->asset($this->getSubject(), 'imageFile'),
+                    '480xY'
+                ) . '" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '') . '<span style="width:100%;display:block;">Les imatges han de ser verticals (màx. 10MB)</span>';
+    }
 }

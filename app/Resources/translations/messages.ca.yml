@@ -1,14 +1,19 @@
 frontend:
     menu:
-        aboutus: qui som
+        academy: l'acadèmia
         services: serveis
         contact: contacte
         cms: "[ CMS ]"
     credits:
-        credits: credits
+        credits: crèdits
     forms:
+        name: Nom
+        phone: Telèfon
         email: Email
-        send: SUBSCRIU-T'HI
+        message: Missatge
+        subscribe: SUBSCRIU-T'HI
+        send: Envia
+
 backend:
     admin:
         actions: Accions
@@ -20,6 +25,7 @@ backend:
         published_date: Data de publicació
         image: Imatge
         position: Posició
+        description: Descripció
         user:
             user: Usuari
             editor: Editor

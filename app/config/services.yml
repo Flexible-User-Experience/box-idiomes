@@ -20,6 +20,11 @@ services:
         arguments: [ ~, AppBundle\Entity\ContactMessage, AppBundle:Admin\ContactMessageAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Contact Message", group: "Contacts" }
+    admin.newslettercontact:
+        class: AppBundle\Admin\NewsletterContactAdmin
+        arguments: [ ~, AppBundle\Entity\NewsletterContact, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Newsletter Contact ", group: "Contacts" }
 # Messaging
     app.courier:
         class: AppBundle\Service\CourierService
@@ -30,16 +35,25 @@ services:
 # Menu
     app.frontend_menu_builder:
         class: AppBundle\Menu\FrontendMenuBuilder
-        arguments: [ "@knp_menu.factory", "@security.authorization_checker" ]
+        arguments: [ "@knp_menu.factory", "@security.authorization_checker", "@security.token_storage" ]
     app.frontend_top_menu:
         class: Knp\Menu\MenuItem
         factory: [ "@app.frontend_menu_builder", createTopMenu ]
         arguments: [ "@request_stack" ]
         tags:
             - { name: knp_menu.menu, alias: top }
+# Sitemap
+    app.sitemap:
+        class: AppBundle\Listener\SitemapListener
+        arguments: [ "@router", "@doctrine.orm.entity_manager" ]
+        tags: [ { name: "presta.sitemap.listener" } ]
 # Twig
     app.twig_extension:
         class: AppBundle\Twig\AppExtension
         public: false
         tags:
             - { name: twig.extension }
+# Mailchimp Manager
+    app.mailchimp_manager:
+        class: AppBundle\Manager\MailchimpManager
+        arguments: [ "@app.notification", "%mailchimp_api_key%" ]

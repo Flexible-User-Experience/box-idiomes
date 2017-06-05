@@ -1,52 +1,66 @@
 {% extends 'Front/layout.html.twig' %}
 
 {% block main %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="text-center">
-                <img src="{{ asset('bundles/app/img/head.jpeg') | imagine_filter('2400xY') }}"
-                     class="img-responsive center-block" alt="head">
+    <div class="container">
+        <div class="row extra-m-bottom">
+            <div class="col-xs-12">
+                <h2 class="hidden">Viu els idiomes</h2>
+                <div class="text-center">
+                    <img src="{{ asset('bundles/app/img/homepage_def.png') }}"
+                         class="img-responsive center-block" alt="imatge portada">
+                </div>
             </div>
         </div>
-    </div>
-    {# Teachers section #}
-    <div class="container container-main">
+        {# Teachers section #}
         <div class="row">
             {% for teacher in teachers %}
-                <div class="col-sm-4">
-                    {% if teacher.imageName is not null %}
-                        <img src="{{ vich_uploader_asset(teacher, 'imageFile') | imagine_filter('480xY') }}"
-                             class="img-responsive" alt="{{ teacher.imageName }}">
-                    {% else %}
-                        <img src="{{ asset('bundles/app/img/1teacher.jpeg') | imagine_filter('480xY') }}" class="img-responsive" alt="1teacher">
-                    {% endif %}
-                    <h4 class="{{ teacher.cssColor }} normal-m-top">{{ teacher.name }}</h4>
-                    <p>{{ teacher.description }}</p>
-                </div>
+            <div class="col-sm-4 col-xs-8 col-sm-offset-0 col-xs-offset-2 bottom-margin-responsive">
+                {% if teacher.imageName is not null %}
+                    <img src="{{ vich_uploader_asset(teacher, 'imageFile') | imagine_filter('480x620_teacher_mask') }}"
+                         class="img-responsive" alt="{{ teacher.imageName }}">
+                {% else %}
+                    <img src="{{ asset('bundles/app/img/1teacher.jpeg') | imagine_filter('480x620_teacher_mask') }}"
+                         class="img-responsive" alt="1teacher">
+                {% endif %}
+                <h4 class="{{ teacher.cssColor }} normal-m-top">{{ teacher.name }}</h4>
+                <p>{{ teacher.description | raw }}</p>
+            </div>
             {% if loop.index is divisible by(3) %}
-                </div>
-                <div class="row extra-big-m-top">
+        </div>
+        <div class="row extra-big-m-top">
             {% endif %}
             {% endfor %}
         </div>
     </div>
+    {# Flash message#}
+    {% include ':Front/includes:notice_flash.html.twig' %}
     {# Newsletter section #}
     <div class="p-vertical violet-background">
         <div class="container">
             <div class="row normal-m-top">
+                <div class="col-sm-12">
+                    <h4 class="c-white no-m-top">Newsletter</h4>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-4">
-                    <h4 class="c-white no-m-top">NEWSLETTER</h4>
+                    <p class="c-white no-m-top">Subscriu-te! et mantindrem informat de totes les novetats.</p>
                 </div>
                 {{ form_start(newsletterForm) }}
                 <div class="col-sm-4">
                     {{ form_widget(newsletterForm.email) }}
                     {{ form_errors(newsletterForm.email) }}
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-4 text-center top-margin-responsive">
                     {{ form_rest(newsletterForm) }}
                 </div>
                 {{ form_end(newsletterForm) }}
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% include ':Front/includes:scroll-to-flash-js.html.twig' %}
 {% endblock %}

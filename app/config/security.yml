@@ -4,12 +4,15 @@ security:
     role_hierarchy:
         ROLE_SONATA_CMS:
             - ROLE_ADMIN_TEACHER_ALL
-        ROLE_SONATA_MANAGER:
-            - ROLE_ADMIN_USER_ALL
+            - ROLE_ADMIN_SERVICE_ALL
+            - ROLE_ADMIN_CONTACTMESSAGE_ALL
+            - ROLE_ADMIN_NEWSLETTERCONTACT_ALL
         ROLE_CMS:
             - ROLE_USER
             - ROLE_SONATA_CMS
             - ROLE_SONATA_ADMIN
+        ROLE_SONATA_MANAGER:
+            - ROLE_ADMIN_USER_ALL
         ROLE_ADMIN:
             - ROLE_CMS
             - ROLE_SONATA_MANAGER

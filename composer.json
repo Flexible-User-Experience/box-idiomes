@@ -20,6 +20,8 @@
         "cypresslab/gitelephant-bundle": "^0.0.6",
         "doctrine/doctrine-bundle": "~1.4",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
+        "doctrine/doctrine-migrations-bundle": "^1.2",
+        "doctrine/migrations": "^1.0",
         "doctrine/orm": "^2.4.8",
         "egeloen/ckeditor-bundle": "^4.0",
         "egulias/email-validator": "^1.2",
@@ -31,9 +33,8 @@
         "knplabs/knp-menu-bundle": "^2.0",
         "knplabs/knp-paginator-bundle": "^2.5",
         "liip/functional-test-bundle": "^1.0",
-        "liip/imagine-bundle": "1.6.0",
-        "ocramius/proxy-manager": "1.0.2",
-        "php": ">=5.3.9",
+        "liip/imagine-bundle": "^1.0",
+        "php": ">=7.1.0",
         "presta/sitemap-bundle": "^1.3",
         "sensio/distribution-bundle": "~5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
@@ -47,10 +48,12 @@
         "symfony/swiftmailer-bundle": "~2.3",
         "twbs/bootstrap": "^3.0",
         "twig/extensions": "^1.3",
-        "vich/uploader-bundle": "^1.1"
+        "vich/uploader-bundle": "^1.5",
+        "drewm/mailchimp-api": "^2.4"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~3.0"
+        "sensio/generator-bundle": "~3.0",
+        "phpunit/phpunit": "^5.0"
     },
     "scripts": {
         "symfony-scripts": [

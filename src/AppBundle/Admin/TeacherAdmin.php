@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Enum\TeacherColorEnum;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -47,7 +48,7 @@ class TeacherAdmin extends AbstractBaseAdmin
                 'file',
                 array(
                     'label'    => 'backend.admin.image',
-                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
+                    'help'     => $this->getImageHelperFormMapperWithThumbnailAspectRatio(),
                     'required' => false,
                 )
             )
@@ -56,6 +57,14 @@ class TeacherAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.teacher.name',
+                )
+            )
+            ->add(
+                'description',
+                CKEditorType::class,
+                array(
+                    'label' => 'backend.admin.description',
+                    'config_name' => 'my_config',
                 )
             )
             ->end()

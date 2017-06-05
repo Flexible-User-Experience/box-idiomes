@@ -38,15 +38,17 @@ twig:
     globals:
         google_analytics_enabled: "%google_analytics_enabled%"
         google_analytics_account: "%google_analytics_account%"
+        google_maps_api_key:      "%google_maps_api_key%"
         facebook_pixel_enabled:   "%facebook_pixel_enabled%"
         facebook_pixel_id:        "%facebook_pixel_id%"
         main_brand_title:         "%project_web_title%"
-        admin_tag_version:        "v1.0.1"
+        admin_tag_version:        "v1.0.26"
 
 # Assetic
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
+    bundles:        [ AppBundle ]
     java:           "%path_java%"
     node:           "%path_node%"
     filters:
@@ -57,7 +59,8 @@ assetic:
     assets:
         mycss:
             inputs:
-                - "@AppBundle/Resources/public/css/frontend.less"
+#                - "@AppBundle/Resources/public/css/frontend.less"
+                - "@AppBundle/Resources/public/css/icomoon.less"
         myjs:
             inputs:
                 - "%kernel.root_dir%/../vendor/components/jquery/jquery.js"
@@ -76,11 +79,14 @@ doctrine:
         charset:  UTF8
         types:
             json: Sonata\Doctrine\Types\JsonType
-
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+
+doctrine_migrations:
+    dir_name:  "%kernel.root_dir%/../src/AppBundle/DoctrineMigrations"
+    namespace: AppBundle\DoctrineMigrations
 
 # Sonata Block
 sonata_block:
@@ -107,14 +113,16 @@ fos_user:
 
 # Admin
 sonata_admin:
-#    title: "%project_web_title%"
-#    title_logo: "/bundles/app/img/logo-espai-kowo-backend.png"
+    title: "%project_web_title%"
+    title_logo: "/bundles/app/img/menu-logo.jpg"
     options:
         html5_validate: true
         confirm_exit:   true
         use_select2:    true
         pager_links:    10
     persist_filters: true
+    security:
+        handler: sonata.admin.security.handler.role
     templates:
         layout: "::Admin/layout.html.twig"
 #        edit:   "::Admin/edit.html.twig"
@@ -181,3 +189,10 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# CKEditor
+ivory_ck_editor:
+    inline: false
+    configs:
+        my_config:
+            toolbar: standard

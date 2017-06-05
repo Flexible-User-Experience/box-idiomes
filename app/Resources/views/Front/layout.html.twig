@@ -4,7 +4,7 @@
 <!--[if IE 8]>        <html lang="{{ app.request.locale }}" class="no-js lt-ie9"><![endif]-->
 <!--[if gt IE 8]><!--><html lang="{{ app.request.locale }}" class="no-js"><!--<![endif]-->
 <head>
-    <meta name="description" content="{% block metadescription %}{% endblock %}">
+    <meta name="description" content="{% block metadescription %}academia anglès box idiomes amposta{% endblock %}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="author" content="www.flux.cat">
     <meta charset="UTF-8">
@@ -38,7 +38,7 @@
 <body{% block body_class %}{% endblock %}>
 {#<!-- Head content -->#}
 {% block header %}
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             {#<!-- Brand and toggle get grouped for better mobile display -->#}
             <div class="navbar-header">
@@ -49,6 +49,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand navbar-brand-logo" href="{{ path('app_homepage') }}">
+                    <h1 class="hidden">{{ main_brand_title }}</h1>
                     <svg height="70" width="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <image height="70" width="100" class="navbar-logo" xlink:href="{{ asset('bundles/app/svg/box-logo-header.svg') }}" alt="Box Idiomes Logo"></image>
                     </svg>
@@ -71,8 +72,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-4 col-xs-4 text-left">
-                    <span class="text-title">Segueix-nos</span><br>
-                    <a href="https://www.facebook.com/boxviuelsidiomes/"><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a>
+                    <p class="text-title">Segueix-nos</p>
+                    <a href="https://www.facebook.com/boxviuelsidiomes/">
+                        <i class="fa-2x icon-face-icon" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.instagram.com/boxidiomes/">
+                        <i class="fa-2x icon-inst-icon" aria-hidden="true"></i>
+                    </a>
                 </div>
                 <div class="col-sm-4 col-xs-4">
                     <span class="text-title">Adreça</span><br>

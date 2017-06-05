@@ -14,7 +14,10 @@ class AppKernel extends Kernel
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            // Doctrine
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            // SensioLabs
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             // Sonata
             new Sonata\AdminBundle\SonataAdminBundle(),
@@ -25,8 +28,11 @@ class AppKernel extends Kernel
             // Vendors
             new FOS\UserBundle\FOSUserBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
+            new Hampe\Bundle\ZurbInkBundle\HampeZurbInkBundle(),
+            new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
+            new Presta\SitemapBundle\PrestaSitemapBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             // App

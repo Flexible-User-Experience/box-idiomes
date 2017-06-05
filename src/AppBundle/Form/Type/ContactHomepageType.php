@@ -5,7 +5,8 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -31,6 +32,15 @@ class ContactHomepageType extends AbstractType
                     'required' => false,
                     'attr'  => array(
                         'placeholder' => 'frontend.forms.email',
+                        'class' => 'newsletter-email'
+                    ),
+                    'constraints' => array(
+                        new Assert\NotBlank(),
+                        new Assert\Email(array(
+                            'strict'    => true,
+                            'checkMX'   => true,
+                            'checkHost' => true,
+                        )),
                     ),
                 )
             )
@@ -38,7 +48,7 @@ class ContactHomepageType extends AbstractType
                 'send',
                 SubmitType::class,
                 array(
-                    'label' => 'frontend.forms.send',
+                    'label' => 'frontend.forms.subscribe',
                     'attr'  => array(
                         'class' => 'btn-newsletter',
                     ),
@@ -52,5 +62,17 @@ class ContactHomepageType extends AbstractType
     public function getBlockPrefix()
     {
         return 'contact_homepage';
+    }
+
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'AppBundle\Entity\NewsletterContact',
+            )
+        );
     }
 }
