@@ -56,7 +56,6 @@ class MailchimpManager
      */
     public function subscribeContactToList(NewsletterContact $newsletterContact, $listId)
     {
-
         // make HTTP API request
         $result = $this->mailChimp->post('lists/' . $listId . '/members', array(
             'email_address' => $newsletterContact->getEmail(),

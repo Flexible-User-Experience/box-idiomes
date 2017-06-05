@@ -178,7 +178,7 @@ class NotificationService
             $this->amd,
             $this->amd,
             'Missatge de newsletter pàgina web ' . $this->urlBase,
-            $this->twig->render(':Mails:newsletter_form_admin_notification.html.twig', array(
+            $this->twig->render(':Mails:newsletter_failure_admin_notification.html.twig', array(
                 'contact' => $newsletterContact,
             )),
             $newsletterContact->getEmail()
