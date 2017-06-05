@@ -37,13 +37,22 @@ class DefaultController extends Controller
             $em->flush();
             /** @var MailchimpManager $mailchimpManager */
             $mailchimpManager = $this->get('app.mailchimp_manager');
-
-            $this->setFlashMessageAndEmailNotifications($contact);
             // Subscribe contact to mailchimp list
-            $mailchimpManager->subscribeContactToList($contact, $this->getParameter('mailchimp_test_list_id'));
-            // Clean up new form
-            $contact = new NewsletterContact();
-            $newsletterForm = $this->createForm(ContactHomepageType::class, $contact);
+            $result = $mailchimpManager->subscribeContactToList($contact, $this->getParameter('mailchimp_test_list_id'));
+
+            if ($result === false) {
+                // Send notification and OK flash
+                $this->setFlashMessageAndEmailNotifications($contact);
+                // Clean up new form
+                $contact = new NewsletterContact();
+                $newsletterForm = $this->createForm(ContactHomepageType::class, $contact);
+            } else {
+                // Mailchimp error
+                $this->addFlash(
+                    'danger',
+                    'S\'ha produït un error durant el procés de registre al newsletter. Torna a provar-ho més tard o contacta a través del formulari web.'
+                );
+            }
         }
 
         return $this->render('Front/homepage.html.twig',

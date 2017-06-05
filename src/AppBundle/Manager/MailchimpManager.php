@@ -51,8 +51,7 @@ class MailchimpManager
      * @param NewsletterContact $newsletterContact
      * @param string            $listId
      *
-     * @return bool $result
-     * @internal param ContactMessage $contact
+     * @return bool $result = false if everything goes well
      */
     public function subscribeContactToList(NewsletterContact $newsletterContact, $listId)
     {
@@ -65,6 +64,8 @@ class MailchimpManager
         // check error
         if ($result === false) {
             $this->messenger->sendCommonNewsletterUserNotification($newsletterContact);
+        } else {
+            $this->messenger->sendFailureNewsletterSubscriptionAdminNotification($newsletterContact);
         }
 
         return $result;
