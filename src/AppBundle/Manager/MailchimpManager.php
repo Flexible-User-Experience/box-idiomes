@@ -62,7 +62,7 @@ class MailchimpManager
         ));
 
         // check error
-        if ($result === false) {
+        if ($result != false) {
             $this->messenger->sendCommonNewsletterUserNotification($newsletterContact);
         } else {
             $this->messenger->sendFailureNewsletterSubscriptionAdminNotification($newsletterContact);
