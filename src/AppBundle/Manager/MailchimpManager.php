@@ -15,6 +15,8 @@ use \DrewM\MailChimp\MailChimp;
  */
 class MailchimpManager
 {
+    const SUBSCRIBED = 'subscribed';
+
     /**
      * @var MailChimp $mailChimp
      */
@@ -58,11 +60,11 @@ class MailchimpManager
         // make HTTP API request
         $result = $this->mailChimp->post('lists/' . $listId . '/members', array(
             'email_address' => $newsletterContact->getEmail(),
-            'status'        => 'subscribed',
+            'status'        => self::SUBSCRIBED,
         ));
 
         // check error
-        if ($result === false) {
+        if (is_array($result) && $result['status'] == self::SUBSCRIBED) {
             $this->messenger->sendCommonNewsletterUserNotification($newsletterContact);
         } else {
             $this->messenger->sendFailureNewsletterSubscriptionAdminNotification($newsletterContact);
