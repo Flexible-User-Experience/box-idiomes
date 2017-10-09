@@ -42,3 +42,5 @@ parameters:
     mailchimp_newsletter_list_id: xxxxxxx
     mailchimp_test_list_id: xxxxxxx
 
+    recaptcha_site_key: "xxxxxxxxxxxxx"
+    recaptcha_secret:   "xxxxxxxxxxxxx"

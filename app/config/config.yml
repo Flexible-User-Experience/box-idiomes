@@ -4,9 +4,6 @@ imports:
     - { resource: services.yml }
     - { resource: media.yml }
 
-# Put parameters here that don't need to change on each machine where the app is deployed
-# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
-
 framework:
     translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
@@ -16,19 +13,17 @@ framework:
     form:            ~
     csrf_protection: ~
     validation:      { enable_annotations: true }
-    #serializer:      { enable_annotations: true }
     templating:
-        engines: ['twig']
+        engines: [ "twig" ]
     default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        # handler_id set to null will use default session handler from php.ini
         handler_id:  ~
     fragments:       ~
     http_method_override: true
 
-# Twig Configuration
+# Twig
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
@@ -125,8 +120,6 @@ sonata_admin:
         handler: sonata.admin.security.handler.role
     templates:
         layout: "::Admin/layout.html.twig"
-#        edit:   "::Admin/edit.html.twig"
-#        show:   "::Admin/show.html.twig"
     dashboard:
         groups:
             Teachers:
@@ -182,7 +175,7 @@ stof_doctrine_extensions:
             sortable:       false
             tree:           false
 
-# Swiftmailer Configuration
+# Swiftmailer
 swiftmailer:
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
@@ -196,3 +189,11 @@ ivory_ck_editor:
     configs:
         my_config:
             toolbar: standard
+
+# Google reCaptcha
+ewz_recaptcha:
+    public_key:  "%recaptcha_site_key%"
+    private_key: "%recaptcha_secret%"
+    locale_key:  "%locale%"
+    enabled:     true
+    ajax:        false
