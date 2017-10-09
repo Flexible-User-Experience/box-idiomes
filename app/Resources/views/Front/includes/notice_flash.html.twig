@@ -11,3 +11,16 @@
         </div>
     </div>
 {% endfor %}
+{% for flash_message in app.session.flashBag.get('danger') %}
+    <div class="p-vertical green-background">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="text-danger no-m">
+                        <i class="fa fa-exclamation-triangle"></i> {{ flash_message }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
