@@ -75,7 +75,7 @@ class DefaultController extends Controller
             // Set frontend flash message
             $this->addFlash(
                 'notice',
-                'El teu missatge s\'ha enviat correctament'
+                'Gràcies per subscriure\'t al newsletter'
             );
         } else {
             $this->addFlash(

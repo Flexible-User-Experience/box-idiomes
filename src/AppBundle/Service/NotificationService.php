@@ -149,8 +149,6 @@ class NotificationService
      * Send a newsletter subscription form notification to admin user
      *
      * @param NewsletterContact $newsletterContact
-     *
-     * @internal param ContactMessage $contactMessage
      */
     public function sendNewsletterSubscriptionAdminNotification(NewsletterContact $newsletterContact)
     {
@@ -169,8 +167,6 @@ class NotificationService
      * Send a newsletter subscription form notification to admin user on Mailchimp failure
      *
      * @param NewsletterContact $newsletterContact
-     *
-     * @internal param ContactMessage $contactMessage
      */
     public function sendFailureNewsletterSubscriptionAdminNotification(NewsletterContact $newsletterContact)
     {
@@ -191,8 +187,6 @@ class NotificationService
      * @param NewsletterContact $newsletterContact
      *
      * @return int If is 0 failure otherwise amount of recipients
-     * @internal param ContactMessage $contactMessage
-     *
      */
     public function sendCommonNewsletterUserNotification(NewsletterContact $newsletterContact)
     {
