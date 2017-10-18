@@ -68,3 +68,7 @@ backend:
             description: Descripció
             user_question: Pregunta del usuari
             your_answer: La teva resposta
+        province:
+            code: Codi
+            name: Nom
+            country: Pais

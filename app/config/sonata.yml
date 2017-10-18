@@ -34,8 +34,8 @@ sonata_admin:
                 icon: "<i class='fa fa-list-ol'></i>"
             Contacts:
                 icon: "<i class='fa fa-envelope'></i>"
-            Users:
-                icon: "<i class='fa fa-user'></i>"
+            Administration:
+                icon: "<i class='fa fa-briefcase'></i>"
         blocks:
             -
                 position: top
@@ -73,4 +73,4 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ Users ]
+                    groups: [ Administration ]
