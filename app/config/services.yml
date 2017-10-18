@@ -5,6 +5,11 @@ services:
         arguments: [ ~ , AppBundle\Entity\Teacher, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Teacher", group: "Teachers" }
+    admin.student:
+        class: AppBundle\Admin\StudentAdmin
+        arguments: [ ~ , AppBundle\Entity\Student, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Student", group: "Students" }
     admin.service:
         class: AppBundle\Admin\ServiceAdmin
         arguments: [ ~ , AppBundle\Entity\Service, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
