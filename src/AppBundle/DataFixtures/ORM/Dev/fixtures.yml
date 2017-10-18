@@ -28,12 +28,28 @@ AppBundle\Entity\Teacher:
     description: <paragraph()>
     position: <numberBetween(1, 5)>
     color: <numberBetween(0, 3)>
+
+# Student
+AppBundle\Entity\Student:
+  student{1..2}:
+    name: <name()>
+    brithDate: <dateTimeBetween()>
+    ownMobile: <phoneNumber()>
+    phoneContact: <phoneNumber()>
+    nameContact: <name()>
+    email: <safeEmail()>
+    address: <address()>
+    payment: <numberBetween(1,4)>
+    schedule: <name()>
+    comments: <paragraph()>
+
 # Services
 AppBundle\Entity\Service:
   service{1..5}:
     title: <name()>
     description: <paragraph()>
     position: <numberBetween(1, 5)>
+
 ## Users
 AppBundle\Entity\User:
     admin:
