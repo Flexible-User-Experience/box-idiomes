@@ -7,6 +7,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Province
+ *
  * @category Entity
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
