@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -13,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\StudentRepository")
  * @ORM\Table(name="student")
+ * @UniqueEntity({"name", "surname"})
  */
 class Student extends AbstractBase
 {
@@ -24,32 +26,39 @@ class Student extends AbstractBase
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $surname;
+
+    /**
      * @var \DateTime
      *
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
-    private $brithDate;
+    private $birthDate;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $ownMobile;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $phoneContact;
+    private $contactPhone;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $nameContact;
+    private $contactName;
 
     /**
      * @var string
@@ -67,11 +76,18 @@ class Student extends AbstractBase
     private $address;
 
     /**
-     * @var float
+     * @var integer
      *
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="integer", options={"default"=0})
      */
-    private $payment;
+    private $payment = 0;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $bancAccountNumber;
 
     /**
      * @var string
@@ -110,20 +126,46 @@ class Student extends AbstractBase
     }
 
     /**
-     * @return \DateTime
+     * @return mixed
      */
-    public function getBrithDate()
+    public function getSurname()
     {
-        return $this->brithDate;
+        return $this->surname;
     }
 
     /**
-     * @param \DateTime $brithDate
+     * @param mixed $surname
      * @return Student
      */
-    public function setBrithDate(\DateTime $brithDate)
+    public function setSurname($surname)
     {
-        $this->brithDate = $brithDate;
+        $this->surname = $surname;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->name.' '.$this->surname;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBirthDate()
+    {
+        return $this->birthDate;
+    }
+
+    /**
+     * @param \DateTime $birthDate
+     * @return Student
+     */
+    public function setBirthDate(\DateTime $birthDate)
+    {
+        $this->birthDate = $birthDate;
         return $this;
     }
 
@@ -148,36 +190,36 @@ class Student extends AbstractBase
     /**
      * @return string
      */
-    public function getPhoneContact()
+    public function getContactPhone()
     {
-        return $this->phoneContact;
+        return $this->contactPhone;
     }
 
     /**
-     * @param string $phoneContact
+     * @param string $contactPhone
      * @return Student
      */
-    public function setPhoneContact($phoneContact)
+    public function setContactPhone($contactPhone)
     {
-        $this->phoneContact = $phoneContact;
+        $this->contactPhone = $contactPhone;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getNameContact()
+    public function getContactName()
     {
-        return $this->nameContact;
+        return $this->contactName;
     }
 
     /**
-     * @param string $nameContact
+     * @param string $contactName
      * @return Student
      */
-    public function setNameContact($nameContact)
+    public function setContactName($contactName)
     {
-        $this->nameContact = $nameContact;
+        $this->contactName = $contactName;
         return $this;
     }
 
@@ -238,6 +280,24 @@ class Student extends AbstractBase
     /**
      * @return string
      */
+    public function getBancAccountNumber()
+    {
+        return $this->bancAccountNumber;
+    }
+
+    /**
+     * @param string $bancAccountNumber
+     * @return Student
+     */
+    public function setBancAccountNumber($bancAccountNumber)
+    {
+        $this->bancAccountNumber = $bancAccountNumber;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getSchedule()
     {
         return $this->schedule;
@@ -276,6 +336,6 @@ class Student extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getName() : '---';
+        return $this->id ? $this->getFullName() : '---';
     }
 }

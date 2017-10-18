@@ -33,10 +33,12 @@ AppBundle\Entity\Teacher:
 AppBundle\Entity\Student:
   student{1..2}:
     name: <name()>
-    brithDate: <dateTimeBetween()>
+    surname: <firstName()>
+    birthDate: <dateTimeBetween()>
+    bancAccountNumber: <creditCardNumber()>
     ownMobile: <phoneNumber()>
-    phoneContact: <phoneNumber()>
-    nameContact: <name()>
+    contactPhone: <phoneNumber()>
+    contactName: <name()>
     email: <safeEmail()>
     address: <address()>
     payment: <numberBetween(1,4)>
@@ -61,4 +63,3 @@ AppBundle\Entity\User:
         enabled: true
         roles:
             - ROLE_SUPER_ADMIN
-
