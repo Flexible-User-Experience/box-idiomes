@@ -55,6 +55,10 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/teachers/teacher/create'),
             array('/admin/teachers/teacher/1/delete'),
             array('/admin/teachers/teacher/1/edit'),
+            array('/admin/students/student/list'),
+            array('/admin/students/student/create'),
+            array('/admin/students/student/1/delete'),
+            array('/admin/students/student/1/edit'),
             array('/admin/services/service/list'),
             array('/admin/services/service/create'),
             array('/admin/services/service/1/delete'),
@@ -92,6 +96,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/contact/message/1/edit'),
             array('/admin/contact/message/batch'),
             array('/admin/teachers/teacher/batch'),
+            array('/admin/students/student/batch'),
             array('/admin/services/service/batch'),
         );
     }
