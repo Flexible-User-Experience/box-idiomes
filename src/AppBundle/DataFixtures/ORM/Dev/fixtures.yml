@@ -31,7 +31,7 @@ AppBundle\Entity\Teacher:
 
 # Student
 AppBundle\Entity\Student:
-  student{1..2}:
+  student{1..10}:
     name: <name()>
     surname: <firstName()>
     birthDate: <dateTimeBetween()>

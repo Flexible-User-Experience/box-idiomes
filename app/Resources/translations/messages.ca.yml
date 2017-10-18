@@ -40,9 +40,23 @@ backend:
         teacher:
             name: Nom
             color: Color
+        student:
+            name: Nom
+            surname: Cognoms
+            birthDate: Data naixament
+            bancAccountNumber: Compta bancari
+            ownMobile: Mòbil
+            contactPhone: Telèfon contacte
+            contactName: Nom contacte
+            email: Email
+            address: Adreça
+            payment: Pagament
+            schedule: Horari
+            comments: Comentaris
         service:
             title: Nom
         contact:
+            contact: Contacte
             name: Nom
             email: Correu electrònic
             checked: Llegit

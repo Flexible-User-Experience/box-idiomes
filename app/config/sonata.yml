@@ -45,31 +45,31 @@ sonata_admin:
                     content: >
                         <h1 style="margin-top:0">Content Management System</h1>
             -
-                position: right
+                position: left
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
                     groups: [ Teachers ]
             -
-                position: right
+                position: left
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
                     groups: [ Students ]
             -
-                position: right
+                position: left
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
                     groups: [ Services ]
             -
-                position: left
+                position: right
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
                     groups: [ Contacts ]
             -
-                position: left
+                position: right
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
