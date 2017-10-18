@@ -52,6 +52,16 @@ AppBundle\Entity\Service:
     description: <paragraph()>
     position: <numberBetween(1, 2)>
 
+# Province
+AppBundle\Entity\Province:
+  province{1..2}:
+    code: <postcode()>
+    name: <city()>
+    country: <country()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 ## Users
 AppBundle\Entity\User:
     admin:
