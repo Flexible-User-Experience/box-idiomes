@@ -104,6 +104,14 @@ class Student extends AbstractBase
     private $comments;
 
     /**
+     * @var City
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\City")
+     */
+    private $city;
+
+
+    /**
      * Methods.
      */
 
@@ -328,6 +336,24 @@ class Student extends AbstractBase
     public function setComments($comments)
     {
         $this->comments = $comments;
+        return $this;
+    }
+
+    /**
+     * @return City
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param City $city
+     * @return Student
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
         return $this;
     }
 
