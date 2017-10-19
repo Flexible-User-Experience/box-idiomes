@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: media.yml }
+    - { resource: sonata.yml }
 
 framework:
     translator:      { fallbacks: ["%locale%"] }
@@ -37,7 +38,7 @@ twig:
         facebook_pixel_enabled:   "%facebook_pixel_enabled%"
         facebook_pixel_id:        "%facebook_pixel_id%"
         main_brand_title:         "%project_web_title%"
-        admin_tag_version:        "v1.0.29"
+        admin_tag_version:        "v1.0.31"
 
 # Assetic
 assetic:
@@ -83,18 +84,6 @@ doctrine_migrations:
     dir_name:  "%kernel.root_dir%/../src/AppBundle/DoctrineMigrations"
     namespace: AppBundle\DoctrineMigrations
 
-# Sonata Block
-sonata_block:
-    default_contexts: [ cms ]
-    blocks:
-        sonata.admin.block.admin_list:  ~
-        sonata.block.service.text:      ~
-
-# Sonata User
-sonata_user:
-    security_acl: true
-    manager_type: orm
-
 # FOS User
 fos_user:
     db_driver:      orm
@@ -105,63 +94,6 @@ fos_user:
         group_manager: sonata.user.orm.group_manager
     service:
         user_manager: sonata.user.orm.user_manager
-
-# Admin
-sonata_admin:
-    title: "%project_web_title%"
-    title_logo: "/bundles/app/img/menu-logo.jpg"
-    options:
-        html5_validate: true
-        confirm_exit:   true
-        use_select2:    true
-        pager_links:    10
-    persist_filters: true
-    security:
-        handler: sonata.admin.security.handler.role
-    templates:
-        layout: "::Admin/layout.html.twig"
-    dashboard:
-        groups:
-            Teachers:
-                icon: "<i class='fa fa-users'></i>"
-            Services:
-                icon: "<i class='fa fa-list-ol'></i>"
-            Contacts:
-                icon: "<i class='fa fa-envelope'></i>"
-            Users:
-                icon: "<i class='fa fa-user'></i>"
-        blocks:
-            -
-                position: top
-                type: sonata.block.service.text
-                class: col-md-12
-                settings:
-                    content: >
-                        <h1 style="margin-top:0">Content Management System</h1>
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ Teachers ]
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ Services ]
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ Contacts ]
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ Users ]
 
 # Stof Doctrine Extensions
 stof_doctrine_extensions:

@@ -28,12 +28,51 @@ AppBundle\Entity\Teacher:
     description: <paragraph()>
     position: <numberBetween(1, 5)>
     color: <numberBetween(0, 3)>
+
+# Student
+AppBundle\Entity\Student:
+  student{1..10}:
+    name: <name()>
+    surname: <firstName()>
+    birthDate: <dateTimeBetween()>
+    bankAccountNumber: <creditCardNumber()>
+    ownMobile: <phoneNumber()>
+    contactPhone: <phoneNumber()>
+    contactName: <name()>
+    email: <safeEmail()>
+    address: <address()>
+    payment: <numberBetween(1,4)>
+    schedule: <name()>
+    comments: <paragraph()>
+    city: @city<numberBetween(1,10)>
+
 # Services
 AppBundle\Entity\Service:
   service{1..5}:
     title: <name()>
     description: <paragraph()>
     position: <numberBetween(1, 5)>
+
+# Province
+AppBundle\Entity\Province:
+  province{1..10}:
+    code: <postcode()>
+    name: <city()>
+    country: <country()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# City
+AppBundle\Entity\City:
+  city{1..10}:
+    name: <city()>
+    postalCode: <postcode()>
+    province: @province<numberBetween(1,10)>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 ## Users
 AppBundle\Entity\User:
     admin:

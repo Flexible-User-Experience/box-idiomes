@@ -29,3 +29,7 @@
 /dbreset.sh
 !.travis.yml
 /src/AppBundle/Resources/public/img/originals/
+# Ansible
+/app/ansible/vars/*
+!/app/ansible/vars/.gitkeep
+/app/ansible/*.retry

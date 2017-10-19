@@ -5,6 +5,11 @@ services:
         arguments: [ ~ , AppBundle\Entity\Teacher, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Teacher", group: "Teachers" }
+    admin.student:
+        class: AppBundle\Admin\StudentAdmin
+        arguments: [ ~ , AppBundle\Entity\Student, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Student", group: "Students" }
     admin.service:
         class: AppBundle\Admin\ServiceAdmin
         arguments: [ ~ , AppBundle\Entity\Service, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -14,7 +19,7 @@ services:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "User", group: "Users" }
+            - { name: sonata.admin, manager_type: orm, label: "User", group: "Administration" }
     admin.contactmessage:
         class: AppBundle\Admin\ContactMessageAdmin
         arguments: [ ~, AppBundle\Entity\ContactMessage, AppBundle:Admin\ContactMessageAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -25,6 +30,16 @@ services:
         arguments: [ ~, AppBundle\Entity\NewsletterContact, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Newsletter Contact ", group: "Contacts" }
+    admin.province:
+        class: AppBundle\Admin\ProvinceAdmin
+        arguments: [ ~, AppBundle\Entity\Province, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Province", group: "Administration" }
+    admin.city:
+        class: AppBundle\Admin\CityAdmin
+        arguments: [ ~, AppBundle\Entity\City, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "City", group: "Administration" }
 # Messaging
     app.courier:
         class: AppBundle\Service\CourierService

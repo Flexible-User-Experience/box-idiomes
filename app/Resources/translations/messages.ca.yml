@@ -40,9 +40,25 @@ backend:
         teacher:
             name: Nom
             color: Color
+        student:
+            name: Nom
+            surname: Cognoms
+            birthDate: Data naixament
+            bankAccountNumber: Compte bancari
+            cash: Efectiu
+            ownMobile: Mòbil
+            contactPhone: Telèfon contacte
+            contactName: Nom contacte
+            email: Email
+            address: Adreça
+            city: Ciutat
+            payment: Pagament
+            schedule: Horari
+            comments: Comentaris
         service:
             title: Nom
         contact:
+            contact: Contacte
             name: Nom
             email: Correu electrònic
             checked: Llegit
@@ -54,3 +70,11 @@ backend:
             description: Descripció
             user_question: Pregunta del usuari
             your_answer: La teva resposta
+        province:
+            code: Codi
+            name: Nom
+            country: Pais
+        city:
+            name: Nom
+            postalCode: Codi postal
+            province: Província

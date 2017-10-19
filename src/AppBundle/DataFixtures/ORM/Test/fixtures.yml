@@ -28,12 +28,51 @@ AppBundle\Entity\Teacher:
     description: <paragraph()>
     position: <numberBetween(1, 2)>
     color: <numberBetween(0, 3)>
+
+# Student
+AppBundle\Entity\Student:
+  student{1..2}:
+    name: <name()>
+    surname: <firstName()>
+    birthDate: <dateTimeBetween()>
+    bankAccountNumber: <creditCardNumber()>
+    ownMobile: <phoneNumber()>
+    contactPhone: <phoneNumber()>
+    contactName: <name()>
+    email: <safeEmail()>
+    address: <address()>
+    payment: <numberBetween(1,4)>
+    schedule: <name()>
+    comments: <paragraph()>
+    city: @city*
+
 # Services
 AppBundle\Entity\Service:
   service{1..2}:
     title: <name()>
     description: <paragraph()>
     position: <numberBetween(1, 2)>
+
+# Province
+AppBundle\Entity\Province:
+  province{1..2}:
+    code: <postcode()>
+    name: <city()>
+    country: <country()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# City
+AppBundle\Entity\City:
+  city{1..2}:
+    name: <city()>
+    postalCode: <postcode()>
+    province: @province*
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 ## Users
 AppBundle\Entity\User:
     admin:
@@ -45,4 +84,3 @@ AppBundle\Entity\User:
         enabled: true
         roles:
             - ROLE_SUPER_ADMIN
-
