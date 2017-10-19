@@ -9,6 +9,7 @@ security:
             - ROLE_ADMIN_CONTACTMESSAGE_ALL
             - ROLE_ADMIN_NEWSLETTERCONTACT_ALL
             - ROLE_ADMIN_PROVINCE_ALL
+            - ROLE_ADMIN_CITY_ALL
         ROLE_CMS:
             - ROLE_USER
             - ROLE_SONATA_CMS

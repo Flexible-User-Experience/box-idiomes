@@ -6,18 +6,17 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
 
 /**
- * Class ProvinceAdmin
+ * Class CityAdmin
  *
  * @category Admin
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class ProvinceAdmin extends AbstractBaseAdmin
+class CityAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Province';
-    protected $baseRoutePattern = 'administration/province';
+    protected $classnameLabel = 'City';
+    protected $baseRoutePattern = 'administration/city';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
@@ -31,25 +30,25 @@ class ProvinceAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(6))
             ->add(
-                'code',
+                'postalCode',
                 null,
                 array(
-                    'label' => 'backend.admin.province.code',
+                    'label' => 'backend.admin.city.postalCode',
                 )
             )
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'backend.admin.province.name',
+                    'label' => 'backend.admin.city.name',
                 )
             )
             ->add(
-                'country',
-                CountryType::class,
+                'province',
+                null,
                 array(
-                    'label' => 'backend.admin.province.country',
-                    'preferred_choices' => array('ES'),
+                    'label' => 'backend.admin.city.province',
+                    'required' => true,
                 )
             )
             ->end()
@@ -73,17 +72,24 @@ class ProvinceAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'code',
+                'postalCode',
                 null,
                 array(
-                    'label' => 'backend.admin.province.code',
+                    'label' => 'backend.admin.city.postalCode',
                 )
             )
             ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'backend.admin.province.name',
+                    'label' => 'backend.admin.city.name',
+                )
+            )
+            ->add(
+                'province',
+                null,
+                array(
+                    'label' => 'backend.admin.city.province',
                 )
             )
             ->add(
@@ -104,10 +110,10 @@ class ProvinceAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'code',
+                'postalCode',
                 null,
                 array(
-                    'label' => 'backend.admin.province.code',
+                    'label' => 'backend.admin.city.postalCode',
                     'editable' => true,
                 )
             )
@@ -115,16 +121,20 @@ class ProvinceAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'backend.admin.province.name',
+                    'label' => 'backend.admin.city.name',
                     'editable' => true,
                 )
             )
             ->add(
-                'country',
+                'province',
                 null,
                 array(
-                    'label' => 'backend.admin.province.country',
-                    'editable' => false,
+                    'label' => 'backend.admin.city.province',
+                    'editable' => true,
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'province')),
                 )
             )
             ->add(

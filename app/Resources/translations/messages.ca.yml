@@ -72,3 +72,7 @@ backend:
             code: Codi
             name: Nom
             country: Pais
+        city:
+            name: Nom
+            postalCode: Codi postal
+            province: Província
