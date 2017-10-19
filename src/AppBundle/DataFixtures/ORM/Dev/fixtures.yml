@@ -35,7 +35,7 @@ AppBundle\Entity\Student:
     name: <name()>
     surname: <firstName()>
     birthDate: <dateTimeBetween()>
-    bancAccountNumber: <creditCardNumber()>
+    bankAccountNumber: <creditCardNumber()>
     ownMobile: <phoneNumber()>
     contactPhone: <phoneNumber()>
     contactName: <name()>
@@ -44,6 +44,7 @@ AppBundle\Entity\Student:
     payment: <numberBetween(1,4)>
     schedule: <name()>
     comments: <paragraph()>
+    city: @city<numberBetween(1,10)>
 
 # Services
 AppBundle\Entity\Service:

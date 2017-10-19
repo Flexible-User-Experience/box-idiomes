@@ -85,9 +85,9 @@ class Student extends AbstractBase
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $bancAccountNumber;
+    private $bankAccountNumber;
 
     /**
      * @var string
@@ -134,7 +134,7 @@ class Student extends AbstractBase
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSurname()
     {
@@ -142,7 +142,7 @@ class Student extends AbstractBase
     }
 
     /**
-     * @param mixed $surname
+     * @param string $surname
      * @return Student
      */
     public function setSurname($surname)
@@ -288,18 +288,18 @@ class Student extends AbstractBase
     /**
      * @return string
      */
-    public function getBancAccountNumber()
+    public function getBankAccountNumber()
     {
-        return $this->bancAccountNumber;
+        return $this->bankAccountNumber;
     }
 
     /**
-     * @param string $bancAccountNumber
+     * @param string $bankAccountNumber
      * @return Student
      */
-    public function setBancAccountNumber($bancAccountNumber)
+    public function setBankAccountNumber($bankAccountNumber)
     {
-        $this->bancAccountNumber = $bancAccountNumber;
+        $this->bankAccountNumber = $bankAccountNumber;
         return $this;
     }
 
@@ -322,7 +322,7 @@ class Student extends AbstractBase
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getComments()
     {
@@ -330,7 +330,7 @@ class Student extends AbstractBase
     }
 
     /**
-     * @param mixed $comments
+     * @param string $comments
      * @return Student
      */
     public function setComments($comments)

@@ -107,10 +107,10 @@ class StudentAdmin extends AbstractBaseAdmin
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
-                'bancAccountNumber',
+                'bankAccountNumber',
                 null,
                 array(
-                    'label' => 'backend.admin.student.bancAccountNumber',
+                    'label' => 'backend.admin.student.bankAccountNumber',
                 )
             )
             ->add(
