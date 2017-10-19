@@ -62,6 +62,16 @@ AppBundle\Entity\Province:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
+# City
+AppBundle\Entity\City:
+  city{1..2}:
+    name: <city()>
+    postalCode: <postcode()>
+    province: @province*
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 ## Users
 AppBundle\Entity\User:
     admin:
