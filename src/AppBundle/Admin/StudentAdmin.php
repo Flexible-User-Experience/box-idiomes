@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\StudentPaymentEnum;
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -121,9 +122,13 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'payment',
-                null,
+                'choice',
                 array(
                     'label' => 'backend.admin.student.payment',
+                    'choices' => StudentPaymentEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => true,
                 )
             )
             ->add(

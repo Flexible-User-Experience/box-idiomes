@@ -45,6 +45,7 @@ backend:
             surname: Cognoms
             birthDate: Data naixament
             bankAccountNumber: Compte bancari
+            cash: Efectiu
             ownMobile: Mòbil
             contactPhone: Telèfon contacte
             contactName: Nom contacte
