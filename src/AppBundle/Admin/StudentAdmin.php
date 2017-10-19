@@ -9,9 +9,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class StudentAdmin
+ * Class StudentAdmin.
  *
  * @category Admin
+ *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class StudentAdmin extends AbstractBaseAdmin
@@ -19,7 +20,7 @@ class StudentAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Student';
     protected $baseRoutePattern = 'students/student';
     protected $datagridValues = array(
-        '_sort_by'    => 'surname',
+        '_sort_by' => 'surname',
         '_sort_order' => 'asc',
     );
 
@@ -46,17 +47,10 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'birthDate',
-                null,
-                array(
-                    'label' => 'backend.admin.student.birthDate',
-                )
-            )
-            ->add(
-                'birthDate',
                 'sonata_type_date_picker',
                 array(
                     'label' => 'backend.admin.student.birthDate',
-                    'format' => 'd/M/y'
+                    'format' => 'd/M/y',
                 )
             )
             ->add(
@@ -65,6 +59,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.student.comments',
                     'config_name' => 'my_config',
+                    'required' => false,
                 )
             )
             ->end()
@@ -95,6 +90,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.student.email',
+                    'required' => false,
                 )
             )
             ->add(
@@ -102,6 +98,15 @@ class StudentAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.student.address',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'city',
+                null,
+                array(
+                    'label' => 'backend.admin.student.city',
+                    'required' => false,
                 )
             )
             ->end()
@@ -111,6 +116,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.student.bankAccountNumber',
+                    'required' => false,
                 )
             )
             ->add(
@@ -131,7 +137,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 'enabled',
                 CheckboxType::class,
                 array(
-                    'label'    => 'backend.admin.enabled',
+                    'label' => 'backend.admin.enabled',
                     'required' => false,
                 )
             )

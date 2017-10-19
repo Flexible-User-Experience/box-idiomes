@@ -7,9 +7,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Student
+ * Class Student.
  *
  * @category Entity
+ *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\StudentRepository")
@@ -35,7 +36,7 @@ class Student extends AbstractBase
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="date")
      */
     private $birthDate;
 
@@ -76,7 +77,7 @@ class Student extends AbstractBase
     private $address;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", options={"default"=0})
      */
@@ -110,7 +111,6 @@ class Student extends AbstractBase
      */
     private $city;
 
-
     /**
      * Methods.
      */
@@ -125,11 +125,13 @@ class Student extends AbstractBase
 
     /**
      * @param string $name
+     *
      * @return Student
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -143,11 +145,13 @@ class Student extends AbstractBase
 
     /**
      * @param string $surname
+     *
      * @return Student
      */
     public function setSurname($surname)
     {
         $this->surname = $surname;
+
         return $this;
     }
 
@@ -169,11 +173,13 @@ class Student extends AbstractBase
 
     /**
      * @param \DateTime $birthDate
+     *
      * @return Student
      */
     public function setBirthDate(\DateTime $birthDate)
     {
         $this->birthDate = $birthDate;
+
         return $this;
     }
 
@@ -187,11 +193,13 @@ class Student extends AbstractBase
 
     /**
      * @param string $ownMobile
+     *
      * @return Student
      */
     public function setOwnMobile($ownMobile)
     {
         $this->ownMobile = $ownMobile;
+
         return $this;
     }
 
@@ -205,11 +213,13 @@ class Student extends AbstractBase
 
     /**
      * @param string $contactPhone
+     *
      * @return Student
      */
     public function setContactPhone($contactPhone)
     {
         $this->contactPhone = $contactPhone;
+
         return $this;
     }
 
@@ -223,11 +233,13 @@ class Student extends AbstractBase
 
     /**
      * @param string $contactName
+     *
      * @return Student
      */
     public function setContactName($contactName)
     {
         $this->contactName = $contactName;
+
         return $this;
     }
 
@@ -241,11 +253,13 @@ class Student extends AbstractBase
 
     /**
      * @param string $email
+     *
      * @return Student
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -259,11 +273,13 @@ class Student extends AbstractBase
 
     /**
      * @param string $address
+     *
      * @return Student
      */
     public function setAddress($address)
     {
         $this->address = $address;
+
         return $this;
     }
 
@@ -277,11 +293,13 @@ class Student extends AbstractBase
 
     /**
      * @param float $payment
+     *
      * @return Student
      */
     public function setPayment($payment)
     {
         $this->payment = $payment;
+
         return $this;
     }
 
@@ -295,11 +313,13 @@ class Student extends AbstractBase
 
     /**
      * @param string $bankAccountNumber
+     *
      * @return Student
      */
     public function setBankAccountNumber($bankAccountNumber)
     {
         $this->bankAccountNumber = $bankAccountNumber;
+
         return $this;
     }
 
@@ -313,11 +333,13 @@ class Student extends AbstractBase
 
     /**
      * @param string $schedule
+     *
      * @return Student
      */
     public function setSchedule($schedule)
     {
         $this->schedule = $schedule;
+
         return $this;
     }
 
@@ -331,11 +353,13 @@ class Student extends AbstractBase
 
     /**
      * @param string $comments
+     *
      * @return Student
      */
     public function setComments($comments)
     {
         $this->comments = $comments;
+
         return $this;
     }
 
@@ -349,11 +373,13 @@ class Student extends AbstractBase
 
     /**
      * @param City $city
+     *
      * @return Student
      */
     public function setCity($city)
     {
         $this->city = $city;
+
         return $this;
     }
 

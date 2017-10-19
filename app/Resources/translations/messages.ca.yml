@@ -50,6 +50,7 @@ backend:
             contactName: Nom contacte
             email: Email
             address: Adreça
+            city: Ciutat
             payment: Pagament
             schedule: Horari
             comments: Comentaris
