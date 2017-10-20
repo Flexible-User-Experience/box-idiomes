@@ -7,8 +7,15 @@
         $(document).ready(function() {
             // Handler for .ready() called.
             var paymentNode = jQuery('#{{ form.payment.vars.id }}');
+            var bankNode = jQuery('#sonata-ba-field-container-{{ form.bankAccountNumber.vars.id }}');
             paymentNode.change(function() {
-                console.log('Hello world');
+                if (parseInt(jQuery(this).val()) === 0) {
+                    // bank account
+                    bankNode.removeClass("hidden");
+                } else {
+                    // cash
+                    bankNode.addClass("hidden");
+                }
             });
         });
     </script>
