@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class StudentAdmin.
@@ -122,7 +123,7 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'payment',
-                'choice',
+                ChoiceType::class,
                 array(
                     'label' => 'backend.admin.student.payment',
                     'choices' => StudentPaymentEnum::getEnumArray(),

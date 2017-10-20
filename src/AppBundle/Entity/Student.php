@@ -87,6 +87,7 @@ class Student extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Iban()
      */
     private $bankAccountNumber;
 

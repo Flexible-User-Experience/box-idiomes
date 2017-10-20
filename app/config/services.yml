@@ -10,6 +10,8 @@ services:
         arguments: [ ~ , AppBundle\Entity\Student, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Student", group: "Students" }
+        calls:
+            - [ setTemplate, [edit, "::Admin/Student/edit.html.twig"]]
     admin.service:
         class: AppBundle\Admin\ServiceAdmin
         arguments: [ ~ , AppBundle\Entity\Service, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
