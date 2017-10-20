@@ -6,7 +6,10 @@
     <script type="text/javascript">
         $(document).ready(function() {
             // Handler for .ready() called.
-            console.log('Hello world');
+            var paymentNode = jQuery('#{{ form.payment.vars.id }}');
+            paymentNode.change(function() {
+                console.log('Hello world');
+            });
         });
     </script>
 {% endblock %}
