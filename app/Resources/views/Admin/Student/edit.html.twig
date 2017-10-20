@@ -9,7 +9,7 @@
             var paymentNode = jQuery('#{{ form.payment.vars.id }}');
             var bankNode = jQuery('#sonata-ba-field-container-{{ form.bankAccountNumber.vars.id }}');
             paymentNode.change(function() {
-                if (parseInt(jQuery(this).val()) === 0) {
+                if (parseInt(jQuery(this).val()) === {{ constant('AppBundle\\Enum\\StudentPaymentEnum::BANK_ACCOUNT_NUMBER') }}) {
                     // bank account
                     bankNode.removeClass("hidden");
                 } else {
