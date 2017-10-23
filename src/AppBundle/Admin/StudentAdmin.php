@@ -7,6 +7,7 @@ use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -25,6 +26,18 @@ class StudentAdmin extends AbstractBaseAdmin
         '_sort_by' => 'surname',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * Configure route collection.
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection
+            ->add('imagerights', $this->getRouterIdParameter().'/image-rights');
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -85,6 +98,13 @@ class StudentAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.student.contactName',
+                )
+            )
+            ->add(
+                'contactDni',
+                null,
+                array(
+                    'label' => 'backend.admin.student.contactDni',
                 )
             )
             ->add(
@@ -277,6 +297,9 @@ class StudentAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'imagerights' => array(
+                            'template' => '::Admin/Cells/list__action_imager_ights.html.twig',
+                        ),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',

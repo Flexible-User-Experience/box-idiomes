@@ -38,7 +38,7 @@ twig:
         facebook_pixel_enabled:   "%facebook_pixel_enabled%"
         facebook_pixel_id:        "%facebook_pixel_id%"
         main_brand_title:         "%project_web_title%"
-        admin_tag_version:        "v1.0.32"
+        admin_tag_version:        "v1.0.33"
 
 # Assetic
 assetic:
@@ -129,3 +129,7 @@ ewz_recaptcha:
     locale_key:  "%locale%"
     enabled:     true
     ajax:        false
+
+# TCPDF
+white_october_tcpdf:
+    class: AppBundle\Pdf\BaseTcpdf

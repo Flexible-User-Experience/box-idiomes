@@ -65,6 +65,13 @@ class Student extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     */
+    private $contactDni;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
      * @Assert\Email(strict=true, checkMX=true, checkHost=true)
      */
     private $email;
@@ -185,6 +192,17 @@ class Student extends AbstractBase
     }
 
     /**
+     * @return int
+     */
+    public function getYearsOld()
+    {
+        $today = new \DateTime();
+        $interval = $today->diff($this->birthDate);
+
+        return $interval->y;
+    }
+
+    /**
      * @return string
      */
     public function getOwnMobile()
@@ -240,6 +258,26 @@ class Student extends AbstractBase
     public function setContactName($contactName)
     {
         $this->contactName = $contactName;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContactDni()
+    {
+        return $this->contactDni;
+    }
+
+    /**
+     * @param string $contactDni
+     *
+     * @return Student
+     */
+    public function setContactDni($contactDni)
+    {
+        $this->contactDni = $contactDni;
 
         return $this;
     }

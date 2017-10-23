@@ -39,6 +39,7 @@ AppBundle\Entity\Student:
     ownMobile: <phoneNumber()>
     contactPhone: <phoneNumber()>
     contactName: <name()>
+    contactDni: <bothify('########?')>
     email: <safeEmail()>
     address: <address()>
     payment: <numberBetween(1,4)>

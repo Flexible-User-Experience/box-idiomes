@@ -7,7 +7,7 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Teacher", group: "Teachers" }
     admin.student:
         class: AppBundle\Admin\StudentAdmin
-        arguments: [ ~ , AppBundle\Entity\Student, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~ , AppBundle\Entity\Student, AppBundle:Admin\StudentAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Student", group: "Students" }
         calls:
@@ -74,3 +74,17 @@ services:
     app.mailchimp_manager:
         class: AppBundle\Manager\MailchimpManager
         arguments: [ "@app.notification", "%mailchimp_api_key%" ]
+
+# PDF service builders
+    app.base_tcpdf:
+        class: AppBundle\Pdf\BaseTcpdf
+        arguments:
+            - "@templating.helper.assets"
+            - "@translator.default"
+    app.student_image_rights_pdf_builder:
+        class: AppBundle\Service\StudentImageRightsPdfService
+        arguments:
+            - "@white_october.tcpdf"
+            - "@templating.helper.assets"
+            - "@translator.default"
+            - "%project_web_title%"
