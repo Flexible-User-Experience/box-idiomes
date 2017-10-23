@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Student;
+use AppBundle\Service\StudentImageRightsPdfService;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,6 +39,10 @@ class StudentAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
+        /** @var StudentImageRightsPdfService $sirps */
         $sirps = $this->get('app.student_image_rights_pdf_builder');
+        $pdf = $sirps->build($object);
+
+        return new Response($pdf->Output('student_image_rights_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
 }

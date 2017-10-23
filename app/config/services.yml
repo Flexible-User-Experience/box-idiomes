@@ -87,3 +87,4 @@ services:
             - "@white_october.tcpdf"
             - "@templating.helper.assets"
             - "@translator.default"
+            - "%project_web_title%"
