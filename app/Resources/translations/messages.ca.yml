@@ -84,7 +84,7 @@ backend:
             description2: Donat que el dret a la pròpia imatge és reconegut en l’article 18.1 de la Constitució i regulat per Llei 5/1985, de 5 de maig, sobre el dret a l’honor, a la intimitat personal i familiar i a la pròpia imatge; la direcció d’aquest centre demana el consentiment per escrit als pares, mares o tutors legals dels menors d’edat per poder publicar fotografies, vídeos o imatges on apareguin els seus fills i filles i on siguin clarament identificables.
             contact_name: "Nom i cognom mare, pare o tutor legal: %contact_name%"
             contact_dni: "DNI o passaport número: %contact_dni%"
-            autortization1: "Si, autoritzo que la imatge del meu fill/la meva filla %student_name% de %years_old% anys pugui aparèixer en fotografies o vídeos del centre publicades a qualsevol dels seus espais web o xarxes socials"
-            autortization2: "No, no autoritzo el centre  a publicar cap tipus d’imatge del meu fill o ala meva filla"
+            autortization1: "Si, autoritzo que la imatge del meu fill/la meva filla %student_name% de %years_old% anys pugui aparèixer en fotografies o vídeos del centre publicades a qualsevol dels seus espais web o xarxes socials."
+            autortization2: "No, no autoritzo el centre  a publicar cap tipus d’imatge del meu fill o a la meva filla."
             registration_date: "Amposta %day% de %month% de %year%"
             sign: Signatura

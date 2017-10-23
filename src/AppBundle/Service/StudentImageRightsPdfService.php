@@ -94,10 +94,13 @@ class StudentImageRightsPdfService
         $pdf->Write(0, $this->ts->trans('backend.admin.pdf.contact_dni', array('%contact_dni%' => ($student->getContactDni() ? $student->getContactDni() : '____________________________________'))), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
         $pdf->SetX(55);
-        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.autortization1', array('%student_name%' => $student->getName(), '%years_old%' => $student->getYearsOld())), '', false, 'L', true);
+        $pdf->Rect(51, $pdf->GetY() + 1, 3, 3);
+        $pdf->MultiCell(125, 0, $this->ts->trans('backend.admin.pdf.autortization1', array('%student_name%' => $student->getName(), '%years_old%' => $student->getYearsOld())), 0, 'L', false, 1);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
         $pdf->SetX(55);
-        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.autortization2'), '', false, 'L', true);
+        $pdf->Rect(51, $pdf->GetY() + 1, 3, 3);
+        $pdf->MultiCell(125, 0, $this->ts->trans('backend.admin.pdf.autortization2', array('%student_name%' => $student->getName(), '%years_old%' => $student->getYearsOld())), 0, 'L', false, 1);
+//        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.autortization2'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
         // Registration date
         $today = new \DateTime();
