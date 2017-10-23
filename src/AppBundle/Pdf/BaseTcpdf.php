@@ -14,10 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
  */
 class BaseTcpdf extends \TCPDF
 {
-    const PDF_MARGIN_LEFT = 25;
-    const PDF_MARGIN_RIGHT = 20;
-    const PDF_MARGIN_TOP = 25;
-    const PDF_MARGIN_BOTTOM = 10;
+    const PDF_MARGIN_LEFT = 30;
+    const PDF_MARGIN_RIGHT = 30;
+    const PDF_MARGIN_TOP = 70;
+    const PDF_MARGIN_BOTTOM = 25;
 
     /**
      * @var AssetsHelper
@@ -48,7 +48,7 @@ class BaseTcpdf extends \TCPDF
     public function header()
     {
         // logo
-        $this->Image($this->ahs->getUrl('/bundles/app/img/menu-logo.jpg'), self::PDF_MARGIN_LEFT, 7, 28);
+        $this->Image($this->ahs->getUrl('/bundles/app/img/logo-pdf.png'), 75, 20, 60);
         $this->SetXY(self::PDF_MARGIN_LEFT, 11);
         $this->setFontStyle(null, 'I', 8);
     }

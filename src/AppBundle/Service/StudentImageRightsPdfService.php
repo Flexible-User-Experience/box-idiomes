@@ -76,14 +76,26 @@ class StudentImageRightsPdfService
         $pdf->SetAutoPageBreak(true, BaseTcpdf::PDF_MARGIN_BOTTOM);
         // set image scale factor
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-        // add start page
-//        $pdf->startPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT);
 
         // Add a page
-//        $pdf->setPrintHeader(true);
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
-//        $pdf->setAvailablePageDimension();
         $pdf->setPrintFooter(true);
+
+        $pdf->SetXY(BaseTcpdf::PDF_MARGIN_LEFT, BaseTcpdf::PDF_MARGIN_TOP);
+//        $pdf->setBlackText();
+//        $pdf->setFontStyle(null, 'B', 11);
+//        $pdf->Write(0, $this->pwt, '', false, 'L', true);
+//        $pdf->Write(0, $student->getFullName(), '', false, 'L', true);
+//        $pdf->Ln(2);
+        $pdf->setFontStyle(null, '', 9);
+        // Description
+        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.description1'), '', false, 'L', true);
+        $pdf->Ln(2);
+        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.description2'), '', false, 'L', true);
+        $pdf->Ln(6);
+        // Contact name
+        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.contact_name', array('%contact_name%' => ($student->getContactName() ? $student->getContactName() : '____________________________________'))), '', false, 'L', true);
+        $pdf->Ln(2);
 
         return $pdf;
     }
