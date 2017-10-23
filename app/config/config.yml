@@ -129,3 +129,7 @@ ewz_recaptcha:
     locale_key:  "%locale%"
     enabled:     true
     ajax:        false
+
+# TCPDF
+white_october_tcpdf:
+    class: AppBundle\Pdf\CustomTcpdf
