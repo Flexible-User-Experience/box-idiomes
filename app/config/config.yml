@@ -132,4 +132,4 @@ ewz_recaptcha:
 
 # TCPDF
 white_october_tcpdf:
-    class: AppBundle\Pdf\CustomTcpdf
+    class: AppBundle\Pdf\BaseTcpdf
