@@ -87,14 +87,4 @@ backend:
             autortization1: "Si, autoritzo que la imatge del meu fill/la meva filla %student_name% de %years_old% anys pugui aparèixer en fotografies o vídeos del centre publicades a qualsevol dels seus espais web o xarxes socials"
             autortization2: "No, no autoritzo el centre  a publicar cap tipus d’imatge del meu fill o ala meva filla"
             registration_date: "Amposta %day% de %month% de %year%"
-
-
-
-# Nom i cognom mare, pare o tutor legal________________________________
-# DNI o passaport número:___________________
-# Si, autoritzo que la imatge del meu fill/la meva filla ___________________ de ________ anys pugui aparèixer en fotografies o vídeos del centre publicades a qualsevol dels seus espais web o xarxes socials
-# No, no autoritzo el centre  a publicar cap tipus d’imatge del meu fill o ala meva filla
-#
-# Amposta ______ de _____________ de 20___
-#
-# Signatura
+            sign: Signatura
