@@ -82,11 +82,6 @@ class StudentImageRightsPdfService
         $pdf->setPrintFooter(true);
 
         $pdf->SetXY(BaseTcpdf::PDF_MARGIN_LEFT, BaseTcpdf::PDF_MARGIN_TOP);
-//        $pdf->setBlackText();
-//        $pdf->setFontStyle(null, 'B', 11);
-//        $pdf->Write(0, $this->pwt, '', false, 'L', true);
-//        $pdf->Write(0, $student->getFullName(), '', false, 'L', true);
-//        $pdf->Ln(2);
         $pdf->setFontStyle(null, '', 9);
         // Description
         $pdf->Write(0, $this->ts->trans('backend.admin.pdf.description1'), '', false, 'L', true);
@@ -96,6 +91,16 @@ class StudentImageRightsPdfService
         // Contact name
         $pdf->Write(0, $this->ts->trans('backend.admin.pdf.contact_name', array('%contact_name%' => ($student->getContactName() ? $student->getContactName() : '____________________________________'))), '', false, 'L', true);
         $pdf->Ln(2);
+        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.contact_dni', array('%contact_dni%' => ($student->getContactDni() ? $student->getContactDni() : '____________________________________'))), '', false, 'L', true);
+        $pdf->Ln(2);
+        $pdf->SetX(55);
+        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.autortization1', array('%student_name%' => $student->getName(), '%years_old%' => $student->getYearsOld())), '', false, 'L', true);
+        $pdf->SetX(55);
+        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.autortization2'), '', false, 'L', true);
+        $pdf->Ln(6);
+        // Registration date
+        $today = new \DateTime();
+        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.registration_date', array('%day%' => $today->format('j'), '%month%' => $today->format('F'), '%year%' => $today->format('Y'))), '', false, 'L', true);
 
         return $pdf;
     }

@@ -192,6 +192,17 @@ class Student extends AbstractBase
     }
 
     /**
+     * @return int
+     */
+    public function getYearsOld()
+    {
+        $today = new \DateTime();
+        $interval = $today->diff($this->birthDate);
+
+        return $interval->y;
+    }
+
+    /**
      * @return string
      */
     public function getOwnMobile()
