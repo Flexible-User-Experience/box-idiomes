@@ -101,6 +101,13 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'contactDni',
+                null,
+                array(
+                    'label' => 'backend.admin.student.contactDni',
+                )
+            )
+            ->add(
                 'email',
                 null,
                 array(

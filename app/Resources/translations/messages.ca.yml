@@ -49,6 +49,7 @@ backend:
             ownMobile: Mòbil
             contactPhone: Telèfon contacte
             contactName: Nom contacte
+            contactDni: "DNI/NIE"
             email: Email
             address: Adreça
             city: Ciutat
