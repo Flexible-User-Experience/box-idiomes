@@ -88,3 +88,9 @@ services:
             - "@templating.helper.assets"
             - "@translator.default"
             - "%project_web_title%"
+    app.sepa_agreement_pdf_builder:
+        class: AppBundle\Service\SepaAgreementPdfService
+        arguments:
+            - "@white_october.tcpdf"
+            - "@templating.helper.assets"
+            - "@translator.default"
