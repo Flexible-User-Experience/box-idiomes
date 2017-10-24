@@ -98,7 +98,17 @@ class SepaAgreementPdfService
         $pdf->setCellPaddings(2, 1, 0, 0);
         $pdf->setCellMargins(1, 0, 1, 0);
         $pdf->MultiCell(BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_name').'</strong><br>'.$student->getContactName(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
-//        $pdf->Cell(BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT, 19, 'hit me', 1, 1, 'L', false, '', 0, false, 'T', 'T');
+        $pdf->MultiCell(BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_dni').'</strong><br>'.$student->getContactDni(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        // iban
+        $pdf->MultiCell(BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT, 7, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.bank_account').'</strong>', 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->setCellMargins(1, 0, 0, 0);
+        $pdf->MultiCell(25, 7, 'ES78', 1, 'L', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->setCellMargins(0, 0, 0, 0);
+        $pdf->MultiCell(25, 7, 'ES78', 1, 'L', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, 'ES78', 1, 'L', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, 'ES78', 1, 'L', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, 'ES78', 1, 'L', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, 'ES78', 1, 'L', false, 0, '', '', true, 0, true, true, 0, 'T', false);
 
         return $pdf;
     }
