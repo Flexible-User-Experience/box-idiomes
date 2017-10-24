@@ -89,3 +89,4 @@ backend:
             registration_date: "Amposta %day% %month% de %year%"
             sign: Signatura
             image_rigths_agreement: Dret d'imatge amb PDF
+            sepa_agreement: Autorització domiciliació bancària amb PDF
