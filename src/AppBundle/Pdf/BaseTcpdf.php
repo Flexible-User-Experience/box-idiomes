@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
  */
 class BaseTcpdf extends \TCPDF
 {
+    const PDF_WIDTH = 210;
     const PDF_MARGIN_LEFT = 30;
     const PDF_MARGIN_RIGHT = 30;
     const PDF_MARGIN_TOP = 70;

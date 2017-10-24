@@ -4,6 +4,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Student;
 use AppBundle\Pdf\BaseTcpdf;
+use IntlDateFormatter;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
@@ -77,36 +78,38 @@ class StudentImageRightsPdfService
         // set image scale factor
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
-        // Add a page
+        // Add start page
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
         $pdf->setPrintFooter(true);
 
         $pdf->SetXY(BaseTcpdf::PDF_MARGIN_LEFT, BaseTcpdf::PDF_MARGIN_TOP);
         $pdf->setFontStyle(null, '', 11);
         // Description
-        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.description1'), '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.description1'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
-        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.description2'), '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.description2'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
         // Contact name
-        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.contact_name', array('%contact_name%' => ($student->getContactName() ? $student->getContactName() : '____________________________________'))), '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.contact_name', array('%contact_name%' => ($student->getContactName() ? $student->getContactName() : '____________________________________'))), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
-        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.contact_dni', array('%contact_dni%' => ($student->getContactDni() ? $student->getContactDni() : '____________________________________'))), '', false, 'L', true);
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
-        $pdf->SetX(55);
-        $pdf->Rect(51, $pdf->GetY() + 1, 3, 3);
-        $pdf->MultiCell(125, 0, $this->ts->trans('backend.admin.pdf.autortization1', array('%student_name%' => $student->getName(), '%years_old%' => $student->getYearsOld())), 0, 'L', false, 1);
+        $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.contact_dni', array('%contact_dni%' => ($student->getContactDni() ? $student->getContactDni() : '____________________________________'))), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
         $pdf->SetX(55);
         $pdf->Rect(51, $pdf->GetY() + 1, 3, 3);
-        $pdf->MultiCell(125, 0, $this->ts->trans('backend.admin.pdf.autortization2', array('%student_name%' => $student->getName(), '%years_old%' => $student->getYearsOld())), 0, 'L', false, 1);
-//        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.autortization2'), '', false, 'L', true);
+        $pdf->MultiCell(125, 0, $this->ts->trans('backend.admin.imagerigths.autortization1', array('%student_name%' => $student->getName(), '%years_old%' => $student->getYearsOld())), 0, 'L', false, 1);
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        $pdf->SetX(55);
+        $pdf->Rect(51, $pdf->GetY() + 1, 3, 3);
+        $pdf->MultiCell(125, 0, $this->ts->trans('backend.admin.imagerigths.autortization2', array('%student_name%' => $student->getName(), '%years_old%' => $student->getYearsOld())), 0, 'L', false, 1);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
         // Registration date
         $today = new \DateTime();
-        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.registration_date', array('%day%' => $today->format('j'), '%month%' => $today->format('F'), '%year%' => $today->format('Y'))), '', false, 'L', true);
+        $df = new IntlDateFormatter('ca_ES', IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
+        $df->setPattern('MMMM');
+        $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.registration_date', array('%day%' => $today->format('j'), '%month%' => $df->format($today), '%year%' => $today->format('Y'))), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
-        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.sign'), '', false, 'L', true);
+        $pdf->setFontStyle(null, 'B', 11);
+        $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.sign'), '', false, 'L', true);
 
         return $pdf;
     }

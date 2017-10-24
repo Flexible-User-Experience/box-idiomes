@@ -34,6 +34,7 @@ parameters:
     private_editor_test_pass: user
 
     project_web_title: "Project Name"
+    boss_name: boss name
 
     facebook_pixel_enabled: false
     facebook_pixel_id: XXXXXX

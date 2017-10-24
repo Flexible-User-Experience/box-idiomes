@@ -72,6 +72,13 @@ class Student extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     */
+    private $parentAddress;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
      * @Assert\Email(strict=true, checkMX=true, checkHost=true)
      */
     private $email;
@@ -89,6 +96,13 @@ class Student extends AbstractBase
      * @ORM\Column(type="integer", options={"default"=0})
      */
     private $payment = 0;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $bankAccountName;
 
     /**
      * @var string
@@ -285,6 +299,26 @@ class Student extends AbstractBase
     /**
      * @return string
      */
+    public function getParentAddress()
+    {
+        return $this->parentAddress;
+    }
+
+    /**
+     * @param string $parentAddress
+     *
+     * @return Student
+     */
+    public function setParentAddress($parentAddress)
+    {
+        $this->parentAddress = $parentAddress;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;
@@ -345,9 +379,101 @@ class Student extends AbstractBase
     /**
      * @return string
      */
+    public function getBankAccountName()
+    {
+        return $this->bankAccountName;
+    }
+
+    /**
+     * @param string $bankAccountName
+     *
+     * @return Student
+     */
+    public function setBankAccountName($bankAccountName)
+    {
+        $this->bankAccountName = $bankAccountName;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getBankAccountNumber()
     {
         return $this->bankAccountNumber;
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN1part()
+    {
+        if (strlen($this->bankAccountNumber) < 4) {
+            return '';
+        }
+
+        return substr($this->bankAccountNumber, 0, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN2part()
+    {
+        if (strlen($this->bankAccountNumber) < 8) {
+            return '';
+        }
+
+        return substr($this->bankAccountNumber, 4, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN3part()
+    {
+        if (strlen($this->bankAccountNumber) < 12) {
+            return '';
+        }
+
+        return substr($this->bankAccountNumber, 8, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN4part()
+    {
+        if (strlen($this->bankAccountNumber) < 16) {
+            return '';
+        }
+
+        return substr($this->bankAccountNumber, 12, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN5part()
+    {
+        if (strlen($this->bankAccountNumber) < 20) {
+            return '';
+        }
+
+        return substr($this->bankAccountNumber, 16, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN6part()
+    {
+        if (strlen($this->bankAccountNumber) < 24) {
+            return '';
+        }
+
+        return substr($this->bankAccountNumber, 20, 4);
     }
 
     /**

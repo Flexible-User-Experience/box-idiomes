@@ -35,11 +35,13 @@ AppBundle\Entity\Student:
     name: <name()>
     surname: <firstName()>
     birthDate: <dateTimeBetween()>
-    bankAccountNumber: <creditCardNumber()>
+    bankAccountName: <company()>
+    bankAccountNumber: <iban('ES')>
     ownMobile: <phoneNumber()>
     contactPhone: <phoneNumber()>
     contactName: <name()>
     contactDni: <bothify('########?')>
+    parentAddress: <address()>
     email: <safeEmail()>
     address: <address()>
     payment: <numberBetween(1,4)>
