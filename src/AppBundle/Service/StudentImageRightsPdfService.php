@@ -4,6 +4,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Student;
 use AppBundle\Pdf\BaseTcpdf;
+use IntlDateFormatter;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
@@ -104,7 +105,9 @@ class StudentImageRightsPdfService
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
         // Registration date
         $today = new \DateTime();
-        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.registration_date', array('%day%' => $today->format('j'), '%month%' => $today->format('F'), '%year%' => $today->format('Y'))), '', false, 'L', true);
+        $df = new IntlDateFormatter('ca_ES', IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
+        $df->setPattern('MMMM');
+        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.registration_date', array('%day%' => $today->format('j'), '%month%' => $df->format($today), '%year%' => $today->format('Y'))), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
         $pdf->Write(0, $this->ts->trans('backend.admin.pdf.sign'), '', false, 'L', true);
 

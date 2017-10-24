@@ -86,5 +86,6 @@ backend:
             contact_dni: "DNI o passaport número: %contact_dni%"
             autortization1: "Si, autoritzo que la imatge del meu fill/la meva filla %student_name% de %years_old% anys pugui aparèixer en fotografies o vídeos del centre publicades a qualsevol dels seus espais web o xarxes socials."
             autortization2: "No, no autoritzo el centre  a publicar cap tipus d’imatge del meu fill o a la meva filla."
-            registration_date: "Amposta %day% de %month% de %year%"
+            registration_date: "Amposta %day% %month% de %year%"
             sign: Signatura
+            image_rigths_agreement: Dret d'imatge amb PDF
