@@ -44,12 +44,14 @@ backend:
             name: Nom
             surname: Cognoms
             birthDate: Data naixament
+            bankAccountName: Nom entitat bancària
             bankAccountNumber: Compte bancari
             cash: Efectiu
             ownMobile: Mòbil
             contactPhone: Telèfon contacte
             contactName: Nom contacte
             contactDni: "DNI/NIE"
+            parentAddress: Adreça completa del titular
             email: Email
             address: Adreça
             city: Ciutat

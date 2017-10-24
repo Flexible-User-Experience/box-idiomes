@@ -110,6 +110,13 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'parentAddress',
+                null,
+                array(
+                    'label' => 'backend.admin.student.parentAddress',
+                )
+            )
+            ->add(
                 'email',
                 null,
                 array(
@@ -135,6 +142,14 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'bankAccountName',
+                null,
+                array(
+                    'label' => 'backend.admin.student.bankAccountName',
+                    'required' => false,
+                )
+            )
             ->add(
                 'bankAccountNumber',
                 null,
