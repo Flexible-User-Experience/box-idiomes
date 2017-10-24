@@ -405,6 +405,78 @@ class Student extends AbstractBase
     }
 
     /**
+     * @return bool|string
+     */
+    public function getBAN1part()
+    {
+        if (strlen($this->bankAccountNumber) < 4) {
+            return '';
+        }
+
+        return substr($this->bankAccountNumber, 0, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN2part()
+    {
+        if (strlen($this->bankAccountNumber) < 8) {
+            return '';
+        }
+
+        return substr($this->bankAccountNumber, 4, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN3part()
+    {
+        if (strlen($this->bankAccountNumber) < 12) {
+            return '';
+        }
+
+        return substr($this->bankAccountNumber, 8, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN4part()
+    {
+        if (strlen($this->bankAccountNumber) < 16) {
+            return '';
+        }
+
+        return substr($this->bankAccountNumber, 12, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN5part()
+    {
+        if (strlen($this->bankAccountNumber) < 20) {
+            return '';
+        }
+
+        return substr($this->bankAccountNumber, 16, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN6part()
+    {
+        if (strlen($this->bankAccountNumber) < 24) {
+            return '';
+        }
+
+        return substr($this->bankAccountNumber, 20, 4);
+    }
+
+    /**
      * @param string $bankAccountNumber
      *
      * @return Student

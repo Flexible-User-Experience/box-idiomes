@@ -102,13 +102,13 @@ class SepaAgreementPdfService
         // iban
         $pdf->MultiCell(BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT, 7, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.bank_account').'</strong>', 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
         $pdf->setCellMargins(1, 0, 0, 0);
-        $pdf->MultiCell(25, 7, 'ES78', 1, 'L', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, $student->getBAN1part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
         $pdf->setCellMargins(0, 0, 0, 0);
-        $pdf->MultiCell(25, 7, 'ES78', 1, 'L', false, 0, '', '', true, 0, true, true, 0, 'T', false);
-        $pdf->MultiCell(25, 7, 'ES78', 1, 'L', false, 0, '', '', true, 0, true, true, 0, 'T', false);
-        $pdf->MultiCell(25, 7, 'ES78', 1, 'L', false, 0, '', '', true, 0, true, true, 0, 'T', false);
-        $pdf->MultiCell(25, 7, 'ES78', 1, 'L', false, 0, '', '', true, 0, true, true, 0, 'T', false);
-        $pdf->MultiCell(25, 7, 'ES78', 1, 'L', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, $student->getBAN2part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, $student->getBAN3part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, $student->getBAN4part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, $student->getBAN5part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, $student->getBAN6part(), 1, 'C', false, 1, '', '', true, 0, true, true, 0, 'T', false);
 
         return $pdf;
     }
