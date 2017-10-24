@@ -82,8 +82,8 @@ backend:
             postalCode: Codi postal
             province: Província
         imagerigths:
-            description1: El centre Box, viu els idiomes gestiona diversos espais a la xarxa: web, Facebook Instagram i diverses pàgines associades on, de tant en tant, poden aparèixer, ja sigui individualment o en grup imatges dels nostres alumnes fent algunes de les activitats que es duguin a terme a les aules o fora d’elles.
-            description2: Donat que el dret a la pròpia imatge és reconegut en l’article 18.1 de la Constitució i regulat per Llei 5/1985, de 5 de maig, sobre el dret a l’honor, a la intimitat personal i familiar i a la pròpia imatge; la direcció d’aquest centre demana el consentiment per escrit als pares, mares o tutors legals dels menors d’edat per poder publicar fotografies, vídeos o imatges on apareguin els seus fills i filles i on siguin clarament identificables.
+            description1: "El centre Box, viu els idiomes gestiona diversos espais a la xarxa: web, Facebook Instagram i diverses pàgines associades on, de tant en tant, poden aparèixer, ja sigui individualment o en grup imatges dels nostres alumnes fent algunes de les activitats que es duguin a terme a les aules o fora d’elles."
+            description2: "Donat que el dret a la pròpia imatge és reconegut en l’article 18.1 de la Constitució i regulat per Llei 5/1985, de 5 de maig, sobre el dret a l’honor, a la intimitat personal i familiar i a la pròpia imatge; la direcció d’aquest centre demana el consentiment per escrit als pares, mares o tutors legals dels menors d’edat per poder publicar fotografies, vídeos o imatges on apareguin els seus fills i filles i on siguin clarament identificables."
             contact_name: "Nom i cognom mare, pare o tutor legal: %contact_name%"
             contact_dni: "DNI o passaport número: %contact_dni%"
             autortization1: "Si, autoritzo que la imatge del meu fill/la meva filla %student_name% de %years_old% anys pugui aparèixer en fotografies o vídeos del centre publicades a qualsevol dels seus espais web o xarxes socials."
@@ -92,3 +92,15 @@ backend:
             sign: Signatura
             image_rigths_agreement: Dret d'imatge amb PDF
             sepa_agreement: Autorització domiciliació bancària amb PDF
+        sepaagreement:
+            first_text: Autorització de domiciliació bancària per al pagament de rebuts
+            text1: "D’acord amb el que estableixen els articles 25,26 i 31 de la llei 16/2009 de serveis de pagament:"
+            text2: "Autoritzo i consenteixo la present ordre de domiciliació bancària per què, a càrrec del compte del qual s’indica el titular i número, i fins nou avís, Ester Escrihuela Simó procedeixi al cobrament de rebuts bancaris que s’originin mensualment amb relació a les classes impartides."
+            text3: "Tanmateix, autoritzo a Ester Escrihuela Simó perquè traslladi aquesta ordre a l’entitat bancària corresponent per tal que en prenguin coneixement i constància."
+            contact_name: Nom complet del titular del compte
+            contact_dni: "DNI/NIE o CIF"
+            parent_address: Adreça completa del titular
+            contact_phone: Telèfon
+            bank_name: Entitat Bancària
+            bank_account: "Compte bancari:"
+            end_text: "D’acord amb el que estableix la llei orgànica 15/1999, li fem saber que les seves dades seran incorporades a un fitxer autoritzat sota la responsabilitat de Ester Escrihuela Simó amb la finalitat de poder atendre els compromisos derivats de la relació que mantenim amb vostès."

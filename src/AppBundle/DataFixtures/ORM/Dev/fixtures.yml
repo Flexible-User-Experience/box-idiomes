@@ -36,7 +36,7 @@ AppBundle\Entity\Student:
     surname: <firstName()>
     birthDate: <dateTimeBetween()>
     bankAccountName: <company()>
-    bankAccountNumber: <creditCardNumber()>
+    bankAccountNumber: <iban('ES')>
     ownMobile: <phoneNumber()>
     contactPhone: <phoneNumber()>
     contactName: <name()>

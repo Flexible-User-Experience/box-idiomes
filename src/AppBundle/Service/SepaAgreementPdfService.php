@@ -86,6 +86,19 @@ class SepaAgreementPdfService
 
         $pdf->SetXY(BaseTcpdf::PDF_MARGIN_LEFT, BaseTcpdf::PDF_MARGIN_TOP);
         $pdf->setFontStyle(null, '', 11);
+        // description
+        $pdf->Write(0, $this->ts->trans('backend.admin.sepaagreement.first_text'), '', false, 'L', true);
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        $pdf->Write(0, $this->ts->trans('backend.admin.sepaagreement.text1'), '', false, 'L', true);
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        $pdf->Write(0, $this->ts->trans('backend.admin.sepaagreement.text2'), '', false, 'L', true);
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        $pdf->Write(0, $this->ts->trans('backend.admin.sepaagreement.text3'), '', false, 'L', true);
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        $pdf->setCellPaddings(2, 1, 0, 0);
+        $pdf->setCellMargins(1, 0, 1, 0);
+        $pdf->MultiCell(BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_name').'</strong><br>'.$student->getContactName(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+//        $pdf->Cell(BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT, 19, 'hit me', 1, 1, 'L', false, '', 0, false, 'T', 'T');
 
         return $pdf;
     }
