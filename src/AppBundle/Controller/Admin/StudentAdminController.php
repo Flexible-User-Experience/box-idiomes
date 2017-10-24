@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Student;
+use AppBundle\Service\SepaAgreementPdfService;
 use AppBundle\Service\StudentImageRightsPdfService;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,6 +70,10 @@ class StudentAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
+        /** @var SepaAgreementPdfService $saps */
         $saps = $this->get('app.sepa_agreement_pdf_builder');
+        $pdf = $saps->build($object);
+
+        return new Response($pdf->Output('sepa_agreement_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
 }

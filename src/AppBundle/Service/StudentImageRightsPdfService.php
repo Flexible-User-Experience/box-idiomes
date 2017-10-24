@@ -78,7 +78,7 @@ class StudentImageRightsPdfService
         // set image scale factor
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
-        // Add a page
+        // Add start page
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
         $pdf->setPrintFooter(true);
 
