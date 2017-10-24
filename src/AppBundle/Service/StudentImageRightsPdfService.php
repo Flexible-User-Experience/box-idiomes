@@ -101,7 +101,6 @@ class StudentImageRightsPdfService
         $pdf->SetX(55);
         $pdf->Rect(51, $pdf->GetY() + 1, 3, 3);
         $pdf->MultiCell(125, 0, $this->ts->trans('backend.admin.imagerigths.autortization2', array('%student_name%' => $student->getName(), '%years_old%' => $student->getYearsOld())), 0, 'L', false, 1);
-//        $pdf->Write(0, $this->ts->trans('backend.admin.pdf.autortization2'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
         // Registration date
         $today = new \DateTime();
@@ -109,6 +108,7 @@ class StudentImageRightsPdfService
         $df->setPattern('MMMM');
         $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.registration_date', array('%day%' => $today->format('j'), '%month%' => $df->format($today), '%year%' => $today->format('Y'))), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
+        $pdf->setFontStyle(null, 'B', 11);
         $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.sign'), '', false, 'L', true);
 
         return $pdf;

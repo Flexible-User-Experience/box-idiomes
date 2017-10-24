@@ -33,9 +33,14 @@ class SepaAgreementPdfService
     private $ts;
 
     /**
-     * @var string
+     * @var string public web title
      */
     private $pwt;
+
+    /**
+     * @var string boss name
+     */
+    private $bn;
 
     /**
      * SepaAgreementPdfService constructor.
@@ -43,14 +48,16 @@ class SepaAgreementPdfService
      * @param TCPDFController $tcpdf
      * @param AssetsHelper    $tha
      * @param Translator      $ts
-     * @param $pwt
+     * @param string          $pwt
+     * @param string          $bn
      */
-    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt)
+    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn)
     {
         $this->tcpdf = $tcpdf;
         $this->tha = $tha;
         $this->ts = $ts;
         $this->pwt = $pwt;
+        $this->bn = $bn;
     }
 
     /**
@@ -62,6 +69,8 @@ class SepaAgreementPdfService
     {
         /** @var BaseTcpdf $pdf */
         $pdf = $this->tcpdf->create($this->tha, $this->ts);
+
+        $maxCellWidth = BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT;
 
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
@@ -94,13 +103,17 @@ class SepaAgreementPdfService
         $pdf->Write(0, $this->ts->trans('backend.admin.sepaagreement.text2'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
         $pdf->Write(0, $this->ts->trans('backend.admin.sepaagreement.text3'), '', false, 'L', true);
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        // table
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
         $pdf->setCellPaddings(2, 1, 0, 0);
         $pdf->setCellMargins(1, 0, 1, 0);
-        $pdf->MultiCell(BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_name').'</strong><br>'.$student->getContactName(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
-        $pdf->MultiCell(BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_dni').'</strong><br>'.$student->getContactDni(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_name').'</strong><br>'.$student->getContactName(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_dni').'</strong><br>'.$student->getContactDni(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.parent_address').'</strong><br>'.$student->getParentAddress(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_phone').'</strong><br>'.$student->getContactPhone(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.bank_name').'</strong><br>'.$student->getBankAccountName(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
         // iban
-        $pdf->MultiCell(BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT, 7, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.bank_account').'</strong>', 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell($maxCellWidth, 7, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.bank_account').'</strong>', 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
         $pdf->setCellMargins(1, 0, 0, 0);
         $pdf->MultiCell(25, 7, $student->getBAN1part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
         $pdf->setCellMargins(0, 0, 0, 0);
@@ -109,6 +122,16 @@ class SepaAgreementPdfService
         $pdf->MultiCell(25, 7, $student->getBAN4part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
         $pdf->MultiCell(25, 7, $student->getBAN5part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
         $pdf->MultiCell(25, 7, $student->getBAN6part(), 1, 'C', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->setCellMargins(1, 0, 1, 0);
+        $pdf->setCellPaddings(0, 0, 0, 0);
+        // description legal
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
+        $pdf->Write(0, $this->ts->trans('backend.admin.sepaagreement.end_text'), '', false, 'L', true);
+        // signs
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
+        $pdf->MultiCell($maxCellWidth / 2, 7, '<strong>'.$this->bn.'</strong>', 0, 'L', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->setCellPaddings(0, 0, 2, 0);
+        $pdf->MultiCell($maxCellWidth / 2, 7, '<strong>'.$this->ts->trans('backend.admin.imagerigths.sign').'</strong>', 0, 'R', false, 1, '', '', true, 0, true, true, 0, 'T', false);
 
         return $pdf;
     }
