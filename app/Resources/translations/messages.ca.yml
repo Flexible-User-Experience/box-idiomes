@@ -26,6 +26,7 @@ backend:
         image: Imatge
         position: Posició
         description: Descripció
+        payment: Dades de pagament
         user:
             user: Usuari
             editor: Editor

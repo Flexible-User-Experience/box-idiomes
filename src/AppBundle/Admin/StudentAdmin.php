@@ -47,7 +47,7 @@ class StudentAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(5))
+            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'name',
                 null,
@@ -80,40 +80,12 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('backend.admin.contact.contact', $this->getFormMdSuccessBoxArray(4))
+            ->with('backend.admin.contact.contact', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'ownMobile',
                 null,
                 array(
                     'label' => 'backend.admin.student.ownMobile',
-                )
-            )
-            ->add(
-                'contactPhone',
-                null,
-                array(
-                    'label' => 'backend.admin.student.contactPhone',
-                )
-            )
-            ->add(
-                'contactName',
-                null,
-                array(
-                    'label' => 'backend.admin.student.contactName',
-                )
-            )
-            ->add(
-                'contactDni',
-                null,
-                array(
-                    'label' => 'backend.admin.student.contactDni',
-                )
-            )
-            ->add(
-                'parentAddress',
-                null,
-                array(
-                    'label' => 'backend.admin.student.parentAddress',
                 )
             )
             ->add(
@@ -141,7 +113,35 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
+            ->with('backend.admin.payment', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'contactName',
+                null,
+                array(
+                    'label' => 'backend.admin.student.contactName',
+                )
+            )
+            ->add(
+                'contactDni',
+                null,
+                array(
+                    'label' => 'backend.admin.student.contactDni',
+                )
+            )
+            ->add(
+                'contactPhone',
+                null,
+                array(
+                    'label' => 'backend.admin.student.contactPhone',
+                )
+            )
+            ->add(
+                'parentAddress',
+                null,
+                array(
+                    'label' => 'backend.admin.student.parentAddress',
+                )
+            )
             ->add(
                 'bankAccountName',
                 null,
@@ -169,6 +169,8 @@ class StudentAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(2))
             ->add(
                 'schedule',
                 null,
