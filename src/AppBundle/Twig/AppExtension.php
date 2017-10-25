@@ -8,20 +8,16 @@ use AppBundle\Enum\TeacherColorEnum;
 use AppBundle\Enum\UserRolesEnum;
 
 /**
- * Class AppExtension
+ * Class AppExtension.
  *
  * @category Twig
- * @package  AppBundle\Service
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class AppExtension extends \Twig_Extension
 {
     /**
-     *
-     *
-     * Twig Functions
-     *
-     *
+     * Twig Functions.
      */
 
     /**
@@ -51,11 +47,7 @@ class AppExtension extends \Twig_Extension
     }
 
     /**
-     *
-     *
-     * Twig Filters
-     *
-     *
+     * Twig Filters.
      */
 
     /**
@@ -80,13 +72,11 @@ class AppExtension extends \Twig_Extension
         if ($object instanceof User && count($object->getRoles()) > 0) {
             /** @var string $role */
             foreach ($object->getRoles() as $role) {
-                if ($role == UserRolesEnum::ROLE_USER) {
-                    $span .= '<span class="label label-info" style="margin-right:10px">usuari</span>';
-                } else if ($role == UserRolesEnum::ROLE_CMS) {
+                if ($role == UserRolesEnum::ROLE_CMS) {
                     $span .= '<span class="label label-warning" style="margin-right:10px">editor</span>';
-                } else if ($role == UserRolesEnum::ROLE_ADMIN) {
+                } elseif ($role == UserRolesEnum::ROLE_ADMIN) {
                     $span .= '<span class="label label-primary" style="margin-right:10px">administrador</span>';
-                } else if ($role == UserRolesEnum::ROLE_SUPER_ADMIN) {
+                } elseif ($role == UserRolesEnum::ROLE_SUPER_ADMIN) {
                     $span .= '<span class="label label-danger" style="margin-right:10px">superadministrador</span>';
                 }
             }
@@ -106,15 +96,15 @@ class AppExtension extends \Twig_Extension
     {
         $span = '';
         if ($object instanceof Teacher) {
-                if ($object->getColor() == TeacherColorEnum::MAGENTA) {
-                    $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #EE388A"></span>';
-                } else if ($object->getColor() == TeacherColorEnum::BLUE) {
-                    $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #00ABE0"></span>';
-                } else if ($object->getColor() == TeacherColorEnum::YELLOW) {
-                    $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #FFCD38"></span>';
-                } else if ($object->getColor() == TeacherColorEnum::GREEN) {
-                    $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #CEC533"></span>';
-                }
+            if ($object->getColor() == TeacherColorEnum::MAGENTA) {
+                $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #EE388A"></span>';
+            } elseif ($object->getColor() == TeacherColorEnum::BLUE) {
+                $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #00ABE0"></span>';
+            } elseif ($object->getColor() == TeacherColorEnum::YELLOW) {
+                $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #FFCD38"></span>';
+            } elseif ($object->getColor() == TeacherColorEnum::GREEN) {
+                $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #CEC533"></span>';
+            }
         } else {
             $span = '<span class="label label-success" style="margin-right:10px">---</span>';
         }
