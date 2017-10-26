@@ -134,6 +134,13 @@ class Student extends AbstractBase
     private $city;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $showSEPAequalAddress;
+
+    /**
      * Methods.
      */
 
@@ -544,6 +551,26 @@ class Student extends AbstractBase
     public function setCity($city)
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isShowSEPAequalAddress()
+    {
+        return $this->showSEPAequalAddress;
+    }
+
+    /**
+     * @param bool $showSEPAequalAddress
+     *
+     * @return Student
+     */
+    public function setShowSEPAequalAddress($showSEPAequalAddress)
+    {
+        $this->showSEPAequalAddress = $showSEPAequalAddress;
 
         return $this;
     }

@@ -48,6 +48,7 @@ AppBundle\Entity\Student:
     schedule: <name()>
     comments: <paragraph()>
     city: @city*
+    showSEPAequalAddress: false
 
 # Services
 AppBundle\Entity\Service:

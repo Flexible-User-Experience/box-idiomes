@@ -18,7 +18,7 @@ script:
 notifications:
   email:
     - david@flux.cat
-    - aserratorta@gmail.com
+    - wiglesias83@gmail.com
 
 branches:
   only:

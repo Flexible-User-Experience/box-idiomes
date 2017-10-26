@@ -26,15 +26,16 @@ sonata_admin:
         layout: "::Admin/layout.html.twig"
     dashboard:
         groups:
-            Teachers:
+            Professors:
                 icon: "<i class='fa fa-users'></i>"
-            Students:
+            Alumnes:
                 icon: "<i class='fa fa-graduation-cap'></i>"
-            Services:
+            Serveis:
                 icon: "<i class='fa fa-list-ol'></i>"
-            Contacts:
+            Contactes:
                 icon: "<i class='fa fa-envelope'></i>"
             Administration:
+                label: "Administració"
                 icon: "<i class='fa fa-briefcase'></i>"
         blocks:
             -
@@ -43,31 +44,31 @@ sonata_admin:
                 class: col-md-12
                 settings:
                     content: >
-                        <h1 style="margin-top:0">Content Management System</h1>
+                        <h1 style="margin-top:0">Administrador de continguts</h1>
             -
                 position: left
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ Teachers ]
+                    groups: [ Professors ]
             -
                 position: left
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ Students ]
+                    groups: [ Alumnes ]
             -
                 position: left
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ Services ]
+                    groups: [ Serveis ]
             -
                 position: right
                 type: sonata.admin.block.admin_list
                 class: col-md-6
                 settings:
-                    groups: [ Contacts ]
+                    groups: [ Contactes ]
             -
                 position: right
                 type: sonata.admin.block.admin_list
