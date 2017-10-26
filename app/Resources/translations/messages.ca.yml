@@ -27,6 +27,8 @@ backend:
         position: Posició
         description: Descripció
         payment: Dades de pagament
+        image_rigths_agreement: Dret d'imatge amb PDF
+        sepa_agreement: Autorització domiciliació bancària amb PDF
         user:
             user: Usuari
             editor: Editor
@@ -91,8 +93,6 @@ backend:
             autortization2: "No, no autoritzo el centre  a publicar cap tipus d’imatge del meu fill o a la meva filla."
             registration_date: "Amposta %day% %month% de %year%"
             sign: Signatura
-            image_rigths_agreement: Dret d'imatge amb PDF
-            sepa_agreement: Autorització domiciliació bancària amb PDF
         sepaagreement:
             first_text: Autorització de domiciliació bancària per al pagament de rebuts
             text1: "D’acord amb el que estableixen els articles 25,26 i 31 de la llei 16/2009 de serveis de pagament:"
