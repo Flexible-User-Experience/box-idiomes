@@ -47,7 +47,7 @@ class StudentAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(4))
+            ->with('backend.admin.student.student', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'name',
                 null,
@@ -63,14 +63,6 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'birthDate',
-                'sonata_type_date_picker',
-                array(
-                    'label' => 'backend.admin.student.birthDate',
-                    'format' => 'd/M/y',
-                )
-            )
-            ->add(
                 'comments',
                 CKEditorType::class,
                 array(
@@ -80,7 +72,28 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('backend.admin.contact.contact', $this->getFormMdSuccessBoxArray(3))
+            ->with('backend.admin.student.parent', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'contactName',
+                null,
+                array(
+                    'label' => 'backend.admin.student.contactName',
+                )
+            )
+            ->add(
+                'contactDni',
+                null,
+                array(
+                    'label' => 'backend.admin.student.contactDni',
+                )
+            )
+            ->add(
+                'contactPhone',
+                null,
+                array(
+                    'label' => 'backend.admin.student.contactPhone',
+                )
+            )
             ->add(
                 'ownMobile',
                 null,
@@ -113,28 +126,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('backend.admin.payment', $this->getFormMdSuccessBoxArray(3))
-            ->add(
-                'contactName',
-                null,
-                array(
-                    'label' => 'backend.admin.student.contactName',
-                )
-            )
-            ->add(
-                'contactDni',
-                null,
-                array(
-                    'label' => 'backend.admin.student.contactDni',
-                )
-            )
-            ->add(
-                'contactPhone',
-                null,
-                array(
-                    'label' => 'backend.admin.student.contactPhone',
-                )
-            )
+            ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'parentAddress',
                 null,
@@ -171,6 +163,14 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(2))
+            ->add(
+                'birthDate',
+                'sonata_type_date_picker',
+                array(
+                    'label' => 'backend.admin.student.birthDate',
+                    'format' => 'd/M/y',
+                )
+            )
             ->add(
                 'schedule',
                 null,

@@ -26,7 +26,6 @@ backend:
         image: Imatge
         position: Posició
         description: Descripció
-        payment: Dades de pagament
         image_rigths_agreement: Dret d'imatge amb PDF
         sepa_agreement: Autorització domiciliació bancària amb PDF
         user:
@@ -44,6 +43,9 @@ backend:
             name: Nom
             color: Color
         student:
+            student: Alumne
+            parent: "Pare/mare o tutor"
+            payment_information: Dades de pagament
             name: Nom
             surname: Cognoms
             birthDate: Data naixament
