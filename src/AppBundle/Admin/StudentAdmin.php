@@ -125,6 +125,14 @@ class StudentAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
+            ->add(
+                'showSEPAequalAddress',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.student.showSEPAequalAddress',
+                    'required' => false,
+                )
+            )
             ->end()
             ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
             ->add(

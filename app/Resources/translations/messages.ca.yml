@@ -60,6 +60,7 @@ backend:
             email: Email
             address: Adreça
             city: Ciutat
+            showSEPAequalAddress: Adreces
             payment: Pagament
             schedule: Horari
             comments: Comentaris
