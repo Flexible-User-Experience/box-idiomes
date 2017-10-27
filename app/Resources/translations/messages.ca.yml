@@ -1,6 +1,24 @@
 Teacher List: Professors
 Teacher Create: Crear
 Teacher Delete: Esborrar
+Student List: Alumnes
+Student Create: Crear
+Student Delete: Esborrar
+Service List: Serveis
+Service Create: Crear
+Service Delete: Esborrar
+Contact Message List: Missatge de contacte
+Contact Message Delete: Esborrar
+Newsletter Contact List: Butlletí de contacte
+Province List: Província
+Province Create: Crear
+Province Delete: Esborrar
+City List: Ciutat
+City Create: Crear
+City Delete: Esborrar
+User List: Usuaris
+User Create: Crear
+User Delete: Esborrar
 
 frontend:
     menu:
