@@ -1,5 +1,5 @@
 <div class="login-logo">
     <a href="{{ path('sonata_admin_dashboard') }}">
-        <img src="{{ asset('bundles/app/img/login-logo-2.png') }}" alt="{{ sonata_admin.adminPool.title }}">
+        <img src="{{ asset('bundles/app/img/login-logo-2.png') | imagine_filter('200xY')}}" alt="{{ sonata_admin.adminPool.title }}">
     </a>
 </div>
