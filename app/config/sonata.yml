@@ -13,7 +13,7 @@ sonata_user:
 # Admin
 sonata_admin:
     title: "%project_web_title%"
-    title_logo: "/bundles/app/img/menu-logo.jpg"
+    title_logo: "/bundles/app/img/login-logo.png"
     options:
         html5_validate: true
         confirm_exit:   true

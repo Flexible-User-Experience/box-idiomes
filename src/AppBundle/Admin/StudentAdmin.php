@@ -133,8 +133,6 @@ class StudentAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->end()
-            ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'parentAddress',
                 null,
@@ -142,6 +140,8 @@ class StudentAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.student.parentAddress',
                 )
             )
+            ->end()
+            ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'bankAccountName',
                 null,
