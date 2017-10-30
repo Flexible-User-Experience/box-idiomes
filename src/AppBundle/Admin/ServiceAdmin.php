@@ -9,10 +9,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class ServiceAdmin
+ * Class ServiceAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class ServiceAdmin extends AbstractBaseAdmin
@@ -20,12 +20,12 @@ class ServiceAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Service';
     protected $baseRoutePattern = 'services/service';
     protected $datagridValues = array(
-        '_sort_by'    => 'position',
+        '_sort_by' => 'position',
         '_sort_order' => 'asc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -46,8 +46,8 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'imageFile',
                 'file',
                 array(
-                    'label'    => 'backend.admin.image',
-                    'help'     => $this->getImageHelperFormMapperWithThumbnail(),
+                    'label' => 'backend.admin.image',
+                    'help' => $this->getImageHelperFormMapperWithThumbnail(),
                     'required' => false,
                 )
             )
@@ -62,7 +62,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'description',
                 CKEditorType::class,
                 array(
-                    'label'       => 'backend.admin.description',
+                    'label' => 'backend.admin.description',
                     'config_name' => 'my_config',
                 )
             )
@@ -79,7 +79,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'enabled',
                 'checkbox',
                 array(
-                    'label'    => 'backend.admin.enabled',
+                    'label' => 'backend.admin.enabled',
                     'required' => false,
                 )
             )
@@ -119,23 +119,23 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'position',
                 'decimal',
                 array(
-                    'label'    => 'backend.admin.position',
-                    'editable' => false,
+                    'label' => 'backend.admin.position',
+                    'editable' => true,
                 )
             )
             ->add(
                 'image',
                 null,
                 array(
-                    'label'    => 'backend.admin.image',
-                    'template' => '::Admin/Cells/list__cell_image_field.html.twig'
+                    'label' => 'backend.admin.image',
+                    'template' => '::Admin/Cells/list__cell_image_field.html.twig',
                 )
             )
             ->add(
                 'title',
                 null,
                 array(
-                    'label'    => 'backend.admin.service.title',
+                    'label' => 'backend.admin.service.title',
                     'editable' => true,
                 )
             )
@@ -143,7 +143,7 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'enabled',
                 null,
                 array(
-                    'label'    => 'backend.admin.enabled',
+                    'label' => 'backend.admin.enabled',
                     'editable' => true,
                 )
             )
@@ -152,10 +152,10 @@ class ServiceAdmin extends AbstractBaseAdmin
                 'actions',
                 array(
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
-                    'label'   => 'backend.admin.actions',
+                    'label' => 'backend.admin.actions',
                 )
             );
     }
