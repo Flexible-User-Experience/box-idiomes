@@ -74,31 +74,17 @@ class StudentAdmin extends AbstractBaseAdmin
             ->end()
             ->with('backend.admin.student.parent', $this->getFormMdSuccessBoxArray(3))
             ->add(
-                'contactName',
+                'dni',
                 null,
                 array(
-                    'label' => 'backend.admin.student.contactName',
+                    'label' => 'backend.admin.student.dni',
                 )
             )
             ->add(
-                'contactDni',
+                'phone',
                 null,
                 array(
-                    'label' => 'backend.admin.student.contactDni',
-                )
-            )
-            ->add(
-                'contactPhone',
-                null,
-                array(
-                    'label' => 'backend.admin.student.contactPhone',
-                )
-            )
-            ->add(
-                'ownMobile',
-                null,
-                array(
-                    'label' => 'backend.admin.student.ownMobile',
+                    'label' => 'backend.admin.student.phone',
                 )
             )
             ->add(
@@ -133,28 +119,13 @@ class StudentAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->add(
-                'parentAddress',
-                null,
-                array(
-                    'label' => 'backend.admin.student.parentAddress',
-                )
-            )
             ->end()
             ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
             ->add(
-                'bankAccountName',
+                'bank',
                 null,
                 array(
-                    'label' => 'backend.admin.student.bankAccountName',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'bankAccountNumber',
-                null,
-                array(
-                    'label' => 'backend.admin.student.bankAccountNumber',
+                    'label' => 'backend.admin.student.bank',
                     'required' => false,
                 )
             )
@@ -226,24 +197,10 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'ownMobile',
+                'phone',
                 null,
                 array(
-                    'label' => 'backend.admin.student.ownMobile',
-                )
-            )
-            ->add(
-                'contactPhone',
-                null,
-                array(
-                    'label' => 'backend.admin.student.contactPhone',
-                )
-            )
-            ->add(
-                'contactName',
-                null,
-                array(
-                    'label' => 'backend.admin.student.contactName',
+                    'label' => 'backend.admin.student.phone',
                 )
             )
             ->add(
@@ -287,18 +244,10 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'ownMobile',
+                'phone',
                 null,
                 array(
-                    'label' => 'backend.admin.student.ownMobile',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'contactPhone',
-                null,
-                array(
-                    'label' => 'backend.admin.student.contactPhone',
+                    'label' => 'backend.admin.student.phone',
                     'editable' => true,
                 )
             )
