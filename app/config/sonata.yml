@@ -44,7 +44,7 @@ sonata_admin:
                 class: col-md-12
                 settings:
                     content: >
-                        <h1 style="margin-top:0">Administrador de continguts</h1>
+                        <h1 style="margin-top:0">%project_backend_title%</h1>
             -
                 position: left
                 type: sonata.admin.block.admin_list

@@ -5,16 +5,16 @@ namespace AppBundle\Tests\Controller;
 use AppBundle\Tests\AbstractBaseTest;
 
 /**
- * Class BackendControllerTest
+ * Class BackendControllerTest.
  *
  * @category Test
- * @package  AppBundle\Tests\Controller
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class BackendControllerTest extends AbstractBaseTest
 {
     /**
-     * Test admin login request is successful
+     * Test admin login request is successful.
      */
     public function testAdminLoginPageIsSuccessful()
     {
@@ -25,9 +25,10 @@ class BackendControllerTest extends AbstractBaseTest
     }
 
     /**
-     * Test HTTP request is successful
+     * Test HTTP request is successful.
      *
      * @dataProvider provideSuccessfulUrls
+     *
      * @param string $url
      */
     public function testAdminPagesAreSuccessful($url)
@@ -39,7 +40,7 @@ class BackendControllerTest extends AbstractBaseTest
     }
 
     /**
-     * Successful Urls provider
+     * Successful Urls provider.
      *
      * @return array
      */
@@ -53,7 +54,6 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/contact/message/1/delete'),
             array('/admin/teachers/teacher/list'),
             array('/admin/teachers/teacher/create'),
-            array('/admin/teachers/teacher/1/delete'),
             array('/admin/teachers/teacher/1/edit'),
             array('/admin/students/student/list'),
             array('/admin/students/student/create'),
@@ -79,9 +79,10 @@ class BackendControllerTest extends AbstractBaseTest
     }
 
     /**
-     * Test HTTP request is not found
+     * Test HTTP request is not found.
      *
      * @dataProvider provideNotFoundUrls
+     *
      * @param string $url
      */
     public function testAdminPagesAreNotFound($url)
@@ -93,7 +94,7 @@ class BackendControllerTest extends AbstractBaseTest
     }
 
     /**
-     * Not found Urls provider
+     * Not found Urls provider.
      *
      * @return array
      */
@@ -103,6 +104,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/contact/message/create'),
             array('/admin/contact/message/1/edit'),
             array('/admin/contact/message/batch'),
+            array('/admin/teachers/teacher/1/delete'),
             array('/admin/teachers/teacher/batch'),
             array('/admin/students/student/batch'),
             array('/admin/services/service/batch'),
