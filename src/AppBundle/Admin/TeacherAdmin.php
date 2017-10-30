@@ -10,10 +10,10 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class TeacherAdmin
+ * Class TeacherAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class TeacherAdmin extends AbstractBaseAdmin
@@ -21,19 +21,20 @@ class TeacherAdmin extends AbstractBaseAdmin
     protected $classnameLabel = 'Teacher';
     protected $baseRoutePattern = 'teachers/teacher';
     protected $datagridValues = array(
-        '_sort_by'    => 'position',
+        '_sort_by' => 'position',
         '_sort_order' => 'asc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection
-            ->remove('batch');
+            ->remove('batch')
+            ->remove('delete');
     }
 
     /**
@@ -47,8 +48,8 @@ class TeacherAdmin extends AbstractBaseAdmin
                 'imageFile',
                 'file',
                 array(
-                    'label'    => 'backend.admin.image',
-                    'help'     => $this->getImageHelperFormMapperWithThumbnailAspectRatio(),
+                    'label' => 'backend.admin.image',
+                    'help' => $this->getImageHelperFormMapperWithThumbnailAspectRatio(),
                     'required' => false,
                 )
             )
@@ -81,7 +82,7 @@ class TeacherAdmin extends AbstractBaseAdmin
                 'choice',
                 array(
                     'label' => 'backend.admin.teacher.color',
-                    'choices'  => TeacherColorEnum::getEnumArray(),
+                    'choices' => TeacherColorEnum::getEnumArray(),
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
@@ -91,7 +92,7 @@ class TeacherAdmin extends AbstractBaseAdmin
                 'enabled',
                 'checkbox',
                 array(
-                    'label'    => 'backend.admin.enabled',
+                    'label' => 'backend.admin.enabled',
                     'required' => false,
                 )
             )
@@ -131,23 +132,23 @@ class TeacherAdmin extends AbstractBaseAdmin
                 'position',
                 'decimal',
                 array(
-                    'label'    => 'backend.admin.position',
-                    'editable' => false,
+                    'label' => 'backend.admin.position',
+                    'editable' => true,
                 )
             )
             ->add(
                 'image',
                 null,
                 array(
-                    'label'    => 'backend.admin.image',
-                    'template' => '::Admin/Cells/list__cell_image_field.html.twig'
+                    'label' => 'backend.admin.image',
+                    'template' => '::Admin/Cells/list__cell_image_field.html.twig',
                 )
             )
             ->add(
                 'name',
                 null,
                 array(
-                    'label'    => 'backend.admin.teacher.name',
+                    'label' => 'backend.admin.teacher.name',
                     'editable' => true,
                 )
             )
@@ -155,15 +156,15 @@ class TeacherAdmin extends AbstractBaseAdmin
                 'color',
                 null,
                 array(
-                    'label'    => 'backend.admin.teacher.color',
-                    'template' => '::Admin/Cells/list__cell_teacher_color.html.twig'
+                    'label' => 'backend.admin.teacher.color',
+                    'template' => '::Admin/Cells/list__cell_teacher_color.html.twig',
                 )
             )
             ->add(
                 'enabled',
                 null,
                 array(
-                    'label'    => 'backend.admin.enabled',
+                    'label' => 'backend.admin.enabled',
                     'editable' => true,
                 )
             )
@@ -172,10 +173,9 @@ class TeacherAdmin extends AbstractBaseAdmin
                 'actions',
                 array(
                     'actions' => array(
-                        'edit'   => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     ),
-                    'label'   => 'backend.admin.actions',
+                    'label' => 'backend.admin.actions',
                 )
             );
     }
