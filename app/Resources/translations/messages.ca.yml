@@ -130,3 +130,8 @@ backend:
             bank_name: Entitat Bancària
             bank_account: "Compte bancari:"
             end_text: "D’acord amb el que estableix la llei orgànica 15/1999, li fem saber que les seves dades seran incorporades a un fitxer autoritzat sota la responsabilitat de Ester Escrihuela Simó amb la finalitat de poder atendre els compromisos derivats de la relació que mantenim amb vostès."
+        bank:
+            name: Nom
+            accountNumber: No Compte
+            swiftCode: Codi SWIFT
+
