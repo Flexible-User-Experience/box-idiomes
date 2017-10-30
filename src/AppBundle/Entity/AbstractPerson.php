@@ -224,7 +224,7 @@ abstract class AbstractPerson extends AbstractBase
     }
 
     /**
-     * @param Banck $bank
+     * @param Bank $bank
      *
      * @return AbstractPerson
      */
