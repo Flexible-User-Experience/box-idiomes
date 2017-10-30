@@ -39,7 +39,10 @@ class Bank extends AbstractBase
     private $swiftCode;
 
     /**
+     * @var Person
+     *
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Person")
+     * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
     private $parent;
 
@@ -180,7 +183,7 @@ class Bank extends AbstractBase
     }
 
     /**
-     * @return mixed
+     * @return Person
      */
     public function getParent()
     {
@@ -188,7 +191,7 @@ class Bank extends AbstractBase
     }
 
     /**
-     * @param mixed $parent
+     * @param Person $parent
      *
      * @return Bank
      */

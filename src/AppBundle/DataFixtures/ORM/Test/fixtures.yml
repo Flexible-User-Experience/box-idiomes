@@ -32,23 +32,24 @@ AppBundle\Entity\Teacher:
 # Student
 AppBundle\Entity\Student:
   student{1..2}:
+    dni: <bothify('########?')>
     name: <name()>
     surname: <firstName()>
     birthDate: <dateTimeBetween()>
-    bankAccountName: <company()>
-    bankAccountNumber: <iban('ES')>
-    ownMobile: <phoneNumber()>
-    contactPhone: <phoneNumber()>
-    contactName: <name()>
-    contactDni: <bothify('########?')>
-    parentAddress: <address()>
+    phone: <phoneNumber()>
     email: <safeEmail()>
     address: <address()>
     payment: <numberBetween(1,4)>
+    address: <address()>
+    city: @city*
+    bank: @bank*
+    parent: @person*
     schedule: <name()>
     comments: <paragraph()>
-    city: @city*
     showSEPAequalAddress: false
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
 
 # Services
 AppBundle\Entity\Service:
@@ -83,6 +84,7 @@ AppBundle\Entity\Bank:
     name: <company()>
     accountNumber: <iban('ES')>
     swiftCode: <swiftBicNumber()>
+    parent: @person*
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -91,7 +93,6 @@ AppBundle\Entity\Bank:
 AppBundle\Entity\Person:
   person{1..2}:
     dni: <bothify('########?')>
-    students: [ @student1 ]
     name: <name()>
     surname: <firstName()>
     phone: <phoneNumber()>

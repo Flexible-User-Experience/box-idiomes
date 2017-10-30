@@ -27,9 +27,16 @@ class Person extends AbstractPerson
     /**
      * @var array
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Student")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Student", mappedBy="parent")
      */
     private $students;
+
+    /**
+     * @var Bank
+     *
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Bank")
+     */
+    protected $bank;
 
     /**
      * Methods.
