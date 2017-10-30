@@ -22,7 +22,7 @@ class Person extends AbstractPerson
      *
      * @ORM\Column(type="string")
      */
-    private $dni;
+    protected $dni;
 
     /**
      * @var array

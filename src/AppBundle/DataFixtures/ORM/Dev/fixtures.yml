@@ -77,6 +77,16 @@ AppBundle\Entity\City:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
+# Bank
+AppBundle\Entity\Bank:
+  bank:{1..10}:
+    name: <company()>
+    accountNumber: <iban('ES')>
+    swiftCode: <swiftBicNumber()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 ## Users
 AppBundle\Entity\User:
     admin:
