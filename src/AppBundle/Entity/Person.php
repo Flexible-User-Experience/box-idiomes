@@ -27,7 +27,7 @@ class Person extends AbstractPerson
     /**
      * @var array
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Student")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Student")
      */
     private $students;
 
@@ -41,26 +41,6 @@ class Person extends AbstractPerson
     public function __construct()
     {
         $this->students = new ArrayCollection();
-    }
-
-    /**
-     * @return string
-     */
-    public function getDni()
-    {
-        return $this->dni;
-    }
-
-    /**
-     * @param string $dni
-     *
-     * @return Person
-     */
-    public function setDni($dni)
-    {
-        $this->dni = $dni;
-
-        return $this;
     }
 
     /**

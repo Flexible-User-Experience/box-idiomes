@@ -104,6 +104,14 @@ abstract class AbstractPerson extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->name.' '.$this->surname;
+    }
+
+    /**
      * @param string $name
      *
      * @return AbstractPerson
@@ -233,5 +241,13 @@ abstract class AbstractPerson extends AbstractBase
         $this->bank = $bank;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getFullName() : '---';
     }
 }

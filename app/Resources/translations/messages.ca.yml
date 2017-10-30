@@ -134,4 +134,5 @@ backend:
             name: Nom
             accountNumber: No Compte
             swiftCode: Codi SWIFT
-
+        person:
+            name: Nom

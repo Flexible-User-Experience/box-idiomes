@@ -39,6 +39,11 @@ class Bank extends AbstractBase
     private $swiftCode;
 
     /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Person")
+     */
+    private $parent;
+
+    /**
      * Methods.
      */
 
@@ -71,6 +76,78 @@ class Bank extends AbstractBase
     }
 
     /**
+     * @return bool|string
+     */
+    public function getBAN1part()
+    {
+        if (strlen($this->accountNumber) < 4) {
+            return '';
+        }
+
+        return substr($this->accountNumber, 0, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN2part()
+    {
+        if (strlen($this->accountNumber) < 8) {
+            return '';
+        }
+
+        return substr($this->accountNumber, 4, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN3part()
+    {
+        if (strlen($this->accountNumber) < 12) {
+            return '';
+        }
+
+        return substr($this->accountNumber, 8, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN4part()
+    {
+        if (strlen($this->accountNumber) < 16) {
+            return '';
+        }
+
+        return substr($this->accountNumber, 12, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN5part()
+    {
+        if (strlen($this->accountNumber) < 20) {
+            return '';
+        }
+
+        return substr($this->accountNumber, 16, 4);
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getBAN6part()
+    {
+        if (strlen($this->accountNumber) < 24) {
+            return '';
+        }
+
+        return substr($this->accountNumber, 20, 4);
+    }
+
+    /**
      * @param string $accountNumber
      *
      * @return Bank
@@ -98,6 +175,26 @@ class Bank extends AbstractBase
     public function setSwiftCode($swiftCode)
     {
         $this->swiftCode = $swiftCode;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param mixed $parent
+     *
+     * @return Bank
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
 
         return $this;
     }
