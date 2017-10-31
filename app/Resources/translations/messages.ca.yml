@@ -71,14 +71,10 @@ backend:
             name: Nom
             surname: Cognoms
             birthDate: Data naixament
-            bankAccountName: Nom entitat bancària
-            bankAccountNumber: Compte bancari
+            bank: Nom entitat bancària
             cash: Efectiu
-            ownMobile: Mòbil
-            contactPhone: Telèfon contacte
-            contactName: Nom contacte
-            contactDni: "DNI/NIE"
-            parentAddress: Adreça completa del titular
+            phone: Telèfon
+            dni: "DNI/NIE"
             email: Email
             address: Adreça
             city: Ciutat

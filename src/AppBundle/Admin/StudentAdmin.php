@@ -41,133 +41,133 @@ class StudentAdmin extends AbstractBaseAdmin
         ;
     }
 
-//    /**
-//     * @param FormMapper $formMapper
-//     */
-//    protected function configureFormFields(FormMapper $formMapper)
-//    {
-//        $formMapper
-//            ->with('backend.admin.student.student', $this->getFormMdSuccessBoxArray(4))
-//            ->add(
-//                'name',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.student.name',
-//                )
-//            )
-//            ->add(
-//                'surname',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.student.surname',
-//                )
-//            )
-//            ->add(
-//                'comments',
-//                CKEditorType::class,
-//                array(
-//                    'label' => 'backend.admin.student.comments',
-//                    'config_name' => 'my_config',
-//                    'required' => false,
-//                )
-//            )
-//            ->end()
-//            ->with('backend.admin.student.parent', $this->getFormMdSuccessBoxArray(3))
-//            ->add(
-//                'dni',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.student.dni',
-//                )
-//            )
-//            ->add(
-//                'phone',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.student.phone',
-//                )
-//            )
-//            ->add(
-//                'email',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.student.email',
-//                    'required' => false,
-//                )
-//            )
-//            ->add(
-//                'address',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.student.address',
-//                    'required' => false,
-//                )
-//            )
-//            ->add(
-//                'city',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.student.city',
-//                    'required' => false,
-//                )
-//            )
-//            ->add(
-//                'showSEPAequalAddress',
-//                CheckboxType::class,
-//                array(
-//                    'label' => 'backend.admin.student.showSEPAequalAddress',
-//                    'required' => false,
-//                )
-//            )
-//            ->end()
-//            ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
-//            ->add(
-//                'bank',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.student.bank',
-//                    'required' => false,
-//                )
-//            )
-//            ->add(
-//                'payment',
-//                ChoiceType::class,
-//                array(
-//                    'label' => 'backend.admin.student.payment',
-//                    'choices' => StudentPaymentEnum::getEnumArray(),
-//                    'multiple' => false,
-//                    'expanded' => false,
-//                    'required' => true,
-//                )
-//            )
-//            ->end()
-//            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(2))
-//            ->add(
-//                'birthDate',
-//                'sonata_type_date_picker',
-//                array(
-//                    'label' => 'backend.admin.student.birthDate',
-//                    'format' => 'd/M/y',
-//                )
-//            )
-//            ->add(
-//                'schedule',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.student.schedule',
-//                )
-//            )
-//            ->add(
-//                'enabled',
-//                CheckboxType::class,
-//                array(
-//                    'label' => 'backend.admin.enabled',
-//                    'required' => false,
-//                )
-//            )
-//            ->end()
-//        ;
-//    }
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('backend.admin.student.student', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'backend.admin.student.name',
+                )
+            )
+            ->add(
+                'surname',
+                null,
+                array(
+                    'label' => 'backend.admin.student.surname',
+                )
+            )
+            ->add(
+                'comments',
+                CKEditorType::class,
+                array(
+                    'label' => 'backend.admin.student.comments',
+                    'config_name' => 'my_config',
+                    'required' => false,
+                )
+            )
+            ->end()
+            ->with('backend.admin.contact.contact', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'dni',
+                null,
+                array(
+                    'label' => 'backend.admin.student.dni',
+                )
+            )
+            ->add(
+                'phone',
+                null,
+                array(
+                    'label' => 'backend.admin.student.phone',
+                )
+            )
+            ->add(
+                'email',
+                null,
+                array(
+                    'label' => 'backend.admin.student.email',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'address',
+                null,
+                array(
+                    'label' => 'backend.admin.student.address',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'city',
+                null,
+                array(
+                    'label' => 'backend.admin.student.city',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'showSEPAequalAddress',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.student.showSEPAequalAddress',
+                    'required' => false,
+                )
+            )
+            ->end()
+            ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'bank',
+                null,
+                array(
+                    'label' => 'backend.admin.student.bank',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'payment',
+                ChoiceType::class,
+                array(
+                    'label' => 'backend.admin.student.payment',
+                    'choices' => StudentPaymentEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => true,
+                )
+            )
+            ->end()
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(2))
+            ->add(
+                'birthDate',
+                'sonata_type_date_picker',
+                array(
+                    'label' => 'backend.admin.student.birthDate',
+                    'format' => 'd/M/y',
+                )
+            )
+            ->add(
+                'schedule',
+                null,
+                array(
+                    'label' => 'backend.admin.student.schedule',
+                )
+            )
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.enabled',
+                    'required' => false,
+                )
+            )
+            ->end()
+        ;
+    }
 
     /**
      * @param DatagridMapper $datagridMapper
