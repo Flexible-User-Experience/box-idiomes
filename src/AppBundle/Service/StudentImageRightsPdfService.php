@@ -90,9 +90,9 @@ class StudentImageRightsPdfService
         $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.description2'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
         // Contact name
-        $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.contact_name', array('%contact_name%' => ($student->getContactName() ? $student->getContactName() : '____________________________________'))), '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.contact_name', array('%contact_name%' => ($student->getParent()->getName() ? $student->getParent()->getName() : '____________________________________'))), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
-        $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.contact_dni', array('%contact_dni%' => ($student->getContactDni() ? $student->getContactDni() : '____________________________________'))), '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.contact_dni', array('%contact_dni%' => ($student->getParent()->getDni() ? $student->getParent()->getDni() : '____________________________________'))), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
         $pdf->SetX(55);
         $pdf->Rect(51, $pdf->GetY() + 1, 3, 3);

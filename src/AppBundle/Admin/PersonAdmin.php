@@ -106,6 +106,15 @@ class PersonAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'students',
+                null,
+                array(
+                    'label' => 'backend.admin.parent.students',
+                    'required' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
                 'enabled',
                 CheckboxType::class,
                 array(
