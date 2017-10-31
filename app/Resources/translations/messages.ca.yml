@@ -71,7 +71,7 @@ backend:
             name: Nom
             surname: Cognoms
             birthDate: Data naixament
-            bank: Nom entitat bancària
+            bank: Banc
             cash: Efectiu
             phone: Telèfon
             dni: "DNI/NIE"
@@ -130,5 +130,14 @@ backend:
             name: Nom
             accountNumber: No Compte
             swiftCode: Codi SWIFT
-        person:
+            parent: Pare/mare o Tutor
+        parent:
+            dni: DNI/CIF o NIF
             name: Nom
+            surname: Cugnoms
+            email: Email
+            phone: Telèfon
+            address: Adreça
+            city: Ciutat
+            bank: Banc
+
