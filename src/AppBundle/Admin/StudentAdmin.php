@@ -63,6 +63,13 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'parent',
+                null,
+                array(
+                    'label' => 'backend.admin.student.parent',
+                )
+            )
+            ->add(
                 'comments',
                 CKEditorType::class,
                 array(
@@ -73,14 +80,6 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->end()
             ->with('backend.admin.contact.contact', $this->getFormMdSuccessBoxArray(3))
-            ->add(
-                'dni',
-                null,
-                array(
-                    'label' => 'backend.admin.student.dni',
-                    'required' => false,
-                )
-            )
             ->add(
                 'phone',
                 null,
@@ -109,7 +108,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.student.city',
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add(
@@ -143,6 +142,14 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(2))
+            ->add(
+                'dni',
+                null,
+                array(
+                    'label' => 'backend.admin.student.dni',
+                    'required' => false,
+                )
+            )
             ->add(
                 'birthDate',
                 'sonata_type_date_picker',

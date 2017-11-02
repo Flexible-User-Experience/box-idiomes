@@ -151,6 +151,14 @@ class Bank extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getIbanFormatNumber()
+    {
+        return $this->getBAN1part().' '.$this->getBAN2part().' '.$this->getBAN3part().' '.$this->getBAN4part().' '.$this->getBAN5part().' '.$this->getBAN6part();
+    }
+
+    /**
      * @param string $accountNumber
      *
      * @return Bank
@@ -207,6 +215,6 @@ class Bank extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getName() : '---';
+        return $this->id ? $this->getIbanFormatNumber() : '---';
     }
 }

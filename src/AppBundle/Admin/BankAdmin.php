@@ -6,7 +6,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class BankAdmin.
@@ -61,16 +60,6 @@ class BankAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.bank.swiftCode',
-                    'required' => false,
-                )
-            )
-            ->end()
-            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(6))
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label' => 'backend.admin.enabled',
                     'required' => false,
                 )
             )
