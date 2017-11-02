@@ -52,7 +52,7 @@ class BankAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.bank.accountNumber',
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add(

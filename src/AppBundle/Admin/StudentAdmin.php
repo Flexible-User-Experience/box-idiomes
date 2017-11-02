@@ -7,6 +7,7 @@ use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -123,10 +124,15 @@ class StudentAdmin extends AbstractBaseAdmin
             ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'bank',
-                null,
+                ModelType::class,
                 array(
                     'label' => 'backend.admin.student.bank',
+                    'class' => 'AppBundle:Bank',
                     'required' => false,
+                    'multiple' => false,
+//                    'query' => $this->rm->getUserRepository()->getEnabledSortedByNameQB(),
+//                    'by_reference' => false,
+                    'btn_add' => true,
                 )
             )
             ->add(
