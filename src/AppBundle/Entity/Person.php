@@ -69,17 +69,4 @@ class Person extends AbstractPerson
 
         return $this;
     }
-
-    /**
-     * @param Bank $bank
-     *
-     * @return Person
-     */
-    public function setBank($bank)
-    {
-        $this->bank = $bank;
-        $bank->setParent($this);
-
-        return $this;
-    }
 }

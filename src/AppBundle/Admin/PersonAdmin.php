@@ -28,6 +28,13 @@ class PersonAdmin extends AbstractBaseAdmin
     );
 
     /**
+     * @var array
+     */
+    protected $formOptions = array(
+        'cascade_validation' => true,
+    );
+
+    /**
      * Configure route collection.
      *
      * @param RouteCollection $collection
@@ -111,6 +118,7 @@ class PersonAdmin extends AbstractBaseAdmin
                     'label' => ' ',
                     'required' => false,
                     'btn_add' => false,
+                    'error_bubbling' => true,
                 )
             )
             ->end()
