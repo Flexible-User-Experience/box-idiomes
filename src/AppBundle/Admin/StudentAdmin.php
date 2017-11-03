@@ -130,7 +130,7 @@ class StudentAdmin extends AbstractBaseAdmin
                     'class' => 'AppBundle:Bank',
                     'required' => false,
                     'multiple' => false,
-//                    'query' => $this->rm->getUserRepository()->getEnabledSortedByNameQB(),
+                    'query' => $this->getConfigurationPool()->getContainer()->get('app.bank_repository'),
 //                    'by_reference' => false,
                     'btn_add' => true,
                 )

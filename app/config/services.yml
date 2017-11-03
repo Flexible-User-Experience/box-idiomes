@@ -106,3 +106,9 @@ services:
             - "@translator.default"
             - "%project_web_title%"
             - "%boss_name%"
+# Repository
+    app.bank_repository:
+        class: AppBundle\Repository\BankRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Bank
