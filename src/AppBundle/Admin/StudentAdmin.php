@@ -113,7 +113,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->end();
-        if ($this->getSubject()->getParent()) {
+        if (!$this->getSubject()->getParent()) {
             $formMapper
                 ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
                 ->add(
