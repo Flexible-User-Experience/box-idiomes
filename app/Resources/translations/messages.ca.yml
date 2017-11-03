@@ -66,7 +66,7 @@ backend:
             color: Color
         student:
             student: Alumne
-            parent: "Pare/mare o tutor"
+            parent: "Pare, mare o tutor"
             payment_information: Dades de pagament
             name: Nom
             surname: Cognoms
@@ -130,7 +130,7 @@ backend:
             name: Nom
             accountNumber: Número
             swiftCode: Codi SWIFT
-            parent: Pare/mare o Tutor
+            parent: "Pare, mare o tutor"
         parent:
             dni: DNI/CIF o NIF
             name: Nom

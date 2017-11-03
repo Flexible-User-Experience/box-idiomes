@@ -5,8 +5,8 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
@@ -100,15 +100,15 @@ class PersonAdmin extends AbstractBaseAdmin
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'bank',
-                EntityType::class,
+                ModelType::class,
                 array(
                     'label' => 'backend.admin.parent.bank',
                     'class' => 'AppBundle:Bank',
                     'required' => false,
                     'multiple' => false,
 //                    'query_builder' => $this->rm->getUserRepository()->getEnabledSortedByNameQB(),
-                    'by_reference' => false,
-                    'add_button' => true,
+//                    'by_reference' => false,
+                    'btn_add' => true,
                 )
             )
             ->add(

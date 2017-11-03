@@ -16,7 +16,7 @@ services:
         class: AppBundle\Admin\PersonAdmin
         arguments: [ ~ , AppBundle\Entity\Person, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Pares o tutor", group: "Alumnes" }
+            - { name: sonata.admin, manager_type: orm, label: "Pare, mare o tutor", group: "Alumnes" }
     admin.service:
         class: AppBundle\Admin\ServiceAdmin
         arguments: [ ~ , AppBundle\Entity\Service, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -46,7 +46,7 @@ services:
         class: AppBundle\Admin\BankAdmin
         arguments: [ ~, AppBundle\Entity\Bank, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Bank", group: "Administration" }
+            - { name: sonata.admin, manager_type: orm, label: "Bank", group: "Administration", show_in_dashboard: false }
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
