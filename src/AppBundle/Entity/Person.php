@@ -34,7 +34,7 @@ class Person extends AbstractPerson
     /**
      * @var Bank
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Bank")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Bank", cascade={"persist"})
      */
     protected $bank;
 
@@ -66,6 +66,19 @@ class Person extends AbstractPerson
     public function setStudents($students)
     {
         $this->students = $students;
+
+        return $this;
+    }
+
+    /**
+     * @param Bank $bank
+     *
+     * @return Person
+     */
+    public function setBank($bank)
+    {
+        $this->bank = $bank;
+        $bank->setParent($this);
 
         return $this;
     }

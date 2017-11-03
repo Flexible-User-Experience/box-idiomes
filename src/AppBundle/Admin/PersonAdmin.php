@@ -93,7 +93,7 @@ class PersonAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.parent.city',
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->end()

@@ -132,6 +132,7 @@ backend:
             swiftCode: Codi SWIFT
             parent: "Pare, mare o tutor"
         parent:
+            students: Fills
             dni: DNI/CIF o NIF
             name: Nom
             surname: Cugnoms
