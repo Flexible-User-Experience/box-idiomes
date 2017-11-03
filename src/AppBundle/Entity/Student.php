@@ -26,13 +26,6 @@ class Student extends AbstractPerson
     private $birthDate;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", options={"default"=0})
-     */
-    private $payment = 0;
-
-    /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -93,26 +86,6 @@ class Student extends AbstractPerson
         $interval = $today->diff($this->birthDate);
 
         return $interval->y;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPayment()
-    {
-        return $this->payment;
-    }
-
-    /**
-     * @param float $payment
-     *
-     * @return Student
-     */
-    public function setPayment($payment)
-    {
-        $this->payment = $payment;
-
-        return $this;
     }
 
     /**
