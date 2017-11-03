@@ -66,19 +66,15 @@ backend:
             color: Color
         student:
             student: Alumne
-            parent: "Pare/mare o tutor"
+            parent: "Pare, mare o tutor"
             payment_information: Dades de pagament
             name: Nom
             surname: Cognoms
             birthDate: Data naixament
-            bankAccountName: Nom entitat bancària
-            bankAccountNumber: Compte bancari
+            bank: Banc
             cash: Efectiu
-            ownMobile: Mòbil
-            contactPhone: Telèfon contacte
-            contactName: Nom contacte
-            contactDni: "DNI/NIE"
-            parentAddress: Adreça completa del titular
+            phone: Telèfon
+            dni: "DNI/NIE"
             email: Email
             address: Adreça
             city: Ciutat
@@ -112,7 +108,8 @@ backend:
         imagerigths:
             description1: "El centre Box, viu els idiomes gestiona diversos espais a la xarxa: web, Facebook Instagram i diverses pàgines associades on, de tant en tant, poden aparèixer, ja sigui individualment o en grup imatges dels nostres alumnes fent algunes de les activitats que es duguin a terme a les aules o fora d’elles."
             description2: "Donat que el dret a la pròpia imatge és reconegut en l’article 18.1 de la Constitució i regulat per Llei 5/1985, de 5 de maig, sobre el dret a l’honor, a la intimitat personal i familiar i a la pròpia imatge; la direcció d’aquest centre demana el consentiment per escrit als pares, mares o tutors legals dels menors d’edat per poder publicar fotografies, vídeos o imatges on apareguin els seus fills i filles i on siguin clarament identificables."
-            contact_name: "Nom i cognom mare, pare o tutor legal: %contact_name%"
+            contact_name_with_parent: "Nom i cognom mare, pare o tutor legal: %name%"
+            contact_name_without_parent: "Nom i cognom: %name%"
             contact_dni: "DNI o passaport número: %contact_dni%"
             autortization1: "Si, autoritzo que la imatge del meu fill/la meva filla %student_name% de %years_old% anys pugui aparèixer en fotografies o vídeos del centre publicades a qualsevol dels seus espais web o xarxes socials."
             autortization2: "No, no autoritzo el centre  a publicar cap tipus d’imatge del meu fill o a la meva filla."
@@ -130,3 +127,19 @@ backend:
             bank_name: Entitat Bancària
             bank_account: "Compte bancari:"
             end_text: "D’acord amb el que estableix la llei orgànica 15/1999, li fem saber que les seves dades seran incorporades a un fitxer autoritzat sota la responsabilitat de Ester Escrihuela Simó amb la finalitat de poder atendre els compromisos derivats de la relació que mantenim amb vostès."
+        bank:
+            name: Nom
+            accountNumber: Número
+            swiftCode: Codi SWIFT
+            parent: "Pare, mare o tutor"
+        parent:
+            students: Fills
+            dni: DNI/CIF o NIF
+            name: Nom
+            surname: Cugnoms
+            email: Email
+            phone: Telèfon
+            address: Adreça
+            city: Ciutat
+            bank: Banc
+

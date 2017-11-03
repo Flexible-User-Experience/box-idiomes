@@ -2,29 +2,26 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Enum\StudentPaymentEnum;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
- * Class StudentAdmin.
+ * Class PersonAdmin.
  *
  * @category Admin
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class StudentAdmin extends AbstractBaseAdmin
+class PersonAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Student';
-    protected $baseRoutePattern = 'students/student';
+    protected $classnameLabel = 'Person';
+    protected $baseRoutePattern = 'administration/person';
     protected $datagridValues = array(
-        '_sort_by' => 'surname',
+        '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
 
@@ -36,10 +33,6 @@ class StudentAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection
-            ->add('imagerights', $this->getRouterIdParameter().'/image-rights')
-            ->add('sepaagreement', $this->getRouterIdParameter().'/sepa-agreement')
-        ;
     }
 
     /**
@@ -50,49 +43,40 @@ class StudentAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
+                'dni',
+                null,
+                array(
+                    'label' => 'backend.admin.parent.dni',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
-                    'label' => 'backend.admin.student.name',
+                    'label' => 'backend.admin.parent.name',
                 )
             )
             ->add(
                 'surname',
                 null,
                 array(
-                    'label' => 'backend.admin.student.surname',
-                )
-            )
-            ->add(
-                'parent',
-                null,
-                array(
-                    'label' => 'backend.admin.student.parent',
-                )
-            )
-            ->add(
-                'comments',
-                CKEditorType::class,
-                array(
-                    'label' => 'backend.admin.student.comments',
-                    'config_name' => 'my_config',
-                    'required' => false,
+                    'label' => 'backend.admin.parent.surname',
                 )
             )
             ->end()
-            ->with('backend.admin.contact.contact', $this->getFormMdSuccessBoxArray(3))
+            ->with('backend.admin.contact.contact', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'phone',
                 null,
                 array(
-                    'label' => 'backend.admin.student.phone',
+                    'label' => 'backend.admin.parent.phone',
                 )
             )
             ->add(
                 'email',
                 null,
                 array(
-                    'label' => 'backend.admin.student.email',
+                    'label' => 'backend.admin.parent.email',
                     'required' => false,
                 )
             )
@@ -100,7 +84,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 'address',
                 null,
                 array(
-                    'label' => 'backend.admin.student.address',
+                    'label' => 'backend.admin.parent.address',
                     'required' => false,
                 )
             )
@@ -108,58 +92,32 @@ class StudentAdmin extends AbstractBaseAdmin
                 'city',
                 null,
                 array(
-                    'label' => 'backend.admin.student.city',
+                    'label' => 'backend.admin.parent.city',
                     'required' => true,
                 )
             )
             ->end()
-            ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'bank',
                 ModelType::class,
                 array(
-                    'label' => 'backend.admin.student.bank',
+                    'label' => 'backend.admin.parent.bank',
                     'class' => 'AppBundle:Bank',
                     'required' => false,
                     'multiple' => false,
-                    'query' => $this->getConfigurationPool()->getContainer()->get('app.bank_repository')->getStudentRelatedItemsQB($this->getSubject()),
+//                    'query_builder' => $this->rm->getUserRepository()->getEnabledSortedByNameQB(),
+//                    'by_reference' => false,
                     'btn_add' => true,
                 )
             )
             ->add(
-                'payment',
-                ChoiceType::class,
-                array(
-                    'label' => 'backend.admin.student.payment',
-                    'choices' => StudentPaymentEnum::getEnumArray(),
-                    'multiple' => false,
-                    'expanded' => false,
-                    'required' => true,
-                )
-            )
-            ->end()
-            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(2))
-            ->add(
-                'dni',
+                'students',
                 null,
                 array(
-                    'label' => 'backend.admin.student.dni',
+                    'label' => 'backend.admin.parent.students',
                     'required' => false,
-                )
-            )
-            ->add(
-                'birthDate',
-                'sonata_type_date_picker',
-                array(
-                    'label' => 'backend.admin.student.birthDate',
-                    'format' => 'd/M/y',
-                )
-            )
-            ->add(
-                'schedule',
-                null,
-                array(
-                    'label' => 'backend.admin.student.schedule',
+                    'disabled' => true,
                 )
             )
             ->add(
@@ -184,35 +142,28 @@ class StudentAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'backend.admin.student.name',
+                    'label' => 'backend.admin.parent.name',
                 )
             )
             ->add(
                 'surname',
                 null,
                 array(
-                    'label' => 'backend.admin.student.surname',
-                )
-            )
-            ->add(
-                'birthDate',
-                null,
-                array(
-                    'label' => 'backend.admin.student.birthDate',
+                    'label' => 'backend.admin.parent.surname',
                 )
             )
             ->add(
                 'phone',
                 null,
                 array(
-                    'label' => 'backend.admin.student.phone',
+                    'label' => 'backend.admin.parent.phone',
                 )
             )
             ->add(
                 'email',
                 null,
                 array(
-                    'label' => 'backend.admin.student.email',
+                    'label' => 'backend.admin.parent.email',
                 )
             )
             ->add(
@@ -236,7 +187,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 'name',
                 null,
                 array(
-                    'label' => 'backend.admin.student.name',
+                    'label' => 'backend.admin.parent.name',
                     'editable' => true,
                 )
             )
@@ -244,7 +195,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 'surname',
                 null,
                 array(
-                    'label' => 'backend.admin.student.surname',
+                    'label' => 'backend.admin.parent.surname',
                     'editable' => true,
                 )
             )
@@ -252,7 +203,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 'phone',
                 null,
                 array(
-                    'label' => 'backend.admin.student.phone',
+                    'label' => 'backend.admin.parent.phone',
                     'editable' => true,
                 )
             )
@@ -260,7 +211,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 'email',
                 null,
                 array(
-                    'label' => 'backend.admin.student.email',
+                    'label' => 'backend.admin.parent.email',
                     'editable' => true,
                 )
             )
@@ -278,12 +229,6 @@ class StudentAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'imagerights' => array(
-                            'template' => '::Admin/Cells/list__action_image_rights.html.twig',
-                        ),
-                        'sepaagreement' => array(
-                            'template' => '::Admin/Cells/list__action_sepa_agreement.html.twig',
-                        ),
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',

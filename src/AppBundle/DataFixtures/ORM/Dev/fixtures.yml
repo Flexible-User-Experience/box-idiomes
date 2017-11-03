@@ -32,23 +32,42 @@ AppBundle\Entity\Teacher:
 # Student
 AppBundle\Entity\Student:
   student{1..10}:
+    dni: <bothify('########?')>
     name: <name()>
     surname: <firstName()>
     birthDate: <dateTimeBetween()>
-    bankAccountName: <company()>
-    bankAccountNumber: <iban('ES')>
-    ownMobile: <phoneNumber()>
-    contactPhone: <phoneNumber()>
-    contactName: <name()>
-    contactDni: <bothify('########?')>
-    parentAddress: <address()>
+    phone: <phoneNumber()>
     email: <safeEmail()>
     address: <address()>
     payment: <numberBetween(1,4)>
+    address: <address()>
+    city: @city<numberBetween(1,10)>
+    bank: @bank<numberBetween(1,10)>
     schedule: <name()>
     comments: <paragraph()>
+    showSEPAequalAddress: <boolean(80)>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+  student11:
+    dni: <bothify('########?')>
+    name: <name()>
+    surname: <firstName()>
+    birthDate: <dateTimeBetween()>
+    phone: <phoneNumber()>
+    email: <safeEmail()>
+    address: <address()>
+    payment: <numberBetween(1,4)>
+    address: <address()>
     city: @city<numberBetween(1,10)>
-    showSEPAequalAddress: false
+    bank: @bank1
+    parent: @person1
+    schedule: <name()>
+    comments: <paragraph()>
+    showSEPAequalAddress: <boolean(80)>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
 
 # Services
 AppBundle\Entity\Service:
@@ -73,6 +92,31 @@ AppBundle\Entity\City:
     name: <city()>
     postalCode: <postcode()>
     province: @province<numberBetween(1,10)>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# Bank
+AppBundle\Entity\Bank:
+  bank{1..10}:
+    name: <company()>
+    accountNumber: <iban('ES')>
+    swiftCode: <swiftBicNumber()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# Person
+AppBundle\Entity\Person:
+  person1:
+    dni: <bothify('########?')>
+    name: <name()>
+    surname: <firstName()>
+    phone: <phoneNumber()>
+    email: <safeEmail()>
+    address: <address()>
+    city: @city<numberBetween(1,10)>
+    bank: @bank1
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true

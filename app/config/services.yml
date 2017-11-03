@@ -12,6 +12,11 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Alumne", group: "Alumnes" }
         calls:
             - [ setTemplate, [edit, "::Admin/Student/edit.html.twig"]]
+    admin.parent:
+        class: AppBundle\Admin\PersonAdmin
+        arguments: [ ~ , AppBundle\Entity\Person, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Pare, mare o tutor", group: "Alumnes" }
     admin.service:
         class: AppBundle\Admin\ServiceAdmin
         arguments: [ ~ , AppBundle\Entity\Service, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -37,6 +42,11 @@ services:
         arguments: [ ~, AppBundle\Entity\City, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Ciutat", group: "Administration" }
+    admin.bank:
+        class: AppBundle\Admin\BankAdmin
+        arguments: [ ~, AppBundle\Entity\Bank, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Bank", group: "Administration", show_in_dashboard: false }
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
@@ -96,3 +106,9 @@ services:
             - "@translator.default"
             - "%project_web_title%"
             - "%boss_name%"
+# Repository
+    app.bank_repository:
+        class: AppBundle\Repository\BankRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Bank

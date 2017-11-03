@@ -7,8 +7,8 @@
         $(document).ready(function() {
             {# Handler for .ready() called. #}
             var paymentNode = jQuery('#{{ form.payment.vars.id }}');
-            var bankNode = jQuery('#sonata-ba-field-container-{{ form.bankAccountNumber.vars.id }}');
-            var bankNameNode = jQuery('#sonata-ba-field-container-{{ form.bankAccountName.vars.id }}');
+            var bankNode = jQuery('#sonata-ba-field-container-{{ form.bank.vars.id }}');
+            var bankNameNode = jQuery('#sonata-ba-field-container-{{ form.bank.vars.id }}');
             {# on init #}
             if (parseInt(paymentNode.val()) !== {{ constant('AppBundle\\Enum\\StudentPaymentEnum::BANK_ACCOUNT_NUMBER') }}) {
                 bankNode.addClass("hidden");

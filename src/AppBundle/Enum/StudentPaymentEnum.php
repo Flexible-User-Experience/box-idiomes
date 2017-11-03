@@ -20,7 +20,7 @@ class StudentPaymentEnum
     public static function getEnumArray()
     {
         return array(
-            self::BANK_ACCOUNT_NUMBER => 'backend.admin.student.bankAccountNumber',
+            self::BANK_ACCOUNT_NUMBER => 'backend.admin.student.bank',
             self::CASH => 'backend.admin.student.cash',
         );
     }

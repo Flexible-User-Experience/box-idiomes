@@ -107,21 +107,26 @@ class SepaAgreementPdfService
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
         $pdf->setCellPaddings(2, 1, 0, 0);
         $pdf->setCellMargins(1, 0, 1, 0);
-        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_name').'</strong><br>'.$student->getContactName(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
-        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_dni').'</strong><br>'.$student->getContactDni(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
-        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.parent_address').'</strong><br>'.$student->getParentAddress(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
-        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_phone').'</strong><br>'.$student->getContactPhone(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
-        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.bank_name').'</strong><br>'.$student->getBankAccountName(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        // contact
+        $subject = $student;
+        if ($student->getParent()) {
+            $subject = $student->getParent();
+        }
+        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_name').'</strong><br>'.$subject->getName(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_dni').'</strong><br>'.$subject->getDni(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.parent_address').'</strong><br>'.$subject->getAddress(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_phone').'</strong><br>'.$subject->getPhone(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.bank_name').'</strong><br>'.$subject->getBank()->getName(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
         // iban
         $pdf->MultiCell($maxCellWidth, 7, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.bank_account').'</strong>', 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
         $pdf->setCellMargins(1, 0, 0, 0);
-        $pdf->MultiCell(25, 7, $student->getBAN1part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, $subject->getBank()->getBAN1part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
         $pdf->setCellMargins(0, 0, 0, 0);
-        $pdf->MultiCell(25, 7, $student->getBAN2part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
-        $pdf->MultiCell(25, 7, $student->getBAN3part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
-        $pdf->MultiCell(25, 7, $student->getBAN4part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
-        $pdf->MultiCell(25, 7, $student->getBAN5part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
-        $pdf->MultiCell(25, 7, $student->getBAN6part(), 1, 'C', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, $subject->getBank()->getBAN2part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, $subject->getBank()->getBAN3part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, $subject->getBank()->getBAN4part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, $subject->getBank()->getBAN5part(), 1, 'C', false, 0, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell(25, 7, $subject->getBank()->getBAN6part(), 1, 'C', false, 1, '', '', true, 0, true, true, 0, 'T', false);
         $pdf->setCellMargins(1, 0, 1, 0);
         $pdf->setCellPaddings(0, 0, 0, 0);
         // description legal
