@@ -112,29 +112,33 @@ class StudentAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-            ->end()
-            ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
-            ->add(
-                'payment',
-                ChoiceType::class,
-                array(
-                    'label' => 'backend.admin.student.payment',
-                    'choices' => StudentPaymentEnum::getEnumArray(),
-                    'multiple' => false,
-                    'expanded' => false,
-                    'required' => true,
+            ->end();
+        if ($this->getSubject()->getParent()) {
+            $formMapper
+                ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
+                ->add(
+                    'payment',
+                    ChoiceType::class,
+                    array(
+                        'label' => 'backend.admin.student.payment',
+                        'choices' => StudentPaymentEnum::getEnumArray(),
+                        'multiple' => false,
+                        'expanded' => false,
+                        'required' => true,
+                    )
                 )
-            )
-            ->add(
-                'bank',
-                AdminType::class,
-                array(
-                    'label' => ' ',
-                    'required' => false,
-                    'btn_add' => false,
+                ->add(
+                    'bank',
+                    AdminType::class,
+                    array(
+                        'label' => ' ',
+                        'required' => false,
+                        'btn_add' => false,
+                    )
                 )
-            )
-            ->end()
+                ->end();
+        }
+        $formMapper
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(2))
             ->add(
                 'dni',
