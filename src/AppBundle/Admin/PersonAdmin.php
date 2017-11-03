@@ -21,9 +21,9 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 class PersonAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Person';
-    protected $baseRoutePattern = 'administration/person';
+    protected $baseRoutePattern = 'students/parent';
     protected $datagridValues = array(
-        '_sort_by' => 'name',
+        '_sort_by' => 'surname',
         '_sort_order' => 'asc',
     );
 
@@ -42,6 +42,7 @@ class PersonAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
+        $collection->remove('delete');
     }
 
     /**
@@ -248,7 +249,6 @@ class PersonAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )
