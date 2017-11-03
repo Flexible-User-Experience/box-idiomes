@@ -39,14 +39,13 @@ AppBundle\Entity\Student:
     phone: <phoneNumber()>
     email: <safeEmail()>
     address: <address()>
-    payment: <numberBetween(1,4)>
+    payment: <numberBetween(0, 1)>
     address: <address()>
     city: @city*
     bank: @bank1
     parent: @person1
     schedule: <name()>
     comments: <paragraph()>
-    showSEPAequalAddress: <boolean(80)>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -58,13 +57,12 @@ AppBundle\Entity\Student:
     phone: <phoneNumber()>
     email: <safeEmail()>
     address: <address()>
-    payment: <numberBetween(1,4)>
+    payment: <numberBetween(0, 1)>
     address: <address()>
     city: @city*
     bank: @bank2
     schedule: <name()>
     comments: <paragraph()>
-    showSEPAequalAddress: <boolean(80)>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -116,6 +114,7 @@ AppBundle\Entity\Person:
     email: <safeEmail()>
     address: <address()>
     city: @city*
+    payment: <numberBetween(0, 1)>
     bank: @bank1
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>

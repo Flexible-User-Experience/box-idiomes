@@ -2,10 +2,12 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\StudentPaymentEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\AdminBundle\Form\Type\AdminType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
@@ -19,10 +21,17 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 class PersonAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Person';
-    protected $baseRoutePattern = 'administration/person';
+    protected $baseRoutePattern = 'students/parent';
     protected $datagridValues = array(
-        '_sort_by' => 'name',
+        '_sort_by' => 'surname',
         '_sort_order' => 'asc',
+    );
+
+    /**
+     * @var array
+     */
+    protected $formOptions = array(
+        'cascade_validation' => true,
     );
 
     /**
@@ -33,6 +42,7 @@ class PersonAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
+        $collection->remove('delete');
     }
 
     /**
@@ -41,14 +51,7 @@ class PersonAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(4))
-            ->add(
-                'dni',
-                null,
-                array(
-                    'label' => 'backend.admin.parent.dni',
-                )
-            )
+            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'name',
                 null,
@@ -64,7 +67,7 @@ class PersonAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('backend.admin.contact.contact', $this->getFormMdSuccessBoxArray(4))
+            ->with('backend.admin.contact.contact', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'phone',
                 null,
@@ -97,20 +100,30 @@ class PersonAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
+            ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
             ->add(
-                'bank',
-                ModelType::class,
+                'payment',
+                ChoiceType::class,
                 array(
-                    'label' => 'backend.admin.parent.bank',
-                    'class' => 'AppBundle:Bank',
-                    'required' => false,
+                    'label' => 'backend.admin.student.payment',
+                    'choices' => StudentPaymentEnum::getEnumArray(),
                     'multiple' => false,
-//                    'query_builder' => $this->rm->getUserRepository()->getEnabledSortedByNameQB(),
-//                    'by_reference' => false,
-                    'btn_add' => true,
+                    'expanded' => false,
+                    'required' => true,
                 )
             )
+            ->add(
+                'bank',
+                AdminType::class,
+                array(
+                    'label' => ' ',
+                    'required' => false,
+                    'btn_add' => false,
+                    'error_bubbling' => true,
+                )
+            )
+            ->end()
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'students',
                 null,
@@ -118,6 +131,13 @@ class PersonAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.parent.students',
                     'required' => false,
                     'disabled' => true,
+                )
+            )
+            ->add(
+                'dni',
+                null,
+                array(
+                    'label' => 'backend.admin.parent.dni',
                 )
             )
             ->add(
@@ -229,7 +249,6 @@ class PersonAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )

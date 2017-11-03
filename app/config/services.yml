@@ -11,12 +11,14 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Alumne", group: "Alumnes" }
         calls:
-            - [ setTemplate, [edit, "::Admin/Student/edit.html.twig"]]
+            - [ setTemplate, [edit, "::Admin/Student/edit.html.twig"] ]
     admin.parent:
         class: AppBundle\Admin\PersonAdmin
         arguments: [ ~ , AppBundle\Entity\Person, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Pare, mare o tutor", group: "Alumnes" }
+        calls:
+            - [ setTemplate, [edit, "::Admin/Student/edit.html.twig"] ]
     admin.service:
         class: AppBundle\Admin\ServiceAdmin
         arguments: [ ~ , AppBundle\Entity\Service, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]

@@ -26,13 +26,6 @@ class Student extends AbstractPerson
     private $birthDate;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(type="integer", options={"default"=0})
-     */
-    private $payment = 0;
-
-    /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -47,13 +40,6 @@ class Student extends AbstractPerson
     private $comments;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $showSEPAequalAddress;
-
-    /**
      * @var Person
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person")
@@ -63,7 +49,7 @@ class Student extends AbstractPerson
     /**
      * @var Bank
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Bank")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Bank", cascade={"persist"})
      */
     protected $bank;
 
@@ -103,26 +89,6 @@ class Student extends AbstractPerson
     }
 
     /**
-     * @return float
-     */
-    public function getPayment()
-    {
-        return $this->payment;
-    }
-
-    /**
-     * @param float $payment
-     *
-     * @return Student
-     */
-    public function setPayment($payment)
-    {
-        $this->payment = $payment;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getSchedule()
@@ -158,26 +124,6 @@ class Student extends AbstractPerson
     public function setComments($comments)
     {
         $this->comments = $comments;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isShowSEPAequalAddress()
-    {
-        return $this->showSEPAequalAddress;
-    }
-
-    /**
-     * @param bool $showSEPAequalAddress
-     *
-     * @return Student
-     */
-    public function setShowSEPAequalAddress($showSEPAequalAddress)
-    {
-        $this->showSEPAequalAddress = $showSEPAequalAddress;
 
         return $this;
     }

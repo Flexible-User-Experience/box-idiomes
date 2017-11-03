@@ -71,7 +71,7 @@ backend:
             name: Nom
             surname: Cognoms
             birthDate: Data naixament
-            bank: Banc
+            bank: Rebut bancari
             cash: Efectiu
             phone: Telèfon
             dni: "DNI/NIE"
@@ -128,15 +128,15 @@ backend:
             bank_account: "Compte bancari:"
             end_text: "D’acord amb el que estableix la llei orgànica 15/1999, li fem saber que les seves dades seran incorporades a un fitxer autoritzat sota la responsabilitat de Ester Escrihuela Simó amb la finalitat de poder atendre els compromisos derivats de la relació que mantenim amb vostès."
         bank:
-            name: Nom
-            accountNumber: Número
+            name: Entitat bancària
+            accountNumber: Núm. de compte
             swiftCode: Codi SWIFT
             parent: "Pare, mare o tutor"
         parent:
             students: Fills
             dni: DNI/CIF o NIF
             name: Nom
-            surname: Cugnoms
+            surname: Cognoms
             email: Email
             phone: Telèfon
             address: Adreça

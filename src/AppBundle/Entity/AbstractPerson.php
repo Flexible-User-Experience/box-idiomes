@@ -67,6 +67,13 @@ abstract class AbstractPerson extends AbstractBase
     protected $city;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", options={"default"=0})
+     */
+    protected $payment = 0;
+
+    /**
      * @var Bank
      */
     protected $bank;
@@ -219,6 +226,26 @@ abstract class AbstractPerson extends AbstractBase
     public function setCity($city)
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
+
+    /**
+     * @param float $payment
+     *
+     * @return AbstractPerson
+     */
+    public function setPayment($payment)
+    {
+        $this->payment = $payment;
 
         return $this;
     }
