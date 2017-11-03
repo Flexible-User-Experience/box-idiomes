@@ -136,7 +136,7 @@ backend:
             students: Fills
             dni: DNI/CIF o NIF
             name: Nom
-            surname: Cugnoms
+            surname: Cognoms
             email: Email
             phone: Telèfon
             address: Adreça
