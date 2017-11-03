@@ -46,7 +46,6 @@ AppBundle\Entity\Student:
     parent: @person1
     schedule: <name()>
     comments: <paragraph()>
-    showSEPAequalAddress: <boolean(80)>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -64,7 +63,6 @@ AppBundle\Entity\Student:
     bank: @bank2
     schedule: <name()>
     comments: <paragraph()>
-    showSEPAequalAddress: <boolean(80)>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true

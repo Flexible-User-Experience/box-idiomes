@@ -47,13 +47,6 @@ class Student extends AbstractPerson
     private $comments;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean")
-     */
-    private $showSEPAequalAddress;
-
-    /**
      * @var Person
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person")
@@ -63,7 +56,7 @@ class Student extends AbstractPerson
     /**
      * @var Bank
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Bank")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Bank", cascade={"persist"})
      */
     protected $bank;
 
@@ -158,26 +151,6 @@ class Student extends AbstractPerson
     public function setComments($comments)
     {
         $this->comments = $comments;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isShowSEPAequalAddress()
-    {
-        return $this->showSEPAequalAddress;
-    }
-
-    /**
-     * @param bool $showSEPAequalAddress
-     *
-     * @return Student
-     */
-    public function setShowSEPAequalAddress($showSEPAequalAddress)
-    {
-        $this->showSEPAequalAddress = $showSEPAequalAddress;
 
         return $this;
     }

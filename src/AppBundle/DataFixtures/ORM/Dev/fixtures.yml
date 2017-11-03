@@ -45,7 +45,7 @@ AppBundle\Entity\Student:
     bank: @bank<numberBetween(1,10)>
     schedule: <name()>
     comments: <paragraph()>
-    showSEPAequalAddress: <boolean(80)>
+    parent: @person<current()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -61,10 +61,8 @@ AppBundle\Entity\Student:
     address: <address()>
     city: @city<numberBetween(1,10)>
     bank: @bank1
-    parent: @person1
     schedule: <name()>
     comments: <paragraph()>
-    showSEPAequalAddress: <boolean(80)>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -108,7 +106,7 @@ AppBundle\Entity\Bank:
 
 # Person
 AppBundle\Entity\Person:
-  person1:
+  person{1..10}:
     dni: <bothify('########?')>
     name: <name()>
     surname: <firstName()>
@@ -116,7 +114,7 @@ AppBundle\Entity\Person:
     email: <safeEmail()>
     address: <address()>
     city: @city<numberBetween(1,10)>
-    bank: @bank1
+    bank: @bank<current()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
