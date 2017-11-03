@@ -107,6 +107,7 @@ class SepaAgreementPdfService
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
         $pdf->setCellPaddings(2, 1, 0, 0);
         $pdf->setCellMargins(1, 0, 1, 0);
+        // contact
         $subject = $student;
         if ($student->getParent()) {
             $subject = $student->getParent();
