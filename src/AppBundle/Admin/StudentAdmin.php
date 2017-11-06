@@ -30,6 +30,13 @@ class StudentAdmin extends AbstractBaseAdmin
     );
 
     /**
+     * @var array
+     */
+    protected $formOptions = array(
+        'cascade_validation' => true,
+    );
+
+    /**
      * Configure route collection.
      *
      * @param RouteCollection $collection
@@ -146,6 +153,7 @@ class StudentAdmin extends AbstractBaseAdmin
                         'label' => ' ',
                         'required' => false,
                         'btn_add' => false,
+                        'by_reference' => false,
                     )
                 )
                 ->end();
