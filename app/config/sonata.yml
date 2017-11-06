@@ -41,37 +41,25 @@ sonata_admin:
             -
                 position: top
                 type: sonata.block.service.text
-                class: col-md-12
+                class: "col-xs-12"
                 settings:
                     content: >
                         <h1 style="margin-top:0">%project_backend_title%</h1>
             -
-                position: left
+                position: top
                 type: sonata.admin.block.admin_list
-                class: col-md-6
+                class: "col-md-6 col-lg-4"
                 settings:
-                    groups: [ Professors ]
+                    groups: [ Professors, Alumnes ]
             -
-                position: left
+                position: top
                 type: sonata.admin.block.admin_list
-                class: col-md-6
+                class: "col-md-6 col-lg-4"
                 settings:
-                    groups: [ Alumnes ]
+                    groups: [ Serveis, Contactes ]
             -
-                position: left
+                position: top
                 type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ Serveis ]
-            -
-                position: right
-                type: sonata.admin.block.admin_list
-                class: col-md-6
-                settings:
-                    groups: [ Contactes ]
-            -
-                position: right
-                type: sonata.admin.block.admin_list
-                class: col-md-6
+                class: "col-md-6 col-lg-4"
                 settings:
                     groups: [ Administration ]
