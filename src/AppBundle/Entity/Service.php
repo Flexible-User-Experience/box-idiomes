@@ -12,10 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * Class Service
+ * Class Service.
  *
  * @category    Entity
- * @package     AppBundle\Entity
+ *
  * @author      Anton Serra <aserratorta@gmail.com>
  * @ORM\Table()
  * @Vich\Uploadable
@@ -55,11 +55,7 @@ class Service extends AbstractBase
     private $imageFile;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
@@ -80,5 +76,13 @@ class Service extends AbstractBase
         $this->title = $title;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getTitle() : '---';
     }
 }

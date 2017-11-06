@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
@@ -56,16 +57,19 @@ class CityAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.city.name',
                 )
             )
+            ->end()
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'province',
-                null,
+                EntityType::class,
                 array(
                     'label' => 'backend.admin.city.province',
                     'required' => true,
+                    'class' => 'AppBundle:Province',
+                    'choice_label' => 'name',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.province_repository')->getEnabledSortedByNameQB(),
                 )
             )
-            ->end()
-            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'enabled',
                 CheckboxType::class,

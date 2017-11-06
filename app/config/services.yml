@@ -124,3 +124,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:City
+    app.province_repository:
+        class: AppBundle\Repository\ProvinceRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Province

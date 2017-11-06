@@ -13,10 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * Class Teacher
+ * Class Teacher.
  *
  * @category    Entity
- * @package     AppBundle\Entity
+ *
  * @author      Anton Serra <aserratorta@gmail.com>
  * @ORM\Table()
  * @Vich\Uploadable
@@ -56,18 +56,14 @@ class Teacher extends AbstractBase
     private $imageFile;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(type="integer", options={"default"=0})
      */
     private $color = 0;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
@@ -103,7 +99,7 @@ class Teacher extends AbstractBase
      */
     public function getCssColor()
     {
-        return 'c-' . TeacherColorEnum::getEnumArray()[ $this->getColor() ];
+        return 'c-'.TeacherColorEnum::getEnumArray()[$this->getColor()];
     }
 
     /**
@@ -116,5 +112,13 @@ class Teacher extends AbstractBase
         $this->color = $color;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getName() : '---';
     }
 }
