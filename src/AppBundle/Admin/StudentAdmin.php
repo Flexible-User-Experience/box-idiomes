@@ -225,13 +225,6 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'bank',
-                null,
-                array(
-                    'label' => 'backend.admin.student.bank',
-                )
-            )
-            ->add(
                 'dni',
                 null,
                 array(

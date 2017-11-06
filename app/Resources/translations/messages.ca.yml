@@ -140,5 +140,6 @@ backend:
             phone: Telèfon
             address: Adreça
             city: Ciutat
+            payment: Pagament
             bank: Banc
 
