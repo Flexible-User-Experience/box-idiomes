@@ -37,6 +37,7 @@ class StudentAdmin extends AbstractBaseAdmin
     {
         parent::configureRoutes($collection);
         $collection
+            ->remove('delete')
             ->add('imagerights', $this->getRouterIdParameter().'/image-rights')
             ->add('sepaagreement', $this->getRouterIdParameter().'/sepa-agreement')
         ;
@@ -328,7 +329,6 @@ class StudentAdmin extends AbstractBaseAdmin
                         'sepaagreement' => array(
                             'template' => '::Admin/Cells/list__action_sepa_agreement.html.twig',
                         ),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )
