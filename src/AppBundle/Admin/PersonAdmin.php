@@ -99,6 +99,7 @@ class PersonAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.parent.city',
                     'required' => true,
                     'class' => 'AppBundle:City',
+                    'choice_label' => 'name',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.city_repository')->getEnabledSortedByNameQB(),
                 )
             )

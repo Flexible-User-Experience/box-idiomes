@@ -8,6 +8,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class TeacherAdmin.
@@ -79,7 +81,7 @@ class TeacherAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'color',
-                'choice',
+                ChoiceType::class,
                 array(
                     'label' => 'backend.admin.teacher.color',
                     'choices' => TeacherColorEnum::getEnumArray(),
@@ -90,7 +92,7 @@ class TeacherAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'enabled',
-                'checkbox',
+                CheckboxType::class,
                 array(
                     'label' => 'backend.admin.enabled',
                     'required' => false,
