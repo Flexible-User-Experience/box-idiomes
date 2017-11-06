@@ -3,7 +3,6 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Enum\StudentPaymentEnum;
-use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -12,6 +11,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class StudentAdmin.
@@ -78,11 +78,14 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'comments',
-                CKEditorType::class,
+                TextareaType::class,
                 array(
                     'label' => 'backend.admin.student.comments',
-                    'config_name' => 'my_config',
                     'required' => false,
+                    'attr' => array(
+                        'rows' => 8,
+                        'style' => 'resize:vertical',
+                    ),
                 )
             )
             ->end()
@@ -117,6 +120,7 @@ class StudentAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.student.city',
                     'required' => true,
                     'class' => 'AppBundle:City',
+                    'choice_label' => 'name',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.city_repository')->getEnabledSortedByNameQB(),
                 )
             )
