@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\AdminType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -64,11 +65,22 @@ class StudentAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.student.surname',
                 )
             )
+//            ->add(
+//                'parent',
+//                null,
+//                array(
+//                    'label' => 'backend.admin.student.parent',
+//                )
+//            )
             ->add(
                 'parent',
-                null,
+                EntityType::class,
                 array(
                     'label' => 'backend.admin.student.parent',
+                    'required' => true,
+                    'class' => 'AppBundle:Person',
+                    'choice_label' => 'surname',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.parent_repository')->getEnabledSortedBySurnameQB(),
                 )
             )
             ->add(

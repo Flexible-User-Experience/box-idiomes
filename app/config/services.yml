@@ -114,3 +114,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Bank
+    app.parent_repository:
+        class: AppBundle\Repository\PersonRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Person
