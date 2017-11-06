@@ -112,10 +112,12 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'city',
-                null,
+                EntityType::class,
                 array(
                     'label' => 'backend.admin.student.city',
                     'required' => true,
+                    'class' => 'AppBundle:City',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.city_repository')->getEnabledSortedByNameQB(),
                 )
             )
             ->end();
