@@ -78,7 +78,6 @@ backend:
             email: Email
             address: Adreça
             city: Ciutat
-            showSEPAequalAddress: Mostrar adreça SEPA igual a adreça de contacte
             payment: Pagament
             schedule: Horari
             comments: Comentaris

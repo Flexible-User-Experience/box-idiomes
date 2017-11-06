@@ -197,9 +197,10 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'birthDate',
-                null,
+                'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.student.birthDate',
+                    'field_type' => 'sonata_type_date_picker',
                 )
             )
             ->add(
@@ -214,6 +215,55 @@ class StudentAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.student.email',
+                )
+            )
+            ->add(
+                'parent',
+                null,
+                array(
+                    'label' => 'backend.admin.student.parent',
+                )
+            )
+            ->add(
+                'bank',
+                null,
+                array(
+                    'label' => 'backend.admin.student.bank',
+                )
+            )
+            ->add(
+                'dni',
+                null,
+                array(
+                    'label' => 'backend.admin.student.dni',
+                )
+            )
+            ->add(
+                'address',
+                null,
+                array(
+                    'label' => 'backend.admin.student.address',
+                )
+            )
+            ->add(
+                'city',
+                null,
+                array(
+                    'label' => 'backend.admin.student.city',
+                )
+            )
+            ->add(
+                'payment',
+                null,
+                array(
+                    'label' => 'backend.admin.student.payment',
+                )
+            )
+            ->add(
+                'schedule',
+                null,
+                array(
+                    'label' => 'backend.admin.student.schedule',
                 )
             )
             ->add(
