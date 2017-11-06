@@ -159,6 +159,13 @@ class PersonAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'dni',
+                null,
+                array(
+                    'label' => 'backend.admin.parent.dni',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -180,10 +187,31 @@ class PersonAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'address',
+                null,
+                array(
+                    'label' => 'backend.admin.parent.address',
+                )
+            )
+            ->add(
+                'city',
+                null,
+                array(
+                    'label' => 'backend.admin.parent.city',
+                )
+            )
+            ->add(
                 'email',
                 null,
                 array(
                     'label' => 'backend.admin.parent.email',
+                )
+            )
+            ->add(
+                'payment',
+                null,
+                array(
+                    'label' => 'backend.admin.parent.payment',
                 )
             )
             ->add(

@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\AdminType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -37,6 +38,7 @@ class StudentAdmin extends AbstractBaseAdmin
     {
         parent::configureRoutes($collection);
         $collection
+            ->remove('delete')
             ->add('imagerights', $this->getRouterIdParameter().'/image-rights')
             ->add('sepaagreement', $this->getRouterIdParameter().'/sepa-agreement')
         ;
@@ -63,11 +65,22 @@ class StudentAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.student.surname',
                 )
             )
+//            ->add(
+//                'parent',
+//                null,
+//                array(
+//                    'label' => 'backend.admin.student.parent',
+//                )
+//            )
             ->add(
                 'parent',
-                null,
+                EntityType::class,
                 array(
                     'label' => 'backend.admin.student.parent',
+                    'required' => true,
+                    'class' => 'AppBundle:Person',
+                    'choice_label' => 'surname',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.parent_repository')->getEnabledSortedBySurnameQB(),
                 )
             )
             ->add(
@@ -197,9 +210,10 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'birthDate',
-                null,
+                'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.student.birthDate',
+                    'field_type' => 'sonata_type_date_picker',
                 )
             )
             ->add(
@@ -214,6 +228,48 @@ class StudentAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.student.email',
+                )
+            )
+            ->add(
+                'parent',
+                null,
+                array(
+                    'label' => 'backend.admin.student.parent',
+                )
+            )
+            ->add(
+                'dni',
+                null,
+                array(
+                    'label' => 'backend.admin.student.dni',
+                )
+            )
+            ->add(
+                'address',
+                null,
+                array(
+                    'label' => 'backend.admin.student.address',
+                )
+            )
+            ->add(
+                'city',
+                null,
+                array(
+                    'label' => 'backend.admin.student.city',
+                )
+            )
+            ->add(
+                'payment',
+                null,
+                array(
+                    'label' => 'backend.admin.student.payment',
+                )
+            )
+            ->add(
+                'schedule',
+                null,
+                array(
+                    'label' => 'backend.admin.student.schedule',
                 )
             )
             ->add(
@@ -285,7 +341,6 @@ class StudentAdmin extends AbstractBaseAdmin
                         'sepaagreement' => array(
                             'template' => '::Admin/Cells/list__action_sepa_agreement.html.twig',
                         ),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )
