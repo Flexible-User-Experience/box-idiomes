@@ -65,21 +65,14 @@ class StudentAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.student.surname',
                 )
             )
-//            ->add(
-//                'parent',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.student.parent',
-//                )
-//            )
             ->add(
                 'parent',
                 EntityType::class,
                 array(
                     'label' => 'backend.admin.student.parent',
-                    'required' => true,
+                    'required' => false,
                     'class' => 'AppBundle:Person',
-                    'choice_label' => 'surname',
+                    'choice_label' => 'fullcanonicalname',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.parent_repository')->getEnabledSortedBySurnameQB(),
                 )
             )

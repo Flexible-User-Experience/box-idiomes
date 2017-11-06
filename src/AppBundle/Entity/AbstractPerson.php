@@ -119,6 +119,14 @@ abstract class AbstractPerson extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getFullCanonicalName()
+    {
+        return $this->surname.', '.$this->name;
+    }
+
+    /**
      * @param string $name
      *
      * @return AbstractPerson
