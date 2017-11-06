@@ -48,19 +48,20 @@ class BankAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'accountNumber',
-                null,
-                array(
-                    'label' => 'backend.admin.bank.accountNumber',
-                    'required' => true,
-                )
-            )
-            ->add(
                 'swiftCode',
                 null,
                 array(
                     'label' => 'backend.admin.bank.swiftCode',
                     'required' => false,
+                )
+            )
+            ->add(
+                'accountNumber',
+                null,
+                array(
+                    'label' => 'IBAN',
+                    'required' => true,
+                    'help' => 'Ex. ES0011112222333344445555',
                 )
             )
             ->end()
