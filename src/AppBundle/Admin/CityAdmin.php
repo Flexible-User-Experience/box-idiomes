@@ -5,12 +5,14 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class CityAdmin
+ * Class CityAdmin.
  *
  * @category Admin
+ *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class CityAdmin extends AbstractBaseAdmin
@@ -21,6 +23,17 @@ class CityAdmin extends AbstractBaseAdmin
         '_sort_by' => 'name',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * Configure route collection.
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+    }
 
     /**
      * @param FormMapper $formMapper
@@ -151,7 +164,6 @@ class CityAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )
