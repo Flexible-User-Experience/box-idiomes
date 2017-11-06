@@ -208,13 +208,6 @@ class PersonAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'payment',
-                null,
-                array(
-                    'label' => 'backend.admin.parent.payment',
-                )
-            )
-            ->add(
                 'enabled',
                 null,
                 array(

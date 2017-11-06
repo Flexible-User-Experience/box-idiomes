@@ -252,13 +252,6 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'payment',
-                null,
-                array(
-                    'label' => 'backend.admin.student.payment',
-                )
-            )
-            ->add(
                 'schedule',
                 null,
                 array(
