@@ -123,7 +123,7 @@ class PersonAdmin extends AbstractBaseAdmin
                     'label' => ' ',
                     'required' => false,
                     'btn_add' => false,
-                    'error_bubbling' => true,
+                    'by_reference' => false,
                 )
             )
             ->end()
