@@ -20,7 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class TeacherAbsenceAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Absence';
-    protected $baseRoutePattern = 'teacher/absence';
+    protected $baseRoutePattern = 'teachers/absence';
     protected $datagridValues = array(
         '_sort_by' => 'day',
         '_sort_order' => 'desc',
