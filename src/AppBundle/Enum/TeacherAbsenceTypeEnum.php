@@ -13,7 +13,7 @@ class TeacherAbsenceTypeEnum
 {
     const PERSONAL_ISSUES = 0;
     const TRAINING = 1;
-    const OTHER_MOTIVES = 2;
+    const OTHER_ISSUES = 2;
 
     /**
      * @return array
@@ -23,7 +23,7 @@ class TeacherAbsenceTypeEnum
         return array(
             self::PERSONAL_ISSUES => 'Assumptes personals',
             self::TRAINING => 'Formació',
-            self::OTHER_MOTIVES => 'Altres motius',
+            self::OTHER_ISSUES => 'Altres motius',
         );
     }
 }
