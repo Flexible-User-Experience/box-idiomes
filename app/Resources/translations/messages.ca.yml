@@ -67,6 +67,10 @@ backend:
         teacher:
             name: Nom
             color: Color
+        teacher_absence:
+            teacher: Professor
+            type: Tipus
+            day: Dia
         student:
             student: Alumne
             parent: "Pare, mare o tutor"

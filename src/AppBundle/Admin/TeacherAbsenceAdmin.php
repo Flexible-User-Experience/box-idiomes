@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
@@ -33,6 +34,36 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add(
+                'teacher',
+                null,
+                array(
+                    'label' => 'backend.admin.teacher_absence.teacher',
+                )
+            )
+            ->add(
+                'day',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'backend.admin.teacher_absence.day',
+                    'field_type' => 'sonata_type_date_picker',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'backend.admin.enabled',
+                )
+            );
+    }
+
+    /**
      * @param ListMapper $listMapper
      */
     protected function configureListFields(ListMapper $listMapper)
@@ -43,7 +74,7 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 'day',
                 'date',
                 array(
-                    'label' => 'Dia',
+                    'label' => 'backend.admin.teacher_absence.day',
                     'format' => 'd/m/Y',
                     'editable' => true,
                 )
@@ -52,7 +83,7 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 'type',
                 null,
                 array(
-                    'label' => 'Tipus',
+                    'label' => 'backend.admin.teacher_absence.type',
                     'template' => '::Admin/Cells/list__cell_teacher_absence_type.html.twig',
                 )
             )
@@ -60,7 +91,7 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 'teacher',
                 null,
                 array(
-                    'label' => 'Professor',
+                    'label' => 'backend.admin.teacher_absence.teacher',
                     'editable' => false,
                     'associated_property' => 'name',
                     'sortable' => true,

@@ -35,6 +35,9 @@ AppBundle\Entity\TeacherAbsence:
     teacher: @teacher<numberBetween(1,5)>
     type: <numberBetween(0, 2)>
     day: <dateTimeThisMonth()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
 
 # Student
 AppBundle\Entity\Student:
