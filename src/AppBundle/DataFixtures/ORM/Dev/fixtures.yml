@@ -33,7 +33,7 @@ AppBundle\Entity\Teacher:
 AppBundle\Entity\TeacherAbsence:
   teacherabsence{1..2}:
     teacher: @teacher<numberBetween(1,5)>
-    type: <numberBetween(0, 1)>
+    type: <numberBetween(0, 2)>
     day: <dateTimeThisMonth()>
 
 # Student
