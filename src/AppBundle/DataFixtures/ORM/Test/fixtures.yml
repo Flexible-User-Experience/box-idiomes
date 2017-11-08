@@ -130,6 +130,16 @@ AppBundle\Entity\Person:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
+# ClassGroup
+AppBundle\Entity\ClassGroup:
+  classgroup{1..2}:
+    code: <ean8()>
+    name: <name()>
+    book: <name()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
 ## Users
 AppBundle\Entity\User:
     admin:
