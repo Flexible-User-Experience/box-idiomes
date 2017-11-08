@@ -73,7 +73,7 @@ backend:
             payment_information: Dades de pagament
             name: Nom
             surname: Cognoms
-            birthDate: Data naixament
+            birthDate: Data naixement
             bank: Rebut bancari
             cash: Efectiu
             phone: Telèfon
