@@ -29,6 +29,13 @@ AppBundle\Entity\Teacher:
     position: <numberBetween(1, 5)>
     color: <numberBetween(0, 3)>
 
+# TeacherAbsence
+AppBundle\Entity\TeacherAbsence:
+  teacherabsence{1..2}:
+    teacher: @teacher<numberBetween(1,5)>
+    type: <numberBetween(0, 1)>
+    day: <dateTimeThisMonth()>
+
 # Student
 AppBundle\Entity\Student:
   student{1..10}:
