@@ -40,6 +40,10 @@ class TeacherAbsence extends AbstractBase
     private $day;
 
     /**
+     * Methods.
+     */
+
+    /**
      * @return Teacher
      */
     public function getTeacher()
