@@ -3,7 +3,9 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Entity\Teacher;
+use AppBundle\Entity\TeacherAbsence;
 use AppBundle\Entity\User;
+use AppBundle\Enum\TeacherAbsenceTypeEnum;
 use AppBundle\Enum\TeacherColorEnum;
 use AppBundle\Enum\UserRolesEnum;
 
@@ -58,6 +60,7 @@ class AppExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFilter('draw_role_span', array($this, 'drawRoleSpan')),
             new \Twig_SimpleFilter('draw_teacher_color', array($this, 'drawTeacherColorSpan')),
+            new \Twig_SimpleFilter('draw_teacher_absence_type', array($this, 'drawTeacherAbsenceType')),
         );
     }
 
@@ -110,6 +113,16 @@ class AppExtension extends \Twig_Extension
         }
 
         return $span;
+    }
+
+    /**
+     * @param TeacherAbsence $object
+     *
+     * @return string
+     */
+    public function drawTeacherAbsenceType($object)
+    {
+        return '<div class="text-left">'.TeacherAbsenceTypeEnum::getEnumArray()[$object->getType()].'</div>';
     }
 
     /**

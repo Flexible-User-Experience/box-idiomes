@@ -5,6 +5,11 @@ services:
         arguments: [ ~ , AppBundle\Entity\Teacher, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Professor", group: "Professors" }
+    admin.teacher_absence:
+        class: AppBundle\Admin\TeacherAbsenceAdmin
+        arguments: [ ~ , AppBundle\Entity\TeacherAbsence, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Absència", group: "Professors" }
     admin.student:
         class: AppBundle\Admin\StudentAdmin
         arguments: [ ~ , AppBundle\Entity\Student, AppBundle:Admin\StudentAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -129,3 +134,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Province
+    app.teacher_repository:
+        class: AppBundle\Repository\TeacherRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Teacher

@@ -3,12 +3,14 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
 
 /**
- * Class TeacherRepository
+ * Class TeacherRepository.
  *
  * @category Repository
- * @package  AppBundle\Repository
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class TeacherRepository extends EntityRepository
@@ -22,5 +24,33 @@ class TeacherRepository extends EntityRepository
             ->orderBy('t.position', 'ASC');
 
         return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getEnabledSortedByNameQB()
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->orderBy('t.name', 'ASC')
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getEnabledSortedByNameQ()
+    {
+        return $this->getEnabledSortedByNameQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getEnabledSortedByName()
+    {
+        return $this->getEnabledSortedByNameQ()->getResult();
     }
 }

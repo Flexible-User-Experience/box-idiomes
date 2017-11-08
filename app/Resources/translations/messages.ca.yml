@@ -67,13 +67,17 @@ backend:
         teacher:
             name: Nom
             color: Color
+        teacher_absence:
+            teacher: Professor
+            type: Tipus
+            day: Dia
         student:
             student: Alumne
             parent: "Pare, mare o tutor"
             payment_information: Dades de pagament
             name: Nom
             surname: Cognoms
-            birthDate: Data naixament
+            birthDate: Data naixement
             bank: Rebut bancari
             cash: Efectiu
             phone: Telèfon
