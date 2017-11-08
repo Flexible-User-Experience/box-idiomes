@@ -98,4 +98,12 @@ class TeacherAbsence extends AbstractBase
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getDay()->format('d/m/Y').' · '.$this->getType().' · '.$this->getTeacher() : '---';
+    }
 }

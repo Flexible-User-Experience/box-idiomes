@@ -2,9 +2,13 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\TeacherAbsenceTypeEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class TeacherAbsenceAdmin.
@@ -34,6 +38,48 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'day',
+                'sonata_type_date_picker',
+                array(
+                    'label' => 'backend.admin.teacher_absence.day',
+                    'format' => 'd/M/y',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'teacher',
+                EntityType::class,
+                array(
+                    'label' => 'backend.admin.teacher_absence.teacher',
+                    'required' => true,
+                    'class' => 'AppBundle:Teacher',
+                    'choice_label' => 'name',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.teacher_repository')->getEnabledSortedByNameQB(),
+                )
+            )
+            ->add(
+                'type',
+                ChoiceType::class,
+                array(
+                    'label' => 'backend.admin.teacher_absence.type',
+                    'choices' => TeacherAbsenceTypeEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => true,
+                )
+            )
+            ->end()
+        ;
+    }
+
+    /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -54,13 +100,7 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'backend.admin.enabled',
-                )
-            );
+        ;
     }
 
     /**

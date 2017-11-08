@@ -134,3 +134,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Province
+    app.teacher_repository:
+        class: AppBundle\Repository\TeacherRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Teacher
