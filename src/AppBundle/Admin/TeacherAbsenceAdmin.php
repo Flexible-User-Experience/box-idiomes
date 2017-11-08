@@ -54,17 +54,6 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'teacher',
-                EntityType::class,
-                array(
-                    'label' => 'backend.admin.teacher_absence.teacher',
-                    'required' => true,
-                    'class' => 'AppBundle:Teacher',
-                    'choice_label' => 'name',
-                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.teacher_repository')->getEnabledSortedByNameQB(),
-                )
-            )
-            ->add(
                 'type',
                 ChoiceType::class,
                 array(
@@ -73,6 +62,17 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
+                )
+            )
+            ->add(
+                'teacher',
+                EntityType::class,
+                array(
+                    'label' => 'backend.admin.teacher_absence.teacher',
+                    'required' => true,
+                    'class' => 'AppBundle:Teacher',
+                    'choice_label' => 'name',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.teacher_repository')->getEnabledSortedByNameQB(),
                 )
             )
             ->end()
@@ -86,18 +86,18 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'teacher',
-                null,
-                array(
-                    'label' => 'backend.admin.teacher_absence.teacher',
-                )
-            )
-            ->add(
                 'day',
                 'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.teacher_absence.day',
                     'field_type' => 'sonata_type_date_picker',
+                )
+            )
+            ->add(
+                'teacher',
+                null,
+                array(
+                    'label' => 'backend.admin.teacher_absence.teacher',
                 )
             )
         ;
