@@ -34,9 +34,8 @@ class TeacherAdmin extends AbstractBaseAdmin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection
-            ->remove('batch')
-            ->remove('delete');
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
     }
 
     /**
