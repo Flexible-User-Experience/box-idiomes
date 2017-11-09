@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             // Vendors
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
+            new Fenrizbes\ColorPickerTypeBundle\FenrizbesColorPickerTypeBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new Hampe\Bundle\ZurbInkBundle\HampeZurbInkBundle(),

@@ -30,6 +30,7 @@
         "hautelook/alice-bundle": "^1.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "ircmaxell/password-compat": "~1.0",
+        "it-blaster/color-picker-type-bundle": "^1.0",
         "knplabs/knp-menu-bundle": "^2.0",
         "knplabs/knp-paginator-bundle": "^2.5",
         "liip/functional-test-bundle": "^1.0",

@@ -136,6 +136,7 @@ AppBundle\Entity\ClassGroup:
     code: <ean8()>
     name: <name()>
     book: <name()>
+    color: <hexcolor()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true

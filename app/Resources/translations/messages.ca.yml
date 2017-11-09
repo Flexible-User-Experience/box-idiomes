@@ -88,6 +88,11 @@ backend:
             payment: Pagament
             schedule: Horari
             comments: Comentaris
+        class_group:
+            code: Codi
+            name: Nom
+            book: Llibre
+            color: Color
         service:
             title: Nom
         contact:

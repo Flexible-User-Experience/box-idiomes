@@ -2,6 +2,7 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Entity\ClassGroup;
 use AppBundle\Entity\Teacher;
 use AppBundle\Entity\TeacherAbsence;
 use AppBundle\Entity\User;
@@ -61,6 +62,7 @@ class AppExtension extends \Twig_Extension
             new \Twig_SimpleFilter('draw_role_span', array($this, 'drawRoleSpan')),
             new \Twig_SimpleFilter('draw_teacher_color', array($this, 'drawTeacherColorSpan')),
             new \Twig_SimpleFilter('draw_teacher_absence_type', array($this, 'drawTeacherAbsenceType')),
+            new \Twig_SimpleFilter('draw_class_group_color', array($this, 'drawClassGroupColorSpan')),
         );
     }
 
@@ -113,6 +115,16 @@ class AppExtension extends \Twig_Extension
         }
 
         return $span;
+    }
+
+    /**
+     * @param ClassGroup $object
+     *
+     * @return string
+     */
+    public function drawClassGroupColorSpan($object)
+    {
+        return '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color:'.$object->getColor().'"></span>';
     }
 
     /**
