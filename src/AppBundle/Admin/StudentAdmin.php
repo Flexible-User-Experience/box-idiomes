@@ -342,7 +342,7 @@ class StudentAdmin extends AbstractBaseAdmin
                             'template' => '::Admin/Cells/list__action_sepa_agreement.html.twig',
                         ),
                     ),
-                    'label' => 'Accions',
+                    'label' => 'backend.admin.actions',
                 )
             )
         ;
