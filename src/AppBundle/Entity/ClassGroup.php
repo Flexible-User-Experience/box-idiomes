@@ -40,6 +40,13 @@ class ClassGroup extends AbstractBase
     private $book;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $color;
+
+    /**
      * Method.
      */
 
@@ -101,5 +108,33 @@ class ClassGroup extends AbstractBase
         $this->book = $book;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * @param string $color
+     *
+     * @return ClassGroup
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getCode().' . '.$this->getName() : '---';
     }
 }
