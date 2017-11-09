@@ -30,7 +30,7 @@ sonata_admin:
                 icon: "<i class='fa fa-users'></i>"
             Alumnes:
                 icon: "<i class='fa fa-graduation-cap'></i>"
-            Aula:
+            Aules:
                 icon: "<i class='fa fa-book'></i>"
             Serveis:
                 icon: "<i class='fa fa-list-ol'></i>"
@@ -58,7 +58,7 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: "col-md-6 col-lg-4"
                 settings:
-                    groups: [ Aula, Serveis ]
+                    groups: [ Aules, Serveis ]
 #            -
 #                position: top
 #                type: sonata.admin.block.admin_list

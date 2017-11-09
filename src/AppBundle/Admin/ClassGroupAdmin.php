@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
 /**
@@ -13,12 +14,56 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
  */
 class ClassGroupAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Class Group';
-    protected $baseRoutePattern = 'class/class-group';
+    protected $classnameLabel = 'Grups';
+    protected $baseRoutePattern = 'classrooms/group';
     protected $datagridValues = array(
         '_sort_by' => 'code',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add(
+                'code',
+                null,
+                array(
+                    'label' => 'backend.admin.class_group.code',
+                )
+            )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'backend.admin.class_group.name',
+                )
+            )
+            ->add(
+                'book',
+                null,
+                array(
+                    'label' => 'backend.admin.class_group.book',
+                )
+            )
+            ->add(
+                'color',
+                null,
+                array(
+                    'label' => 'backend.admin.class_group.color',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'backend.admin.enabled',
+                )
+            )
+        ;
+    }
 
     /**
      * @param ListMapper $listMapper
@@ -56,7 +101,7 @@ class ClassGroupAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.class_group.color',
-                    'editable' => true,
+                    'template' => '::Admin/Cells/list__cell_class_group_color.html.twig',
                 )
             )
             ->add(
