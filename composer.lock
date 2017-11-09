@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e7549490a5a3096fe8efcc0f04cc4689",
+    "content-hash": "61b91741f0572e024746f2e989584a4a",
     "packages": [
         {
             "name": "apoutchika/loremipsum-bundle",
@@ -2154,6 +2154,51 @@
                 "password"
             ],
             "time": "2014-11-20T16:49:30+00:00"
+        },
+        {
+            "name": "it-blaster/color-picker-type-bundle",
+            "version": "v1.0.3",
+            "target-dir": "Fenrizbes/ColorPickerTypeBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/it-blaster/color-picker-type-bundle.git",
+                "reference": "507dba21e7ac32174090f08e7192673f3752b311"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/it-blaster/color-picker-type-bundle/zipball/507dba21e7ac32174090f08e7192673f3752b311",
+                "reference": "507dba21e7ac32174090f08e7192673f3752b311",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "~2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Fenrizbes\\ColorPickerTypeBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yaroslav Gashuk",
+                    "email": "fenrizbes@yandex.ru"
+                }
+            ],
+            "description": "The FormType for choosing a color",
+            "homepage": "https://github.com/it-blaster/color-picker-type-bundle",
+            "keywords": [
+                "color picker",
+                "form",
+                "iris",
+                "symfony"
+            ],
+            "time": "2015-07-13T08:08:22+00:00"
         },
         {
             "name": "jdorn/sql-formatter",

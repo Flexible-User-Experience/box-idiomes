@@ -2,8 +2,12 @@
 
 namespace AppBundle\Admin;
 
+use Fenrizbes\ColorPickerTypeBundle\Form\Type\ColorPickerType;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class ClassGroupAdmin.
@@ -20,6 +24,83 @@ class ClassGroupAdmin extends AbstractBaseAdmin
         '_sort_by' => 'code',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * Configure route collection.
+     *
+     * @param RouteCollection $collection
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        parent::configureRoutes($collection);
+        $collection->remove('delete');
+    }
+
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'code',
+                null,
+                array(
+                    'label' => 'backend.admin.class_group.code',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'backend.admin.class_group.name',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'book',
+                null,
+                array(
+                    'label' => 'backend.admin.class_group.book',
+                    'required' => false,
+                )
+            )
+            ->end()
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'color',
+                ColorPickerType::class,
+                array(
+                    'label' => 'backend.admin.teacher.color',
+                    'required' => false,
+                    'picker_options' => array(
+                        'color' => false,
+                        'mode' => 'hsl',
+                        'hide' => false,
+                        'border' => true,
+                        'target' => false,
+                        'width' => 200,
+                        'palettes' => true,
+                        'controls' => array(
+                            'horiz' => 's',
+                            'vert' => 'l',
+                            'strip' => 'h',
+                        ),
+                    ),
+                )
+            )
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.enabled',
+                    'required' => false,
+                )
+            )
+            ->end();
+    }
 
     /**
      * @param DatagridMapper $datagridMapper
@@ -46,13 +127,6 @@ class ClassGroupAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.class_group.book',
-                )
-            )
-            ->add(
-                'color',
-                null,
-                array(
-                    'label' => 'backend.admin.class_group.color',
                 )
             )
             ->add(
@@ -118,7 +192,6 @@ class ClassGroupAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )

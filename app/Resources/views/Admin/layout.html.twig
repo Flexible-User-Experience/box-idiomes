@@ -36,3 +36,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
     {% endstylesheets %}
 {% endblock %}
+
+{# override javascript includes #}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/fenrizbescolorpickertype/lib/js/iris.min.js') }}"></script>
+    <script src="{{ asset('bundles/fenrizbescolorpickertype/js/color_picker_type.js') }}"></script>
+{% endblock %}
