@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 /**
  * Class TariffAdmin.
@@ -154,14 +155,6 @@ class TariffAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'price',
-                null,
-                array(
-                    'label' => 'backend.admin.tariff.price',
-                    'editable' => true,
-                )
-            )
-            ->add(
                 'type',
                 null,
                 array(
@@ -174,6 +167,14 @@ class TariffAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.tariff.name',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'price',
+                NumberType::class,
+                array(
+                    'label' => 'backend.admin.tariff.price',
                     'editable' => true,
                 )
             )
