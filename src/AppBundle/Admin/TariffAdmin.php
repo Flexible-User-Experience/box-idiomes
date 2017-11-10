@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
@@ -38,6 +39,36 @@ class TariffAdmin extends AbstractBaseAdmin
         parent::configureRoutes($collection);
         $collection
             ->remove('delete')
+        ;
+    }
+
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add(
+                'year',
+                null,
+                array(
+                    'label' => 'backend.admin.tariff.year',
+                )
+            )
+            ->add(
+                'price',
+                null,
+                array(
+                    'label' => 'backend.admin.tariff.price',
+                )
+            )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'backend.admin.tariff.name',
+                )
+            )
         ;
     }
 
