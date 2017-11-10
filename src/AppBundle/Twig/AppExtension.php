@@ -3,10 +3,12 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Entity\ClassGroup;
+use AppBundle\Entity\Event;
 use AppBundle\Entity\Tariff;
 use AppBundle\Entity\Teacher;
 use AppBundle\Entity\TeacherAbsence;
 use AppBundle\Entity\User;
+use AppBundle\Enum\EventClassroomTypeEnum;
 use AppBundle\Enum\TariffTypeEnum;
 use AppBundle\Enum\TeacherAbsenceTypeEnum;
 use AppBundle\Enum\TeacherColorEnum;
@@ -66,6 +68,7 @@ class AppExtension extends \Twig_Extension
             new \Twig_SimpleFilter('draw_teacher_absence_type', array($this, 'drawTeacherAbsenceType')),
             new \Twig_SimpleFilter('draw_class_group_color', array($this, 'drawClassGroupColorSpan')),
             new \Twig_SimpleFilter('draw_tariff_type', array($this, 'drawTariffType')),
+            new \Twig_SimpleFilter('draw_event_classroom_type', array($this, 'drawEventClassroomType')),
         );
     }
 
@@ -147,7 +150,17 @@ class AppExtension extends \Twig_Extension
      */
     public function drawTariffType($object)
     {
-        return '<div class="text-left">'.TariffTypeEnum::getEnumArray()[$object->getType()].'</div>';
+        return TariffTypeEnum::getEnumArray()[$object->getType()];
+    }
+
+    /**
+     * @param Event $object
+     *
+     * @return string
+     */
+    public function drawEventClassroomType($object)
+    {
+        return EventClassroomTypeEnum::getEnumArray()[$object->getClassroom()];
     }
 
     /**

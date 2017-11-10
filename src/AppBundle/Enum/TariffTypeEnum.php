@@ -11,11 +11,11 @@ namespace AppBundle\Enum;
  */
 class TariffTypeEnum
 {
-    const TARIFF_1 = 0;
-    const TARIFF_2 = 1;
-    const TARIFF_3 = 2;
-    const TARIFF_4 = 3;
-    const TARIFF_5 = 4;
+    const TARIFF_ONE_HOUR_PER_WEEK = 0;
+    const TARIFF_TWO_HOUR_PER_WEEK = 1;
+    const TARIFF_THREE_HOUR_PER_WEEK = 2;
+    const TARIFF_HALF_HOUR_PER_WEEK = 3;
+    const TARIFF_SIGLE_HOUR = 4;
 
     /**
      * @return array
@@ -23,11 +23,11 @@ class TariffTypeEnum
     public static function getEnumArray()
     {
         return array(
-            self::TARIFF_1 => '1h / setmana',
-            self::TARIFF_2 => '2h / setmana',
-            self::TARIFF_3 => '3h / setmana',
-            self::TARIFF_4 => '1,5 / setmana',
-            self::TARIFF_5 => 'hora particular',
+            self::TARIFF_ONE_HOUR_PER_WEEK => 'backend.admin.tariff.tariff_1',
+            self::TARIFF_TWO_HOUR_PER_WEEK => 'backend.admin.tariff.tariff_2',
+            self::TARIFF_THREE_HOUR_PER_WEEK => 'backend.admin.tariff.tariff_3',
+            self::TARIFF_HALF_HOUR_PER_WEEK => 'backend.admin.tariff.tariff_4',
+            self::TARIFF_SIGLE_HOUR => 'backend.admin.tariff.tariff_5',
         );
     }
 }

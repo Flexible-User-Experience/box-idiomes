@@ -71,7 +71,7 @@ class EventAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.event.classroom',
-                    'editable' => true,
+                    'template' => '::Admin/Cells/list__cell_classroom_type.html.twig',
                 )
             )
             ->add(
