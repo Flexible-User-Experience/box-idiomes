@@ -3,9 +3,11 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Entity\ClassGroup;
+use AppBundle\Entity\Tariff;
 use AppBundle\Entity\Teacher;
 use AppBundle\Entity\TeacherAbsence;
 use AppBundle\Entity\User;
+use AppBundle\Enum\TariffTypeEnum;
 use AppBundle\Enum\TeacherAbsenceTypeEnum;
 use AppBundle\Enum\TeacherColorEnum;
 use AppBundle\Enum\UserRolesEnum;
@@ -63,6 +65,7 @@ class AppExtension extends \Twig_Extension
             new \Twig_SimpleFilter('draw_teacher_color', array($this, 'drawTeacherColorSpan')),
             new \Twig_SimpleFilter('draw_teacher_absence_type', array($this, 'drawTeacherAbsenceType')),
             new \Twig_SimpleFilter('draw_class_group_color', array($this, 'drawClassGroupColorSpan')),
+            new \Twig_SimpleFilter('draw_tariff_type', array($this, 'drawTariffType')),
         );
     }
 
@@ -135,6 +138,16 @@ class AppExtension extends \Twig_Extension
     public function drawTeacherAbsenceType($object)
     {
         return '<div class="text-left">'.TeacherAbsenceTypeEnum::getEnumArray()[$object->getType()].'</div>';
+    }
+
+    /**
+     * @param Tariff $object
+     *
+     * @return string
+     */
+    public function drawTariffType($object)
+    {
+        return '<div class="text-left">'.TariffTypeEnum::getEnumArray()[$object->getType()].'</div>';
     }
 
     /**

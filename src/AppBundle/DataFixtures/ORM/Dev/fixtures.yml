@@ -146,7 +146,7 @@ AppBundle\Entity\Tariff:
   tariff{1..5}:
     year: <year('now')>
     price: <randomFloat(1, 5)>
-    type: <numberBetween(0, 3)>
+    type: <numberBetween(0, 4)>
     name: <name()>
 
 ## Users

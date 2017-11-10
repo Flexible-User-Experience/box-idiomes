@@ -69,7 +69,7 @@ class TariffAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.tariff.type',
-                    'editable' => true,
+                    'template' => '::Admin/Cells/list__cell_tariff_type.html.twig',
                 )
             )
             ->add(
