@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Sonata\CoreBundle\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
@@ -48,30 +48,38 @@ class EventAdmin extends AbstractBaseAdmin
             ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'begin',
-                'sonata_type_date_picker',
+                DateTimePickerType::class,
                 array(
                     'label' => 'backend.admin.event.begin',
-                    'format' => 'd/M/y',
+                    'format' => 'd/M/y H:m',
                     'required' => true,
                 )
             )
             ->add(
                 'end',
-                'sonata_type_date_picker',
+                DateTimePickerType::class,
                 array(
                     'label' => 'backend.admin.event.end',
-                    'format' => 'd/M/y',
+                    'format' => 'd/M/y H:m',
                     'required' => true,
                 )
             )
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
+                'teacher',
+                null,
+                array(
+                    'label' => 'backend.admin.event.teacher',
+                    'required' => true,
+                )
+            )
+            ->add(
                 'group',
                 null,
                 array(
                     'label' => 'backend.admin.event.group',
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add(
@@ -93,14 +101,6 @@ class EventAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label' => 'backend.admin.enabled',
-                    'required' => false,
-                )
-            )
             ->end()
         ;
     }
@@ -116,7 +116,7 @@ class EventAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.event.begin',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => 'sonata_type_datetime_picker',
                 )
             )
             ->add(
@@ -124,7 +124,7 @@ class EventAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.event.end',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => 'sonata_type_datetime_picker',
                 )
             )
             ->add(
@@ -147,13 +147,6 @@ class EventAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.event.group',
                 )
             )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'backend.admin.enabled',
-                )
-            )
         ;
     }
 
@@ -169,7 +162,7 @@ class EventAdmin extends AbstractBaseAdmin
                 'date',
                 array(
                     'label' => 'backend.admin.event.begin',
-                    'format' => 'd/m/Y',
+                    'format' => 'd/m/Y H:i',
                     'editable' => true,
                 )
             )
@@ -178,7 +171,7 @@ class EventAdmin extends AbstractBaseAdmin
                 'date',
                 array(
                     'label' => 'backend.admin.event.end',
-                    'format' => 'd/m/Y',
+                    'format' => 'd/m/Y H:i',
                     'editable' => true,
                 )
             )
@@ -202,14 +195,6 @@ class EventAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.event.group',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'backend.admin.enabled',
                     'editable' => true,
                 )
             )
