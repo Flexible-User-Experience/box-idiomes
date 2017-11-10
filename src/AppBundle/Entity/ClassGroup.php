@@ -135,6 +135,6 @@ class ClassGroup extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getCode().' . '.$this->getName() : '---';
+        return $this->id ? $this->getCode().' · '.$this->getName() : '---';
     }
 }
