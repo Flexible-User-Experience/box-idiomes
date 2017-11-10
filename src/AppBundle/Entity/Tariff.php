@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TariffRepository")
  * @ORM\Table(name="tariff")
- * @UniqueEntity({})
+ * @UniqueEntity({"type", "year"})
  */
 class Tariff extends AbstractBase
 {
