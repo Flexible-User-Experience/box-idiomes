@@ -2,9 +2,13 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Enum\TariffTypeEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class TariffAdmin.
@@ -19,7 +23,7 @@ class TariffAdmin extends AbstractBaseAdmin
     protected $baseRoutePattern = 'classrooms/tariff';
     protected $datagridValues = array(
         '_sort_by' => 'year',
-        '_sort_order' => 'asc',
+        '_sort_order' => 'desc',
     );
 
     /**
@@ -39,6 +43,62 @@ class TariffAdmin extends AbstractBaseAdmin
         parent::configureRoutes($collection);
         $collection
             ->remove('delete')
+        ;
+    }
+
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'year',
+                null,
+                array(
+                    'label' => 'backend.admin.tariff.year',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'price',
+                null,
+                array(
+                    'label' => 'backend.admin.tariff.price',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'name',
+                null,
+                array(
+                    'label' => 'backend.admin.tariff.name',
+                    'required' => false,
+                )
+            )
+            ->end()
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'type',
+                ChoiceType::class,
+                array(
+                    'label' => 'backend.admin.teacher_absence.type',
+                    'choices' => TariffTypeEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => true,
+                )
+            )
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.enabled',
+                    'required' => false,
+                )
+            )
+            ->end()
         ;
     }
 

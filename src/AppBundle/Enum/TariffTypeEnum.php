@@ -23,11 +23,11 @@ class TariffTypeEnum
     public static function getEnumArray()
     {
         return array(
-            self::TARIFF_1 => '1h/setmana',
-            self::TARIFF_2 => '2h/setmana',
-            self::TARIFF_3 => '3h/setmana',
-            self::TARIFF_4 => '1,5/setmana',
-            self::TARIFF_5 => '18€/hora',
+            self::TARIFF_1 => '1h / setmana',
+            self::TARIFF_2 => '2h / setmana',
+            self::TARIFF_3 => '3h / setmana',
+            self::TARIFF_4 => '1,5 / setmana',
+            self::TARIFF_5 => 'hora particular',
         );
     }
 }
