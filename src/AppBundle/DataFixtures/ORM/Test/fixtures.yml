@@ -149,6 +149,19 @@ AppBundle\Entity\Tariff:
     type: <numberBetween(0, 4)>
     name: <name()>
 
+# Event
+AppBundle\Entity\Event:
+  event{1..2}:
+    begin: <dateTimeThisMonth()>
+    end: <dateTimeThisMonth()>
+    teacher: @teacher<current()>
+    classroom: <randomFloat(1, 5)>
+    group: @classgroup*
+    students:
+        - @student*
+    previous: @event<current()>
+    next: @event<current()>
+
 ## Users
 AppBundle\Entity\User:
     admin:

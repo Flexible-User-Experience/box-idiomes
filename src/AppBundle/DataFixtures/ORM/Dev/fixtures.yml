@@ -31,7 +31,7 @@ AppBundle\Entity\Teacher:
 
 # TeacherAbsence
 AppBundle\Entity\TeacherAbsence:
-  teacherabsence{1..2}:
+  teacherabsence{1..5}:
     teacher: @teacher<numberBetween(1,5)>
     type: <numberBetween(0, 2)>
     day: <dateTimeThisMonth()>
@@ -148,6 +148,19 @@ AppBundle\Entity\Tariff:
     price: <randomFloat(1, 5)>
     type: <numberBetween(0, 4)>
     name: <name()>
+
+# Event
+AppBundle\Entity\Event:
+  event{1..5}:
+    begin: <dateTimeThisMonth()>
+    end: <dateTimeThisMonth()>
+    teacher: @teacher<current()>
+    classroom: <randomFloat(1, 5)>
+    group: @classgroup*
+    students:
+        - @student*
+    previous: @event<current()>
+    next: @event<current()>
 
 ## Users
 AppBundle\Entity\User:
