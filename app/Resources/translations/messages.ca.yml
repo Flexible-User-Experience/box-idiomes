@@ -98,6 +98,15 @@ backend:
             price: Preu
             type: Tipus
             name: Nom
+        event:
+            begin: Inici
+            end: Fi
+            teacher: Professor
+            classroom: Aula
+            group: Grup aula
+            students: Estudiants
+            previous: Abans
+            next: Pròxima
         service:
             title: Nom
         contact:

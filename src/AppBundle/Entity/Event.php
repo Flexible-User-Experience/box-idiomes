@@ -20,14 +20,14 @@ class Event extends AbstractBase
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $begin;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $end;
 

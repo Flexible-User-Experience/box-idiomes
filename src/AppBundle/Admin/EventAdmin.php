@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
@@ -30,6 +31,73 @@ class EventAdmin extends AbstractBaseAdmin
         parent::configureRoutes($collection);
         $collection
             ->remove('delete')
+        ;
+    }
+
+    /**
+     * @param ListMapper $listMapper
+     */
+    protected function configureListFields(ListMapper $listMapper)
+    {
+        unset($this->listModes['mosaic']);
+        $listMapper
+            ->add(
+                'begin',
+                null,
+                array(
+                    'label' => 'backend.admin.event.begin',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'end',
+                null,
+                array(
+                    'label' => 'backend.admin.event.end',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'teacher',
+                null,
+                array(
+                    'label' => 'backend.admin.event.teacher',
+                )
+            )
+            ->add(
+                'classroom',
+                null,
+                array(
+                    'label' => 'backend.admin.event.classroom',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'group',
+                null,
+                array(
+                    'label' => 'backend.admin.event.group',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'backend.admin.enabled',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                '_action',
+                'actions',
+                array(
+                    'actions' => array(
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                    ),
+                    'label' => 'backend.admin.actions',
+                )
+            )
         ;
     }
 }
