@@ -93,6 +93,11 @@ backend:
             name: Nom
             book: Llibre
             color: Color
+        tariff:
+            year: Any
+            price: Preu
+            type: Tipus
+            name: Nom
         service:
             title: Nom
         contact:
