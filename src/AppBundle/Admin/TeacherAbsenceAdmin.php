@@ -94,6 +94,19 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'type',
+                null,
+                array(
+                    'label' => 'backend.admin.teacher_absence.type',
+                ),
+                ChoiceType::class,
+                array(
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choices' => TeacherAbsenceTypeEnum::getEnumArray(),
+                )
+            )
+            ->add(
                 'teacher',
                 null,
                 array(
