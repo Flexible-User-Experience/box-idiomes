@@ -141,6 +141,14 @@ AppBundle\Entity\ClassGroup:
     updatedAt: <dateTimeThisMonth()>
     enabled: true
 
+# Tariff
+AppBundle\Entity\Tariff:
+  tariff{1..5}:
+    year: <year('now')>
+    price: <randomFloat(1, 5)>
+    type: <numberBetween(0, 4)>
+    name: <name()>
+
 ## Users
 AppBundle\Entity\User:
     admin:

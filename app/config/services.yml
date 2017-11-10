@@ -22,8 +22,11 @@ services:
         arguments: [ ~ , AppBundle\Entity\ClassGroup, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Grup", group: "Aules" }
-        calls:
-            - [ setTemplate, [edit, "::Admin/Student/edit.html.twig"] ]
+    admin.tariff:
+        class: AppBundle\Admin\TariffAdmin
+        arguments: [ ~ , AppBundle\Entity\Tariff, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tarifa", group: "Aules" }
     admin.parent:
         class: AppBundle\Admin\PersonAdmin
         arguments: [ ~ , AppBundle\Entity\Person, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
