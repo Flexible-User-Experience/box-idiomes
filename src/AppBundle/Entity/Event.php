@@ -55,9 +55,29 @@ class Event extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Student", mappedBy="event")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Student")
+     * @ORM\JoinTable(name="events_students",
+     *      joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="student_id", referencedColumnName="id")}
+     * )
      */
     private $students;
+
+    /**
+     * @var Event
+     *
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Event")
+     * @ORM\JoinColumn(name="previous_id", referencedColumnName="id")
+     */
+    private $previous;
+
+    /**
+     * @var Event
+     *
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Event")
+     * @ORM\JoinColumn(name="next_id", referencedColumnName="id")
+     */
+    private $next;
 
     /**
      * Methods.
@@ -187,6 +207,74 @@ class Event extends AbstractBase
     public function setStudents($students)
     {
         $this->students = $students;
+
+        return $this;
+    }
+
+    /**
+     * @param Student $student
+     *
+     * @return $this
+     */
+    public function addStudent(Student $student)
+    {
+        if (!$this->students->contains($student)) {
+            $this->students->add($student);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Student $student
+     *
+     * @return $this
+     */
+    public function removeStudent(Student $student)
+    {
+        if ($this->students->contains($student)) {
+            $this->students->removeElement($student);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Event
+     */
+    public function getPrevious()
+    {
+        return $this->previous;
+    }
+
+    /**
+     * @param Event $previous
+     *
+     * @return Event
+     */
+    public function setPrevious($previous)
+    {
+        $this->previous = $previous;
+
+        return $this;
+    }
+
+    /**
+     * @return Event
+     */
+    public function getNext()
+    {
+        return $this->next;
+    }
+
+    /**
+     * @param Event $next
+     *
+     * @return Event
+     */
+    public function setNext($next)
+    {
+        $this->next = $next;
 
         return $this;
     }
