@@ -54,6 +54,13 @@ class Student extends AbstractPerson
     protected $bank;
 
     /**
+     * @var Event
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Event")
+     */
+    private $event;
+
+    /**
      * Methods.
      */
 

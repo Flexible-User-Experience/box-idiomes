@@ -55,7 +55,7 @@ class Event extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Student")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Student", mappedBy="event")
      */
     private $students;
 
