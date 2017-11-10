@@ -155,7 +155,7 @@ AppBundle\Entity\Event:
     begin: <dateTimeThisMonth()>
     end: <dateTimeThisMonth()>
     teacher: @teacher<current()>
-    classroom: <randomFloat(1, 5)>
+    classroom: <numberBetween(0, 4)>
     group: @classgroup*
     students:
         - @student*

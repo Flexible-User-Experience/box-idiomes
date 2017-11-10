@@ -43,17 +43,19 @@ class EventAdmin extends AbstractBaseAdmin
         $listMapper
             ->add(
                 'begin',
-                null,
+                'date',
                 array(
                     'label' => 'backend.admin.event.begin',
+                    'format' => 'd/m/Y',
                     'editable' => true,
                 )
             )
             ->add(
                 'end',
-                null,
+                'date',
                 array(
                     'label' => 'backend.admin.event.end',
+                    'format' => 'd/m/Y',
                     'editable' => true,
                 )
             )
