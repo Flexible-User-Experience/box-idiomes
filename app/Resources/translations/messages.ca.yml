@@ -98,6 +98,24 @@ backend:
             price: Preu
             type: Tipus
             name: Nom
+            tariff_1: 1h / setmana
+            tariff_2: 2h / setmana
+            tariff_3: 3h / setmana
+            tariff_4: 1,5 / setmana
+            tariff_5: hora particular
+        event:
+            begin: Inici
+            end: Fi
+            teacher: Professor
+            classroom: Aula
+            group: Grup aula
+            students: Estudiants
+            previous: Abans
+            next: Pròxima
+            classroom_1: Aula 1
+            classroom_2: Aula 2
+            classroom_3: Aula 3
+            classroom_4: Aula 4
         service:
             title: Nom
         contact:

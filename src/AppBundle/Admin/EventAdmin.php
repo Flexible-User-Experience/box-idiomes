@@ -2,28 +2,27 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Enum\TariffTypeEnum;
+use AppBundle\Enum\EventClassroomTypeEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Sonata\CoreBundle\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 /**
- * Class TariffAdmin.
+ * Class EventAdmin.
  *
  * @category Admin
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class TariffAdmin extends AbstractBaseAdmin
+class EventAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Tarriff';
-    protected $baseRoutePattern = 'classrooms/tariff';
+    protected $classnameLabel = 'Event';
+    protected $baseRoutePattern = 'classrooms/event';
     protected $datagridValues = array(
-        '_sort_by' => 'year',
+        '_sort_by' => 'begin',
         '_sort_order' => 'desc',
     );
 
@@ -48,48 +47,58 @@ class TariffAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(4))
             ->add(
-                'year',
-                null,
+                'begin',
+                DateTimePickerType::class,
                 array(
-                    'label' => 'backend.admin.tariff.year',
+                    'label' => 'backend.admin.event.begin',
+                    'format' => 'd/M/y H:m',
                     'required' => true,
                 )
             )
             ->add(
-                'price',
-                null,
+                'end',
+                DateTimePickerType::class,
                 array(
-                    'label' => 'backend.admin.tariff.price',
+                    'label' => 'backend.admin.event.end',
+                    'format' => 'd/M/y H:m',
                     'required' => true,
-                )
-            )
-            ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'backend.admin.tariff.name',
-                    'required' => false,
                 )
             )
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
-                'type',
-                ChoiceType::class,
+                'teacher',
+                null,
                 array(
-                    'label' => 'backend.admin.teacher_absence.type',
-                    'choices' => TariffTypeEnum::getEnumArray(),
-                    'multiple' => false,
-                    'expanded' => false,
+                    'label' => 'backend.admin.event.teacher',
                     'required' => true,
                 )
             )
             ->add(
-                'enabled',
-                CheckboxType::class,
+                'group',
+                null,
                 array(
-                    'label' => 'backend.admin.enabled',
+                    'label' => 'backend.admin.event.group',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'students',
+                null,
+                array(
+                    'label' => 'backend.admin.event.students',
                     'required' => false,
+                )
+            )
+            ->add(
+                'classroom',
+                ChoiceType::class,
+                array(
+                    'label' => 'backend.admin.event.classroom',
+                    'choices' => EventClassroomTypeEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => true,
                 )
             )
             ->end()
@@ -103,37 +112,39 @@ class TariffAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'year',
-                null,
+                'begin',
+                'doctrine_orm_date',
                 array(
-                    'label' => 'backend.admin.tariff.year',
+                    'label' => 'backend.admin.event.begin',
+                    'field_type' => 'sonata_type_datetime_picker',
                 )
             )
             ->add(
-                'price',
-                null,
+                'end',
+                'doctrine_orm_date',
                 array(
-                    'label' => 'backend.admin.tariff.price',
+                    'label' => 'backend.admin.event.end',
+                    'field_type' => 'sonata_type_datetime_picker',
                 )
             )
             ->add(
-                'type',
+                'classroom',
                 null,
                 array(
-                    'label' => 'backend.admin.tariff.type',
+                    'label' => 'backend.admin.event.classroom',
                 ),
                 ChoiceType::class,
                 array(
                     'expanded' => false,
                     'multiple' => false,
-                    'choices' => TariffTypeEnum::getEnumArray(),
+                    'choices' => EventClassroomTypeEnum::getEnumArray(),
                 )
             )
             ->add(
-                'name',
+                'group',
                 null,
                 array(
-                    'label' => 'backend.admin.tariff.name',
+                    'label' => 'backend.admin.event.group',
                 )
             )
         ;
@@ -147,42 +158,43 @@ class TariffAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'year',
-                null,
+                'begin',
+                'date',
                 array(
-                    'label' => 'backend.admin.tariff.year',
+                    'label' => 'backend.admin.event.begin',
+                    'format' => 'd/m/Y H:i',
                     'editable' => true,
                 )
             )
             ->add(
-                'type',
-                null,
+                'end',
+                'date',
                 array(
-                    'label' => 'backend.admin.tariff.type',
-                    'template' => '::Admin/Cells/list__cell_tariff_type.html.twig',
-                )
-            )
-            ->add(
-                'name',
-                null,
-                array(
-                    'label' => 'backend.admin.tariff.name',
+                    'label' => 'backend.admin.event.end',
+                    'format' => 'd/m/Y H:i',
                     'editable' => true,
                 )
             )
             ->add(
-                'price',
-                NumberType::class,
+                'teacher',
+                null,
                 array(
-                    'label' => 'backend.admin.tariff.price',
-                    'editable' => true,
+                    'label' => 'backend.admin.event.teacher',
                 )
             )
             ->add(
-                'enabled',
+                'classroom',
                 null,
                 array(
-                    'label' => 'backend.admin.enabled',
+                    'label' => 'backend.admin.event.classroom',
+                    'template' => '::Admin/Cells/list__cell_classroom_type.html.twig',
+                )
+            )
+            ->add(
+                'group',
+                null,
+                array(
+                    'label' => 'backend.admin.event.group',
                     'editable' => true,
                 )
             )
