@@ -123,6 +123,19 @@ class TariffAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'type',
+                null,
+                array(
+                    'label' => 'backend.admin.tariff.type',
+                ),
+                ChoiceType::class,
+                array(
+                    'expanded' => false,
+                    'multiple' => false,
+                    'choices' => TariffTypeEnum::getEnumArray(),
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
