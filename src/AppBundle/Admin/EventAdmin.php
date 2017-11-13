@@ -148,6 +148,13 @@ class EventAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'teacher',
+                null,
+                array(
+                    'label' => 'backend.admin.event.teacher',
+                )
+            )
+            ->add(
                 'classroom',
                 null,
                 array(
@@ -166,7 +173,15 @@ class EventAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.event.group',
                 )
-            );
+            )
+            ->add(
+                'students',
+                null,
+                array(
+                    'label' => 'backend.admin.event.students',
+                )
+            )
+        ;
     }
 
     /**
@@ -199,6 +214,11 @@ class EventAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.event.teacher',
+                    'editable' => false,
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'teacher')),
                 )
             )
             ->add(
@@ -215,6 +235,10 @@ class EventAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.event.group',
                     'editable' => true,
+                    'associated_property' => 'code',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'code'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'group')),
                 )
             )
             ->add(
