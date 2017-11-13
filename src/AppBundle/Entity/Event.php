@@ -66,7 +66,7 @@ class Event extends AbstractBase
     /**
      * @var Event
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Event")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Event", cascade={"persist"})
      * @ORM\JoinColumn(name="previous_id", referencedColumnName="id")
      */
     private $previous;
@@ -74,7 +74,7 @@ class Event extends AbstractBase
     /**
      * @var Event
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Event")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Event", cascade={"persist"})
      * @ORM\JoinColumn(name="next_id", referencedColumnName="id")
      */
     private $next;

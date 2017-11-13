@@ -265,23 +265,29 @@ class EventAdmin extends AbstractBaseAdmin
     {
         if ($object->getDayFrequencyRepeat() && $object->getUntil()) {
             $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
-            $nextBegin = $object->getBegin()->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
-            $previeousEvent = $object;
-            while ($nextBegin->format('Y-m-d H:i') <= $object->getUntil()->format('Y-m-d H:i')) {
+            $currentBegin = $object->getBegin();
+            $currentEnd = $object->getEnd();
+            $currentBegin->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
+            $currentEnd->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
+            $previousEvent = $object;
+            while ($currentBegin->format('Y-m-d H:i') <= $object->getUntil()->format('Y-m-d H:i')) {
                 $event = new Event();
                 $event
-                    ->setBegin($previeousEvent->getBegin()->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D')))
-                    ->setEnd($previeousEvent->getEnd()->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D')))
-                    ->setTeacher($previeousEvent->getTeacher())
-                    ->setClassroom($previeousEvent->getClassroom())
-                    ->setGroup($previeousEvent->getGroup())
-                    ->setStudents($previeousEvent->getStudents())
+                    ->setBegin($currentBegin)
+                    ->setEnd($currentEnd)
+                    ->setTeacher($previousEvent->getTeacher())
+                    ->setClassroom($previousEvent->getClassroom())
+                    ->setGroup($previousEvent->getGroup())
+                    ->setStudents($previousEvent->getStudents())
+                    ->setPrevious($previousEvent)
                 ;
 
                 $em->persist($event);
+                $em->flush();
 
-                $nextBegin->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
-                $previeousEvent = $event;
+                $currentBegin->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
+                $currentEnd->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
+                $previousEvent = $event;
             }
             $em->flush();
         }
