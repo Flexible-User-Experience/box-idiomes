@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Event;
 use AppBundle\Enum\EventClassroomTypeEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -226,5 +227,27 @@ class EventAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.actions',
                 )
             );
+    }
+
+    /**
+     * @param Event $object
+     */
+    public function postPersist($object)
+    {
+        if ($object->getDayFrequencyRepeat() && $object->getUntil()) {
+            $event = new Event();
+            $event
+                ->setBegin($object->getBegin()->add(new \DateInterval('P1D')))
+                ->setEnd($object->getEnd()->add(new \DateInterval('P1D')))
+                ->setTeacher($object->getTeacher())
+                ->setClassroom($object->getClassroom())
+                ->setGroup($object->getGroup())
+                ->setStudents($object->getStudents())
+            ;
+
+            $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
+            $em->persist($event);
+            $em->flush();
+        }
     }
 }
