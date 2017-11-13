@@ -82,14 +82,14 @@ class Event extends AbstractBase
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $dayFrequencyRepeat;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $until;
 
@@ -302,7 +302,7 @@ class Event extends AbstractBase
     }
 
     /**
-     * @param int $dayFrequencyRepeat
+     * @param int|null $dayFrequencyRepeat
      *
      * @return Event
      */
@@ -322,11 +322,11 @@ class Event extends AbstractBase
     }
 
     /**
-     * @param \DateTime $until
+     * @param \DateTime|null $until
      *
      * @return Event
      */
-    public function setUntil(\DateTime $until)
+    public function setUntil($until)
     {
         $this->until = $until;
 

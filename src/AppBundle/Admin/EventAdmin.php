@@ -35,8 +35,7 @@ class EventAdmin extends AbstractBaseAdmin
     {
         parent::configureRoutes($collection);
         $collection
-            ->remove('delete')
-        ;
+            ->remove('delete');
     }
 
     /**
@@ -63,24 +62,28 @@ class EventAdmin extends AbstractBaseAdmin
                     'format' => 'd/M/y H:m',
                     'required' => true,
                 )
-            )
-            ->add(
-                'dayFrequencyRepeat',
-                null,
-                array(
-                    'label' => 'backend.admin.event.dayFrequencyRepeat',
-                    'required' => true,
+            );
+        if (is_null($this->getSubject()->getId())) {
+            $formMapper
+                ->add(
+                    'dayFrequencyRepeat',
+                    null,
+                    array(
+                        'label' => 'backend.admin.event.dayFrequencyRepeat',
+                        'required' => false,
+                    )
                 )
-            )
-            ->add(
-                'until',
-                DateTimePickerType::class,
-                array(
-                    'label' => 'backend.admin.event.until',
-                    'format' => 'd/M/y H:m',
-                    'required' => true,
-                )
-            )
+                ->add(
+                    'until',
+                    DateTimePickerType::class,
+                    array(
+                        'label' => 'backend.admin.event.until',
+                        'format' => 'd/M/y H:m',
+                        'required' => false,
+                    )
+                );
+        }
+        $formMapper
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
@@ -118,8 +121,7 @@ class EventAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-            ->end()
-        ;
+            ->end();
     }
 
     /**
@@ -163,8 +165,7 @@ class EventAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.event.group',
                 )
-            )
-        ;
+            );
     }
 
     /**
@@ -224,7 +225,6 @@ class EventAdmin extends AbstractBaseAdmin
                     ),
                     'label' => 'backend.admin.actions',
                 )
-            )
-        ;
+            );
     }
 }
