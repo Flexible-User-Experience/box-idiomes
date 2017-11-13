@@ -235,18 +235,25 @@ class EventAdmin extends AbstractBaseAdmin
     public function postPersist($object)
     {
         if ($object->getDayFrequencyRepeat() && $object->getUntil()) {
-            $event = new Event();
-            $event
-                ->setBegin($object->getBegin()->add(new \DateInterval('P1D')))
-                ->setEnd($object->getEnd()->add(new \DateInterval('P1D')))
-                ->setTeacher($object->getTeacher())
-                ->setClassroom($object->getClassroom())
-                ->setGroup($object->getGroup())
-                ->setStudents($object->getStudents())
-            ;
-
             $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
-            $em->persist($event);
+            $nextBegin = $object->getBegin()->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
+            $previeousEvent = $object;
+            while ($nextBegin->format('Y-m-d H:i') <= $object->getUntil()->format('Y-m-d H:i')) {
+                $event = new Event();
+                $event
+                    ->setBegin($previeousEvent->getBegin()->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D')))
+                    ->setEnd($previeousEvent->getEnd()->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D')))
+                    ->setTeacher($previeousEvent->getTeacher())
+                    ->setClassroom($previeousEvent->getClassroom())
+                    ->setGroup($previeousEvent->getGroup())
+                    ->setStudents($previeousEvent->getStudents())
+                ;
+
+                $em->persist($event);
+
+                $nextBegin->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
+                $previeousEvent = $event;
+            }
             $em->flush();
         }
     }
