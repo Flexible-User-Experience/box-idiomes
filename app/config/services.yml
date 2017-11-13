@@ -159,3 +159,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Student
+    app.event_repository:
+        class: AppBundle\Repository\EventRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Event

@@ -289,7 +289,18 @@ class EventAdmin extends AbstractBaseAdmin
                 $currentEnd->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
                 $previousEvent = $event;
             }
-            $em->flush();
+
+            $recordedEvents = $this->getConfigurationPool()->getContainer()->get('app.event_repository')->getRecordedEvents($object);
+            $i = 1;
+            /** @var Event $recordedEvent */
+            foreach ($recordedEvents as $recordedEvent) {
+                if ($i < count($recordedEvents)) {
+                    $recordedEvent->setNext($recordedEvents[$i]);
+
+                    $em->flush();
+                }
+                ++$i;
+            }
         }
     }
 }
