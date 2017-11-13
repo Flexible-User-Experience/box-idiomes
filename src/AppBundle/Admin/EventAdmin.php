@@ -64,6 +64,23 @@ class EventAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->add(
+                'dayFrequencyRepeat',
+                null,
+                array(
+                    'label' => 'backend.admin.event.dayFrequencyRepeat',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'until',
+                DateTimePickerType::class,
+                array(
+                    'label' => 'backend.admin.event.until',
+                    'format' => 'd/M/y H:m',
+                    'required' => true,
+                )
+            )
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
