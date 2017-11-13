@@ -154,3 +154,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Teacher
+    app.student_repository:
+        class: AppBundle\Repository\StudentRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:Student
