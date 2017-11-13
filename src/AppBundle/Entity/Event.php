@@ -80,6 +80,20 @@ class Event extends AbstractBase
     private $next;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $dayFrequencyRepeat;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $until;
+
+    /**
      * Methods.
      */
 
@@ -275,6 +289,46 @@ class Event extends AbstractBase
     public function setNext($next)
     {
         $this->next = $next;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDayFrequencyRepeat()
+    {
+        return $this->dayFrequencyRepeat;
+    }
+
+    /**
+     * @param int $dayFrequencyRepeat
+     *
+     * @return Event
+     */
+    public function setDayFrequencyRepeat($dayFrequencyRepeat)
+    {
+        $this->dayFrequencyRepeat = $dayFrequencyRepeat;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUntil()
+    {
+        return $this->until;
+    }
+
+    /**
+     * @param \DateTime $until
+     *
+     * @return Event
+     */
+    public function setUntil(\DateTime $until)
+    {
+        $this->until = $until;
 
         return $this;
     }

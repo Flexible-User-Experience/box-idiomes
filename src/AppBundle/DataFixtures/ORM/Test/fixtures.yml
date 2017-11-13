@@ -161,6 +161,8 @@ AppBundle\Entity\Event:
         - @student*
     previous: @event<current()>
     next: @event<current()>
+    dayFrequencyRepeat: <randomDigit()>
+    until: <dateTimeThisMonth()>
 
 ## Users
 AppBundle\Entity\User:
