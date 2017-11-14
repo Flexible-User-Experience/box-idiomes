@@ -73,6 +73,7 @@ class EventAdmin extends AbstractBaseAdmin
                     array(
                         'label' => 'backend.admin.event.dayFrequencyRepeat',
                         'required' => false,
+                        'help' => 'backend.admin.event.dayFrequencyRepeat_help',
                     )
                 )
                 ->add(

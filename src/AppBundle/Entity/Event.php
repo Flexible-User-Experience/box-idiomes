@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Event.
@@ -83,6 +84,7 @@ class Event extends AbstractBase
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\GreaterThanOrEqual(1)
      */
     private $dayFrequencyRepeat;
 

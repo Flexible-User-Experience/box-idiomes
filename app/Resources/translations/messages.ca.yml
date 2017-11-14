@@ -112,7 +112,8 @@ backend:
             students: Estudiants
             previous: Abans
             next: Pròxima
-            dayFrequencyRepeat: Repetir dies
+            dayFrequencyRepeat: Repetir cada
+            dayFrequencyRepeat_help: dies
             until: Fins a
             classroom_1: Aula 1
             classroom_2: Aula 2
