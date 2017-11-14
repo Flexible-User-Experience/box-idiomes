@@ -111,10 +111,14 @@ class EventAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'students',
-                null,
+                EntityType::class,
                 array(
                     'label' => 'backend.admin.event.students',
                     'required' => false,
+                    'multiple' => true,
+                    'class' => 'AppBundle:Student',
+                    'choice_label' => 'fullCanonicalName',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedBySurnameQB(),
                 )
             )
             ->add(

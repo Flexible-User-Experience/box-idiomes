@@ -24,7 +24,7 @@ class StudentRepository extends EntityRepository
             ->where('s.enabled = :enabled')
             ->setParameter('enabled', true)
             ->orderBy('s.name', 'ASC')
-            ;
+        ;
     }
 
     /**
@@ -41,5 +41,34 @@ class StudentRepository extends EntityRepository
     public function getEnabledSortedByName()
     {
         return $this->getEnabledSortedByNameQ()->getResult();
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getEnabledSortedBySurnameQB()
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.enabled = :enabled')
+            ->setParameter('enabled', true)
+            ->orderBy('s.surname', 'ASC')
+            ->addOrderBy('s.name', 'ASC')
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getEnabledSortedBySurnameQ()
+    {
+        return $this->getEnabledSortedBySurnameQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getEnabledSortedBySurname()
+    {
+        return $this->getEnabledSortedBySurnameQ()->getResult();
     }
 }
