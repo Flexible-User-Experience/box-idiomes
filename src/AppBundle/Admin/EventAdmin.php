@@ -270,6 +270,8 @@ class EventAdmin extends AbstractBaseAdmin
             $currentBegin->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
             $currentEnd->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
             $previousEvent = $object;
+            $found = false;
+
             while ($currentBegin->format('Y-m-d H:i') <= $object->getUntil()->format('Y-m-d H:i')) {
                 $event = new Event();
                 $event
@@ -288,18 +290,17 @@ class EventAdmin extends AbstractBaseAdmin
                 $currentBegin->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
                 $currentEnd->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
                 $previousEvent = $event;
+                $found = true;
             }
 
-            $recordedEvents = $this->getConfigurationPool()->getContainer()->get('app.event_repository')->getRecordedEvents($object);
-            $i = 1;
-            /** @var Event $recordedEvent */
-            foreach ($recordedEvents as $recordedEvent) {
-                if ($i < count($recordedEvents)) {
-                    $recordedEvent->setNext($recordedEvents[$i]);
-
+            if ($found) {
+                $previousEvent = $event->getPrevious();
+                while (!is_null($previousEvent)) {
+                    $previousEvent->setNext($event);
                     $em->flush();
+                    $event = $previousEvent;
+                    $previousEvent = $previousEvent->getPrevious();
                 }
-                ++$i;
             }
         }
     }
