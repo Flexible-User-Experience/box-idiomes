@@ -103,10 +103,12 @@ class EventAdmin extends AbstractBaseAdmin
 
             ->add(
                 'group',
-                null,
+                EntityType::class,
                 array(
                     'label' => 'backend.admin.event.group',
                     'required' => true,
+                    'class' => 'AppBundle:ClassGroup',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.class_group_repository')->getEnabledSortedByCodeQB(),
                 )
             )
             ->add(

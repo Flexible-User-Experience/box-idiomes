@@ -164,3 +164,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - AppBundle:Event
+    app.class_group_repository:
+        class: AppBundle\Repository\ClassGroupRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - AppBundle:ClassGroup
