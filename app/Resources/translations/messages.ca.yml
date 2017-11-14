@@ -45,6 +45,7 @@ backend:
         controls: Controls
         general: General
         date: Data creació
+        dates: Dates
         enabled: Actiu
         submit: Enviar
         published_date: Data de publicació

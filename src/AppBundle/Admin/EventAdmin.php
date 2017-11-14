@@ -46,7 +46,7 @@ class EventAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(4))
+            ->with('backend.admin.dates', $this->getFormMdSuccessBoxArray(2))
             ->add(
                 'begin',
                 DateTimePickerType::class,
@@ -88,7 +88,18 @@ class EventAdmin extends AbstractBaseAdmin
         }
         $formMapper
             ->end()
-            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
+            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'classroom',
+                ChoiceType::class,
+                array(
+                    'label' => 'backend.admin.event.classroom',
+                    'choices' => EventClassroomTypeEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => true,
+                )
+            )
             ->add(
                 'teacher',
                 EntityType::class,
@@ -111,6 +122,8 @@ class EventAdmin extends AbstractBaseAdmin
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.class_group_repository')->getEnabledSortedByCodeQB(),
                 )
             )
+            ->end()
+            ->with('backend.admin.event.students', $this->getFormMdSuccessBoxArray(7))
             ->add(
                 'students',
                 EntityType::class,
@@ -123,18 +136,8 @@ class EventAdmin extends AbstractBaseAdmin
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedBySurnameQB(),
                 )
             )
-            ->add(
-                'classroom',
-                ChoiceType::class,
-                array(
-                    'label' => 'backend.admin.event.classroom',
-                    'choices' => EventClassroomTypeEnum::getEnumArray(),
-                    'multiple' => false,
-                    'expanded' => false,
-                    'required' => true,
-                )
-            )
-            ->end();
+            ->end()
+        ;
     }
 
     /**
