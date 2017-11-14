@@ -42,7 +42,7 @@ class Student extends AbstractPerson
     /**
      * @var Person
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person", inversedBy="students")
      */
     private $parent;
 

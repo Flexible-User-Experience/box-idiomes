@@ -45,6 +45,7 @@ backend:
         controls: Controls
         general: General
         date: Data creació
+        dates: Dates
         enabled: Actiu
         submit: Enviar
         published_date: Data de publicació
@@ -112,6 +113,9 @@ backend:
             students: Estudiants
             previous: Abans
             next: Pròxima
+            dayFrequencyRepeat: Repetir cada
+            dayFrequencyRepeat_help: dies
+            until: Fins a
             classroom_1: Aula 1
             classroom_2: Aula 2
             classroom_3: Aula 3

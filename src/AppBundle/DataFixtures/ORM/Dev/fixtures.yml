@@ -155,12 +155,15 @@ AppBundle\Entity\Event:
     begin: <dateTimeThisMonth()>
     end: <dateTimeThisMonth()>
     teacher: @teacher<current()>
-    classroom: <numberBetween(0, 4)>
+    classroom: <numberBetween(0, 3)>
     group: @classgroup*
     students:
         - @student*
     previous: @event<current()>
     next: @event<current()>
+    dayFrequencyRepeat: <randomDigit()>
+    until: <dateTimeThisMonth()>
+
 
 ## Users
 AppBundle\Entity\User:

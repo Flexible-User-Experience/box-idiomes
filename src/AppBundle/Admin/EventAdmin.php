@@ -2,12 +2,14 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Event;
 use AppBundle\Enum\EventClassroomTypeEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\DateTimePickerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
@@ -35,8 +37,7 @@ class EventAdmin extends AbstractBaseAdmin
     {
         parent::configureRoutes($collection);
         $collection
-            ->remove('delete')
-        ;
+            ->remove('delete');
     }
 
     /**
@@ -45,7 +46,7 @@ class EventAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(4))
+            ->with('backend.admin.dates', $this->getFormMdSuccessBoxArray(2))
             ->add(
                 'begin',
                 DateTimePickerType::class,
@@ -63,33 +64,31 @@ class EventAdmin extends AbstractBaseAdmin
                     'format' => 'd/M/y H:m',
                     'required' => true,
                 )
-            )
+            );
+        if (is_null($this->getSubject()->getId())) {
+            $formMapper
+                ->add(
+                    'dayFrequencyRepeat',
+                    null,
+                    array(
+                        'label' => 'backend.admin.event.dayFrequencyRepeat',
+                        'required' => false,
+                        'help' => 'backend.admin.event.dayFrequencyRepeat_help',
+                    )
+                )
+                ->add(
+                    'until',
+                    DateTimePickerType::class,
+                    array(
+                        'label' => 'backend.admin.event.until',
+                        'format' => 'd/M/y H:m',
+                        'required' => false,
+                    )
+                );
+        }
+        $formMapper
             ->end()
-            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
-            ->add(
-                'teacher',
-                null,
-                array(
-                    'label' => 'backend.admin.event.teacher',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'group',
-                null,
-                array(
-                    'label' => 'backend.admin.event.group',
-                    'required' => true,
-                )
-            )
-            ->add(
-                'students',
-                null,
-                array(
-                    'label' => 'backend.admin.event.students',
-                    'required' => false,
-                )
-            )
+            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'classroom',
                 ChoiceType::class,
@@ -99,6 +98,42 @@ class EventAdmin extends AbstractBaseAdmin
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
+                )
+            )
+            ->add(
+                'teacher',
+                EntityType::class,
+                array(
+                    'label' => 'backend.admin.event.teacher',
+                    'required' => true,
+                    'class' => 'AppBundle:Teacher',
+                    'choice_label' => 'name',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.teacher_repository')->getEnabledSortedByNameQB(),
+                )
+            )
+
+            ->add(
+                'group',
+                EntityType::class,
+                array(
+                    'label' => 'backend.admin.event.group',
+                    'required' => true,
+                    'class' => 'AppBundle:ClassGroup',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.class_group_repository')->getEnabledSortedByCodeQB(),
+                )
+            )
+            ->end()
+            ->with('backend.admin.event.students', $this->getFormMdSuccessBoxArray(7))
+            ->add(
+                'students',
+                EntityType::class,
+                array(
+                    'label' => 'backend.admin.event.students',
+                    'required' => false,
+                    'multiple' => true,
+                    'class' => 'AppBundle:Student',
+                    'choice_label' => 'fullCanonicalName',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedBySurnameQB(),
                 )
             )
             ->end()
@@ -128,6 +163,13 @@ class EventAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'teacher',
+                null,
+                array(
+                    'label' => 'backend.admin.event.teacher',
+                )
+            )
+            ->add(
                 'classroom',
                 null,
                 array(
@@ -145,6 +187,13 @@ class EventAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.event.group',
+                )
+            )
+            ->add(
+                'students',
+                null,
+                array(
+                    'label' => 'backend.admin.event.students',
                 )
             )
         ;
@@ -180,6 +229,11 @@ class EventAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.event.teacher',
+                    'editable' => false,
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'teacher')),
                 )
             )
             ->add(
@@ -196,6 +250,10 @@ class EventAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.event.group',
                     'editable' => true,
+                    'associated_property' => 'code',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'code'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'group')),
                 )
             )
             ->add(
@@ -207,7 +265,53 @@ class EventAdmin extends AbstractBaseAdmin
                     ),
                     'label' => 'backend.admin.actions',
                 )
-            )
-        ;
+            );
+    }
+
+    /**
+     * @param Event $object
+     */
+    public function postPersist($object)
+    {
+        if ($object->getDayFrequencyRepeat() && $object->getUntil()) {
+            $em = $this->getConfigurationPool()->getContainer()->get('doctrine')->getManager();
+            $currentBegin = $object->getBegin();
+            $currentEnd = $object->getEnd();
+            $currentBegin->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
+            $currentEnd->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
+            $previousEvent = $object;
+            $found = false;
+
+            while ($currentBegin->format('Y-m-d H:i') <= $object->getUntil()->format('Y-m-d H:i')) {
+                $event = new Event();
+                $event
+                    ->setBegin($currentBegin)
+                    ->setEnd($currentEnd)
+                    ->setTeacher($previousEvent->getTeacher())
+                    ->setClassroom($previousEvent->getClassroom())
+                    ->setGroup($previousEvent->getGroup())
+                    ->setStudents($previousEvent->getStudents())
+                    ->setPrevious($previousEvent)
+                ;
+
+                $em->persist($event);
+                $em->flush();
+
+                $currentBegin->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
+                $currentEnd->add(new \DateInterval('P'.$object->getDayFrequencyRepeat().'D'));
+                $previousEvent = $event;
+                $found = true;
+            }
+
+            if ($found) {
+                $previousEvent = $event->getPrevious();
+                while (!is_null($previousEvent)) {
+                    $previousEvent->setNext($event);
+                    $em->flush();
+                    $event = $previousEvent;
+                    $previousEvent = $previousEvent->getPrevious();
+                }
+            }
+        }
     }
 }

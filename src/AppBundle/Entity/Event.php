@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Event.
@@ -66,7 +67,7 @@ class Event extends AbstractBase
     /**
      * @var Event
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Event")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Event", cascade={"persist"})
      * @ORM\JoinColumn(name="previous_id", referencedColumnName="id")
      */
     private $previous;
@@ -74,10 +75,25 @@ class Event extends AbstractBase
     /**
      * @var Event
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Event")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Event", cascade={"persist"})
      * @ORM\JoinColumn(name="next_id", referencedColumnName="id")
      */
     private $next;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer", nullable=true)
+     * @Assert\GreaterThanOrEqual(1)
+     */
+    private $dayFrequencyRepeat;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $until;
 
     /**
      * Methods.
@@ -275,6 +291,46 @@ class Event extends AbstractBase
     public function setNext($next)
     {
         $this->next = $next;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDayFrequencyRepeat()
+    {
+        return $this->dayFrequencyRepeat;
+    }
+
+    /**
+     * @param int|null $dayFrequencyRepeat
+     *
+     * @return Event
+     */
+    public function setDayFrequencyRepeat($dayFrequencyRepeat)
+    {
+        $this->dayFrequencyRepeat = $dayFrequencyRepeat;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUntil()
+    {
+        return $this->until;
+    }
+
+    /**
+     * @param \DateTime|null $until
+     *
+     * @return Event
+     */
+    public function setUntil($until)
+    {
+        $this->until = $until;
 
         return $this;
     }
