@@ -4,6 +4,7 @@ sonata_block:
     blocks:
         sonata.admin.block.admin_list:  ~
         sonata.block.service.text:      ~
+        app.block.event_calendar:
 
 # Sonata User
 sonata_user:
@@ -60,15 +61,13 @@ sonata_admin:
                 class: "col-md-6 col-lg-4"
                 settings:
                     groups: [ Aules, Serveis ]
-#            -
-#                position: top
-#                type: sonata.admin.block.admin_list
-#                class: "col-md-6 col-lg-4"
-#                settings:
-#                    groups: [ Serveis, Contactes ]
             -
                 position: top
                 type: sonata.admin.block.admin_list
                 class: "col-md-6 col-lg-4"
                 settings:
                     groups: [ Contactes, Administration ]
+            -
+                position: top
+                type: app.block.event_calendar
+                class: "col-md-9 col-sm-12"

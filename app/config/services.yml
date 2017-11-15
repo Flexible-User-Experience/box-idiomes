@@ -74,6 +74,13 @@ services:
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Administration" }
+# Block
+    app.block.event_calendar:
+        class: AppBundle\Block\EventCalendarBlock
+        arguments: [ "app.block.event_calendar", "@templating" ]
+        tags:
+            - { name: sonata.block }
+
 # Messaging
     app.courier:
         class: AppBundle\Service\CourierService
