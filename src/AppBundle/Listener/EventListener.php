@@ -6,6 +6,7 @@ use ADesigns\CalendarBundle\Event\CalendarEvent;
 use ADesigns\CalendarBundle\Entity\EventEntity;
 use AppBundle\Entity\Event;
 use AppBundle\Repository\EventRepository;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Class EventListener.
@@ -22,13 +23,20 @@ class EventListener
     private $ers;
 
     /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
      * EventListener constructor.
      *
      * @param EventRepository $ers
+     * @param RouterInterface $router
      */
-    public function __construct(EventRepository $ers)
+    public function __construct(EventRepository $ers, RouterInterface $router)
     {
         $this->ers = $ers;
+        $this->router = $router;
     }
 
     /**
@@ -60,7 +68,8 @@ class EventListener
 
             //optional calendar event settings
             $eventEntity->setBgColor($event->getGroup()->getColor());
-            $eventEntity->setFgColor('#FFFFFF');
+            $eventEntity->setFgColor('#000000');
+//            $eventEntity->setUrl();
 //            $eventEntity->setCssClass('my-custom-class'); // a custom class you may want to apply to event labels
 
             //finally, add the event to the CalendarEvent for displaying on the calendar

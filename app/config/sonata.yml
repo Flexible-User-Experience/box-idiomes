@@ -24,8 +24,9 @@ sonata_admin:
     security:
         handler: sonata.admin.security.handler.role
     templates:
-        layout: "::Admin/layout.html.twig"
-        edit:   "::Admin/edit.html.twig"
+        layout:    "::Admin/layout.html.twig"
+        edit:      "::Admin/edit.html.twig"
+        dashboard: "::Admin/dashboard.html.twig"
     dashboard:
         groups:
             Professors:
@@ -70,4 +71,4 @@ sonata_admin:
             -
                 position: top
                 type: app.block.event_calendar
-                class: "col-md-9 col-sm-12"
+                class: "col-xs-12"
