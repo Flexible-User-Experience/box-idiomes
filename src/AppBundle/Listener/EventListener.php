@@ -31,6 +31,9 @@ class EventListener
         $this->ers = $ers;
     }
 
+    /**
+     * @param CalendarEvent $calendarEvent
+     */
     public function loadEvents(CalendarEvent $calendarEvent)
     {
         $startDate = $calendarEvent->getStartDatetime();
