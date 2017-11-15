@@ -30,5 +30,10 @@ _presta_sitemap:
     resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
     prefix:   /sitemap
 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    prefix:   /admin
+
 adesigns_calendar:
-  resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"
+    resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"
+    prefix:   /admin

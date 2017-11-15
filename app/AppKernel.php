@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new Fenrizbes\ColorPickerTypeBundle\FenrizbesColorPickerTypeBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Hautelook\AliceBundle\HautelookAliceBundle(),
             new Hampe\Bundle\ZurbInkBundle\HampeZurbInkBundle(),
