@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             // Vendors
+            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new Fenrizbes\ColorPickerTypeBundle\FenrizbesColorPickerTypeBundle(),
             new FOS\UserBundle\FOSUserBundle(),
