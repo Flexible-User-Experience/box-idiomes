@@ -7,6 +7,7 @@ use ADesigns\CalendarBundle\Entity\EventEntity;
 use AppBundle\Entity\Event;
 use AppBundle\Repository\EventRepository;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class EventListener.
@@ -69,7 +70,7 @@ class EventListener
             //optional calendar event settings
             $eventEntity->setBgColor($event->getGroup()->getColor());
             $eventEntity->setFgColor('#000000');
-//            $eventEntity->setUrl();
+            $eventEntity->setUrl($this->router->generate('admin_app_event_edit', array('id' => $event->getId()), UrlGeneratorInterface::ABSOLUTE_PATH));
 //            $eventEntity->setCssClass('my-custom-class'); // a custom class you may want to apply to event labels
 
             //finally, add the event to the CalendarEvent for displaying on the calendar
