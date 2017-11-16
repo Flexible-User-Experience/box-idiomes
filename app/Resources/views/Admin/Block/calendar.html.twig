@@ -1,9 +1,12 @@
 {% extends sonata_block.templates.block_base %}
 
 {% block block %}
-    <div class="box box-danger">
-        <div class="box-body">
-            {% include "ADesignsCalendarBundle::calendar.html.twig" %}
+    {% if is_granted('ROLE_SONATA_MANAGER') %}
+
+        <div class="box box-danger">
+            <div class="box-body">
+                {% include "ADesignsCalendarBundle::calendar.html.twig" %}
+            </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
