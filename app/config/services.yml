@@ -31,7 +31,7 @@ services:
         class: AppBundle\Admin\EventAdmin
         arguments: [ ~ , AppBundle\Entity\Event, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Event", group: "Aules" }
+            - { name: sonata.admin, manager_type: orm, label: "Esdeveniment", group: "Aules" }
     admin.parent:
         class: AppBundle\Admin\PersonAdmin
         arguments: [ ~ , AppBundle\Entity\Person, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
