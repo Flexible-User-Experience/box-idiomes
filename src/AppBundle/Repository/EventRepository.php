@@ -2,7 +2,6 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\Event;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
@@ -17,32 +16,39 @@ use Doctrine\ORM\Query;
 class EventRepository extends EntityRepository
 {
     /**
-     * @param Event $startEvent
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
      *
      * @return QueryBuilder
      */
-    public function getRecordedEventsQB(Event $startEvent)
+    public function getFilteredByBeginAndEndQB(\DateTime $startDate, \DateTime $endDate)
     {
-        return $this->createQueryBuilder('e');
+        return $this->createQueryBuilder('e')
+            ->where('e.begin BETWEEN :startDate AND :endDate')
+            ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
+            ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
+        ;
     }
 
     /**
-     * @param Event $startEvent
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
      *
      * @return Query
      */
-    public function getRecordedEventsQ(Event $startEvent)
+    public function getFilteredByBeginAndEndQ(\DateTime $startDate, \DateTime $endDate)
     {
-        return $this->getRecordedEventsQB($startEvent)->getQuery();
+        return $this->getFilteredByBeginAndEndQB($startDate, $endDate)->getQuery();
     }
 
     /**
-     * @param Event $startEvent
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
      *
      * @return array
      */
-    public function getRecordedEvents(Event $startEvent)
+    public function getFilteredByBeginAndEnd(\DateTime $startDate, \DateTime $endDate)
     {
-        return $this->getRecordedEventsQ($startEvent)->getResult();
+        return $this->getFilteredByBeginAndEndQ($startDate, $endDate)->getResult();
     }
 }

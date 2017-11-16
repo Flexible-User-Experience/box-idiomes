@@ -31,7 +31,7 @@ services:
         class: AppBundle\Admin\EventAdmin
         arguments: [ ~ , AppBundle\Entity\Event, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Event", group: "Aules" }
+            - { name: sonata.admin, manager_type: orm, label: "Esdeveniment", group: "Aules" }
     admin.parent:
         class: AppBundle\Admin\PersonAdmin
         arguments: [ ~ , AppBundle\Entity\Person, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -74,6 +74,13 @@ services:
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Administration" }
+# Block
+    app.block.event_calendar:
+        class: AppBundle\Block\EventCalendarBlock
+        arguments: [ "app.block.event_calendar", "@templating" ]
+        tags:
+            - { name: sonata.block }
+
 # Messaging
     app.courier:
         class: AppBundle\Service\CourierService
@@ -91,11 +98,15 @@ services:
         arguments: [ "@request_stack" ]
         tags:
             - { name: knp_menu.menu, alias: top }
-# Sitemap
+# Listeners
     app.sitemap:
         class: AppBundle\Listener\SitemapListener
         arguments: [ "@router", "@doctrine.orm.entity_manager" ]
         tags: [ { name: "presta.sitemap.listener" } ]
+    app.event_calendar:
+        class: AppBundle\Listener\EventListener
+        arguments: [ "@app.event_repository", "@router" ]
+        tags: [ { name: "kernel.event_listener", event: "calendar.load_events", method: "loadEvents" } ]
 # Twig
     app.twig_extension:
         class: AppBundle\Twig\AppExtension

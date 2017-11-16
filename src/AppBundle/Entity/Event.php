@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Class Event.
@@ -333,5 +334,35 @@ class Event extends AbstractBase
         $this->until = $until;
 
         return $this;
+    }
+
+    /**
+     * @Assert\Callback
+     *
+     * @param ExecutionContextInterface $context
+     */
+    public function validateEnd(ExecutionContextInterface $context)
+    {
+        if ($this->getEnd() < $this->getBegin()) {
+            $context
+                ->buildViolation('La data ha de ser més gran que la data d\'inici')
+                ->atPath('end')
+                ->addViolation();
+        }
+    }
+
+    /**
+     * @Assert\Callback
+     *
+     * @param ExecutionContextInterface $context
+     */
+    public function validateUntil(ExecutionContextInterface $context)
+    {
+        if ($this->getUntil() < $this->getEnd()) {
+            $context
+                ->buildViolation('La data ha de ser més gran que la data final')
+                ->atPath('until')
+                ->addViolation();
+        }
     }
 }

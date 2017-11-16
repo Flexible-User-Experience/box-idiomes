@@ -13,6 +13,7 @@
         ]
     },
     "require": {
+        "adesigns/calendar-bundle": "^1.0",
         "apoutchika/loremipsum-bundle": "^1.0",
         "beberlei/DoctrineExtensions": "^1.0",
         "components/font-awesome": "^4.0",
