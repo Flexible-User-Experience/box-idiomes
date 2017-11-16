@@ -45,8 +45,9 @@ class EventListener
      */
     public function loadEvents(CalendarEvent $calendarEvent)
     {
-        $startDate = $calendarEvent->getStartDatetime();
-        $endDate = $calendarEvent->getEndDatetime();
+        $startDate = $this->parseDateTime($calendarEvent->getRequest()->get('start'));      //getStartDatetime();
+        // $range_start = parseDateTime($_GET['start']);
+        $endDate = $this->parseDateTime($calendarEvent->getRequest()->get('end')); //$calendarEvent->getEndDatetime();
 
         // The original request so you can get filters from the calendar
         // Use the filter in your query for example
@@ -76,5 +77,37 @@ class EventListener
             //finally, add the event to the CalendarEvent for displaying on the calendar
             $calendarEvent->addEvent($eventEntity);
         }
+    }
+
+    /**
+     * @param string $string
+     * @param null   $timezone
+     *
+     * @return \DateTime
+     */
+    private function parseDateTime($string, $timezone = null)
+    {
+        $date = new \DateTime(
+            $string,
+            $timezone ? $timezone : new \DateTimeZone('UTC')
+        // Used only when the string is ambiguous.
+        // Ignored if string has a timezone offset in it.
+        );
+        if ($timezone) {
+            // If our timezone was ignored above, force it.
+            $date->setTimezone($timezone);
+        }
+
+        return $date;
+    }
+
+    /**
+     * @param $datetime
+     *
+     * @return \DateTime
+     */
+    private function stripTime($datetime)
+    {
+        return new \DateTime($datetime->format('Y-m-d'));
     }
 }

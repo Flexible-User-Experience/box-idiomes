@@ -22,6 +22,8 @@ services:
         arguments: [ ~ , AppBundle\Entity\ClassGroup, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Grup", group: "Aules" }
+        calls:
+            - [ setTemplate, [edit, "::Admin/ClassGroup/edit.html.twig"] ]
     admin.tariff:
         class: AppBundle\Admin\TariffAdmin
         arguments: [ ~ , AppBundle\Entity\Tariff, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
