@@ -72,3 +72,4 @@ sonata_admin:
                 position: top
                 type: app.block.event_calendar
                 class: "col-xs-12"
+                roles: [ 'ROLE_ADMIN' ]

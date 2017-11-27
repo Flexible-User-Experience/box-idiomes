@@ -7,7 +7,7 @@
 {% block logo %}
     {% spaceless %}
         <a class="logo" href="{{ path('sonata_admin_dashboard') }}">
-            <img src="{{ asset('bundles/app/img/backend-logo.jpg') }}" alt="{{ sonata_admin.adminPool.title }}">
+            <img src="{{ asset('bundles/app/img/backend-logo.png') }}" alt="{{ sonata_admin.adminPool.title }}">
             <span>{{ sonata_admin.adminPool.title }}</span>
         </a>
     {% endspaceless %}
@@ -32,15 +32,7 @@
 {# override css includes #}
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets filter="cssrewrite,less" '@mybackendcss' %}
-    <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+    {% stylesheets filter="cssrewrite,less" "@mybackendcss" %}
+        <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
     {% endstylesheets %}
-{% endblock %}
-
-{# override javascript includes #}
-{% block javascripts %}
-    {{ parent() }}
-    {# TODO move to ClassGroup edit template #}
-    <script type="text/javascript" src="{{ asset('bundles/fenrizbescolorpickertype/lib/js/iris.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/fenrizbescolorpickertype/js/color_picker_type.js') }}"></script>
 {% endblock %}
