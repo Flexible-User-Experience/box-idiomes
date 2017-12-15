@@ -190,4 +190,17 @@ backend:
             city: Ciutat
             payment: Pagament
             bank: Banc
-
+        invoice:
+            invoice: Factura
+            student: Estudiant
+            person: 'Pare mare o totor'
+            date: Data factura
+            isPayed: Pagat
+            paymentDate: Data pagament
+            baseAmount: Base imponible
+            id: Nº Factura
+            taxParcentage: IVA
+            discountApplied: Descompta aplicat
+            totalAmount: Total
+            month: Mes
+            year: Any
