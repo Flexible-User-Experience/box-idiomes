@@ -13,7 +13,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InvoiceRepository")
  * @ORM\Table(name="invoice")
- * @UniqueEntity("month", "year", "student")
+ * @UniqueEntity({"month", "year", "student"})
+ * @UniqueEntity({"month", "year", "person"})
  */
 class Invoice extends AbstractBase
 {
