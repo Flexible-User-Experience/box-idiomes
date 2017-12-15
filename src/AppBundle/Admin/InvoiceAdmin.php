@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
@@ -31,6 +32,87 @@ class InvoiceAdmin extends AbstractBaseAdmin
         parent::configureRoutes($collection);
         $collection
             ->remove('delete');
+    }
+
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add(
+                'student',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.student',
+                )
+            )
+            ->add(
+                'person',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.person',
+                )
+            )
+            ->add(
+                'date',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'backend.admin.invoice.date',
+                    'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
+                )
+            )
+            ->add(
+                'isPayed',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.isPayed',
+                )
+            )
+            ->add(
+                'paymentDate',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.paymentDate',
+                )
+            )
+            ->add(
+                'taxParcentage',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.taxParcentage',
+                )
+            )
+            ->add(
+                'discountApplied',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.discountApplied',
+                )
+            )
+            ->add(
+                'month',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.month',
+                )
+            )
+            ->add(
+                'year',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.year',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'backend.admin.enabled',
+                )
+            )
+        ;
     }
 
     /**
