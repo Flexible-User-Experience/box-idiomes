@@ -4,7 +4,9 @@ namespace AppBundle\Admin;
 
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class InvoiceAdmin.
@@ -32,6 +34,60 @@ class InvoiceAdmin extends AbstractBaseAdmin
         parent::configureRoutes($collection);
         $collection
             ->remove('delete');
+    }
+
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('backend.admin.invoice.invoice', $this->getFormMdSuccessBoxArray(4))
+            ->add(
+                'date',
+                'sonata_type_date_picker',
+                array(
+                    'label' => 'backend.admin.invoice.date',
+                    'format' => 'd/M/y',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'taxParcentage',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.taxParcentage',
+                    'required' => true,
+                )
+            )
+            ->end()
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'student',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.student',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'person',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.person',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.enabled',
+                    'required' => false,
+                )
+            )
+            ->end()
+        ;
     }
 
     /**
