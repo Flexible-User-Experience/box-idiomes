@@ -164,6 +164,20 @@ AppBundle\Entity\Event:
     dayFrequencyRepeat: <randomDigit()>
     until: <dateTimeThisMonth()>
 
+# Invoice
+AppBundle\Entity\Invoice:
+  invoice{1..10}:
+    student: @student<current()>
+    person: @person1
+    date: <date()>
+    isPayed: <boolean()>
+    paymentDate: <date()>
+    baseAmount: <randomFloat(1, 5)>
+    taxParcentage: <randomFloat(1, 5)>
+    discountApplied: <boolean()>
+    totalAmount: <randomFloat(1, 5)>
+    month: <numberBetween(1, 100)>
+    year: <numberBetween(1, 100)>
 
 ## Users
 AppBundle\Entity\User:

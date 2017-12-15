@@ -49,9 +49,9 @@ class Invoice extends AbstractBase
     private $isPayed;
 
     /**
-     * @var float
+     * @var \DateTime
      *
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="date")
      */
     private $paymentDate;
 
@@ -182,7 +182,7 @@ class Invoice extends AbstractBase
     }
 
     /**
-     * @return float
+     * @return \DateTime
      */
     public function getPaymentDate()
     {
@@ -190,11 +190,11 @@ class Invoice extends AbstractBase
     }
 
     /**
-     * @param float $paymentDate
+     * @param \DateTime $paymentDate
      *
      * @return Invoice
      */
-    public function setPaymentDate($paymentDate)
+    public function setPaymentDate(\DateTime $paymentDate)
     {
         $this->paymentDate = $paymentDate;
 
