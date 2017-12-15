@@ -28,7 +28,7 @@ services:
         class: AppBundle\Admin\TariffAdmin
         arguments: [ ~ , AppBundle\Entity\Tariff, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tarifa", group: "Aules" }
+            - { name: sonata.admin, manager_type: orm, label: "Tarifa", group: "Billing" }
     admin.event:
         class: AppBundle\Admin\EventAdmin
         arguments: [ ~ , AppBundle\Entity\Event, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -71,6 +71,11 @@ services:
         arguments: [ ~, AppBundle\Entity\Bank, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Bank", group: "Administration", show_in_dashboard: false }
+    admin.invoice:
+        class: AppBundle\Admin\InvoiceAdmin
+        arguments: [ ~, AppBundle\Entity\Invoice, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Factura", group: "Billing" }
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
