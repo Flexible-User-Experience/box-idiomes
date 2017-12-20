@@ -21,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 class TariffAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Tarriff';
-    protected $baseRoutePattern = 'classrooms/tariff';
+    protected $baseRoutePattern = 'billing/tariff';
     protected $datagridValues = array(
         '_sort_by' => 'year',
         '_sort_order' => 'desc',
