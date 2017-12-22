@@ -10,7 +10,7 @@ if [ -z "$1" ]
           then
             if [ "$1" = "cc" ]
               then
-                php app/console ca:cl --env=test && phpunit -c app/
+                php app/console cache:clear --env=test && phpunit -c app/
               else
                 phpunit -c app/ --coverage-text
             fi
