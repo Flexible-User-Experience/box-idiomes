@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Class InvoiceAdmin.
@@ -43,25 +44,52 @@ class InvoiceAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('backend.admin.invoice.invoice', $this->getFormMdSuccessBoxArray(4))
+//            ->add(
+//                'date',
+//                'sonata_type_date_picker',
+//                array(
+//                    'label' => 'backend.admin.invoice.date',
+//                    'format' => 'd/M/y',
+//                    'required' => true,
+//                )
+//            )
             ->add(
-                'date',
-                'sonata_type_date_picker',
+                'year',
+                ChoiceType::class,
                 array(
-                    'label' => 'backend.admin.invoice.date',
-                    'format' => 'd/M/y',
+                    'label' => 'backend.admin.invoice.year',
                     'required' => true,
+                    'choices' => array(
+                        '2018' => 2018,
+                        '2017' => 2017,
+                        '2016' => 2016,
+                        '2015' => 2015,
+                    ),
                 )
             )
             ->add(
-                'taxParcentage',
-                null,
+                'month',
+                ChoiceType::class,
                 array(
-                    'label' => 'backend.admin.invoice.taxParcentage',
+                    'label' => 'backend.admin.invoice.month',
                     'required' => true,
+                    'choices' => array(
+                        'Gener' => 1,
+                        'Febrer' => 2,
+                        'Març' => 3,
+                        'Abril' => 4,
+                        'Maig' => 5,
+                        'Juny' => 6,
+                        'Juiol' => 7,
+                        'Agost' => 8,
+                        'Setembre' => 9,
+                        'Octubre' => 10,
+                        'Novembre' => 11,
+                        'Desembre' => 12,
+                    ),
+                    'choices_as_values' => true,
                 )
             )
-            ->end()
-            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'student',
                 null,
@@ -78,16 +106,61 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
+            ->end()
+            ->with('backend.admin.invoice.detail', $this->getFormMdSuccessBoxArray(4))
             ->add(
-                'enabled',
-                CheckboxType::class,
+                'baseAmount',
+                null,
                 array(
-                    'label' => 'backend.admin.enabled',
-                    'required' => false,
+                    'label' => 'backend.admin.invoice.baseAmount',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'taxParcentage',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.taxParcentage',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'totalAmount',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.totalAmount',
+                    'required' => true,
+                    'disabled' => true,
                 )
             )
             ->end()
-        ;
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'paymentDate',
+                'sonata_type_date_picker',
+                array(
+                    'label' => 'backend.admin.invoice.paymentDate',
+                    'format' => 'd/M/y',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'discountApplied',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.discountApplied',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'isPayed',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.invoice.isPayed',
+                    'required' => false,
+                )
+            )
+            ->end();
     }
 
     /**
@@ -167,8 +240,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.enabled',
                 )
-            )
-        ;
+            );
     }
 
     /**
@@ -186,13 +258,29 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'editable' => false,
                 )
             )
+//            ->add(
+//                'date',
+//                null,
+//                array(
+//                    'label' => 'backend.admin.invoice.date',
+//                    'editable' => true,
+//                    'format' => 'd/m/Y',
+//                )
+//            )
             ->add(
-                'date',
+                'year',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.date',
+                    'label' => 'backend.admin.invoice.year',
                     'editable' => true,
-                    'format' => 'd/m/Y',
+                )
+            )
+            ->add(
+                'month',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.month',
+                    'editable' => true,
                 )
             )
             ->add(
@@ -211,27 +299,35 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'editable' => true,
                 )
             )
-            ->add(
-                'baseAmount',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.baseAmount',
-                    'editable' => false,
-                )
-            )
-            ->add(
-                'taxParcentage',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.taxParcentage',
-                    'editable' => false,
-                )
-            )
+//            ->add(
+//                'baseAmount',
+//                null,
+//                array(
+//                    'label' => 'backend.admin.invoice.baseAmount',
+//                    'editable' => false,
+//                )
+//            )
+//            ->add(
+//                'taxParcentage',
+//                null,
+//                array(
+//                    'label' => 'backend.admin.invoice.taxParcentage',
+//                    'editable' => false,
+//                )
+//            )
             ->add(
                 'totalAmount',
                 null,
                 array(
                     'label' => 'backend.admin.invoice.totalAmount',
+                    'editable' => false,
+                )
+            )
+            ->add(
+                'isPayed',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.isPayed',
                     'editable' => false,
                 )
             )
@@ -244,7 +340,6 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     ),
                     'label' => 'backend.admin.actions',
                 )
-            )
-        ;
+            );
     }
 }
