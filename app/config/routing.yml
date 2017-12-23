@@ -41,3 +41,5 @@ fos_js_routing:
 ancarebeca_fullcalendar:
     resource: "@FullCalendarBundle/Resources/config/routing.yml"
     prefix:   /admin
+    options:
+        expose: true

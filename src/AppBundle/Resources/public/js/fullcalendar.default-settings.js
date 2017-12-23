@@ -21,7 +21,7 @@ $(function () {
         },
         eventSources: [
             {
-                url: '/app_dev.php/admin/full-calendar/load',
+                url: Routing.generate('ancarebeca_full_calendar_load'),
                 type: 'POST',
                 data: {},
                 error: function () {}
