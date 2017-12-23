@@ -64,6 +64,10 @@ class NotificationService
      * @param ContactMessage $contactMessage
      *
      * @return int If is 0 failure otherwise amount of recipients
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendCommonUserNotification(ContactMessage $contactMessage)
     {
@@ -81,6 +85,10 @@ class NotificationService
      * Send a contact form notification to administrator
      *
      * @param ContactMessage $contactMessage
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendAdminNotification(ContactMessage $contactMessage)
     {
@@ -98,6 +106,10 @@ class NotificationService
      * Send a contact form notification to admin user
      *
      * @param ContactMessage $contactMessage
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendContactAdminNotification(ContactMessage $contactMessage)
     {
@@ -112,26 +124,13 @@ class NotificationService
     }
 
     /**
-     * Send a contact form notification to web user
-     *
-     * @param ContactMessage $contactMessage
-     */
-    public function sendUserNotification(ContactMessage $contactMessage)
-    {
-        $this->messenger->sendEmail(
-            $this->amd,
-            $contactMessage->getEmail(),
-            $this->urlBase . ' question received',
-            $this->twig->render(':Mails:contact_form_user_notification.html.twig', array(
-                'contact' => $contactMessage,
-            ))
-        );
-    }
-
-    /**
      * Send backend answer notification to web user
      *
      * @param ContactMessage $contactMessage
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function senddUserBackendNotification(ContactMessage $contactMessage)
     {
@@ -149,6 +148,10 @@ class NotificationService
      * Send a newsletter subscription form notification to admin user
      *
      * @param NewsletterContact $newsletterContact
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendNewsletterSubscriptionAdminNotification(NewsletterContact $newsletterContact)
     {
@@ -167,6 +170,10 @@ class NotificationService
      * Send a newsletter subscription form notification to admin user on Mailchimp failure
      *
      * @param NewsletterContact $newsletterContact
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendFailureNewsletterSubscriptionAdminNotification(NewsletterContact $newsletterContact)
     {
@@ -187,6 +194,10 @@ class NotificationService
      * @param NewsletterContact $newsletterContact
      *
      * @return int If is 0 failure otherwise amount of recipients
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendCommonNewsletterUserNotification(NewsletterContact $newsletterContact)
     {
