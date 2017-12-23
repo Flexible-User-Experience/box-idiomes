@@ -58,24 +58,14 @@ class FullCalendarListener
         /** @var AppEvent $event */
         foreach ($events as $event) {
             // create an event with a start/end time, or an all day event
-//            $eventEntity = new Event($event->getGroup()->getCode().' '.$event->getGroup()->getBook(), $event->getBegin(), $event->getEnd());
             $eventEntity = new Event($event->getGroup()->getCode().' '.$event->getGroup()->getBook(), $event->getBegin());
-
             //optional calendar event settings
-//            $eventEntity->setBgColor($event->getGroup()->getColor());
             $eventEntity->setBackgroundColor($event->getGroup()->getColor());
-
-//            $eventEntity->setFgColor('#000000');
             $eventEntity->setColor('#000000');
-
             $eventEntity->setUrl($this->router->generate('admin_app_event_edit', array('id' => $event->getId()), UrlGeneratorInterface::ABSOLUTE_PATH));
             $eventEntity->setAllDay(false);
-
             //finally, add the event to the CalendarEvent for displaying on the calendar
             $calendarEvent->addEvent($eventEntity);
         }
-
-//        $calendarEvent->addEvent(new Event('Event Title 1', new \DateTime());
-//        $calendarEvent->addEvent(new Event('Event Title 2', new \DateTime()));
     }
 }

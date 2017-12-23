@@ -111,10 +111,6 @@ services:
         arguments: [ "@router", "@doctrine.orm.entity_manager" ]
         tags:
             - { name: "presta.sitemap.listener" }
-#    app.event_calendar:
-#        class: AppBundle\Listener\EventListener
-#        arguments: [ "@app.event_repository", "@router" ]
-#        tags: [ { name: "kernel.event_listener", event: "calendar.load_events", method: "loadEvents" } ]
     app.event_fullcalendar:
         class: AppBundle\Listener\FullCalendarListener
         arguments:
