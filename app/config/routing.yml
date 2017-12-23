@@ -34,6 +34,10 @@ fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
     prefix:   /admin
 
-adesigns_calendar:
-    resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"
+#adesigns_calendar:
+#    resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"
+#    prefix:   /admin
+
+ancarebeca_fullcalendar:
+    resource: "@FullCalendarBundle/Resources/config/routing.yml"
     prefix:   /admin

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "35eb2b1669b430d6ad44defae8ec4088",
+    "content-hash": "3f485e9e2924e281b59c889864eefc5b",
     "packages": [
         {
             "name": "adesigns/calendar-bundle",
@@ -59,6 +59,55 @@
                 "jquery calendar"
             ],
             "time": "2017-04-30T15:50:57+00:00"
+        },
+        {
+            "name": "ancarebeca/full-calendar-bundle",
+            "version": "v2.0.2",
+            "target-dir": "AncaRebeca/FullCalendarBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ancarebeca/FullCalendarBundle.git",
+                "reference": "1b746dbefa2a10aaf3d965421cdb5948376cac01"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ancarebeca/FullCalendarBundle/zipball/1b746dbefa2a10aaf3d965421cdb5948376cac01",
+                "reference": "1b746dbefa2a10aaf3d965421cdb5948376cac01",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/symfony": "~2.1"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "^2.2"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "AncaRebeca\\FullCalendarBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rebeca Mora Anca",
+                    "email": "anca.rebeca@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Symfony2 integration with the library FullCalendar.js",
+            "homepage": "https://github.com/ancarebeca/FullCalendarBundle",
+            "keywords": [
+                "calendar",
+                "fullcalendar",
+                "jquery calendar",
+                "symfony2 bundle",
+                "symfony2 calendar"
+            ],
+            "time": "2015-08-23T18:46:49+00:00"
         },
         {
             "name": "apoutchika/loremipsum-bundle",
