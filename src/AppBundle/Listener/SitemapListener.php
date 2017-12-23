@@ -2,7 +2,6 @@
 
 namespace AppBundle\Listener;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Presta\SitemapBundle\Service\SitemapListenerInterface;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
@@ -30,11 +29,7 @@ class SitemapListener implements SitemapListenerInterface
     private $em;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**

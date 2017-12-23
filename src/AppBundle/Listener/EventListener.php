@@ -45,9 +45,11 @@ class EventListener
      */
     public function loadEvents(CalendarEvent $calendarEvent)
     {
-        $startDate = $this->parseDateTime($calendarEvent->getRequest()->get('start'));      //getStartDatetime();
+        $startDate = $calendarEvent->getStartDatetime();
+        $endDate = $calendarEvent->getEndDatetime();
+//        $startDate = $this->parseDateTime($calendarEvent->getRequest()->get('start'));      //getStartDatetime();
         // $range_start = parseDateTime($_GET['start']);
-        $endDate = $this->parseDateTime($calendarEvent->getRequest()->get('end')); //$calendarEvent->getEndDatetime();
+//        $endDate = $this->parseDateTime($calendarEvent->getRequest()->get('end')); //$calendarEvent->getEndDatetime();
 
         // The original request so you can get filters from the calendar
         // Use the filter in your query for example

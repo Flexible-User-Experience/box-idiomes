@@ -13,6 +13,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class DefaultController
+ */
 class DefaultController extends Controller
 {
     /**
@@ -21,6 +24,10 @@ class DefaultController extends Controller
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function indexAction(Request $request)
     {
@@ -65,6 +72,10 @@ class DefaultController extends Controller
 
     /**
      * @param NewsletterContact $newsletterContact
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     private function setFlashMessageAndEmailNotifications($newsletterContact)
     {
@@ -118,6 +129,10 @@ class DefaultController extends Controller
      * @param Request $request
      *
      * @return Response
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function contactAction(Request $request)
     {
