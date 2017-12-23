@@ -199,10 +199,7 @@ class DefaultController extends Controller
      */
     public function testEmailAction()
     {
-        $contact = new ContactMessage();
-        $contact->setName('Anton');
-//        $contact->setEmail('Anton@gmail.com');
-//        $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(1);
+        $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(1);
 
         return$this->render(':Mails:base.html.twig', array(
             'contact'=> $contact
