@@ -10,6 +10,7 @@ security:
         ROLE_SONATA_MANAGER:
             - ROLE_ADMIN_TEACHER_ABSENCE_ALL
             - ROLE_ADMIN_CLASS_GROUP_ALL
+            - ROLE_ADMIN_INVOICE_ALL
             - ROLE_ADMIN_TARIFF_ALL
             - ROLE_ADMIN_EVENT_ALL
             - ROLE_ADMIN_STUDENT_ALL

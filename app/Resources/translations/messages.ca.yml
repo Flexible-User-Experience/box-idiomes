@@ -7,6 +7,9 @@ Student Delete: Esborrar
 Grups List: Grups
 Grups Create: Crear
 Grups Delete: Esborrar
+Invoice List: Factura
+Invoice Create: Crear
+Invoice Delete: Esborrar
 Tarriff List: Tarifa
 Tarriff Create: Crear
 Tarriff Delete: Esborrar
@@ -192,15 +195,16 @@ backend:
             bank: Banc
         invoice:
             invoice: Factura
+            detail: Detall
             student: Estudiant
             person: 'Pare mare o totor'
             date: Data factura
             isPayed: Pagat
             paymentDate: Data pagament
-            baseAmount: Base imponible
+            baseAmount: Base imposable
             id: Nº Factura
             taxParcentage: IVA
-            discountApplied: Descompta aplicat
+            discountApplied: Descompte aplicat
             totalAmount: Total
             month: Mes
             year: Any

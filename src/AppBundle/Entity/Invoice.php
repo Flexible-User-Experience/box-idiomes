@@ -320,4 +320,20 @@ class Invoice extends AbstractBase
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getInvoiceNumber()
+    {
+        return  $this->getDate()->format('Y').'-'.$this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getInvoiceNumber() : '---';
+    }
 }
