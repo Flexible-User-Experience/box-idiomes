@@ -3,7 +3,7 @@
 {# override css includes #}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/fullcalendar/css/fullcalendar/fullcalendar.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/fullcalendar.min.css') }}" />
 {% endblock %}
 
 {# override javascript includes #}
@@ -11,7 +11,8 @@
     {{ parent() }}
     <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script type="text/javascript" src="{{ path('fos_js_routing_js', {callback: 'fos.Router.setData'}) }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/moment.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/fullcalendar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/fullcalendar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/fullcalendar-locale-ca.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/app/js/fullcalendar.default-settings.js') }}"></script>
 {% endblock %}

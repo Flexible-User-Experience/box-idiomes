@@ -1,12 +1,12 @@
-$(function () {
-    $('#calendar-holder').fullCalendar({
+jQuery(function () {
+    jQuery('#calendar-holder').fullCalendar({
         header: {
-            left: 'prev, next, today',
+            left: 'prev,next,today',
             center: 'title',
-            right: 'month, agendaWeek, agendaDay, listWeek'
+            right: 'month,agendaWeek,agendaDay,listWeek'
         },
         locale: 'ca',
-        themeSystem: 'bootstrap3',
+        // themeSystem: 'bootstrap3',
         firstDay: 1,
         lazyFetching: false,
         editable: true,
