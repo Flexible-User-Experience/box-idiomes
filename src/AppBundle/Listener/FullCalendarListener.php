@@ -3,7 +3,6 @@
 namespace AppBundle\Listener;
 
 use AncaRebeca\FullCalendarBundle\Event\CalendarEvent;
-use AncaRebeca\FullCalendarBundle\Model\Event;
 use AppBundle\Entity\Event as AppEvent;
 use AppBundle\Repository\EventRepository;
 use Symfony\Component\Routing\RouterInterface;
@@ -29,7 +28,7 @@ class FullCalendarListener
     private $router;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
@@ -46,8 +45,6 @@ class FullCalendarListener
 
     /**
      * @param CalendarEvent $calendarEvent
-     *
-     * @return void
      */
     public function loadData(CalendarEvent $calendarEvent)
     {
@@ -57,15 +54,12 @@ class FullCalendarListener
         $events = $this->ers->getFilteredByBeginAndEnd($startDate, $endDate);
         /** @var AppEvent $event */
         foreach ($events as $event) {
-            // create an event with a start/end time, or an all day event
-            $eventEntity = new Event($event->getGroup()->getCode().' '.$event->getGroup()->getBook(), $event->getBegin());
             //optional calendar event settings
-            $eventEntity->setBackgroundColor($event->getGroup()->getColor());
-            $eventEntity->setColor('#000000');
-            $eventEntity->setUrl($this->router->generate('admin_app_event_edit', array('id' => $event->getId()), UrlGeneratorInterface::ABSOLUTE_PATH));
-            $eventEntity->setAllDay(false);
+            $event->setBackgroundColor($event->getGroup()->getColor());
+            $event->setColor('#000000');
+            $event->setUrl($this->router->generate('admin_app_event_edit', array('id' => $event->getId()), UrlGeneratorInterface::ABSOLUTE_PATH));
             //finally, add the event to the CalendarEvent for displaying on the calendar
-            $calendarEvent->addEvent($eventEntity);
+            $calendarEvent->addEvent($event);
         }
     }
 }
