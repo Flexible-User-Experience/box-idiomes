@@ -17,8 +17,8 @@ jQuery(function () {
         weekNumbers: false,
         defaultView: 'agendaWeek',
         timeFormat: {
-            agenda: 'h:mmt',
-            '': 'h:mmt'
+            agenda: 'H:mm',
+            '': 'H:mm'
         },
         eventSources: [
             {
