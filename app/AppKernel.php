@@ -3,8 +3,14 @@
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
+/**
+ * AppKernel class
+ */
 class AppKernel extends Kernel
 {
+    /**
+     * Register bundles
+     */
     public function registerBundles()
     {
         $bundles = array(
@@ -26,7 +32,6 @@ class AppKernel extends Kernel
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             // Vendors
-//            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
             new AncaRebeca\FullCalendarBundle\FullCalendarBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new Fenrizbes\ColorPickerTypeBundle\FenrizbesColorPickerTypeBundle(),
@@ -57,6 +62,9 @@ class AppKernel extends Kernel
         return $bundles;
     }
 
+    /**
+     * @param LoaderInterface $loader
+     */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
