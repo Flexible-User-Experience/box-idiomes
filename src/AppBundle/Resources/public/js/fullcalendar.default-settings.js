@@ -6,8 +6,9 @@ $(function () {
             right: 'month, agendaWeek, agendaDay, listWeek'
         },
         locale: 'ca',
-        lazyFetching: true,
-        defaultDate: '2017-11-12',
+        themeSystem: 'bootstrap3',
+        firstDay: 1,
+        lazyFetching: false,
         editable: true,
         navLinks: true,
         eventLimit: true,
