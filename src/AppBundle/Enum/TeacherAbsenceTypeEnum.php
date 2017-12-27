@@ -14,6 +14,8 @@ class TeacherAbsenceTypeEnum
     const PERSONAL_ISSUES = 0;
     const TRAINING = 1;
     const OTHER_ISSUES = 2;
+    const HOLIDAYS = 3;
+    const SICK_LEAVE = 4;
 
     /**
      * @return array
@@ -24,6 +26,8 @@ class TeacherAbsenceTypeEnum
             self::PERSONAL_ISSUES => 'Assumptes personals',
             self::TRAINING => 'Formació',
             self::OTHER_ISSUES => 'Altres motius',
+            self::HOLIDAYS => 'Vacacions',
+            self::SICK_LEAVE => 'Baixa laboral',
         );
     }
 }

@@ -74,7 +74,7 @@ class ClassGroupAdmin extends AbstractBaseAdmin
                 ColorPickerType::class,
                 array(
                     'label' => 'backend.admin.teacher.color',
-                    'required' => false,
+                    'required' => true,
                     'picker_options' => array(
                         'color' => false,
                         'mode' => 'hsl',

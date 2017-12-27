@@ -345,7 +345,7 @@ class Event extends AbstractBase
     {
         if ($this->getEnd() < $this->getBegin()) {
             $context
-                ->buildViolation('La data ha de ser més gran que la data d\'inici')
+                ->buildViolation('La data final ha de ser més gran que la data d\'inici')
                 ->atPath('end')
                 ->addViolation();
         }
@@ -358,9 +358,9 @@ class Event extends AbstractBase
      */
     public function validateUntil(ExecutionContextInterface $context)
     {
-        if ($this->getUntil() < $this->getEnd()) {
+        if (!is_null($this->getUntil()) && $this->getUntil() < $this->getEnd()) {
             $context
-                ->buildViolation('La data ha de ser més gran que la data final')
+                ->buildViolation('La data de repeteció final ha de ser més gran que la data final')
                 ->atPath('until')
                 ->addViolation();
         }
