@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class ContactHomepageType
  *
  * @category FormType
- * @package  AppBundle\Form\Type
+ *
  * @author   Wilson Iglesias <wiglesias83@gmail.com>
  */
 class ContactHomepageType extends AbstractType

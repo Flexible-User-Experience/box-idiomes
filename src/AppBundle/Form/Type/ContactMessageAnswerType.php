@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class ContactMessageAnswerType
  *
  * @category FormType
- * @package  AppBundle\Form\Type
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class ContactMessageAnswerType extends AbstractType
