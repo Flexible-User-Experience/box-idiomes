@@ -35,11 +35,7 @@ class NotificationService
     private $urlBase;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**

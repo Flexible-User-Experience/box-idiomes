@@ -17,11 +17,7 @@ class CourierService
     private $mailer;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**
