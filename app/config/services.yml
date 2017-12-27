@@ -84,17 +84,28 @@ services:
 # Block
     app.block.event_calendar:
         class: AppBundle\Block\EventCalendarBlock
-        arguments: [ "app.block.event_calendar", "@templating" ]
+        arguments:
+            - "app.block.event_calendar"
+            - "@templating"
         tags:
             - { name: sonata.block }
-
 # Messaging
     app.courier:
         class: AppBundle\Service\CourierService
-        arguments: [ "@swiftmailer.mailer" ]
+        arguments:
+            - "@swiftmailer.mailer"
     app.notification:
         class: AppBundle\Service\NotificationService
-        arguments: [ "@app.courier", "@twig", "%mailer_destination%", "%mailer_url_base%" ]
+        arguments:
+            - "@app.courier"
+            - "@twig"
+            - "%mailer_destination%"
+            - "%mailer_url_base%"
+# Factory
+    app.event_transformer_factory:
+        class: AppBundle\Service\EventTrasnformerFactoryService
+        arguments:
+            - "@router"
 # Menu
     app.frontend_menu_builder:
         class: AppBundle\Menu\FrontendMenuBuilder
@@ -102,20 +113,23 @@ services:
     app.frontend_top_menu:
         class: Knp\Menu\MenuItem
         factory: [ "@app.frontend_menu_builder", createTopMenu ]
-        arguments: [ "@request_stack" ]
+        arguments:
+            - "@request_stack"
         tags:
             - { name: knp_menu.menu, alias: top }
 # Listeners
     app.sitemap:
         class: AppBundle\Listener\SitemapListener
-        arguments: [ "@router", "@doctrine.orm.entity_manager" ]
+        arguments:
+            - "@router"
+            - "@doctrine.orm.entity_manager"
         tags:
             - { name: "presta.sitemap.listener" }
     app.event_fullcalendar:
         class: AppBundle\Listener\FullCalendarListener
         arguments:
             - "@app.event_repository"
-            - "@router"
+            - "@app.event_transformer_factory"
         tags:
             - { name: "kernel.event_listener", event: "fullcalendar.set_data", method: "loadData" }
 # Twig
@@ -127,8 +141,9 @@ services:
 # Mailchimp Manager
     app.mailchimp_manager:
         class: AppBundle\Manager\MailchimpManager
-        arguments: [ "@app.notification", "%mailchimp_api_key%" ]
-
+        arguments:
+            - "@app.notification"
+            - "%mailchimp_api_key%"
 # PDF service builders
     app.base_tcpdf:
         class: AppBundle\Pdf\BaseTcpdf

@@ -4,10 +4,9 @@ namespace AppBundle\Listener;
 
 use AncaRebeca\FullCalendarBundle\Event\CalendarEvent;
 use AppBundle\Entity\Event as AppEvent;
-use AppBundle\Entity\EventFullCalendar;
 use AppBundle\Repository\EventRepository;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use AppBundle\Service\EventTrasnformerFactoryService;
+
 
 /**
  * Class FullCalendarListener.
@@ -24,9 +23,9 @@ class FullCalendarListener
     private $ers;
 
     /**
-     * @var RouterInterface
+     * @var EventTrasnformerFactoryService
      */
-    private $router;
+    private $etfs;
 
     /**
      * Methods.
@@ -36,12 +35,12 @@ class FullCalendarListener
      * FullcalendarListener constructor.
      *
      * @param EventRepository $ers
-     * @param RouterInterface $router
+     * @param EventTrasnformerFactoryService $etfs
      */
-    public function __construct(EventRepository $ers, RouterInterface $router)
+    public function __construct(EventRepository $ers, EventTrasnformerFactoryService $etfs)
     {
         $this->ers = $ers;
-        $this->router = $router;
+        $this->etfs = $etfs;
     }
 
     /**
@@ -55,13 +54,7 @@ class FullCalendarListener
         $events = $this->ers->getFilteredByBeginAndEnd($startDate, $endDate);
         /** @var AppEvent $event */
         foreach ($events as $event) {
-            $eventFullCalendar = new EventFullCalendar($event->getId(), $event->getBegin());
-            //optional calendar event settings
-            $eventFullCalendar->setBackgroundColor($event->getGroup()->getColor());
-            $eventFullCalendar->setColor('#000000');
-            $eventFullCalendar->setUrl($this->router->generate('admin_app_event_edit', array('id' => $event->getId()), UrlGeneratorInterface::ABSOLUTE_PATH));
-            //finally, add the event to the CalendarEvent for displaying on the calendar
-            $calendarEvent->addEvent($eventFullCalendar);
+            $calendarEvent->addEvent($this->etfs->build($event));
         }
     }
 }
