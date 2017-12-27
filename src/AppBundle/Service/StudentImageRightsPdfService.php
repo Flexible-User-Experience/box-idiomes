@@ -35,6 +35,10 @@ class StudentImageRightsPdfService
     private $pwt;
 
     /**
+     * Methods
+     */
+
+    /**
      * StudentImageRightsPdfService constructor.
      *
      * @param TCPDFController $tcpdf
