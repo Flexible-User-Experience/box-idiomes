@@ -13,7 +13,6 @@
         ]
     },
     "require": {
-        "adesigns/calendar-bundle": "dev-master",
         "ancarebeca/full-calendar-bundle": "^2.0",
         "apoutchika/loremipsum-bundle": "^1.0",
         "beberlei/DoctrineExtensions": "^1.0",
@@ -28,6 +27,7 @@
         "egeloen/ckeditor-bundle": "^4.0",
         "egulias/email-validator": "^1.2",
         "excelwebzone/recaptcha-bundle": "^1.4",
+        "friendsofsymfony/jsrouting-bundle": "^1.6",
         "hampe/zurb-ink-bundle": "^2.2",
         "hautelook/alice-bundle": "^1.0",
         "incenteev/composer-parameter-handler": "~2.0",

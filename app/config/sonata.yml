@@ -40,10 +40,8 @@ sonata_admin:
             Contactes:
                 icon: "<i class='fa fa-envelope'></i>"
             Administration:
-                label: "Administració"
                 icon: "<i class='fa fa-briefcase'></i>"
             Billing:
-                label: "Facturació"
                 icon: "<i class='fa fa-eur'></i>"
         blocks:
             -
@@ -53,6 +51,11 @@ sonata_admin:
                 settings:
                     content: >
                         <h1 style="margin-top:0">%project_backend_title%</h1>
+            -
+                position: top
+                type: app.block.event_calendar
+                class: "col-xs-12"
+                roles: [ "ROLE_ADMIN" ]
             -
                 position: top
                 type: sonata.admin.block.admin_list
@@ -71,8 +74,3 @@ sonata_admin:
                 class: "col-md-6 col-lg-4"
                 settings:
                     groups: [ Contactes, Administration ]
-            -
-                position: top
-                type: app.block.event_calendar
-                class: "col-xs-12"
-                roles: [ 'ROLE_ADMIN' ]

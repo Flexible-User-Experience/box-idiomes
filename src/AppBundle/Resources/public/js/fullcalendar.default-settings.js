@@ -1,13 +1,14 @@
-$(function () {
-    $('#calendar-holder').fullCalendar({
+jQuery(function () {
+    jQuery('#calendar-holder').fullCalendar({
         header: {
-            left: 'prev, next, today',
+            left: 'prev,next,today',
             center: 'title',
-            right: 'month, agendaWeek, agendaDay, listWeek'
+            right: 'month,agendaWeek,agendaDay,listWeek'
         },
+        height: 600,
         locale: 'ca',
-        lazyFetching: true,
-        defaultDate: '2017-11-12',
+        firstDay: 1,
+        lazyFetching: false,
         editable: true,
         navLinks: true,
         eventLimit: true,
@@ -15,17 +16,13 @@ $(function () {
         displayEventTime: true,
         weekNumbers: false,
         defaultView: 'agendaWeek',
-        timeFormat: {
-            agenda: 'h:mmt',
-            '': 'h:mmt'
-        },
-        eventSources: [
-            {
-                url: Routing.generate('ancarebeca_full_calendar_load'),
-                type: 'POST',
-                data: {},
-                error: function () {}
+        events: {
+            url: Routing.generate('ancarebeca_full_calendar_load'),
+            type: 'POST',
+            data: {},
+            error: function(data) {
+                console.log('error!', data.responseText);
             }
-        ]
+        }
     });
 });

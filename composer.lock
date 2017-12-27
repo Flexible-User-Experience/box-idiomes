@@ -4,62 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f485e9e2924e281b59c889864eefc5b",
+    "content-hash": "016a821c0f96af62880911e96dc82a59",
     "packages": [
-        {
-            "name": "adesigns/calendar-bundle",
-            "version": "dev-master",
-            "target-dir": "ADesigns/CalendarBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/adesigns/calendar-bundle.git",
-                "reference": "056861b042f4c70c7d929c3ad62d891fe4eb0e36"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/adesigns/calendar-bundle/zipball/056861b042f4c70c7d929c3ad62d891fe4eb0e36",
-                "reference": "056861b042f4c70c7d929c3ad62d891fe4eb0e36",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/collections": ">=1.0",
-                "friendsofsymfony/jsrouting-bundle": "~1.1",
-                "symfony/framework-bundle": "~2.1|~3.0",
-                "symfony/twig-bundle": "~2.1|~3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "symfony/browser-kit": "~2.3|~3.0",
-                "symfony/debug": "~2.3|~3.0",
-                "symfony/finder": "~2.3|~3.0",
-                "symfony/phpunit-bridge": "^2.7|~3.0"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-0": {
-                    "ADesigns\\CalendarBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mike Yudin",
-                    "email": "mikeyudin@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "This bundle allows you to integrate the jQuery FullCalendar plugin into your Symfony2 application.",
-            "homepage": "http://github.com/adesigns/calendar-bundle",
-            "keywords": [
-                "calendar",
-                "fullcalendar",
-                "jquery calendar"
-            ],
-            "time": "2017-04-30T15:50:57+00:00"
-        },
         {
             "name": "ancarebeca/full-calendar-bundle",
             "version": "v2.0.2",
@@ -7408,9 +7354,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "adesigns/calendar-bundle": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -43,6 +43,10 @@ class SepaAgreementPdfService
     private $bn;
 
     /**
+     * Methods
+     */
+
+    /**
      * SepaAgreementPdfService constructor.
      *
      * @param TCPDFController $tcpdf
