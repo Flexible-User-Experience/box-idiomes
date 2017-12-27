@@ -45,8 +45,9 @@ class EventTrasnformerFactoryService
     public function build(AppEvent $appEvent)
     {
         $eventFullCalendar = new EventFullCalendar($appEvent->getGroup()->getCode().' '.$appEvent->getGroup()->getBook(), $appEvent->getBegin());
+        $eventFullCalendar->setEndDate($appEvent->getEnd());
         $eventFullCalendar->setBackgroundColor($appEvent->getGroup()->getColor());
-        $eventFullCalendar->setTextColor('#000000');
+        $eventFullCalendar->setTextColor('#FFFFFF');
         $eventFullCalendar->setColor($appEvent->getGroup()->getColor());
         $eventFullCalendar->setAllDay(false);
         $eventFullCalendar->setUrl($this->router->generate('admin_app_event_edit', array('id' => $appEvent->getId()), UrlGeneratorInterface::ABSOLUTE_PATH));
