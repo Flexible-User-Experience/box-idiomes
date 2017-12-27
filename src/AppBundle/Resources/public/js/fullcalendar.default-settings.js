@@ -5,6 +5,7 @@ jQuery(function () {
             center: 'title',
             right: 'month,agendaWeek,agendaDay,listWeek'
         },
+        height: 600,
         locale: 'ca',
         firstDay: 1,
         lazyFetching: false,
@@ -15,10 +16,6 @@ jQuery(function () {
         displayEventTime: true,
         weekNumbers: false,
         defaultView: 'agendaWeek',
-        timeFormat: {
-            agenda: 'H:mm',
-            '': 'H:mm'
-        },
         events: {
             url: Routing.generate('ancarebeca_full_calendar_load'),
             type: 'POST',
@@ -26,6 +23,13 @@ jQuery(function () {
             error: function(data) {
                 console.log('error!', data.responseText);
             }
+        },
+        eventRender: function(event, element) {
+            var eventsdate = moment(event.start).format('HH:mm');
+            var eventedate = moment(event.end).format('HH:mm');
+
+            element.find('.fc-time').html(eventsdate + " - " + eventedate + "<br>");
+            console.log(event);
         }
     });
 });
