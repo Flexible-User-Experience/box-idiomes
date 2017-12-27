@@ -23,13 +23,6 @@ jQuery(function () {
             error: function(data) {
                 console.log('error!', data.responseText);
             }
-        },
-        eventRender: function(event, element) {
-            var eventsdate = moment(event.start).format('HH:mm');
-            var eventedate = moment(event.end).format('HH:mm');
-
-            element.find('.fc-time').html(eventsdate + " - " + eventedate + "<br>");
-            console.log(event);
         }
     });
 });
