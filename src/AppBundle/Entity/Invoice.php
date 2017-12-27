@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @category Entity
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
+ *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InvoiceRepository")
  * @ORM\Table(name="invoice")
  * @UniqueEntity({"month", "year", "student"})
@@ -412,6 +413,6 @@ class Invoice extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getYear() : '---';
+        return $this->id ? $this->getYear().'·'.$this->id : '---';
     }
 }
