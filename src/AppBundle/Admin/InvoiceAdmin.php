@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\Invoice;
+use AppBundle\Enum\InvoiceYearMonthEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -61,13 +62,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.year',
                     'required' => true,
-                    'choices' => array(
-                        // TODO make it dynamic
-                        '2018' => 2018,
-                        '2017' => 2017,
-                        '2016' => 2016,
-                        '2015' => 2015,
-                    ),
+                    'choices' => InvoiceYearMonthEnum::getYearEnumArray(),
                 )
             )
             ->add(
@@ -76,22 +71,8 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.month',
                     'required' => true,
-                    'choices' => array(
-                        // TODO move to an Enum class
-                        'Gener' => 1,
-                        'Febrer' => 2,
-                        'Març' => 3,
-                        'Abril' => 4,
-                        'Maig' => 5,
-                        'Juny' => 6,
-                        'Juiol' => 7,
-                        'Agost' => 8,
-                        'Setembre' => 9,
-                        'Octubre' => 10,
-                        'Novembre' => 11,
-                        'Desembre' => 12,
-                    ),
-                    'choices_as_values' => true,
+                    'choices' => InvoiceYearMonthEnum::getMonthEnumArray(),
+                    'choices_as_values' => false,
                 )
             )
             ->add(
@@ -340,7 +321,6 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 'actions',
                 array(
                     'actions' => array(
-                        'generate' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
