@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\Invoice;
+use AppBundle\Form\Type\GenerateInvoiceType;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,8 +28,27 @@ class InvoiceAdminController extends BaseAdminController
      */
     public function generateAction(Request $request = null)
     {
-        $this->resolveRequest($request);
+        $object = new Invoice();
+        $form = $this->createForm(GenerateInvoiceType::class);
+        $form->handleRequest($request);
 
-        return $this->redirectToList();
+        if ($form->isSubmitted() && $form->isValid()) {
+            // TODO some logic
+            $this->addFlash('success', 'Your invoice has been generated.');
+
+            return $this->redirectToList();
+        }
+
+        return $this->render(
+            '::Admin/Invoice/generate_invoice_form.html.twig',
+            array(
+                'action'   => 'answer',
+                'object'   => $object,
+                'form'     => $form->createView(),
+                'elements' => $this->admin->getShow(),
+            ),
+            null,
+            $request
+        );
     }
 }

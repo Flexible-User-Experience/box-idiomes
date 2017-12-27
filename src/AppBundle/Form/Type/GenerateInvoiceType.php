@@ -49,7 +49,7 @@ class GenerateInvoiceType extends AbstractType
                 array(
                     'label' => 'backend.admin.invoice.generate',
                     'attr'  => array(
-                        'class' => 'btn-newsletter',
+                        'class' => 'btn btn-success',
                     ),
                 )
             );
