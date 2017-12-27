@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -18,6 +19,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Invoice extends AbstractBase
 {
+    /**
+     * @var ArrayCollection|array|InvoiceLine[]
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\InvoiceLine", mappedBy="invoice")
+     */
+    private $lines;
+
     /**
      * @var Student
      *
@@ -37,7 +45,7 @@ class Invoice extends AbstractBase
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $date;
 
@@ -100,6 +108,62 @@ class Invoice extends AbstractBase
     /**
      * Methods.
      */
+
+    /**
+     * Invoice constructor.
+     */
+    public function __construct()
+    {
+        $this->lines = new ArrayCollection();
+    }
+
+    /**
+     * @return InvoiceLine[]|array|ArrayCollection
+     */
+    public function getLines()
+    {
+        return $this->lines;
+    }
+
+    /**
+     * @param InvoiceLine[]|array|ArrayCollection $lines
+     *
+     * @return $this
+     */
+    public function setLines($lines)
+    {
+        $this->lines = $lines;
+
+        return $this;
+    }
+
+    /**
+     * @param InvoiceLine $line
+     *
+     * @return $this
+     */
+    public function addLine($line)
+    {
+        if (!$this->lines->contains($line)) {
+            $this->lines->add($line);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param InvoiceLine $line
+     *
+     * @return $this
+     */
+    public function removeLine($line)
+    {
+        if ($this->lines->contains($line)) {
+            $this->lines->removeElement($line);
+        }
+
+        return $this;
+    }
 
     /**
      * @return Student
@@ -330,10 +394,24 @@ class Invoice extends AbstractBase
     }
 
     /**
+     * @return float
+     */
+    public function calculateTotalBaseAmount()
+    {
+        $result = 0.0;
+        /** @var InvoiceLine $line */
+        foreach ($this->lines as $line) {
+            $result = $result + $line->calculateBaseAmount();
+        }
+
+        return $result;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
     {
-        return $this->id ? $this->getInvoiceNumber() : '---';
+        return $this->id ? $this->getYear() : '---';
     }
 }
