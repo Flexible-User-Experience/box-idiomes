@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @category Entity
  *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
+ *
  * @UniqueEntity({"dni", "name", "surname"})
  */
 abstract class AbstractPerson extends AbstractBase

@@ -9,7 +9,7 @@ use Sonata\UserBundle\Entity\BaseGroup as BaseGroup;
  * Class Group
  *
  * @category Entity
- * @package  AppBundle\Entity
+ *
  * @author   David Romaní <david@flux.cat>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\GroupRepository")
@@ -27,11 +27,7 @@ class Group extends BaseGroup
     protected $id;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**

@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 class ProvinceAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Province';
-    protected $baseRoutePattern = 'administration/province';
+    protected $baseRoutePattern = 'administrations/province';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',

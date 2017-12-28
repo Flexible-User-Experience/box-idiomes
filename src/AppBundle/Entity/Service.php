@@ -17,6 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @category    Entity
  *
  * @author      Anton Serra <aserratorta@gmail.com>
+ *
  * @ORM\Table()
  * @Vich\Uploadable
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ServiceRepository")

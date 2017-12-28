@@ -67,8 +67,8 @@ class StudentImageRightsPdfService
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor($this->pwt);
-        $pdf->SetTitle($this->ts->trans('drets imatges'));
-        $pdf->SetSubject($this->ts->trans('descripció'));
+        $pdf->SetTitle($this->ts->trans('backend.admin.imagerigths.pdf_metadata_title'));
+        $pdf->SetSubject($this->ts->trans('backend.admin.imagerigths.pdf_metadata_subject'));
         // set default font subsetting mode
         $pdf->setFontSubsetting(true);
         // remove default header/footer

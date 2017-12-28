@@ -9,7 +9,7 @@ use Sonata\UserBundle\Entity\BaseUser as BaseUser;
  * Class User
  *
  * @category Entity
- * @package  AppBundle\Entity
+ *
  * @author   David Romaní <david@flux.cat>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
@@ -27,11 +27,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**

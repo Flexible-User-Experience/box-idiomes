@@ -1,5 +1,7 @@
 Teacher List: Professors
 Teacher Create: Crear
+Absence List: Absències
+Absence Create: Crear
 Teacher Delete: Esborrar
 Student List: Alumnes
 Student Create: Crear
@@ -7,13 +9,13 @@ Student Delete: Esborrar
 Grups List: Grups
 Grups Create: Crear
 Grups Delete: Esborrar
-Invoice List: Factura
+Invoice List: Factures
 Invoice Create: Crear
 Invoice Delete: Esborrar
-Tarriff List: Tarifa
+Tarriff List: Tarifes
 Tarriff Create: Crear
 Tarriff Delete: Esborrar
-Event List: Esdeveniment
+Event List: Esdeveniments
 Event Create: Crear
 Event Delete: Esborrar
 Person List: Pares
@@ -22,13 +24,13 @@ Person Delete: Esborrar
 Service List: Serveis
 Service Create: Crear
 Service Delete: Esborrar
-Contact Message List: Missatge de contacte
+Contact Message List: Missatges de contacte
 Contact Message Delete: Esborrar
-"Newsletter Contact List": Butlletí de contacte
-Province List: Província
+Newsletter Contact List: Butlletins de contacte
+Province List: Províncies
 Province Create: Crear
 Province Delete: Esborrar
-City List: Ciutat
+City List: Ciutats
 City Create: Crear
 City Delete: Esborrar
 User List: Usuaris
@@ -156,6 +158,8 @@ backend:
             postalCode: Codi postal
             province: Província
         imagerigths:
+            pdf_metadata_title: Drets Imatge
+            pdf_metadata_subject: Document autorització Drets Imatge
             description1: "El centre Box, viu els idiomes gestiona diversos espais a la xarxa: web, Facebook Instagram i diverses pàgines associades on, de tant en tant, poden aparèixer, ja sigui individualment o en grup imatges dels nostres alumnes fent algunes de les activitats que es duguin a terme a les aules o fora d’elles."
             description2: "Donat que el dret a la pròpia imatge és reconegut en l’article 18.1 de la Constitució i regulat per Llei 5/1985, de 5 de maig, sobre el dret a l’honor, a la intimitat personal i familiar i a la pròpia imatge; la direcció d’aquest centre demana el consentiment per escrit als pares, mares o tutors legals dels menors d’edat per poder publicar fotografies, vídeos o imatges on apareguin els seus fills i filles i on siguin clarament identificables."
             contact_name_with_parent: "Nom i cognom mare, pare o tutor legal: %name%"
@@ -181,7 +185,7 @@ backend:
             name: Entitat bancària
             accountNumber: Núm. de compte
             swiftCode: Codi SWIFT
-            parent: "Pare, mare o tutor"
+            parent: Pare, mare o tutor
         parent:
             students: Fills
             dni: DNI/CIF o NIF
@@ -194,17 +198,32 @@ backend:
             payment: Pagament
             bank: Banc
         invoice:
+            generate: Generar factures
             invoice: Factura
             detail: Detall
             student: Estudiant
-            person: 'Pare mare o totor'
+            person: Pare mare o tutor
             date: Data factura
             isPayed: Pagat
             paymentDate: Data pagament
             baseAmount: Base imposable
-            id: Nº Factura
+            id: Núm. Factura
             taxParcentage: IVA
             discountApplied: Descompte aplicat
             totalAmount: Total
             month: Mes
             year: Any
+
+month:
+    january: gener
+    febraury: febrer
+    march: març
+    april: abril
+    may: maig
+    june: juny
+    july: juliol
+    august: agost
+    september: setembre
+    october: octubre
+    november: novembre
+    december: desembre

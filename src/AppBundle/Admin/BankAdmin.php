@@ -17,7 +17,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
 class BankAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Bank';
-    protected $baseRoutePattern = 'administration/bank';
+    protected $baseRoutePattern = 'administrations/bank';
     protected $datagridValues = array(
         '_sort_by' => 'name',
         '_sort_order' => 'asc',

@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Abstract entities base class
  *
  * @category Entity
- * @package  AppBundle\Entity
+ *
  * @author   David Romaní <david@flux.cat>
  *
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
@@ -56,11 +56,7 @@ abstract class AbstractBase
     protected $enabled = true;
 
     /**
-     *
-     *
      * Methods
-     *
-     *
      */
 
     /**

@@ -28,7 +28,7 @@ services:
         class: AppBundle\Admin\TariffAdmin
         arguments: [ ~ , AppBundle\Entity\Tariff, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tarifa", group: "Billing" }
+            - { name: sonata.admin, manager_type: orm, label: "Tarifa", group: "Facturació" }
     admin.event:
         class: AppBundle\Admin\EventAdmin
         arguments: [ ~ , AppBundle\Entity\Event, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -60,27 +60,27 @@ services:
         class: AppBundle\Admin\ProvinceAdmin
         arguments: [ ~, AppBundle\Entity\Province, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Província", group: "Administration" }
+            - { name: sonata.admin, manager_type: orm, label: "Província", group: "Administració" }
     admin.city:
         class: AppBundle\Admin\CityAdmin
         arguments: [ ~, AppBundle\Entity\City, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Ciutat", group: "Administration" }
+            - { name: sonata.admin, manager_type: orm, label: "Ciutat", group: "Administració" }
     admin.bank:
         class: AppBundle\Admin\BankAdmin
         arguments: [ ~, AppBundle\Entity\Bank, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Bank", group: "Administration", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Bank", group: "Administració", show_in_dashboard: false }
     admin.invoice:
         class: AppBundle\Admin\InvoiceAdmin
-        arguments: [ ~, AppBundle\Entity\Invoice, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Invoice, AppBundle:Admin\InvoiceAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Factura", group: "Billing" }
+            - { name: sonata.admin, manager_type: orm, label: "Factura", group: "Facturació" }
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Administration" }
+            - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Administració" }
 # Block
     app.block.event_calendar:
         class: AppBundle\Block\EventCalendarBlock

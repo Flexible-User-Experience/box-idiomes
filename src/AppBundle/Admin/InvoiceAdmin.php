@@ -2,6 +2,8 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Invoice;
+use AppBundle\Enum\InvoiceYearMonthEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -19,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class InvoiceAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Invoice';
-    protected $baseRoutePattern = 'billing/invoice';
+    protected $baseRoutePattern = 'billings/invoice';
     protected $datagridValues = array(
         '_sort_by' => 'id',
         '_sort_order' => 'desc',
@@ -34,6 +36,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
     {
         parent::configureRoutes($collection);
         $collection
+            ->add('generate')
             ->remove('delete');
     }
 
@@ -59,12 +62,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.year',
                     'required' => true,
-                    'choices' => array(
-                        '2018' => 2018,
-                        '2017' => 2017,
-                        '2016' => 2016,
-                        '2015' => 2015,
-                    ),
+                    'choices' => InvoiceYearMonthEnum::getYearEnumArray(),
                 )
             )
             ->add(
@@ -73,21 +71,8 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.month',
                     'required' => true,
-                    'choices' => array(
-                        'Gener' => 1,
-                        'Febrer' => 2,
-                        'Març' => 3,
-                        'Abril' => 4,
-                        'Maig' => 5,
-                        'Juny' => 6,
-                        'Juiol' => 7,
-                        'Agost' => 8,
-                        'Setembre' => 9,
-                        'Octubre' => 10,
-                        'Novembre' => 11,
-                        'Desembre' => 12,
-                    ),
-                    'choices_as_values' => true,
+                    'choices' => InvoiceYearMonthEnum::getMonthEnumArray(),
+                    'choices_as_values' => false,
                 )
             )
             ->add(
@@ -95,7 +80,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.student',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -103,7 +88,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.person',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->end()
@@ -341,5 +326,29 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.actions',
                 )
             );
+    }
+
+    /**
+     * @param Invoice $object
+     */
+    public function prePersist($object)
+    {
+        $this->commonPreActions($object);
+    }
+
+    /**
+     * @param Invoice $object
+     */
+    public function preUpdate($object)
+    {
+        $this->commonPreActions($object);
+    }
+
+    /**
+     * @param Invoice $object
+     */
+    private function commonPreActions($object)
+    {
+        $object->setTotalAmount($object->calculateTotalBaseAmount());
     }
 }
