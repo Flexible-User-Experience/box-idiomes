@@ -47,15 +47,6 @@ class InvoiceAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('backend.admin.invoice.invoice', $this->getFormMdSuccessBoxArray(4))
-//            ->add(
-//                'date',
-//                'sonata_type_date_picker',
-//                array(
-//                    'label' => 'backend.admin.invoice.date',
-//                    'format' => 'd/M/y',
-//                    'required' => true,
-//                )
-//            )
             ->add(
                 'year',
                 ChoiceType::class,
@@ -264,7 +255,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.isPayed',
-                    'editable' => false,
+                    'editable' => true,
                 )
             )
             ->add(
