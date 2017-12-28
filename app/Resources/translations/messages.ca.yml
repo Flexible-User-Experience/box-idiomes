@@ -134,6 +134,9 @@ backend:
             classroom_2: Aula 2
             classroom_3: Aula 3
             classroom_4: Aula 4
+            button:
+                previous: Esdeveniment anterior
+                next: Següent esdeveniment
         service:
             title: Nom
         contact:
