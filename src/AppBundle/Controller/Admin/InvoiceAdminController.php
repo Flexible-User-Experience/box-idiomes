@@ -34,7 +34,7 @@ class InvoiceAdminController extends BaseAdminController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // TODO some logic
-            $this->addFlash('success', 'Your invoice has been generated.');
+            $this->addFlash('success', 'Les factures han estat generades correctament.');
 
             return $this->redirectToList();
         }
