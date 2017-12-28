@@ -240,7 +240,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.id',
-                    'editable' => false,
+                    'template' => '::Admin/Cells/list__cell_event_id.html.twig',
                 )
             )
 //            ->add(
@@ -257,7 +257,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.year',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
             ->add(
@@ -265,7 +265,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.month',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
             ->add(
@@ -276,30 +276,6 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'editable' => true,
                 )
             )
-            ->add(
-                'person',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.person',
-                    'editable' => true,
-                )
-            )
-//            ->add(
-//                'baseAmount',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.invoice.baseAmount',
-//                    'editable' => false,
-//                )
-//            )
-//            ->add(
-//                'taxParcentage',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.invoice.taxParcentage',
-//                    'editable' => false,
-//                )
-//            )
             ->add(
                 'totalAmount',
                 null,

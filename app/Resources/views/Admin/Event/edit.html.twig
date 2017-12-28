@@ -1,0 +1,14 @@
+{% extends "::Admin/edit.html.twig" %}
+
+{# override actions bottom bar #}
+{% block sonata_form_actions %}
+    {{ parent() }}
+    <div class="btn-group pull-right" role="group">
+        {% if object.previous is not null %}
+            <a class="btn btn-warning" href="{{ path('admin_app_event_edit', {id: object.previous.id}) }}" title="{{ 'backend.admin.event.button.previous'|trans({}, 'messages') }}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+        {% endif %}
+        {% if object.next is not null %}
+            <a class="btn btn-warning" href="{{ path('admin_app_event_edit', {id: object.next.id}) }}" title="{{ 'backend.admin.event.button.next'|trans({}, 'messages') }}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+        {% endif %}
+    </div>
+{% endblock %}

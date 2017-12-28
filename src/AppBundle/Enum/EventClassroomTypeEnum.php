@@ -28,4 +28,17 @@ class EventClassroomTypeEnum
             self::CLASSROOM_4 => 'backend.admin.event.classroom_4',
         );
     }
+
+    /**
+     * @return array
+     */
+    public static function getTranslatedEnumArray()
+    {
+        return array(
+            self::CLASSROOM_1 => 'Aula 1',
+            self::CLASSROOM_2 => 'Aula 2',
+            self::CLASSROOM_3 => 'Aula 3',
+            self::CLASSROOM_4 => 'Aula 4',
+        );
+    }
 }

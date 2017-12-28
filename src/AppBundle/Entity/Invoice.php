@@ -413,6 +413,6 @@ class Invoice extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getYear().'·'.$this->id : '---';
+        return $this->id ? $this->getYear().'/'.$this->id : '---';
     }
 }

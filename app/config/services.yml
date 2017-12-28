@@ -1,5 +1,21 @@
 services:
 # Sonata Admin
+    # students
+    admin.student:
+        class: AppBundle\Admin\StudentAdmin
+        arguments: [ ~ , AppBundle\Entity\Student, AppBundle:Admin\StudentAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Alumne", group: "Alumnes" }
+        calls:
+            - [ setTemplate, [ edit, "::Admin/Student/edit.html.twig" ] ]
+    admin.parent:
+        class: AppBundle\Admin\PersonAdmin
+        arguments: [ ~ , AppBundle\Entity\Person, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Pare, mare o tutor", group: "Alumnes" }
+        calls:
+            - [ setTemplate, [ edit, "::Admin/Student/edit.html.twig" ] ]
+    # teachers
     admin.teacher:
         class: AppBundle\Admin\TeacherAdmin
         arguments: [ ~ , AppBundle\Entity\Teacher, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -10,42 +26,39 @@ services:
         arguments: [ ~ , AppBundle\Entity\TeacherAbsence, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Absència", group: "Professors" }
-    admin.student:
-        class: AppBundle\Admin\StudentAdmin
-        arguments: [ ~ , AppBundle\Entity\Student, AppBundle:Admin\StudentAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Alumne", group: "Alumnes" }
-        calls:
-            - [ setTemplate, [edit, "::Admin/Student/edit.html.twig"] ]
+    # classrooms
     admin.class_group:
         class: AppBundle\Admin\ClassGroupAdmin
         arguments: [ ~ , AppBundle\Entity\ClassGroup, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Grup", group: "Aules" }
         calls:
-            - [ setTemplate, [edit, "::Admin/ClassGroup/edit.html.twig"] ]
-    admin.tariff:
-        class: AppBundle\Admin\TariffAdmin
-        arguments: [ ~ , AppBundle\Entity\Tariff, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tarifa", group: "Facturació" }
+            - [ setTemplate, [ edit, "::Admin/ClassGroup/edit.html.twig" ] ]
     admin.event:
         class: AppBundle\Admin\EventAdmin
         arguments: [ ~ , AppBundle\Entity\Event, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Esdeveniment", group: "Aules" }
-    admin.parent:
-        class: AppBundle\Admin\PersonAdmin
-        arguments: [ ~ , AppBundle\Entity\Person, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Pare, mare o tutor", group: "Alumnes" }
         calls:
-            - [ setTemplate, [edit, "::Admin/Student/edit.html.twig"] ]
+            - [ setTemplate, [ edit, "::Admin/Event/edit.html.twig" ] ]
+    # billings
+    admin.tariff:
+        class: AppBundle\Admin\TariffAdmin
+        arguments: [ ~ , AppBundle\Entity\Tariff, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tarifa", group: "Facturació" }
+    admin.invoice:
+        class: AppBundle\Admin\InvoiceAdmin
+        arguments: [ ~, AppBundle\Entity\Invoice, AppBundle:Admin\InvoiceAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Factura", group: "Facturació" }
+    # services
     admin.service:
         class: AppBundle\Admin\ServiceAdmin
         arguments: [ ~ , AppBundle\Entity\Service, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Servei", group: "Serveis" }
+    # contacts
     admin.contactmessage:
         class: AppBundle\Admin\ContactMessageAdmin
         arguments: [ ~, AppBundle\Entity\ContactMessage, AppBundle:Admin\ContactMessageAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -56,6 +69,7 @@ services:
         arguments: [ ~, AppBundle\Entity\NewsletterContact, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Butlletí de contacte", group: "Contactes" }
+    # admins
     admin.province:
         class: AppBundle\Admin\ProvinceAdmin
         arguments: [ ~, AppBundle\Entity\Province, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -66,21 +80,16 @@ services:
         arguments: [ ~, AppBundle\Entity\City, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Ciutat", group: "Administració" }
-    admin.bank:
-        class: AppBundle\Admin\BankAdmin
-        arguments: [ ~, AppBundle\Entity\Bank, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Bank", group: "Administració", show_in_dashboard: false }
-    admin.invoice:
-        class: AppBundle\Admin\InvoiceAdmin
-        arguments: [ ~, AppBundle\Entity\Invoice, AppBundle:Admin\InvoiceAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Factura", group: "Facturació" }
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Administració" }
+    admin.bank:
+        class: AppBundle\Admin\BankAdmin
+        arguments: [ ~, AppBundle\Entity\Bank, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Bank", group: "Administració", show_in_dashboard: false }
 # Block
     app.block.event_calendar:
         class: AppBundle\Block\EventCalendarBlock
@@ -109,7 +118,10 @@ services:
 # Menu
     app.frontend_menu_builder:
         class: AppBundle\Menu\FrontendMenuBuilder
-        arguments: [ "@knp_menu.factory", "@security.authorization_checker", "@security.token_storage" ]
+        arguments:
+            - "@knp_menu.factory"
+            - "@security.authorization_checker"
+            - "@security.token_storage"
     app.frontend_top_menu:
         class: Knp\Menu\MenuItem
         factory: [ "@app.frontend_menu_builder", createTopMenu ]
@@ -170,39 +182,39 @@ services:
         class: AppBundle\Repository\BankRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:Bank
+            - "AppBundle:Bank"
     app.parent_repository:
         class: AppBundle\Repository\PersonRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:Person
+            - "AppBundle:Person"
     app.city_repository:
         class: AppBundle\Repository\CityRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:City
+            - "AppBundle:City"
     app.province_repository:
         class: AppBundle\Repository\ProvinceRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:Province
+            - "AppBundle:Province"
     app.teacher_repository:
         class: AppBundle\Repository\TeacherRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:Teacher
+            - "AppBundle:Teacher"
     app.student_repository:
         class: AppBundle\Repository\StudentRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:Student
+            - "AppBundle:Student"
     app.event_repository:
         class: AppBundle\Repository\EventRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:Event
+            - "AppBundle:Event"
     app.class_group_repository:
         class: AppBundle\Repository\ClassGroupRepository
         factory: [ "@doctrine", getRepository ]
         arguments:
-            - AppBundle:ClassGroup
+            - "AppBundle:ClassGroup"

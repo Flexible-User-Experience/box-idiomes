@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Enum\TariffTypeEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -79,6 +80,14 @@ class Tariff extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getPriceString()
+    {
+        return $this->price.'€';
+    }
+
+    /**
      * @param float $price
      *
      * @return Tariff
@@ -96,6 +105,14 @@ class Tariff extends AbstractBase
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeString()
+    {
+        return TariffTypeEnum::getTranslatedEnumArray()[$this->type];
     }
 
     /**
@@ -135,6 +152,6 @@ class Tariff extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getYear().' · '.$this->getName() : '---';
+        return $this->id ? $this->getYear().' · '.$this->getTypeString().' · '.$this->getPriceString() : '---';
     }
 }

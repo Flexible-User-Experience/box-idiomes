@@ -29,20 +29,20 @@ sonata_admin:
         dashboard: "::Admin/dashboard.html.twig"
     dashboard:
         groups:
-            Professors:
-                icon: "<i class='fa fa-users'></i>"
             Alumnes:
                 icon: "<i class='fa fa-graduation-cap'></i>"
+            Professors:
+                icon: "<i class='fa fa-user'></i>"
             Aules:
-                icon: "<i class='fa fa-book'></i>"
-            Serveis:
-                icon: "<i class='fa fa-list-ol'></i>"
-            Contactes:
-                icon: "<i class='fa fa-envelope'></i>"
+                icon: "<i class='fa fa-window-maximize'></i>"
             Facturació:
                 icon: "<i class='fa fa-eur'></i>"
+            Serveis:
+                icon: "<i class='fa fa-list-ul'></i>"
+            Contactes:
+                icon: "<i class='fa fa-envelope'></i>"
             Administració:
-                icon: "<i class='fa fa-briefcase'></i>"
+                icon: "<i class='fa fa-cogs'></i>"
         blocks:
             -
                 position: top
@@ -61,13 +61,13 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: "col-md-6 col-lg-4"
                 settings:
-                    groups: [ Professors, Alumnes ]
+                    groups: [ Alumnes, Professors ]
             -
                 position: top
                 type: sonata.admin.block.admin_list
                 class: "col-md-6 col-lg-4"
                 settings:
-                    groups: [ Aules, Serveis, Facturació ]
+                    groups: [ Aules, Facturació, Serveis ]
             -
                 position: top
                 type: sonata.admin.block.admin_list

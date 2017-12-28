@@ -8,12 +8,14 @@ jQuery(function () {
         views: {
             agendaWeek: {
                 allDaySlot: true,
+                slotLabelFormat: 'HH:mm',
                 scrollTime: '08:00:00',
                 minTime: '06:00:00',
                 maxTime: '22:00:00'
             },
             agendaDay: {
                 allDaySlot: true,
+                slotLabelFormat: 'HH:mm',
                 scrollTime: '08:00:00',
                 minTime: '06:00:00',
                 maxTime: '22:00:00'
@@ -21,6 +23,7 @@ jQuery(function () {
         },
         height: 750,
         locale: 'ca',
+        timeFormat: 'HH:mm',
         firstDay: 1,
         lazyFetching: false,
         editable: true,
