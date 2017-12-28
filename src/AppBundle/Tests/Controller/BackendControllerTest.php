@@ -91,6 +91,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/billings/tariff/1/edit'),
             array('/admin/billings/invoice/list'),
             array('/admin/billings/invoice/create'),
+            array('/admin/billings/invoice/generate'),
             array('/admin/billings/invoice/1/edit'),
             array('/admin/users/list'),
             array('/admin/users/create'),
