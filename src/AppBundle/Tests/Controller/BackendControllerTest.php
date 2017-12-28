@@ -54,8 +54,6 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/contacts/message/1/delete'),
             array('/admin/contacts/newsletter/list'),
             array('/admin/contacts/newsletter/1/show'),
-            array('/admin/contacts/newsletter/1/answer'),
-            array('/admin/contacts/newsletter/1/delete'),
             array('/admin/teachers/teacher/list'),
             array('/admin/teachers/teacher/create'),
             array('/admin/teachers/teacher/1/edit'),
@@ -99,7 +97,6 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/users/1/edit'),
             array('/admin/users/1/delete'),
             array('/admin/full-calendar/load'),
-            array('/admin/resetting/request'),
         );
     }
 
@@ -126,9 +123,9 @@ class BackendControllerTest extends AbstractBaseTest
     public function provideNotFoundUrls()
     {
         return array(
-            array('/admin/contact/message/create'),
-            array('/admin/contact/message/1/edit'),
-            array('/admin/contact/message/batch'),
+            array('/admin/contacts/message/create'),
+            array('/admin/contacts/message/1/edit'),
+            array('/admin/contacts/message/batch'),
             array('/admin/teachers/teacher/1/delete'),
             array('/admin/teachers/teacher/batch'),
             array('/admin/teachers/absence/batch'),
@@ -137,13 +134,13 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/students/student/1/delete'),
             array('/admin/students/parent/1/delete'),
             array('/admin/services/service/batch'),
-            array('/admin/administration/province/batch'),
-            array('/admin/administration/province/1/delete'),
-            array('/admin/administration/city/1/delete'),
+            array('/admin/administrations/province/batch'),
+            array('/admin/administrations/province/1/delete'),
+            array('/admin/administrations/city/1/delete'),
             array('/admin/classrooms/group/1/delete'),
             array('/admin/classrooms/tariff/1/delete'),
             array('/admin/classrooms/event/1/delete'),
-            array('/admin/billing/invoice/1/delete'),
+            array('/admin/billings/invoice/1/delete'),
         );
     }
 }
