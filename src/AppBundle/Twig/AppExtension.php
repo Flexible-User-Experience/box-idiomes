@@ -4,11 +4,13 @@ namespace AppBundle\Twig;
 
 use AppBundle\Entity\ClassGroup;
 use AppBundle\Entity\Event;
+use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Tariff;
 use AppBundle\Entity\Teacher;
 use AppBundle\Entity\TeacherAbsence;
 use AppBundle\Entity\User;
 use AppBundle\Enum\EventClassroomTypeEnum;
+use AppBundle\Enum\InvoiceYearMonthEnum;
 use AppBundle\Enum\TariffTypeEnum;
 use AppBundle\Enum\TeacherAbsenceTypeEnum;
 use AppBundle\Enum\TeacherColorEnum;
@@ -69,6 +71,7 @@ class AppExtension extends \Twig_Extension
             new \Twig_SimpleFilter('draw_class_group_color', array($this, 'drawClassGroupColorSpan')),
             new \Twig_SimpleFilter('draw_tariff_type', array($this, 'drawTariffType')),
             new \Twig_SimpleFilter('draw_event_classroom_type', array($this, 'drawEventClassroomType')),
+            new \Twig_SimpleFilter('draw_invoice_month', array($this, 'drawInvoiceMonth')),
         );
     }
 
@@ -161,6 +164,16 @@ class AppExtension extends \Twig_Extension
     public function drawEventClassroomType($object)
     {
         return EventClassroomTypeEnum::getEnumArray()[$object->getClassroom()];
+    }
+
+    /**
+     * @param Invoice $object
+     *
+     * @return string
+     */
+    public function drawInvoiceMonth($object)
+    {
+        return InvoiceYearMonthEnum::getTranlatedMonthEnumArray()[$object->getMonth()];
     }
 
     /**

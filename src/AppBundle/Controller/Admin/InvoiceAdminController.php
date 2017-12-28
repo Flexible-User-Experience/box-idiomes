@@ -34,7 +34,7 @@ class InvoiceAdminController extends BaseAdminController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // TODO some logic
-            $this->addFlash('success', 'Your invoice has been generated.');
+            $this->addFlash('success', 'Les factures han estat generades correctament.');
 
             return $this->redirectToList();
         }
@@ -42,10 +42,9 @@ class InvoiceAdminController extends BaseAdminController
         return $this->render(
             '::Admin/Invoice/generate_invoice_form.html.twig',
             array(
-                'action'   => 'answer',
+                'action'   => 'generate',
                 'object'   => $object,
                 'form'     => $form->createView(),
-                'elements' => $this->admin->getShow(),
             ),
             null,
             $request

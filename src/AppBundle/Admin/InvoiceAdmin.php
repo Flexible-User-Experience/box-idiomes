@@ -47,15 +47,6 @@ class InvoiceAdmin extends AbstractBaseAdmin
     {
         $formMapper
             ->with('backend.admin.invoice.invoice', $this->getFormMdSuccessBoxArray(4))
-//            ->add(
-//                'date',
-//                'sonata_type_date_picker',
-//                array(
-//                    'label' => 'backend.admin.invoice.date',
-//                    'format' => 'd/M/y',
-//                    'required' => true,
-//                )
-//            )
             ->add(
                 'year',
                 ChoiceType::class,
@@ -155,6 +146,20 @@ class InvoiceAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'year',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.year',
+                )
+            )
+            ->add(
+                'month',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.month',
+                )
+            )
+            ->add(
                 'student',
                 null,
                 array(
@@ -169,12 +174,10 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'date',
-                'doctrine_orm_date',
+                'totalAmount',
+                null,
                 array(
-                    'label' => 'backend.admin.invoice.date',
-                    'field_type' => 'sonata_type_date_picker',
-                    'format' => 'd-m-Y',
+                    'label' => 'backend.admin.invoice.totalAmount',
                 )
             )
             ->add(
@@ -186,46 +189,14 @@ class InvoiceAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'paymentDate',
-                null,
+                'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.invoice.paymentDate',
+                    'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
                 )
             )
-            ->add(
-                'taxParcentage',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.taxParcentage',
-                )
-            )
-            ->add(
-                'discountApplied',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.discountApplied',
-                )
-            )
-            ->add(
-                'month',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.month',
-                )
-            )
-            ->add(
-                'year',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.year',
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'backend.admin.enabled',
-                )
-            );
+        ;
     }
 
     /**
@@ -243,15 +214,6 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'template' => '::Admin/Cells/list__cell_event_id.html.twig',
                 )
             )
-//            ->add(
-//                'date',
-//                null,
-//                array(
-//                    'label' => 'backend.admin.invoice.date',
-//                    'editable' => true,
-//                    'format' => 'd/m/Y',
-//                )
-//            )
             ->add(
                 'year',
                 null,
@@ -265,7 +227,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.month',
-                    'editable' => false,
+                    'template' => '::Admin/Cells/list__cell_event_month.html.twig',
                 )
             )
             ->add(
@@ -273,7 +235,11 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.student',
-                    'editable' => true,
+                    'editable' => false,
+                    'associated_property' => 'fullCanonicalName',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'surname'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'student')),
                 )
             )
             ->add(
@@ -289,7 +255,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.isPayed',
-                    'editable' => false,
+                    'editable' => true,
                 )
             )
             ->add(

@@ -176,8 +176,8 @@ AppBundle\Entity\Invoice:
     taxParcentage: <randomFloat(1, 5)>
     discountApplied: <boolean()>
     totalAmount: <randomFloat(1, 5)>
-    month: <numberBetween(1, 100)>
-    year: <numberBetween(1, 100)>
+    month: <month()>
+    year: <year()>
 
 ## Users
 AppBundle\Entity\User:
