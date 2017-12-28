@@ -21,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class InvoiceAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Invoice';
-    protected $baseRoutePattern = 'billing/invoice';
+    protected $baseRoutePattern = 'billings/invoice';
     protected $datagridValues = array(
         '_sort_by' => 'id',
         '_sort_order' => 'desc',
