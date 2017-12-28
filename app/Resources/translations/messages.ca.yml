@@ -181,7 +181,7 @@ backend:
             name: Entitat bancària
             accountNumber: Núm. de compte
             swiftCode: Codi SWIFT
-            parent: "Pare, mare o tutor"
+            parent: Pare, mare o tutor
         parent:
             students: Fills
             dni: DNI/CIF o NIF
@@ -197,12 +197,12 @@ backend:
             invoice: Factura
             detail: Detall
             student: Estudiant
-            person: 'Pare mare o totor'
+            person: Pare mare o tutor
             date: Data factura
             isPayed: Pagat
             paymentDate: Data pagament
             baseAmount: Base imposable
-            id: Nº Factura
+            id: Núm. Factura
             taxParcentage: IVA
             discountApplied: Descompte aplicat
             totalAmount: Total

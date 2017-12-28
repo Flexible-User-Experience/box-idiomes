@@ -39,9 +39,9 @@ sonata_admin:
                 icon: "<i class='fa fa-list-ol'></i>"
             Contactes:
                 icon: "<i class='fa fa-envelope'></i>"
-            Administration:
+            Administració:
                 icon: "<i class='fa fa-briefcase'></i>"
-            Billing:
+            Facturació:
                 icon: "<i class='fa fa-eur'></i>"
         blocks:
             -
@@ -67,10 +67,10 @@ sonata_admin:
                 type: sonata.admin.block.admin_list
                 class: "col-md-6 col-lg-4"
                 settings:
-                    groups: [ Aules, Serveis, Billing ]
+                    groups: [ Aules, Serveis, Facturació ]
             -
                 position: top
                 type: sonata.admin.block.admin_list
                 class: "col-md-6 col-lg-4"
                 settings:
-                    groups: [ Contactes, Administration ]
+                    groups: [ Contactes, Administració ]
