@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Enum\EventClassroomTypeEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -149,7 +150,7 @@ class Event extends AbstractBase
     }
 
     /**
-     * @return mixed
+     * @return Teacher
      */
     public function getTeacher()
     {
@@ -157,7 +158,7 @@ class Event extends AbstractBase
     }
 
     /**
-     * @param mixed $teacher
+     * @param Teacher $teacher
      *
      * @return Event
      */
@@ -174,6 +175,14 @@ class Event extends AbstractBase
     public function getClassroom()
     {
         return $this->classroom;
+    }
+
+    /**
+     * @return int
+     */
+    public function getClassroomString()
+    {
+        return EventClassroomTypeEnum::getTranslatedEnumArray()[$this->classroom];
     }
 
     /**
@@ -364,5 +373,13 @@ class Event extends AbstractBase
                 ->atPath('until')
                 ->addViolation();
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->id ? $this->getBegin()->format('d/m/Y H:i').' · '.$this->getClassroomString().' · '.$this->getTeacher()->getName().' · '.$this->getGroup()->getCode() : '---';
     }
 }

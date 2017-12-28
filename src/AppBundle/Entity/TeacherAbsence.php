@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Enum\TeacherAbsenceTypeEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -72,6 +73,14 @@ class TeacherAbsence extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getTypeString()
+    {
+        return TeacherAbsenceTypeEnum::getEnumArray()[$this->type];
+    }
+
+    /**
      * @param int $type
      *
      * @return TeacherAbsence
@@ -108,6 +117,6 @@ class TeacherAbsence extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getDay()->format('d/m/Y').' · '.$this->getType().' · '.$this->getTeacher() : '---';
+        return $this->id ? $this->getDay()->format('d/m/Y').' · '.$this->getTypeString().' · '.$this->getTeacher() : '---';
     }
 }
