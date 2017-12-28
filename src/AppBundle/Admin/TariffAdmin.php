@@ -56,19 +56,19 @@ class TariffAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'price',
-                null,
-                array(
-                    'label' => 'backend.admin.tariff.price',
-                    'required' => true,
-                )
-            )
-            ->add(
                 'name',
                 null,
                 array(
                     'label' => 'backend.admin.tariff.name',
                     'required' => false,
+                )
+            )
+            ->add(
+                'price',
+                null,
+                array(
+                    'label' => 'backend.admin.tariff.price',
+                    'required' => true,
                 )
             )
             ->end()
@@ -82,14 +82,6 @@ class TariffAdmin extends AbstractBaseAdmin
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
-                )
-            )
-            ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label' => 'backend.admin.enabled',
-                    'required' => false,
                 )
             )
             ->end()
@@ -110,13 +102,6 @@ class TariffAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'price',
-                null,
-                array(
-                    'label' => 'backend.admin.tariff.price',
-                )
-            )
-            ->add(
                 'type',
                 null,
                 array(
@@ -134,6 +119,13 @@ class TariffAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.tariff.name',
+                )
+            )
+            ->add(
+                'price',
+                null,
+                array(
+                    'label' => 'backend.admin.tariff.price',
                 )
             )
         ;
@@ -175,14 +167,6 @@ class TariffAdmin extends AbstractBaseAdmin
                 NumberType::class,
                 array(
                     'label' => 'backend.admin.tariff.price',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'backend.admin.enabled',
                     'editable' => true,
                 )
             )

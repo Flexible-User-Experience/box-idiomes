@@ -30,4 +30,18 @@ class TariffTypeEnum
             self::TARIFF_SIGLE_HOUR => 'backend.admin.tariff.tariff_5',
         );
     }
+
+    /**
+     * @return array
+     */
+    public static function getTranslatedEnumArray()
+    {
+        return array(
+            self::TARIFF_ONE_HOUR_PER_WEEK => '1h/setmana',
+            self::TARIFF_TWO_HOUR_PER_WEEK => '2h/setmana',
+            self::TARIFF_THREE_HOUR_PER_WEEK => '3h/setmana',
+            self::TARIFF_HALF_HOUR_PER_WEEK => '1,5h/setmana',
+            self::TARIFF_SIGLE_HOUR => 'hora particular',
+        );
+    }
 }

@@ -52,7 +52,7 @@ class EventAdmin extends AbstractBaseAdmin
                 DateTimePickerType::class,
                 array(
                     'label' => 'backend.admin.event.begin',
-                    'format' => 'd/M/y H:m',
+                    'format' => 'd/M/y H:mm',
                     'required' => true,
                 )
             )
@@ -61,7 +61,7 @@ class EventAdmin extends AbstractBaseAdmin
                 DateTimePickerType::class,
                 array(
                     'label' => 'backend.admin.event.end',
-                    'format' => 'd/M/y H:m',
+                    'format' => 'd/M/y H:mm',
                     'required' => true,
                 )
             );
@@ -81,7 +81,7 @@ class EventAdmin extends AbstractBaseAdmin
                     DateTimePickerType::class,
                     array(
                         'label' => 'backend.admin.event.until',
-                        'format' => 'd/M/y H:m',
+                        'format' => 'd/M/y H:mm',
                         'required' => false,
                     )
                 );
@@ -163,13 +163,6 @@ class EventAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'teacher',
-                null,
-                array(
-                    'label' => 'backend.admin.event.teacher',
-                )
-            )
-            ->add(
                 'classroom',
                 null,
                 array(
@@ -180,6 +173,13 @@ class EventAdmin extends AbstractBaseAdmin
                     'expanded' => false,
                     'multiple' => false,
                     'choices' => EventClassroomTypeEnum::getEnumArray(),
+                )
+            )
+            ->add(
+                'teacher',
+                null,
+                array(
+                    'label' => 'backend.admin.event.teacher',
                 )
             )
             ->add(
@@ -212,7 +212,7 @@ class EventAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.event.begin',
                     'format' => 'd/m/Y H:i',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
             ->add(
@@ -221,7 +221,15 @@ class EventAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.event.end',
                     'format' => 'd/m/Y H:i',
-                    'editable' => true,
+                    'editable' => false,
+                )
+            )
+            ->add(
+                'classroom',
+                null,
+                array(
+                    'label' => 'backend.admin.event.classroom',
+                    'template' => '::Admin/Cells/list__cell_classroom_type.html.twig',
                 )
             )
             ->add(
@@ -237,20 +245,11 @@ class EventAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'classroom',
-                null,
-                array(
-                    'label' => 'backend.admin.event.classroom',
-                    'template' => '::Admin/Cells/list__cell_classroom_type.html.twig',
-                )
-            )
-            ->add(
                 'group',
                 null,
                 array(
                     'label' => 'backend.admin.event.group',
                     'editable' => true,
-                    'associated_property' => 'code',
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'code'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'group')),
