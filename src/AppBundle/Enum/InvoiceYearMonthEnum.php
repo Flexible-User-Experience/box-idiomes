@@ -50,6 +50,27 @@ class InvoiceYearMonthEnum
     /**
      * @return array
      */
+    public static function getTranlatedMonthEnumArray()
+    {
+        return array(
+            self::JANUARY => 'gener',
+            self::FEBRAURY => 'febrer',
+            self::MARCH => 'març',
+            self::APRIL => 'abril',
+            self::MAY => 'maig',
+            self::JUNE => 'juny',
+            self::JULY => 'juliol',
+            self::AUGUST => 'agost',
+            self::SEPTEMBER => 'setembre',
+            self::OCTOBER => 'octubre',
+            self::NOVEMBER => 'novembre',
+            self::DECEMBER => 'desembre',
+        );
+    }
+
+    /**
+     * @return array
+     */
     public static function getYearEnumArray()
     {
         $result = array();
