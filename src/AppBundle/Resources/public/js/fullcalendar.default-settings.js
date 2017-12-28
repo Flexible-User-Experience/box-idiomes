@@ -28,6 +28,7 @@ jQuery(function () {
         eventLimit: true,
         businessHours: false,
         displayEventTime: true,
+        fixedWeekCount: false,
         weekNumbers: false,
         defaultView: 'agendaWeek',
         themeSystem: 'bootstrap3',
