@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Route\RouteCollection;
  */
 class NewsletterContactAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Newsletter Contact ';
+    protected $classnameLabel = 'Newsletter Contact';
     protected $baseRoutePattern = 'newsletter/contacts';
     protected $datagridValues = array(
         '_sort_by'    => 'createdAt',

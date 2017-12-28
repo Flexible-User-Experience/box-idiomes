@@ -39,10 +39,10 @@ sonata_admin:
                 icon: "<i class='fa fa-list-ol'></i>"
             Contactes:
                 icon: "<i class='fa fa-envelope'></i>"
-            Administració:
-                icon: "<i class='fa fa-briefcase'></i>"
             Facturació:
                 icon: "<i class='fa fa-eur'></i>"
+            Administració:
+                icon: "<i class='fa fa-briefcase'></i>"
         blocks:
             -
                 position: top

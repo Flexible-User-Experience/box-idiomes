@@ -1,5 +1,7 @@
 Teacher List: Professors
 Teacher Create: Crear
+Absence List: Absències
+Absence Create: Crear
 Teacher Delete: Esborrar
 Student List: Alumnes
 Student Create: Crear
@@ -7,13 +9,13 @@ Student Delete: Esborrar
 Grups List: Grups
 Grups Create: Crear
 Grups Delete: Esborrar
-Invoice List: Factura
+Invoice List: Factures
 Invoice Create: Crear
 Invoice Delete: Esborrar
-Tarriff List: Tarifa
+Tarriff List: Tarifes
 Tarriff Create: Crear
 Tarriff Delete: Esborrar
-Event List: Esdeveniment
+Event List: Esdeveniments
 Event Create: Crear
 Event Delete: Esborrar
 Person List: Pares
@@ -22,13 +24,13 @@ Person Delete: Esborrar
 Service List: Serveis
 Service Create: Crear
 Service Delete: Esborrar
-Contact Message List: Missatge de contacte
+Contact Message List: Missatges de contacte
 Contact Message Delete: Esborrar
-"Newsletter Contact List": Butlletí de contacte
-Province List: Província
+Newsletter Contact List: Butlletins de contacte
+Province List: Províncies
 Province Create: Crear
 Province Delete: Esborrar
-City List: Ciutat
+City List: Ciutats
 City Create: Crear
 City Delete: Esborrar
 User List: Usuaris
