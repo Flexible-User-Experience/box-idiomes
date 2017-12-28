@@ -11,6 +11,8 @@ namespace AppBundle\Enum;
  */
 class InvoiceYearMonthEnum
 {
+    const APP_FIRST_YEAR = 2017;
+
     const JANUARY = 1;
     const FEBRAURY = 2;
     const MARCH = 3;
@@ -30,18 +32,18 @@ class InvoiceYearMonthEnum
     public static function getMonthEnumArray()
     {
         return array(
-            self::JANUARY => 'backend.admin.invoice.month.january',
-            self::FEBRAURY => 'backend.admin.invoice.month.febraury',
-            self::MARCH => 'backend.admin.invoice.month.march',
-            self::APRIL => 'backend.admin.invoice.month.april',
-            self::MAY => 'backend.admin.invoice.month.may',
-            self::JUNE => 'backend.admin.invoice.month.june',
-            self::JULY => 'backend.admin.invoice.month.july',
-            self::AUGUST => 'backend.admin.invoice.month.august',
-            self::SEPTEMBER => 'backend.admin.invoice.month.september',
-            self::OCTOBER => 'backend.admin.invoice.month.october',
-            self::NOVEMBER => 'backend.admin.invoice.month.november',
-            self::DECEMBER => 'backend.admin.invoice.month.december',
+            self::JANUARY => 'month.january',
+            self::FEBRAURY => 'month.febraury',
+            self::MARCH => 'month.march',
+            self::APRIL => 'month.april',
+            self::MAY => 'month.may',
+            self::JUNE => 'month.june',
+            self::JULY => 'month.july',
+            self::AUGUST => 'month.august',
+            self::SEPTEMBER => 'month.september',
+            self::OCTOBER => 'month.october',
+            self::NOVEMBER => 'month.november',
+            self::DECEMBER => 'month.december',
         );
     }
 
@@ -53,7 +55,7 @@ class InvoiceYearMonthEnum
         $result = array();
         $now = new \DateTime();
         $currentYear = intval($now->format('Y'));
-        $steps = $currentYear - 2017 + 1;
+        $steps = $currentYear - self::APP_FIRST_YEAR + 1;
         for ($i = 0; $i < $steps; $i++) {
             $year = $currentYear - $i;
             $result["$year"] = $year;

@@ -198,6 +198,7 @@ backend:
             payment: Pagament
             bank: Banc
         invoice:
+            generate: Generar factures
             invoice: Factura
             detail: Detall
             student: Estudiant
@@ -212,3 +213,17 @@ backend:
             totalAmount: Total
             month: Mes
             year: Any
+
+month:
+    january: gener
+    febraury: febrer
+    march: març
+    april: abril
+    may: maig
+    june: juny
+    july: juliol
+    august: agost
+    september: setembre
+    october: octubre
+    november: novembre
+    december: desembre
