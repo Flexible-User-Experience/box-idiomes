@@ -26,7 +26,7 @@ class TeacherAbsenceTypeEnum
             self::PERSONAL_ISSUES => 'Assumptes personals',
             self::TRAINING => 'Formació',
             self::OTHER_ISSUES => 'Altres motius',
-            self::HOLIDAYS => 'Vacacions',
+            self::HOLIDAYS => 'Vacances',
             self::SICK_LEAVE => 'Baixa laboral',
         );
     }
