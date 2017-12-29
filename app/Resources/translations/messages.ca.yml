@@ -205,6 +205,7 @@ backend:
             generate: Generar factures
             generate_batch: Generar facturació mensual
             invoice: Factura
+            lines: Línies de factura
             detail: Detall
             student: Estudiant
             person: Pare mare o tutor

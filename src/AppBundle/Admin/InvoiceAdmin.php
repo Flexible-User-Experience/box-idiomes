@@ -155,6 +155,27 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->end();
+        if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
+            $formMapper
+                ->with('backend.admin.invoice.lines', $this->getFormMdSuccessBoxArray(12))
+                ->add(
+                    'lines',
+                    'sonata_type_collection',
+                    array(
+                        'label' => 'Línia',
+                        'required' => true,
+                        'cascade_validation' => true,
+                        'error_bubbling' => true,
+                        'by_reference' => false,
+                    ),
+                    array(
+                        'edit' => 'inline',
+                        'inline' => 'table',
+                    )
+                )
+                ->end()
+            ;
+        }
     }
 
     /**
