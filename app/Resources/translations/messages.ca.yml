@@ -218,6 +218,13 @@ backend:
             totalAmount: Total
             month: Mes
             year: Any
+        invoiceLine:
+            invoice: Factura
+            description: Descripció
+            units: Unitats
+            priceUnit: Preu Unitat
+            discount: Descompte
+            total: Total
 
 month:
     january: gener

@@ -187,7 +187,8 @@ AppBundle\Entity\InvoiceLine:
     description: <sentence()>
     units: <numberBetween(1, 100)>
     priceUnit: <randomFloat(1, 5)>
-    total: <numberBetween(2, 80)>
+    discount: <randomFloat(1, 5)>
+    total: <randomFloat(1, 5)>
 
 ## Users
 AppBundle\Entity\User:
