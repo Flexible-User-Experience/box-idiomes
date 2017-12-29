@@ -203,6 +203,7 @@ backend:
             bank: Banc
         invoice:
             generate: Generar factures
+            generate_batch: Generar facturació mensual
             invoice: Factura
             detail: Detall
             student: Estudiant

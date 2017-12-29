@@ -41,6 +41,24 @@ class InvoiceAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * Get the list of actions that can be accessed directly from the dashboard.
+     *
+     * @return array
+     */
+    public function getDashboardActions()
+    {
+        $actions = parent::getDashboardActions();
+        $actions['generate'] = array(
+            'label' => 'backend.admin.invoice.generate_batch',
+            'translation_domain' => 'messages',
+            'url' => $this->generateUrl('generate'),
+            'icon' => 'inbox',
+        );
+
+        return $actions;
+    }
+
+    /**
      * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper)

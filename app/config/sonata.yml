@@ -27,7 +27,6 @@ sonata_admin:
         layout:     "::Admin/layout.html.twig"
         edit:       "::Admin/edit.html.twig"
         dashboard:  "::Admin/dashboard.html.twig"
-#        list_block: "::Admin/block_admin_list.html.twig"
     dashboard:
         groups:
             Alumnes:
@@ -38,12 +37,6 @@ sonata_admin:
                 icon: "<i class='fa fa-window-maximize'></i>"
             Facturació:
                 icon: "<i class='fa fa-eur'></i>"
-                label: "Facturació"
-                label_catalogue: "Facturació"
-                items:
-                    - "admin.tariff"
-                    - "admin.invoice"
-                    - { route: "admin_app_invoice_generate", label: "Generar facturació mensual" }
             Serveis:
                 icon: "<i class='fa fa-list-ul'></i>"
             Contactes:
