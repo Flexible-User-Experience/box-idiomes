@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Admin;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
 /**
@@ -18,6 +19,64 @@ class InvoiceLine extends AbstractBaseAdmin
         '_sort_by' => 'description',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * @param DatagridMapper $datagridMapper
+     */
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add(
+                'invoice',
+                null,
+                array(
+                    'label' => 'backend.admin.invoiceLine.invoice',
+                )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'backend.admin.invoiceLine.description',
+                )
+            )
+            ->add(
+                'units',
+                null,
+                array(
+                    'label' => 'backend.admin.invoiceLine.units',
+                )
+            )
+            ->add(
+                'priceUnit',
+                null,
+                array(
+                    'label' => 'backend.admin.invoiceLine.priceUnit',
+                )
+            )
+            ->add(
+                'discount',
+                null,
+                array(
+                    'label' => 'backend.admin.invoiceLine.discount',
+                )
+            )
+            ->add(
+                'total',
+                null,
+                array(
+                    'label' => 'backend.admin.invoiceLine.total',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'backend.admin.enabled',
+                )
+            )
+        ;
+    }
 
     /**
      * @param ListMapper $listMapper
