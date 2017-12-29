@@ -3,6 +3,8 @@
 namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class InvoiceLine
@@ -19,6 +21,76 @@ class InvoiceLine extends AbstractBaseAdmin
         '_sort_by' => 'description',
         '_sort_order' => 'asc',
     );
+
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'backend.admin.invoiceLine.description',
+                )
+            )
+            ->add(
+                'units',
+                null,
+                array(
+                    'label' => 'backend.admin.invoiceLine.units',
+                )
+            )
+            ->add(
+                'priceUnit',
+                null,
+                array(
+                    'label' => 'backend.admin.invoiceLine.priceUnit',
+                )
+            )
+            ->add(
+                'discount',
+                null,
+                array(
+                    'label' => 'backend.admin.invoiceLine.discount',
+                )
+            )
+            ->add(
+                'total',
+                null,
+                array(
+                    'label' => 'backend.admin.invoiceLine.total',
+                )
+            )
+            ->end()
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(6))
+            ->add(
+                'invoice',
+                null,
+                array(
+                    'label' => 'backend.admin.invoiceLine.invoice',
+                    'attr' => array(
+                        'hidden' => true,
+                    ),
+                    'required' => true,
+                )
+            )
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.enabled',
+                    'required' => false,
+                    'attr' => array(
+                        'hidden' => true,
+                    ),
+                )
+            )
+            ->end()
+        ;
+    }
 
     /**
      * @param DatagridMapper $datagridMapper
