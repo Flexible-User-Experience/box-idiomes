@@ -148,6 +148,7 @@ AppBundle\Entity\Tariff:
     price: <randomFloat(1, 5)>
     type: <numberBetween(0, 4)>
     name: <name()>
+    student: @student*
 
 # Event
 AppBundle\Entity\Event:

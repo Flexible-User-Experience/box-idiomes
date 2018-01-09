@@ -119,6 +119,7 @@ backend:
             tariff_3: 3h / setmana
             tariff_4: 1,5 / setmana
             tariff_5: hora particular
+            student: Estudiant
         event:
             begin: Inici
             end: Fi
