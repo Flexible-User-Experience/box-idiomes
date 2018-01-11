@@ -53,6 +53,7 @@ AppBundle\Entity\Student:
     address: <address()>
     city: @city*
     bank: @bank1
+    tariff: @tariff*
     parent: @person1
     schedule: <name()>
     comments: <paragraph()>
@@ -71,6 +72,7 @@ AppBundle\Entity\Student:
     address: <address()>
     city: @city*
     bank: @bank2
+    tariff: @tariff1
     schedule: <name()>
     comments: <paragraph()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>

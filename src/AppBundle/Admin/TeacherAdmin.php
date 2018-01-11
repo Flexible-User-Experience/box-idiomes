@@ -44,7 +44,7 @@ class TeacherAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(6))
+            ->with('backend.admin.image', $this->getFormMdSuccessBoxArray(4))
             ->add(
                 'imageFile',
                 'file',
@@ -54,6 +54,8 @@ class TeacherAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
+            ->end()
+            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'name',
                 null,
@@ -70,7 +72,7 @@ class TeacherAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(2))
             ->add(
                 'position',
                 null,

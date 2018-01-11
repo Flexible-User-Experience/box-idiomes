@@ -7,8 +7,6 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
@@ -83,17 +81,6 @@ class TariffAdmin extends AbstractBaseAdmin
                     'multiple' => false,
                     'expanded' => false,
                     'required' => true,
-                )
-            )
-            ->add(
-                'student',
-                EntityType::class,
-                array(
-                    'label' => 'backend.admin.tariff.student',
-                    'required' => false,
-                    'class' => 'AppBundle:Student',
-                    'choice_label' => 'fullcanonicalname',
-                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedBySurnameQB(),
                 )
             )
             ->end()
