@@ -223,3 +223,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - "AppBundle:ClassGroup"
+    app.tariff_repository:
+        class: AppBundle\Repository\TariffRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Tariff"

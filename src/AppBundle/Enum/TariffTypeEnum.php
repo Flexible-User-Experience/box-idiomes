@@ -41,7 +41,7 @@ class TariffTypeEnum
             self::TARIFF_TWO_HOUR_PER_WEEK => '2h/setmana',
             self::TARIFF_THREE_HOUR_PER_WEEK => '3h/setmana',
             self::TARIFF_HALF_HOUR_PER_WEEK => '1,5h/setmana',
-            self::TARIFF_SIGLE_HOUR => 'hora particular',
+            self::TARIFF_SIGLE_HOUR => '1h/particular',
         );
     }
 }

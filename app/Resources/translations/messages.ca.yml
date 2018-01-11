@@ -119,7 +119,7 @@ backend:
             tariff_2: 2h / setmana
             tariff_3: 3h / setmana
             tariff_4: 1,5 / setmana
-            tariff_5: hora particular
+            tariff_5: 1h / particular
         event:
             begin: Inici
             end: Fi

@@ -185,10 +185,12 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'tariff',
-                null,
+                EntityType::class,
                 array(
                     'label' => 'backend.admin.student.tariff',
                     'required' => true,
+                    'class' => 'AppBundle:Tariff',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.tariff_repository')->findAllSortedByYearAndPriceQB(),
                 )
             )
             ->add(
