@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\AdminType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -170,7 +171,7 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'birthDate',
-                'sonata_type_date_picker',
+                DatePickerType::class,
                 array(
                     'label' => 'backend.admin.student.birthDate',
                     'format' => 'd/M/y',
