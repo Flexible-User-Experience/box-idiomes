@@ -54,6 +54,14 @@ class Student extends AbstractPerson
     protected $bank;
 
     /**
+     * @var Tariff
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Tariff")
+     * @ORM\JoinColumn(name="tariff_id", referencedColumnName="id")
+     */
+    private $tariff;
+
+    /**
      * Methods.
      */
 
@@ -144,6 +152,26 @@ class Student extends AbstractPerson
     public function setParent($parent)
     {
         $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * @return Tariff
+     */
+    public function getTariff()
+    {
+        return $this->tariff;
+    }
+
+    /**
+     * @param Tariff $tariff
+     *
+     * @return Student
+     */
+    public function setTariff($tariff)
+    {
+        $this->tariff = $tariff;
 
         return $this;
     }
