@@ -184,6 +184,14 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'tariff',
+                null,
+                array(
+                    'label' => 'backend.admin.student.tariff',
+                    'required' => true,
+                )
+            )
+            ->add(
                 'enabled',
                 CheckboxType::class,
                 array(
