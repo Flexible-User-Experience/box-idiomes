@@ -159,7 +159,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 ->end();
         }
         $formMapper
-            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(2))
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'dni',
                 null,

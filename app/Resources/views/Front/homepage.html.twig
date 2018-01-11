@@ -18,10 +18,10 @@
                 {% for teacher in teachers %}
                     <div class="col-sm-6 col-xs-12 bottom-margin-responsive">
                         {% if teacher.imageName is not null %}
-                            <img src="{{ vich_uploader_asset(teacher, 'imageFile') | imagine_filter('480x620_teacher_mask') }}"
+                            <img src="{{ vich_uploader_asset(teacher, 'imageFile') | imagine_filter('585x756_teacher_mask') }}"
                                  class="img-responsive" alt="{{ teacher.imageName }}">
                         {% else %}
-                            <img src="{{ asset('bundles/app/img/1teacher.jpeg') | imagine_filter('480x620_teacher_mask') }}"
+                            <img src="{{ asset('bundles/app/img/1teacher.jpeg') | imagine_filter('585x756_teacher_mask') }}"
                                  class="img-responsive" alt="1teacher">
                         {% endif %}
                         <h4 class="{{ teacher.cssColor }} normal-m-top">{{ teacher.name }}</h4>
