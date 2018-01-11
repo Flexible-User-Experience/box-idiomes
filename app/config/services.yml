@@ -56,7 +56,7 @@ services:
         class: AppBundle\Admin\InvoiceLine
         arguments: [ ~, AppBundle\Entity\InvoiceLine, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Línies", group: "Facturació" }
+            - { name: sonata.admin, manager_type: orm, label: "Línies", group: "Facturació", show_in_dashboard: false }
     # services
     admin.service:
         class: AppBundle\Admin\ServiceAdmin
