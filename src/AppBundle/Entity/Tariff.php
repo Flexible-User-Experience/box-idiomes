@@ -48,6 +48,14 @@ class Tariff extends AbstractBase
     private $name;
 
     /**
+     * @var Student
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Student")
+     * @ORM\JoinColumn(name="student_id", referencedColumnName="id")
+     */
+    private $student;
+
+    /**
      * Methods.
      */
 
@@ -144,6 +152,24 @@ class Tariff extends AbstractBase
     {
         $this->name = $name;
 
+        return $this;
+    }
+
+    /**
+     * @return Student
+     */
+    public function getStudent()
+    {
+        return $this->student;
+    }
+
+    /**
+     * @param Student $student
+     * @return Tariff
+     */
+    public function setStudent($student)
+    {
+        $this->student = $student;
         return $this;
     }
 

@@ -167,6 +167,8 @@ AppBundle\Entity\Event:
 # Invoice
 AppBundle\Entity\Invoice:
   invoice{1..2}:
+    lines:
+        - @invoiceLine1
     student: @student<current()>
     person: @person1
     date: <date()>
@@ -178,6 +180,15 @@ AppBundle\Entity\Invoice:
     totalAmount: <randomFloat(1, 5)>
     month: <month()>
     year: <year()>
+
+# InvoiceLine
+AppBundle\Entity\InvoiceLine:
+  invoiceLine{1..2}:
+    description: <sentence()>
+    units: <numberBetween(1, 100)>
+    priceUnit: <randomFloat(1, 5)>
+    discount: <randomFloat(1, 5)>
+    total: <randomFloat(1, 5)>
 
 ## Users
 AppBundle\Entity\User:

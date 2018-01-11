@@ -119,6 +119,7 @@ backend:
             tariff_3: 3h / setmana
             tariff_4: 1,5 / setmana
             tariff_5: hora particular
+            student: Estudiant
         event:
             begin: Inici
             end: Fi
@@ -205,6 +206,7 @@ backend:
             generate: Generar factures
             generate_batch: Generar facturació mensual
             invoice: Factura
+            lines: Línies de factura
             detail: Detall
             student: Estudiant
             person: Pare mare o tutor
@@ -218,6 +220,13 @@ backend:
             totalAmount: Total
             month: Mes
             year: Any
+        invoiceLine:
+            invoice: Factura
+            description: Descripció
+            units: Unitats
+            priceUnit: Preu Unitat
+            discount: Descompte
+            total: Total
 
 month:
     january: gener
