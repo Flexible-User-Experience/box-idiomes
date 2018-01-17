@@ -129,7 +129,15 @@ class TeacherAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.enabled',
                 )
-            );
+            )
+            ->add(
+                'showInHomepage',
+                null,
+                array(
+                    'label' => 'backend.admin.teacher.showInHomepage',
+                )
+            )
+        ;
     }
 
     /**

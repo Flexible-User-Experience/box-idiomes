@@ -126,7 +126,7 @@ backend:
             end: Fi
             teacher: Professor
             classroom: Aula
-            group: Grup aula
+            group: Grup class
             students: Estudiants
             previous: Abans
             next: Pròxima
