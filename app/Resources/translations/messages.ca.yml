@@ -16,9 +16,9 @@ Invoice Delete: Esborrar
 Tarriff List: Tarifes
 Tarriff Create: Crear
 Tarriff Delete: Esborrar
-Event List: Esdeveniments
-Event Create: Crear
-Event Delete: Esborrar
+Timetable List: Horaris
+Timetable Create: Crear
+Timetable Delete: Esborrar
 Person List: Pares
 Person Create: Crear
 Person Delete: Esborrar
@@ -83,6 +83,7 @@ backend:
         teacher:
             name: Nom
             color: Color
+            showInHomepage: Mostrar
         teacher_absence:
             teacher: Professor
             type: Tipus
@@ -125,7 +126,7 @@ backend:
             end: Fi
             teacher: Professor
             classroom: Aula
-            group: Grup aula
+            group: Grup class
             students: Estudiants
             previous: Abans
             next: Pròxima

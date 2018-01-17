@@ -83,9 +83,9 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/classrooms/group/list'),
             array('/admin/classrooms/group/create'),
             array('/admin/classrooms/group/1/edit'),
-            array('/admin/classrooms/event/list'),
-            array('/admin/classrooms/event/create'),
-            array('/admin/classrooms/event/1/edit'),
+            array('/admin/classrooms/timetable/list'),
+            array('/admin/classrooms/timetable/create'),
+            array('/admin/classrooms/timetable/1/edit'),
             array('/admin/billings/tariff/list'),
             array('/admin/billings/tariff/create'),
             array('/admin/billings/tariff/1/edit'),
@@ -140,7 +140,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/administrations/city/1/delete'),
             array('/admin/classrooms/group/1/delete'),
             array('/admin/classrooms/tariff/1/delete'),
-            array('/admin/classrooms/event/1/delete'),
+            array('/admin/classrooms/timetable/1/delete'),
             array('/admin/billings/invoice/1/delete'),
         );
     }
