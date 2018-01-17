@@ -180,6 +180,14 @@ class TeacherAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'showInHomepage',
+                null,
+                array(
+                    'label' => 'backend.admin.teacher.showInHomepage',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 '_action',
                 'actions',
                 array(
