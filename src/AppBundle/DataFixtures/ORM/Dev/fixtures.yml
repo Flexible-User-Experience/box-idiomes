@@ -28,6 +28,7 @@ AppBundle\Entity\Teacher:
     description: <paragraph()>
     position: <numberBetween(1, 5)>
     color: <numberBetween(0, 3)>
+    showInHomepage: true
 
 # TeacherAbsence
 AppBundle\Entity\TeacherAbsence:
@@ -57,7 +58,6 @@ AppBundle\Entity\Student:
     schedule: <name()>
     comments: <paragraph()>
     parent: @person<current()>
-    showInHomepage: true
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -76,7 +76,6 @@ AppBundle\Entity\Student:
     tariff: @tariff1
     schedule: <name()>
     comments: <paragraph()>
-    showInHomepage: true
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true

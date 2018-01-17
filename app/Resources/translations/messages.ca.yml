@@ -83,6 +83,7 @@ backend:
         teacher:
             name: Nom
             color: Color
+            showInHomepage: Mostrar
         teacher_absence:
             teacher: Professor
             type: Tipus

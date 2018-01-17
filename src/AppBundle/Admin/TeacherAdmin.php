@@ -99,6 +99,14 @@ class TeacherAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
+            ->add(
+                'showInHomepage',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.teacher.showInHomepage',
+                    'required' => false,
+                )
+            )
             ->end();
     }
 
