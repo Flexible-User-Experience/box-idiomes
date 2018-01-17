@@ -38,7 +38,7 @@ services:
         class: AppBundle\Admin\EventAdmin
         arguments: [ ~ , AppBundle\Entity\Event, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Esdeveniment", group: "Aules" }
+            - { name: sonata.admin, manager_type: orm, label: "Horari", group: "Aules" }
         calls:
             - [ setTemplate, [ edit, "::Admin/Event/edit.html.twig" ] ]
     # billings

@@ -21,8 +21,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  */
 class EventAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Event';
-    protected $baseRoutePattern = 'classrooms/event';
+    protected $classnameLabel = 'Timetable';
+    protected $baseRoutePattern = 'classrooms/timetable';
     protected $datagridValues = array(
         '_sort_by' => 'begin',
         '_sort_order' => 'desc',
