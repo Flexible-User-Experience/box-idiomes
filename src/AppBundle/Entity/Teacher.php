@@ -64,6 +64,13 @@ class Teacher extends AbstractBase
     private $color = 0;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $showInHomepage = true;
+
+    /**
      * Methods.
      */
 
@@ -111,6 +118,26 @@ class Teacher extends AbstractBase
     public function setColor($color)
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isShowInHomepage()
+    {
+        return $this->showInHomepage;
+    }
+
+    /**
+     * @param bool $showInHomepage
+     *
+     * @return Teacher
+     */
+    public function setShowInHomepage($showInHomepage)
+    {
+        $this->showInHomepage = $showInHomepage;
 
         return $this;
     }

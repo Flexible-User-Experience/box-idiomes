@@ -57,6 +57,7 @@ AppBundle\Entity\Student:
     schedule: <name()>
     comments: <paragraph()>
     parent: @person<current()>
+    showInHomepage: true
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
@@ -75,6 +76,7 @@ AppBundle\Entity\Student:
     tariff: @tariff1
     schedule: <name()>
     comments: <paragraph()>
+    showInHomepage: true
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
