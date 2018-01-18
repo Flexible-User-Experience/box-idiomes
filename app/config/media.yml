@@ -27,6 +27,10 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [ 2400, null ], mode: outbound }
+        585xY:
+            quality: 100
+            filters:
+                thumbnail: { size: [ 585, null ], mode: outbound }
         480xY:
             quality: 100
             filters:

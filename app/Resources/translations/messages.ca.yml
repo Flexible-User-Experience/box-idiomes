@@ -83,7 +83,7 @@ backend:
         teacher:
             name: Nom
             color: Color
-            showInHomepage: Mostrar
+            showInHomepage: Mostrar al web
         teacher_absence:
             teacher: Professor
             type: Tipus
@@ -126,7 +126,7 @@ backend:
             end: Fi
             teacher: Professor
             classroom: Aula
-            group: Grup class
+            group: Grup classe
             students: Estudiants
             previous: Abans
             next: Pròxima
