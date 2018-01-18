@@ -217,6 +217,7 @@ backend:
             baseAmount: Base imposable
             id: Núm. Factura
             taxParcentage: IVA
+            taxParcentage: IRPF
             discountApplied: Descompte aplicat
             totalAmount: Total
             month: Mes

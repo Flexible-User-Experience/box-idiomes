@@ -179,6 +179,7 @@ AppBundle\Entity\Invoice:
     paymentDate: <date()>
     baseAmount: <randomFloat(1, 5)>
     taxParcentage: <randomFloat(1, 5)>
+    irpf: <randomFloat(1, 5)>
     discountApplied: <boolean()>
     totalAmount: <randomFloat(1, 5)>
     month: <month()>
