@@ -79,6 +79,13 @@ class Invoice extends AbstractBase
     private $taxParcentage = 0;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(type="float", options={"default"=15})
+     */
+    private $irpf = 15;
+
+    /**
      * @var bool
      *
      * @ORM\Column(type="boolean")
@@ -302,6 +309,26 @@ class Invoice extends AbstractBase
     public function setTaxParcentage($taxParcentage)
     {
         $this->taxParcentage = $taxParcentage;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getIrpf()
+    {
+        return $this->irpf;
+    }
+
+    /**
+     * @param float $irpf
+     *
+     * @return Invoice
+     */
+    public function setIrpf($irpf)
+    {
+        $this->irpf = $irpf;
 
         return $this;
     }
