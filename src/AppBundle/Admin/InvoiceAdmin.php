@@ -123,7 +123,8 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 'irpf',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.taxParcentage',
+                    'label' => 'backend.admin.invoice.irpf',
+                    'required' => false,
                 )
             )
             ->add(

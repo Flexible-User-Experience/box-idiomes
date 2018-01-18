@@ -81,7 +81,7 @@ class Invoice extends AbstractBase
     /**
      * @var float
      *
-     * @ORM\Column(type="float", options={"default"=15})
+     * @ORM\Column(type="float", nullable=true, options={"default"=15})
      */
     private $irpf = 15;
 

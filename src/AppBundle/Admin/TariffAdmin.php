@@ -8,7 +8,6 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 /**
  * Class TariffAdmin.
@@ -163,7 +162,7 @@ class TariffAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'price',
-                NumberType::class,
+                null,
                 array(
                     'label' => 'backend.admin.tariff.price',
                     'editable' => true,
