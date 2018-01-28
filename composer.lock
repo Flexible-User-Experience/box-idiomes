@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "016a821c0f96af62880911e96dc82a59",
+    "content-hash": "ed7f1665836caed06db3bc790d5477ee",
     "packages": [
         {
             "name": "ancarebeca/full-calendar-bundle",
@@ -7369,7 +7369,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1.0"
+        "php": "^7.1.3"
     },
     "platform-dev": []
 }
