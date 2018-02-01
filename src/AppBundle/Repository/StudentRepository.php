@@ -24,6 +24,7 @@ class StudentRepository extends EntityRepository
             ->where('s.enabled = :enabled')
             ->setParameter('enabled', true)
             ->orderBy('s.name', 'ASC')
+            ->addOrderBy('s.surname', 'ASC')
         ;
     }
 

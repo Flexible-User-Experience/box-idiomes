@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -87,18 +88,24 @@ class InvoiceAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'student',
-                null,
+                EntityType::class,
                 array(
                     'label' => 'backend.admin.invoice.student',
                     'required' => false,
+                    'class' => 'AppBundle:Student',
+                    'choice_label' => 'fullCanonicalName',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedBySurnameQB(),
                 )
             )
             ->add(
                 'person',
-                null,
+                EntityType::class,
                 array(
                     'label' => 'backend.admin.invoice.person',
                     'required' => false,
+                    'class' => 'AppBundle:Person',
+                    'choice_label' => 'fullCanonicalName',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.parent_repository')->getEnabledSortedBySurnameQB(),
                 )
             )
             ->end()
