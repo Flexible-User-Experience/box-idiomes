@@ -28,17 +28,16 @@ class InvoiceAdminController extends BaseAdminController
      */
     public function generateAction(Request $request = null)
     {
-        $students = $this->get('app.student_repository')->findAll();
         $object = new Invoice();
         $form = $this->createForm(GenerateInvoiceType::class);
         $form->handleRequest($request);
 
+        $students = [];
         if ($form->isSubmitted() && $form->isValid()) {
             // TODO some logic
-//            $students = $this->get('app.student_repository')->findAll();
+            $students = $this->get('app.student_repository')->findAll();
             $this->addFlash('success', 'Les factures han estat generades correctament.');
 
-//            return $this->redirectToList();
         }
 
         return $this->render(

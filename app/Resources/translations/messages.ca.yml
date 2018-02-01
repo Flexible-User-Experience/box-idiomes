@@ -205,6 +205,7 @@ backend:
             bank: Banc
         invoice:
             generate: Generar factures
+            list: Llista factura
             generate_batch: Generar facturació mensual
             invoice: Factura
             lines: Línies de factura
