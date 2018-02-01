@@ -39,6 +39,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
         parent::configureRoutes($collection);
         $collection
             ->add('generate')
+            ->add('pdf', $this->getRouterIdParameter().'/pdf')
             ->remove('delete');
     }
 
@@ -319,6 +320,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'invoice' => array('template' => '::Admin/Buttons/list__action_invoice_pdf_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )
