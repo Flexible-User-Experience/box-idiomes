@@ -234,3 +234,8 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - "AppBundle:Tariff"
+    app.invoice_repository:
+        class: AppBundle\Repository\InvoiceRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Invoice"
