@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div>
-            {% if invoices|length > 0 %}
+            {% if students|length > 0 %}
                 <div class="col-md-6">
                     <div class="box box-primary">
                         <div class="box-header with-border">
@@ -22,18 +22,18 @@
                         <div class="box-body">
                             <table class="table">
                                 <thead>
-                                <tr>
-                                    <td>Noms</td>
-                                    <td>Iport factura</td>
-                                    <td>Control</td>
-                                </tr>
+                                    <tr>
+                                        <td>Noms</td>
+                                        <td>Import</td>
+                                        <td>Actiu</td>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                {% for invoice in invoices  %}
+                                {% for student in students  %}
                                     <tr>
-                                        <td>{{ invoice.student.fullCanonicalName }}</td>
-                                        <td>{{ invoice.totalAmount }}</td>
-                                        <td>{{ invoice.enabled }}</td>
+                                        <td>{{ student.fullCanonicalName }}</td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

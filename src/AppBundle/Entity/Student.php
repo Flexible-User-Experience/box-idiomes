@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -62,8 +63,23 @@ class Student extends AbstractPerson
     private $tariff;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Event", mappedBy="students")
+     */
+    private $events;
+
+    /**
      * Methods.
      */
+
+    /**
+     * Student constructor.
+     */
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+    }
 
     /**
      * @return \DateTime
@@ -174,5 +190,43 @@ class Student extends AbstractPerson
         $this->tariff = $tariff;
 
         return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * @param ArrayCollection $events
+     * @return Student
+     */
+    public function setEvents($events)
+    {
+        $this->events = $events;
+        return $this;
+    }
+
+    /**
+     * @param Event $event
+     */
+    public function addEvent(Event $event)
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+        }
+    }
+
+    /**
+     * @param Event $event
+     */
+    public function removeEvent(Event $event)
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+        }
     }
 }
