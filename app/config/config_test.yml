@@ -19,6 +19,11 @@ doctrine:
     dbal:
         driver: "pdo_sqlite"
         path:   "%kernel.root_dir%/databases/test.db3"
+    orm:
+        dql:
+            datetime_functions:
+                month: DoctrineExtensions\Query\Sqlite\Month
+                year:   DoctrineExtensions\Query\Sqlite\Year
 
 liip_functional_test:
     cache_sqlite_db: true
