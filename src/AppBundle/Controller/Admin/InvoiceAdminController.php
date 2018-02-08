@@ -35,7 +35,7 @@ class InvoiceAdminController extends BaseAdminController
         $student = [];
         if ($form->isSubmitted() && $form->isValid()) {
             // TODO some logic
-            $student = $this->get('app.student_repository')->findAll();
+            $student = $this->get('app.student_repository')->getItemsStudentsByMonthAmount();
             $this->addFlash('success', 'Les factures han estat generades correctament.');
 
         }

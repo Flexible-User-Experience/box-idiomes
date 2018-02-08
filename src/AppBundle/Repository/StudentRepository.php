@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Event;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
@@ -71,5 +72,33 @@ class StudentRepository extends EntityRepository
     public function getEnabledSortedBySurname()
     {
         return $this->getEnabledSortedBySurnameQ()->getResult();
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getItemsStudentsByMonthAmountQB()
+    {
+        return $this->createQueryBuilder('s')
+            ->join('s.events', 'e')
+            ->andWhere('e.classroom = :classroom')
+            ->setParameter('classroom', 3)
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getItemsStudentsByMonthAmountQ()
+    {
+        return $this->getItemsStudentsByMonthAmountQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getItemsStudentsByMonthAmount()
+    {
+        return $this->getItemsStudentsByMonthAmountQ()->getResult();
     }
 }
