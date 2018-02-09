@@ -28,14 +28,15 @@ class InvoiceAdminController extends BaseAdminController
      */
     public function generateAction(Request $request = null)
     {
-        $object = new Invoice();
+//        $object = new Invoice();
         $form = $this->createForm(GenerateInvoiceType::class);
         $form->handleRequest($request);
 
         $student = [];
         if ($form->isSubmitted() && $form->isValid()) {
-            // TODO some logic
-            $student = $this->get('app.student_repository')->getItemsStudentsByMonthAmount();
+            $year = $form->getData()['year'];
+            $month = $form->getData()['month'];
+            $student = $this->get('app.student_repository')->getStudentsInEventsByYearAndMonth($year, $month);
             $this->addFlash('success', 'Les factures han estat generades correctament.');
 
         }
@@ -44,7 +45,7 @@ class InvoiceAdminController extends BaseAdminController
             '::Admin/Invoice/generate_invoice_form.html.twig',
             array(
                 'action'   => 'generate',
-                'object'   => $object,
+ //               'object'   => $object,
                 'form'     => $form->createView(),
                 'students' => $student,
             ),

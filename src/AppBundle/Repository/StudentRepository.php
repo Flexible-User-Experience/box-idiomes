@@ -74,30 +74,38 @@ class StudentRepository extends EntityRepository
     }
 
     /**
+     * @param int $year
+     * @param int $month
      * @return QueryBuilder
      */
-    public function getItemsStudentsByMonthAmountQB()
+    public function getStudentsInEventsByYearAndMonthQB($year, $month)
     {
         return $this->createQueryBuilder('s')
             ->join('s.events', 'e')
-            ->andWhere('e.classroom = :classroom')
-            ->setParameter('classroom', 3)
+            ->where('YEAR(e.begin) = :year')
+            ->andWhere('MONTH(e.begin) = :month')
+            ->setParameter('year', $year)
+            ->setParameter('month', $month)
         ;
     }
 
     /**
+     * @param int $year
+     * @param int $month
      * @return Query
      */
-    public function getItemsStudentsByMonthAmountQ()
+    public function getStudentsInEventsByYearAndMonthQ($year, $month)
     {
-        return $this->getItemsStudentsByMonthAmountQB()->getQuery();
+        return $this->getStudentsInEventsByYearAndMonthQB($year, $month)->getQuery();
     }
 
     /**
+     * @param int $year
+     * @param int $month
      * @return array
      */
-    public function getItemsStudentsByMonthAmount()
+    public function getStudentsInEventsByYearAndMonth($year, $month)
     {
-        return $this->getItemsStudentsByMonthAmountQ()->getResult();
+        return $this->getStudentsInEventsByYearAndMonthQ($year, $month)->getResult();
     }
 }

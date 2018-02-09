@@ -31,6 +31,7 @@ class GenerateInvoiceType extends AbstractType
                     'label' => 'backend.admin.invoice.year',
                     'required' => true,
                     'choices' => InvoiceYearMonthEnum::getYearEnumArray(),
+                    'choices_as_values' => true,
                 )
             )
             ->add(
