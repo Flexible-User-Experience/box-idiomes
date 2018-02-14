@@ -48,7 +48,7 @@ class GenerateInvoiceType extends AbstractType
                 'generate',
                 SubmitType::class,
                 array(
-                    'label' => 'backend.admin.invoice.generate',
+                    'label' => 'backend.admin.invoice.preview_invoice',
                     'attr'  => array(
                         'class' => 'btn btn-success',
                     ),

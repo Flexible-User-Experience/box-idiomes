@@ -106,6 +106,8 @@ backend:
             schedule: Horari
             comments: Comentaris
             tariff: Tarifa
+            discountApplied: Descompte
+            total: Total
         class_group:
             code: Codi
             name: Nom
@@ -205,6 +207,7 @@ backend:
             bank: Banc
         invoice:
             generate: Generar factures
+            preview_invoice: Previsualitzar llistat factures
             list: Llista factura
             generate_batch: Generar facturació mensual
             invoice: Factura

@@ -24,21 +24,30 @@
                                 <thead>
                                     <tr>
                                         <td>{{ 'backend.admin.student.name' | trans }}</td>
-                                        <td>Import</td>
-                                        <td>Actiu</td>
+                                        <td class="text-right">{{ 'backend.admin.student.tariff' | trans }}</td>
+                                        <td class="text-right">{{ 'backend.admin.student.discountApplied' | trans }}</td>
+                                        <td class="text-right">{{ 'backend.admin.student.total' | trans }}</td>
+                                        <td>{{ 'backend.admin.enabled' | trans }}</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 {% for student in students  %}
                                     <tr>
                                         <td>{{ student.fullCanonicalName }}</td>
-                                        <td>{{ student.calculateMonthlyTariff | number_format(2, ',', '.') }} €</td>
+                                        <td class="text-right">{{ student.tariff.price | number_format(2, ',', '.') }} €</td>
+                                        <td class="text-right">
+                                            {% if student.calculateMonthlyDiscount > 0 %}
+                                                - {{ student.calculateMonthlyDiscount | number_format(2, ',', '.') }} €
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right">{{ student.calculateMonthlyTariff | number_format(2, ',', '.') }} €</td>
                                         <td></td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-success">Generar lot</button>
+                            <hr>
+                            <button type="submit" class="btn btn-success">{{ 'backend.admin.invoice.generate' | trans }}</button>
                         </div>
                     </div>
                 </div>

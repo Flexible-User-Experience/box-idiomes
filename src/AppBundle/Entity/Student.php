@@ -19,6 +19,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Student extends AbstractPerson
 {
+    const DISCOUNT_PER_SON = 5;
+
     /**
      * @var \DateTime
      *
@@ -237,9 +239,21 @@ class Student extends AbstractPerson
     {
         $price = $this->getTariff()->getPrice();
         if ($this->getParent()) {
-            $price = $price - ($this->getParent()->getSonsAmount() * 5);
+            $price = $price - ($this->getParent()->getSonsAmount() * self::DISCOUNT_PER_SON);
         }
 
         return $price;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function calculateMonthlyDiscount()
+    {
+        $discount = 0;
+        if ($this->getParent()) {
+            $discount = $this->getParent()->getSonsAmount() * self::DISCOUNT_PER_SON;
+        }
+        return $discount;
     }
 }
