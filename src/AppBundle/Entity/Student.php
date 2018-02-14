@@ -229,4 +229,17 @@ class Student extends AbstractPerson
             $this->events->removeElement($event);
         }
     }
+
+    /**
+     * @return float
+     */
+    public function calculateMonthlyTariff()
+    {
+        $price = $this->getTariff()->getPrice();
+        if ($this->getParent()) {
+            $price = $price - ($this->getParent()->getSonsAmount() * 5);
+        }
+
+        return $price;
+    }
 }

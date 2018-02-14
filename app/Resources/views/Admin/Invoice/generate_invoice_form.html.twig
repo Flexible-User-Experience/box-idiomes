@@ -23,7 +23,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <td>Noms</td>
+                                        <td>{{ 'backend.admin.student.name' | trans }}</td>
                                         <td>Import</td>
                                         <td>Actiu</td>
                                     </tr>
@@ -32,7 +32,7 @@
                                 {% for student in students  %}
                                     <tr>
                                         <td>{{ student.fullCanonicalName }}</td>
-                                        <td>{{ student.tariff.price }}</td>
+                                        <td>{{ student.calculateMonthlyTariff | number_format(2, ',', '.') }} €</td>
                                         <td></td>
                                     </tr>
                                 {% endfor %}
