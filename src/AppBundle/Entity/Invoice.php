@@ -150,9 +150,10 @@ class Invoice extends AbstractBase
      *
      * @return $this
      */
-    public function addLine($line)
+    public function addLine(InvoiceLine $line)
     {
         if (!$this->lines->contains($line)) {
+            $line->setInvoice($this);
             $this->lines->add($line);
         }
 
@@ -164,7 +165,7 @@ class Invoice extends AbstractBase
      *
      * @return $this
      */
-    public function removeLine($line)
+    public function removeLine(InvoiceLine $line)
     {
         if ($this->lines->contains($line)) {
             $this->lines->removeElement($line);
