@@ -7,13 +7,13 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class InvoiceLine
+ * Class InvoiceLineAdmin
  *
  * @category Admin
  * @package  AppBundle\Admin
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
-class InvoiceLine extends AbstractBaseAdmin
+class InvoiceLineAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Invoice';
     protected $baseRoutePattern = 'billings/invoice-line';
