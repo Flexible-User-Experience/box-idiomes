@@ -155,7 +155,8 @@ class Invoice extends AbstractBase
         if (!$this->lines->contains($line)) {
             $line->setInvoice($this);
             $this->lines->add($line);
-            // TODO recalculate baseAmount
+            $this->setBaseAmount($line->getTotal() + $this->getBaseAmount());
+            $this->setDiscountApplied($this->getStudent()->hasDiscount());
         }
 
         return $this;
@@ -170,7 +171,7 @@ class Invoice extends AbstractBase
     {
         if ($this->lines->contains($line)) {
             $this->lines->removeElement($line);
-            // TODO recalculate baseAmount
+            $this->setBaseAmount($line->getTotal() - $this->getBaseAmount());
         }
 
         return $this;
@@ -438,6 +439,30 @@ class Invoice extends AbstractBase
         return $result;
     }
 
+    /**
+     * @return float|int
+     */
+    public function calculateTaxParcentage()
+    {
+        return $this->calculateTotalBaseAmount() * (21 / 100);
+    }
+
+    /**
+     * @return float|int
+     */
+    public function calculateIrpf()
+    {
+        return $this->calculateTotalBaseAmount() * ($this->irpf / 100);
+    }
+
+    /**
+     * @return float|int
+     */
+    public function calculateTotal()
+    {
+        return $this->calculateTotalBaseAmount() + $this->calculateTaxParcentage() - $this->calculateIrpf();
+    }
+    
     /**
      * @return string
      */

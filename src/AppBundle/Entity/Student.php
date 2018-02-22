@@ -256,4 +256,12 @@ class Student extends AbstractPerson
         }
         return $discount;
     }
+
+    /**
+     * @return bool
+     */
+    public function hasDiscount()
+    {
+        return $this->getParent() ? true : false;
+    }
 }

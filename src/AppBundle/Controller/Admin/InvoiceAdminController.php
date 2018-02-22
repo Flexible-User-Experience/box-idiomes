@@ -70,6 +70,9 @@ class InvoiceAdminController extends BaseAdminController
                         ->setYear($year)
                         ->setMonth($month)
                         ->addLine($invoiceLine)
+                        ->setTaxParcentage($invoice->calculateTaxParcentage())
+                        ->setIrpf($invoice->calculateIrpf())
+                        ->setTotalAmount($invoice->calculateTotal())
                     ;
                     $em->persist($invoice);
                 }

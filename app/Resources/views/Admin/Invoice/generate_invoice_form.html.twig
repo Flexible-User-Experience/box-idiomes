@@ -30,7 +30,6 @@
                                             <td class="text-right">{{ 'backend.admin.student.tariff' | trans }}</td>
                                             <td class="text-right">{{ 'backend.admin.student.discountApplied' | trans }}</td>
                                             <td class="text-right">{{ 'backend.admin.student.total' | trans }}</td>
-                                            <td>{{ 'backend.admin.enabled' | trans }}</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -44,7 +43,6 @@
                                                 {% endif %}
                                             </td>
                                             <td class="text-right">{{ student.calculateMonthlyTariff | number_format(2, ',', '.') }} €</td>
-                                            <td></td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
