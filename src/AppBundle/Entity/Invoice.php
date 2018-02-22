@@ -155,6 +155,7 @@ class Invoice extends AbstractBase
         if (!$this->lines->contains($line)) {
             $line->setInvoice($this);
             $this->lines->add($line);
+            // TODO recalculate baseAmount
         }
 
         return $this;
@@ -169,6 +170,7 @@ class Invoice extends AbstractBase
     {
         if ($this->lines->contains($line)) {
             $this->lines->removeElement($line);
+            // TODO recalculate baseAmount
         }
 
         return $this;

@@ -55,9 +55,11 @@ class InvoiceAdminController extends BaseAdminController
                 foreach ($students as $student) {
                     $invoiceLine = new InvoiceLine();
                     $invoiceLine
+                        ->setDescription('Classes d\'anglès mensual')
                         ->setUnits(1)
                         ->setPriceUnit($student->calculateMonthlyTariff())
-                        ->setDescription('Classes d\'anglès mensual')
+                        ->setDiscount($student->calculateMonthlyDiscount())
+                        ->setTotal($invoiceLine->calculateBaseAmount())
                     ;
                     $invoice = new Invoice();
                     $invoice
