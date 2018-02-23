@@ -69,12 +69,10 @@ class InvoiceAdminController extends BaseAdminController
                         ->setIsPayed(false)
                         ->setYear($year)
                         ->setMonth($month)
-                        ->setDiscountApplied($student->calculateMonthlyDiscount() ? true : false)
-                        ->addLine($invoiceLine)
-                        ->setTaxParcentage($invoice->calculateTaxParcentage())
                         ->setIrpf($invoice->calculateIrpf())
-                        ->setTotalAmount($invoice->calculateTotal())
                     ;
+                    $invoice->addLine($invoiceLine);
+
                     $em->persist($invoice);
                 }
 

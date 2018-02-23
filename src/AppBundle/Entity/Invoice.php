@@ -156,7 +156,7 @@ class Invoice extends AbstractBase
             $line->setInvoice($this);
             $this->lines->add($line);
             $this->setBaseAmount($line->getTotal() + $this->getBaseAmount());
-//            $this->setDiscountApplied($this->getStudent()->hasDiscount());
+            $this->setDiscountApplied($this->getStudent()->hasDiscount());
         }
 
         return $this;

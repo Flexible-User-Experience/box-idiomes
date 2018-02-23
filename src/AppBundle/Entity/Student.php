@@ -262,6 +262,10 @@ class Student extends AbstractPerson
      */
     public function hasDiscount()
     {
-        return $this->getParent() ? true : false;
+        if ($this->getParent()) {
+            return $this->getParent()->getSonsAmount() > 1 ? true : false;
+        }
+
+        return false;
     }
 }
