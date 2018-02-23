@@ -162,7 +162,7 @@ class TariffAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'price',
-                null,
+                'decimal',
                 array(
                     'label' => 'backend.admin.tariff.price',
                     'editable' => true,
