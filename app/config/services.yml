@@ -3,14 +3,14 @@ services:
     # students
     admin.student:
         class: AppBundle\Admin\StudentAdmin
-        arguments: [ ~ , AppBundle\Entity\Student, AppBundle:Admin\StudentAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Student, AppBundle:Admin\StudentAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Alumne", group: "Alumnes" }
         calls:
             - [ setTemplate, [ edit, "::Admin/Student/edit.html.twig" ] ]
     admin.parent:
         class: AppBundle\Admin\PersonAdmin
-        arguments: [ ~ , AppBundle\Entity\Person, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Person, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Pare, mare o tutor", group: "Alumnes" }
         calls:
@@ -18,25 +18,25 @@ services:
     # teachers
     admin.teacher:
         class: AppBundle\Admin\TeacherAdmin
-        arguments: [ ~ , AppBundle\Entity\Teacher, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Teacher, AppBundle:Admin\TeacherAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Professor", group: "Professors" }
     admin.teacher_absence:
         class: AppBundle\Admin\TeacherAbsenceAdmin
-        arguments: [ ~ , AppBundle\Entity\TeacherAbsence, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\TeacherAbsence, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Absència", group: "Professors" }
     # classrooms
     admin.class_group:
         class: AppBundle\Admin\ClassGroupAdmin
-        arguments: [ ~ , AppBundle\Entity\ClassGroup, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\ClassGroup, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Grup", group: "Aules" }
         calls:
             - [ setTemplate, [ edit, "::Admin/ClassGroup/edit.html.twig" ] ]
     admin.event:
         class: AppBundle\Admin\EventAdmin
-        arguments: [ ~ , AppBundle\Entity\Event, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Event, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Horari", group: "Aules" }
         calls:
@@ -44,7 +44,7 @@ services:
     # billings
     admin.tariff:
         class: AppBundle\Admin\TariffAdmin
-        arguments: [ ~ , AppBundle\Entity\Tariff, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Tariff, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tarifa", group: "Facturació" }
     admin.invoice:
@@ -60,7 +60,7 @@ services:
     # services
     admin.service:
         class: AppBundle\Admin\ServiceAdmin
-        arguments: [ ~ , AppBundle\Entity\Service, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\Service, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Servei", group: "Serveis" }
     # contacts
@@ -214,6 +214,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - "AppBundle:Teacher"
+    app.teacher_absence_repository:
+        class: AppBundle\Repository\TeacherAbsenceRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:TeacherAbsence"
     app.student_repository:
         class: AppBundle\Repository\StudentRepository
         factory: [ "@doctrine", getRepository ]

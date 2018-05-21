@@ -43,7 +43,7 @@ class SepaAgreementPdfService
     private $bn;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
@@ -79,8 +79,8 @@ class SepaAgreementPdfService
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor($this->pwt);
-        $pdf->SetTitle($this->ts->trans('Autorització SEPA'));
-        $pdf->SetSubject($this->ts->trans('descripció'));
+        $pdf->SetTitle($this->ts->trans('backend.admin.sepa_agreement'));
+        $pdf->SetSubject($this->ts->trans('backend.admin.sepa_agreement'));
         // set default font subsetting mode
         $pdf->setFontSubsetting(true);
         // remove default header/footer
@@ -116,7 +116,7 @@ class SepaAgreementPdfService
         if ($student->getParent()) {
             $subject = $student->getParent();
         }
-        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_name').'</strong><br>'.$subject->getName(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
+        $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_name').'</strong><br>'.$subject->getName().' '.$subject->getSurname(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
         $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_dni').'</strong><br>'.$subject->getDni(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
         $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.parent_address').'</strong><br>'.$subject->getAddress(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);
         $pdf->MultiCell($maxCellWidth, 12.5, '<strong>'.$this->ts->trans('backend.admin.sepaagreement.contact_phone').'</strong><br>'.$subject->getPhone(), 1, 'L', false, 1, '', '', true, 0, true, true, 0, 'T', false);

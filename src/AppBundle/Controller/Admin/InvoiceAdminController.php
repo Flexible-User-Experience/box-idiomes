@@ -26,36 +26,44 @@ class InvoiceAdminController extends BaseAdminController
      *
      * @return Response
      *
-     * @throws NotFoundHttpException If the object does not exist
-     * @throws AccessDeniedException If access is not granted
+     * @throws NotFoundHttpException                 If the object does not exist
+     * @throws AccessDeniedException                 If access is not granted
      * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function generateAction(Request $request = null)
     {
-//        $object = new Invoice();
         $form = $this->createForm(GenerateInvoiceType::class);
         $form->handleRequest($request);
 
+        $students = [];
+        $hideGenerateSubmitButton = false;
+
         if (!$form->isSubmitted()) {
             $form->remove('generate');
+            $hideGenerateSubmitButton = true;
         }
 
-        $students = [];
         if ($form->isSubmitted() && $form->isValid()) {
             $year = $form->getData()['year'];
             $month = $form->getData()['month'];
-            $students = $this->get('app.student_repository')->getStudentsInEventsByYearAndMonth($year, $month);
+            $students = $this->get('app.student_repository')->getStudentsInEventsByYearAndMonthSortedBySurname($year, $month);
+            // preview invoices action
             if ($form->get('preview')->isClicked()) {
+                if (count($students) == 0) {
+                    $hideGenerateSubmitButton = true;
+                }
             }
-
+            // generate invoices action
             if ($form->get('generate')->isClicked()) {
+                $translator = $this->container->get('translator.default');
                 /** @var EntityManager $em */
                 $em = $this->get('doctrine')->getManager();
                 /** @var Student $student */
                 foreach ($students as $student) {
                     $invoiceLine = new InvoiceLine();
                     $invoiceLine
-                        ->setDescription('Classes d\'anglès mensual')
+                        ->setStudent($student)
+                        ->setDescription($translator->trans('backend.admin.invoiceLine.generator.line', array('%month%' => $month, '%year%' => $year), 'messages'))
                         ->setUnits(1)
                         ->setPriceUnit($student->calculateMonthlyTariff())
                         ->setDiscount($student->calculateMonthlyDiscount())
@@ -69,16 +77,15 @@ class InvoiceAdminController extends BaseAdminController
                         ->setIsPayed(false)
                         ->setYear($year)
                         ->setMonth($month)
+                        ->addLine($invoiceLine)
                         ->setIrpf($invoice->calculateIrpf())
+                        ->setTaxParcentage(0)
+                        ->setTotalAmount($invoice->calculateTotal())
                     ;
-                    $invoice->addLine($invoiceLine);
-
                     $em->persist($invoice);
                 }
-
                 $em->flush();
-
-                $this->addFlash('success', 'S\'han generat '.count($students).' factures correctament.');
+                $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => count($students)), 'messages'));
 
                 return $this->redirectToList('admin_app_invoice_list');
             }
@@ -87,10 +94,10 @@ class InvoiceAdminController extends BaseAdminController
         return $this->render(
             '::Admin/Invoice/generate_invoice_form.html.twig',
             array(
-                'action'   => 'generate',
- //               'object'   => $object,
-                'form'     => $form->createView(),
+                'action' => 'generate',
+                'form' => $form->createView(),
                 'students' => $students,
+                'hide_generate_button' => $hideGenerateSubmitButton,
             ),
             null,
             $request

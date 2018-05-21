@@ -66,6 +66,9 @@ class InvoiceAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $now = new \DateTime();
+        $currentYear = $now->format('Y');
+
         $formMapper
             ->with('backend.admin.invoice.invoice', $this->getFormMdSuccessBoxArray(4))
             ->add(
@@ -75,6 +78,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.invoice.year',
                     'required' => true,
                     'choices' => InvoiceYearMonthEnum::getYearEnumArray(),
+                    'preferred_choices' => $currentYear,
                 )
             )
             ->add(
@@ -202,6 +206,13 @@ class InvoiceAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'id',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.id',
+                )
+            )
+            ->add(
                 'year',
                 null,
                 array(
@@ -227,6 +238,34 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.person',
+                )
+            )
+            ->add(
+                'discountApplied',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.discountApplied',
+                )
+            )
+            ->add(
+                'baseAmount',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.baseAmount',
+                )
+            )
+            ->add(
+                'taxParcentage',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.taxParcentage',
+                )
+            )
+            ->add(
+                'irpf',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.irpf',
                 )
             )
             ->add(
@@ -303,6 +342,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.totalAmount',
+                    'template' => '::Admin/Cells/list__cell_invoice_amount.html.twig',
                     'editable' => false,
                 )
             )

@@ -56,6 +56,8 @@ frontend:
 
 backend:
     admin:
+        yes: Sí
+        no: No
         actions: Accions
         controls: Controls
         general: General
@@ -84,10 +86,13 @@ backend:
             name: Nom
             color: Color
             showInHomepage: Mostrar al web
+            detail: Detall
+            show_title: Professor
         teacher_absence:
             teacher: Professor
             type: Tipus
             day: Dia
+            show_title: Absències
         student:
             student: Alumne
             parent: "Pare, mare o tutor"
@@ -121,8 +126,8 @@ backend:
             tariff_1: 1h / setmana
             tariff_2: 2h / setmana
             tariff_3: 3h / setmana
-            tariff_4: 1,5 / setmana
-            tariff_5: 1h / particular
+            tariff_4: 1'5h / setmana
+            tariff_5: hora particular
         event:
             begin: Inici
             end: Fi
@@ -175,7 +180,7 @@ backend:
             contact_dni: "DNI o passaport número: %contact_dni%"
             autortization1: "Si, autoritzo que la imatge del meu fill/la meva filla %student_name% de %years_old% anys pugui aparèixer en fotografies o vídeos del centre publicades a qualsevol dels seus espais web o xarxes socials."
             autortization2: "No, no autoritzo el centre  a publicar cap tipus d’imatge del meu fill o a la meva filla."
-            registration_date: "Amposta %day% %month% de %year%"
+            registration_date: "Amposta, %day% %month% de %year%"
             sign: Signatura
         sepaagreement:
             first_text: Autorització de domiciliació bancària per al pagament de rebuts
@@ -206,9 +211,10 @@ backend:
             payment: Pagament
             bank: Banc
         invoice:
+            download: Descarregar PDF
             generate: Generar factures
-            preview_invoice: Previsualitzar llistat factures
-            list: Llista factura
+            preview_invoice: Previsualitzar llistat de factures
+            list: Llistat de factures disponibles para generar
             generate_batch: Generar facturació mensual
             invoice: Factura
             lines: Línies de factura
@@ -226,6 +232,9 @@ backend:
             totalAmount: Total
             month: Mes
             year: Any
+            generator:
+                flash_success: "S'han generat %amount% factures correctament."
+                no_records_found: "No s'ha trobat cap alumne a les classes realitzades durant el període seleccionat."
         invoiceLine:
             invoice: Factura
             description: Descripció
@@ -233,6 +242,8 @@ backend:
             priceUnit: Preu Unitat
             discount: Descompte
             total: Total
+            generator:
+                line: "Classes %month% %year%"
 
 month:
     january: gener
@@ -247,3 +258,9 @@ month:
     october: octubre
     november: novembre
     december: desembre
+
+color:
+    magenta: magenta
+    blue: blau
+    yellow: groc
+    green: verd

@@ -25,6 +25,14 @@ class InvoiceLine extends AbstractBase
     private $invoice;
 
     /**
+     * @var Student
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Student")
+     * @ORM\JoinColumn(name="student_id", referencedColumnName="id")
+     */
+    private $student;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")
@@ -79,6 +87,26 @@ class InvoiceLine extends AbstractBase
     public function setInvoice(Invoice $invoice)
     {
         $this->invoice = $invoice;
+
+        return $this;
+    }
+
+    /**
+     * @return Student
+     */
+    public function getStudent()
+    {
+        return $this->student;
+    }
+
+    /**
+     * @param Student $student
+     *
+     * @return $this
+     */
+    public function setStudent(Student $student)
+    {
+        $this->student = $student;
 
         return $this;
     }
