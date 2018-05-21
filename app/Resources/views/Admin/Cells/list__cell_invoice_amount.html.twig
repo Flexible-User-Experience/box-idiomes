@@ -1,0 +1,9 @@
+{% extends "SonataAdminBundle:CRUD:base_list_field.html.twig" %}
+
+{% block field %}
+    {% spaceless %}
+        <div class="text-right">
+            {{ object.totalAmount | draw_money | raw }}
+        </div>
+    {% endspaceless %}
+{% endblock %}

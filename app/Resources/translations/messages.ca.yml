@@ -211,6 +211,7 @@ backend:
             payment: Pagament
             bank: Banc
         invoice:
+            download: Descarregar PDF
             generate: Generar factures
             preview_invoice: Previsualitzar llistat de factures
             list: Llistat de factures disponibles para generar

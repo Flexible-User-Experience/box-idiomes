@@ -342,6 +342,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.totalAmount',
+                    'template' => '::Admin/Cells/list__cell_invoice_amount.html.twig',
                     'editable' => false,
                 )
             )
