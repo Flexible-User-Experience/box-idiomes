@@ -35,7 +35,10 @@ class TeacherAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->remove('delete');
+        $collection
+            ->remove('delete')
+            ->add('detail', $this->getRouterIdParameter().'/detail')
+        ;
     }
 
     /**
@@ -201,6 +204,9 @@ class TeacherAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'detail' => array(
+                            'template' => '::Admin/Cells/list__action_teacher_detail.html.twig',
+                        ),
                     ),
                     'label' => 'backend.admin.actions',
                 )

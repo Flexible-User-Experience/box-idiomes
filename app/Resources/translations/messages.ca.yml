@@ -84,6 +84,7 @@ backend:
             name: Nom
             color: Color
             showInHomepage: Mostrar al web
+            detail: Detall
         teacher_absence:
             teacher: Professor
             type: Tipus
