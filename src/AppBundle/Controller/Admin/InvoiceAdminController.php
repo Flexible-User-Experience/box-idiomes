@@ -35,17 +35,23 @@ class InvoiceAdminController extends BaseAdminController
         $form = $this->createForm(GenerateInvoiceType::class);
         $form->handleRequest($request);
 
+        $students = [];
+        $hideGenerateSubmitButton = false;
+
         if (!$form->isSubmitted()) {
             $form->remove('generate');
+            $hideGenerateSubmitButton = true;
         }
 
-        $students = [];
         if ($form->isSubmitted() && $form->isValid()) {
             $year = $form->getData()['year'];
             $month = $form->getData()['month'];
             $students = $this->get('app.student_repository')->getStudentsInEventsByYearAndMonth($year, $month);
             // preview invoices action
             if ($form->get('preview')->isClicked()) {
+                if (count($students) == 0) {
+                    $hideGenerateSubmitButton = true;
+                }
             }
             // generate invoices action
             if ($form->get('generate')->isClicked()) {
@@ -90,6 +96,7 @@ class InvoiceAdminController extends BaseAdminController
                 'action' => 'generate',
                 'form' => $form->createView(),
                 'students' => $students,
+                'hide_generate_button' => $hideGenerateSubmitButton,
             ),
             null,
             $request
