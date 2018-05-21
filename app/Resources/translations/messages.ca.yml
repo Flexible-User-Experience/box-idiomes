@@ -231,6 +231,8 @@ backend:
             totalAmount: Total
             month: Mes
             year: Any
+            generator:
+                flash_success: "S'han generat %amount% factures correctament."
         invoiceLine:
             invoice: Factura
             description: Descripció
@@ -238,6 +240,8 @@ backend:
             priceUnit: Preu Unitat
             discount: Descompte
             total: Total
+            generator:
+                line: Classes d'anglès mensual
 
 month:
     january: gener

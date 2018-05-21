@@ -55,13 +55,14 @@ class InvoiceAdminController extends BaseAdminController
             }
             // generate invoices action
             if ($form->get('generate')->isClicked()) {
+                $translator = $this->container->get('translator.default');
                 /** @var EntityManager $em */
                 $em = $this->get('doctrine')->getManager();
                 /** @var Student $student */
                 foreach ($students as $student) {
                     $invoiceLine = new InvoiceLine();
                     $invoiceLine
-                        ->setDescription('Classes d\'anglès mensual')
+                        ->setDescription($translator->trans('backend.admin.invoiceLine.generator.line', array(), 'messages'))
                         ->setUnits(1)
                         ->setPriceUnit($student->calculateMonthlyTariff())
                         ->setDiscount($student->calculateMonthlyDiscount())
@@ -78,13 +79,10 @@ class InvoiceAdminController extends BaseAdminController
                         ->setIrpf($invoice->calculateIrpf())
                     ;
                     $invoice->addLine($invoiceLine);
-
                     $em->persist($invoice);
                 }
-
                 $em->flush();
-
-                $this->addFlash('success', 'S\'han generat '.count($students).' factures correctament.');
+                $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => count($students)), 'messages'));
 
                 return $this->redirectToList('admin_app_invoice_list');
             }
