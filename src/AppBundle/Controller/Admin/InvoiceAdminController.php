@@ -26,13 +26,12 @@ class InvoiceAdminController extends BaseAdminController
      *
      * @return Response
      *
-     * @throws NotFoundHttpException If the object does not exist
-     * @throws AccessDeniedException If access is not granted
+     * @throws NotFoundHttpException                 If the object does not exist
+     * @throws AccessDeniedException                 If access is not granted
      * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function generateAction(Request $request = null)
     {
-//        $object = new Invoice();
         $form = $this->createForm(GenerateInvoiceType::class);
         $form->handleRequest($request);
 
@@ -45,9 +44,10 @@ class InvoiceAdminController extends BaseAdminController
             $year = $form->getData()['year'];
             $month = $form->getData()['month'];
             $students = $this->get('app.student_repository')->getStudentsInEventsByYearAndMonth($year, $month);
+            // preview invoices action
             if ($form->get('preview')->isClicked()) {
             }
-
+            // generate invoices action
             if ($form->get('generate')->isClicked()) {
                 /** @var EntityManager $em */
                 $em = $this->get('doctrine')->getManager();
@@ -87,9 +87,8 @@ class InvoiceAdminController extends BaseAdminController
         return $this->render(
             '::Admin/Invoice/generate_invoice_form.html.twig',
             array(
-                'action'   => 'generate',
- //               'object'   => $object,
-                'form'     => $form->createView(),
+                'action' => 'generate',
+                'form' => $form->createView(),
                 'students' => $students,
             ),
             null,

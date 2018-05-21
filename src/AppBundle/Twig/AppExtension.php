@@ -72,6 +72,7 @@ class AppExtension extends \Twig_Extension
             new \Twig_SimpleFilter('draw_tariff_type', array($this, 'drawTariffType')),
             new \Twig_SimpleFilter('draw_event_classroom_type', array($this, 'drawEventClassroomType')),
             new \Twig_SimpleFilter('draw_invoice_month', array($this, 'drawInvoiceMonth')),
+            new \Twig_SimpleFilter('draw_money', array($this, 'drawMoney')),
         );
     }
 
@@ -173,7 +174,28 @@ class AppExtension extends \Twig_Extension
      */
     public function drawInvoiceMonth($object)
     {
-        return InvoiceYearMonthEnum::getTranlatedMonthEnumArray()[$object->getMonth()];
+        return InvoiceYearMonthEnum::getTranslatedMonthEnumArray()[$object->getMonth()];
+    }
+
+    /**
+     * @param Invoice $object
+     *
+     * @return string
+     */
+    public function drawMoney($object)
+    {
+        $result = '<span class="text text-info">0,00 €</span>';
+        if (is_numeric($object)) {
+            if ($object < 0) {
+                $result = '<span class="text text-danger">'.number_format($object, 2, ',', '.').' €</span>';
+            } elseif ($object > 0) {
+                $result = '<span class="text text-success">'.number_format($object, 2, ',', '.').' €</span>';
+            } else {
+                $result = '<span class="text text-info">0,00 €</span>';
+            }
+        }
+
+        return $result;
     }
 
     /**

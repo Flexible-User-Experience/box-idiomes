@@ -50,7 +50,7 @@ class InvoiceYearMonthEnum
     /**
      * @return array
      */
-    public static function getTranlatedMonthEnumArray()
+    public static function getTranslatedMonthEnumArray()
     {
         return array(
             self::JANUARY => 'gener',
@@ -76,8 +76,11 @@ class InvoiceYearMonthEnum
         $result = array();
         $now = new \DateTime();
         $currentYear = intval($now->format('Y'));
+//        TODO
+//        $firstYearAvailable = $currentYear + 1;
+//        $result["$firstYearAvailable"] = $firstYearAvailable;
         $steps = $currentYear - self::APP_FIRST_YEAR + 1;
-        for ($i = 0; $i < $steps; $i++) {
+        for ($i = 0; $i < $steps; ++$i) {
             $year = $currentYear - $i;
             $result["$year"] = $year;
         }

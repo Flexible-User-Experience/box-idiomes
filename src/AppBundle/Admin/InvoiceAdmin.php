@@ -66,6 +66,9 @@ class InvoiceAdmin extends AbstractBaseAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $now = new \DateTime();
+        $currentYear = $now->format('Y');
+
         $formMapper
             ->with('backend.admin.invoice.invoice', $this->getFormMdSuccessBoxArray(4))
             ->add(
@@ -75,6 +78,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.invoice.year',
                     'required' => true,
                     'choices' => InvoiceYearMonthEnum::getYearEnumArray(),
+                    'preferred_choices' => $currentYear,
                 )
             )
             ->add(
