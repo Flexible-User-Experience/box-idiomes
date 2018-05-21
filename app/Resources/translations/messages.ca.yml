@@ -233,6 +233,7 @@ backend:
             year: Any
             generator:
                 flash_success: "S'han generat %amount% factures correctament."
+                no_records_found: "No s'ha trobat cap alumne a les classes realitzades durant el període seleccionat."
         invoiceLine:
             invoice: Factura
             description: Descripció
