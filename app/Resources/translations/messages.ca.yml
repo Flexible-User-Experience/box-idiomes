@@ -247,3 +247,9 @@ month:
     october: octubre
     november: novembre
     december: desembre
+
+color:
+    magenta: magenta
+    blue: blau
+    yellow: groc
+    green: verd
