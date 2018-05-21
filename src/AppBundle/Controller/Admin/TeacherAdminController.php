@@ -41,7 +41,9 @@ class TeacherAdminController extends BaseAdminController
         return $this->render(
             '::Admin/Teacher/detail.html.twig',
             array(
-                'teacher' => $object,
+                'action' => 'show',
+                'object' => $object,
+                'elements' => $this->admin->getShow(),
             )
         );
     }

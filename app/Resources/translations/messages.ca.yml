@@ -56,6 +56,8 @@ frontend:
 
 backend:
     admin:
+        yes: Sí
+        no: No
         actions: Accions
         controls: Controls
         general: General
@@ -85,10 +87,12 @@ backend:
             color: Color
             showInHomepage: Mostrar al web
             detail: Detall
+            show_title: Professor
         teacher_absence:
             teacher: Professor
             type: Tipus
             day: Dia
+            show_title: Absències
         student:
             student: Alumne
             parent: "Pare, mare o tutor"

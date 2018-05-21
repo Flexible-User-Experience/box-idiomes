@@ -57,6 +57,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/teachers/teacher/list'),
             array('/admin/teachers/teacher/create'),
             array('/admin/teachers/teacher/1/edit'),
+            array('/admin/teachers/teacher/1/detail'),
             array('/admin/teachers/absence/list'),
             array('/admin/teachers/absence/create'),
             array('/admin/teachers/absence/1/edit'),
