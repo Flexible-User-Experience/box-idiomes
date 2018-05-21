@@ -92,18 +92,18 @@ class TeacherAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'enabled',
-                CheckboxType::class,
-                array(
-                    'label' => 'backend.admin.enabled',
-                    'required' => false,
-                )
-            )
-            ->add(
                 'showInHomepage',
                 CheckboxType::class,
                 array(
                     'label' => 'backend.admin.teacher.showInHomepage',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'enabled',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.enabled',
                     'required' => false,
                 )
             )
@@ -124,17 +124,17 @@ class TeacherAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'backend.admin.enabled',
-                )
-            )
-            ->add(
                 'showInHomepage',
                 null,
                 array(
                     'label' => 'backend.admin.teacher.showInHomepage',
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'backend.admin.enabled',
                 )
             )
         ;
@@ -180,18 +180,18 @@ class TeacherAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'enabled',
-                null,
-                array(
-                    'label' => 'backend.admin.enabled',
-                    'editable' => true,
-                )
-            )
-            ->add(
                 'showInHomepage',
                 null,
                 array(
                     'label' => 'backend.admin.teacher.showInHomepage',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'enabled',
+                null,
+                array(
+                    'label' => 'backend.admin.enabled',
                     'editable' => true,
                 )
             )
