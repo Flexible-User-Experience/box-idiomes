@@ -241,7 +241,7 @@ backend:
             discount: Descompte
             total: Total
             generator:
-                line: Classes d'anglès mensual
+                line: "Classes %month% %year%"
 
 month:
     january: gener

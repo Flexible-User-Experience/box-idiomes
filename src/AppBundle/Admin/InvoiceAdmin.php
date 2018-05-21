@@ -206,6 +206,13 @@ class InvoiceAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'id',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.id',
+                )
+            )
+            ->add(
                 'year',
                 null,
                 array(
@@ -231,6 +238,34 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.person',
+                )
+            )
+            ->add(
+                'discountApplied',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.discountApplied',
+                )
+            )
+            ->add(
+                'baseAmount',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.baseAmount',
+                )
+            )
+            ->add(
+                'taxParcentage',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.taxParcentage',
+                )
+            )
+            ->add(
+                'irpf',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.irpf',
                 )
             )
             ->add(

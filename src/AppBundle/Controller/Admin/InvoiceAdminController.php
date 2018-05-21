@@ -62,7 +62,8 @@ class InvoiceAdminController extends BaseAdminController
                 foreach ($students as $student) {
                     $invoiceLine = new InvoiceLine();
                     $invoiceLine
-                        ->setDescription($translator->trans('backend.admin.invoiceLine.generator.line', array(), 'messages'))
+                        ->setStudent($student)
+                        ->setDescription($translator->trans('backend.admin.invoiceLine.generator.line', array('%month%' => $month, '%year%' => $year), 'messages'))
                         ->setUnits(1)
                         ->setPriceUnit($student->calculateMonthlyTariff())
                         ->setDiscount($student->calculateMonthlyDiscount())
