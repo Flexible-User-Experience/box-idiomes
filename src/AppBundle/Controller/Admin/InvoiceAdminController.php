@@ -2,8 +2,11 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\InvoiceLine;
 use AppBundle\Entity\Invoice;
+use AppBundle\Entity\Student;
 use AppBundle\Form\Type\GenerateInvoiceType;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,32 +22,75 @@ class InvoiceAdminController extends BaseAdminController
     /**
      * Generate invoice action.
      *
-     * @param Request         $request
+     * @param Request $request
      *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function generateAction(Request $request = null)
     {
-        $object = new Invoice();
+//        $object = new Invoice();
         $form = $this->createForm(GenerateInvoiceType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // TODO some logic
-            $this->addFlash('success', 'Les factures han estat generades correctament.');
+        if (!$form->isSubmitted()) {
+            $form->remove('generate');
+        }
 
-            return $this->redirectToList();
+        $students = [];
+        if ($form->isSubmitted() && $form->isValid()) {
+            $year = $form->getData()['year'];
+            $month = $form->getData()['month'];
+            $students = $this->get('app.student_repository')->getStudentsInEventsByYearAndMonth($year, $month);
+            if ($form->get('preview')->isClicked()) {
+            }
+
+            if ($form->get('generate')->isClicked()) {
+                /** @var EntityManager $em */
+                $em = $this->get('doctrine')->getManager();
+                /** @var Student $student */
+                foreach ($students as $student) {
+                    $invoiceLine = new InvoiceLine();
+                    $invoiceLine
+                        ->setDescription('Classes d\'anglès mensual')
+                        ->setUnits(1)
+                        ->setPriceUnit($student->calculateMonthlyTariff())
+                        ->setDiscount($student->calculateMonthlyDiscount())
+                        ->setTotal($invoiceLine->calculateBaseAmount())
+                    ;
+                    $invoice = new Invoice();
+                    $invoice
+                        ->setStudent($student)
+                        ->setPerson($student->getParent() ? $student->getParent() : null)
+                        ->setDate(new \DateTime())
+                        ->setIsPayed(false)
+                        ->setYear($year)
+                        ->setMonth($month)
+                        ->setIrpf($invoice->calculateIrpf())
+                    ;
+                    $invoice->addLine($invoiceLine);
+
+                    $em->persist($invoice);
+                }
+
+                $em->flush();
+
+                $this->addFlash('success', 'S\'han generat '.count($students).' factures correctament.');
+
+                return $this->redirectToList('admin_app_invoice_list');
+            }
         }
 
         return $this->render(
             '::Admin/Invoice/generate_invoice_form.html.twig',
             array(
                 'action'   => 'generate',
-                'object'   => $object,
+ //               'object'   => $object,
                 'form'     => $form->createView(),
+                'students' => $students,
             ),
             null,
             $request

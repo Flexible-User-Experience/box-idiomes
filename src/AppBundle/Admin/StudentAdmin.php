@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\AdminType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -159,7 +160,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 ->end();
         }
         $formMapper
-            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(2))
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'dni',
                 null,
@@ -170,7 +171,7 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'birthDate',
-                'sonata_type_date_picker',
+                DatePickerType::class,
                 array(
                     'label' => 'backend.admin.student.birthDate',
                     'format' => 'd/M/y',
@@ -181,6 +182,16 @@ class StudentAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.student.schedule',
+                )
+            )
+            ->add(
+                'tariff',
+                EntityType::class,
+                array(
+                    'label' => 'backend.admin.student.tariff',
+                    'required' => true,
+                    'class' => 'AppBundle:Tariff',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.tariff_repository')->findAllSortedByYearAndPriceQB(),
                 )
             )
             ->add(

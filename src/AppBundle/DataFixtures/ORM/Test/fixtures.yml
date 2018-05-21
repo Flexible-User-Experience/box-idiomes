@@ -28,6 +28,7 @@ AppBundle\Entity\Teacher:
     description: <paragraph()>
     position: <numberBetween(1, 2)>
     color: <numberBetween(0, 3)>
+    showInHomepage: true
 
 # TeacherAbsence
 AppBundle\Entity\TeacherAbsence:
@@ -53,6 +54,7 @@ AppBundle\Entity\Student:
     address: <address()>
     city: @city*
     bank: @bank1
+    tariff: @tariff*
     parent: @person1
     schedule: <name()>
     comments: <paragraph()>
@@ -71,6 +73,7 @@ AppBundle\Entity\Student:
     address: <address()>
     city: @city*
     bank: @bank2
+    tariff: @tariff1
     schedule: <name()>
     comments: <paragraph()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
@@ -174,10 +177,21 @@ AppBundle\Entity\Invoice:
     paymentDate: <date()>
     baseAmount: <randomFloat(1, 5)>
     taxParcentage: <randomFloat(1, 5)>
+    irpf: <randomFloat(1, 5)>
     discountApplied: <boolean()>
     totalAmount: <randomFloat(1, 5)>
     month: <month()>
     year: <year()>
+
+# InvoiceLine
+AppBundle\Entity\InvoiceLine:
+  lineInvoice{1..2}:
+    description: <sentence()>
+    units: <numberBetween(1, 100)>
+    priceUnit: <randomFloat(1, 5)>
+    discount: <randomFloat(1, 5)>
+    total: <randomFloat(1, 5)>
+    invoice: @invoice<current()>
 
 ## Users
 AppBundle\Entity\User:

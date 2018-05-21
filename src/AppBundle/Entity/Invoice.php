@@ -23,7 +23,7 @@ class Invoice extends AbstractBase
     /**
      * @var ArrayCollection|array|InvoiceLine[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\InvoiceLine", mappedBy="invoice")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\InvoiceLine", mappedBy="invoice", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $lines;
 
@@ -53,21 +53,21 @@ class Invoice extends AbstractBase
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $isPayed;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $paymentDate;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $baseAmount;
 
@@ -79,16 +79,23 @@ class Invoice extends AbstractBase
     private $taxParcentage = 0;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(type="float", nullable=true, options={"default"=15})
+     */
+    private $irpf = 15;
+
+    /**
      * @var bool
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $discountApplied;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $totalAmount;
 
@@ -143,10 +150,13 @@ class Invoice extends AbstractBase
      *
      * @return $this
      */
-    public function addLine($line)
+    public function addLine(InvoiceLine $line)
     {
         if (!$this->lines->contains($line)) {
+            $line->setInvoice($this);
             $this->lines->add($line);
+            $this->setBaseAmount($line->getTotal() + $this->getBaseAmount());
+            $this->setDiscountApplied($this->getStudent()->hasDiscount());
         }
 
         return $this;
@@ -157,10 +167,11 @@ class Invoice extends AbstractBase
      *
      * @return $this
      */
-    public function removeLine($line)
+    public function removeLine(InvoiceLine $line)
     {
         if ($this->lines->contains($line)) {
             $this->lines->removeElement($line);
+            $this->setBaseAmount($line->getTotal() - $this->getBaseAmount());
         }
 
         return $this;
@@ -307,6 +318,26 @@ class Invoice extends AbstractBase
     }
 
     /**
+     * @return float
+     */
+    public function getIrpf()
+    {
+        return $this->irpf;
+    }
+
+    /**
+     * @param float $irpf
+     *
+     * @return Invoice
+     */
+    public function setIrpf($irpf)
+    {
+        $this->irpf = $irpf;
+
+        return $this;
+    }
+
+    /**
      * @return bool
      */
     public function isDiscountApplied()
@@ -408,6 +439,30 @@ class Invoice extends AbstractBase
         return $result;
     }
 
+    /**
+     * @return float|int
+     */
+    public function calculateTaxParcentage()
+    {
+        return $this->calculateTotalBaseAmount() * (21 / 100);
+    }
+
+    /**
+     * @return float|int
+     */
+    public function calculateIrpf()
+    {
+        return $this->calculateTotalBaseAmount() * ($this->irpf / 100);
+    }
+
+    /**
+     * @return float|int
+     */
+    public function calculateTotal()
+    {
+        return $this->calculateTotalBaseAmount() + $this->calculateTaxParcentage() - $this->calculateIrpf();
+    }
+    
     /**
      * @return string
      */

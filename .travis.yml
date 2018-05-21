@@ -1,7 +1,6 @@
 language: php
 
 php:
-  - 7.1
   - 7.2
 
 before_script:
@@ -19,7 +18,6 @@ script:
 notifications:
   email:
     - david@flux.cat
-    - wiglesias83@gmail.com
 
 branches:
   only:

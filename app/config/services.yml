@@ -38,7 +38,7 @@ services:
         class: AppBundle\Admin\EventAdmin
         arguments: [ ~ , AppBundle\Entity\Event, ~ , "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Esdeveniment", group: "Aules" }
+            - { name: sonata.admin, manager_type: orm, label: "Horari", group: "Aules" }
         calls:
             - [ setTemplate, [ edit, "::Admin/Event/edit.html.twig" ] ]
     # billings
@@ -52,6 +52,11 @@ services:
         arguments: [ ~, AppBundle\Entity\Invoice, AppBundle:Admin\InvoiceAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Factura", group: "Facturació" }
+    admin.billing.invoice_line:
+        class: AppBundle\Admin\InvoiceLineAdmin
+        arguments: [ ~, AppBundle\Entity\InvoiceLine, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Línies", group: "Facturació", show_in_dashboard: false }
     # services
     admin.service:
         class: AppBundle\Admin\ServiceAdmin
@@ -177,6 +182,12 @@ services:
             - "@translator.default"
             - "%project_web_title%"
             - "%boss_name%"
+    app.invoice_pdf_builder:
+        class: AppBundle\Service\InvoicePdfBuilderService
+        arguments:
+            - "@white_october.tcpdf"
+            - "@templating.helper.assets"
+            - "@translator.default"
 # Repository
     app.bank_repository:
         class: AppBundle\Repository\BankRepository
@@ -218,3 +229,13 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - "AppBundle:ClassGroup"
+    app.tariff_repository:
+        class: AppBundle\Repository\TariffRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Tariff"
+    app.invoice_repository:
+        class: AppBundle\Repository\InvoiceRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Invoice"

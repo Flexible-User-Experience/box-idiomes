@@ -28,6 +28,7 @@ AppBundle\Entity\Teacher:
     description: <paragraph()>
     position: <numberBetween(1, 5)>
     color: <numberBetween(0, 3)>
+    showInHomepage: true
 
 # TeacherAbsence
 AppBundle\Entity\TeacherAbsence:
@@ -53,6 +54,7 @@ AppBundle\Entity\Student:
     address: <address()>
     city: @city<numberBetween(1,10)>
     bank: @bank<numberBetween(1,10)>
+    tariff: @tariff<numberBetween(1,5)>
     schedule: <name()>
     comments: <paragraph()>
     parent: @person<current()>
@@ -71,6 +73,7 @@ AppBundle\Entity\Student:
     address: <address()>
     city: @city<numberBetween(1,10)>
     bank: @bank1
+    tariff: @tariff1
     schedule: <name()>
     comments: <paragraph()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
@@ -167,6 +170,8 @@ AppBundle\Entity\Event:
 # Invoice
 AppBundle\Entity\Invoice:
   invoice{1..10}:
+    lines:
+        - @invoiceLine*
     student: @student<current()>
     person: @person1
     date: <date()>
@@ -174,10 +179,20 @@ AppBundle\Entity\Invoice:
     paymentDate: <date()>
     baseAmount: <randomFloat(1, 5)>
     taxParcentage: <randomFloat(1, 5)>
+    irpf: <randomFloat(1, 5)>
     discountApplied: <boolean()>
     totalAmount: <randomFloat(1, 5)>
     month: <month()>
     year: <year()>
+
+# InvoiceLine
+AppBundle\Entity\InvoiceLine:
+  invoiceLine{1..10}:
+    description: <sentence()>
+    units: <numberBetween(1, 100)>
+    priceUnit: <randomFloat(1, 5)>
+    discount: <randomFloat(1, 5)>
+    total: <randomFloat(1, 5)>
 
 ## Users
 AppBundle\Entity\User:

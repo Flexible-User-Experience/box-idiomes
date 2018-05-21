@@ -24,6 +24,7 @@ class PersonRepository extends EntityRepository
             ->where('p.enabled = :enabled')
             ->setParameter('enabled', true)
             ->orderBy('p.surname', 'ASC')
+            ->addOrderBy('p.name', 'ASC')
         ;
     }
 

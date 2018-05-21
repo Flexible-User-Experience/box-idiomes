@@ -188,7 +188,7 @@ class InvoiceLine extends AbstractBase
      */
     public function calculateBaseAmount()
     {
-        return $this->units * $this->priceUnit;
+        return $this->units * $this->priceUnit - $this->discount;
     }
 
     /**

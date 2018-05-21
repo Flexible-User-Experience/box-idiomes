@@ -16,9 +16,9 @@ Invoice Delete: Esborrar
 Tarriff List: Tarifes
 Tarriff Create: Crear
 Tarriff Delete: Esborrar
-Event List: Esdeveniments
-Event Create: Crear
-Event Delete: Esborrar
+Timetable List: Horaris
+Timetable Create: Crear
+Timetable Delete: Esborrar
 Person List: Pares
 Person Create: Crear
 Person Delete: Esborrar
@@ -83,6 +83,7 @@ backend:
         teacher:
             name: Nom
             color: Color
+            showInHomepage: Mostrar al web
         teacher_absence:
             teacher: Professor
             type: Tipus
@@ -104,6 +105,9 @@ backend:
             payment: Pagament
             schedule: Horari
             comments: Comentaris
+            tariff: Tarifa
+            discountApplied: Descompte
+            total: Total
         class_group:
             code: Codi
             name: Nom
@@ -118,13 +122,13 @@ backend:
             tariff_2: 2h / setmana
             tariff_3: 3h / setmana
             tariff_4: 1,5 / setmana
-            tariff_5: hora particular
+            tariff_5: 1h / particular
         event:
             begin: Inici
             end: Fi
             teacher: Professor
             classroom: Aula
-            group: Grup aula
+            group: Grup classe
             students: Estudiants
             previous: Abans
             next: Pròxima
@@ -203,8 +207,11 @@ backend:
             bank: Banc
         invoice:
             generate: Generar factures
+            preview_invoice: Previsualitzar llistat factures
+            list: Llista factura
             generate_batch: Generar facturació mensual
             invoice: Factura
+            lines: Línies de factura
             detail: Detall
             student: Estudiant
             person: Pare mare o tutor
@@ -214,10 +221,18 @@ backend:
             baseAmount: Base imposable
             id: Núm. Factura
             taxParcentage: IVA
+            irpf: IRPF
             discountApplied: Descompte aplicat
             totalAmount: Total
             month: Mes
             year: Any
+        invoiceLine:
+            invoice: Factura
+            description: Descripció
+            units: Unitats
+            priceUnit: Preu Unitat
+            discount: Descompte
+            total: Total
 
 month:
     january: gener

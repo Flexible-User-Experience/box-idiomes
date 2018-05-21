@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -18,6 +19,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Student extends AbstractPerson
 {
+    const DISCOUNT_PER_SON = 5;
+
     /**
      * @var \DateTime
      *
@@ -54,8 +57,31 @@ class Student extends AbstractPerson
     protected $bank;
 
     /**
+     * @var Tariff
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Tariff")
+     * @ORM\JoinColumn(name="tariff_id", referencedColumnName="id")
+     */
+    private $tariff;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Event", mappedBy="students")
+     */
+    private $events;
+
+    /**
      * Methods.
      */
+
+    /**
+     * Student constructor.
+     */
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+    }
 
     /**
      * @return \DateTime
@@ -146,5 +172,100 @@ class Student extends AbstractPerson
         $this->parent = $parent;
 
         return $this;
+    }
+
+    /**
+     * @return Tariff
+     */
+    public function getTariff()
+    {
+        return $this->tariff;
+    }
+
+    /**
+     * @param Tariff $tariff
+     *
+     * @return Student
+     */
+    public function setTariff($tariff)
+    {
+        $this->tariff = $tariff;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * @param ArrayCollection $events
+     * @return Student
+     */
+    public function setEvents($events)
+    {
+        $this->events = $events;
+        return $this;
+    }
+
+    /**
+     * @param Event $event
+     */
+    public function addEvent(Event $event)
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+        }
+    }
+
+    /**
+     * @param Event $event
+     */
+    public function removeEvent(Event $event)
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+        }
+    }
+
+    /**
+     * @return float
+     */
+    public function calculateMonthlyTariff()
+    {
+        $price = $this->getTariff()->getPrice();
+        if ($this->getParent()) {
+            $price = $price - ($this->getParent()->getSonsAmount() * self::DISCOUNT_PER_SON);
+        }
+
+        return $price;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function calculateMonthlyDiscount()
+    {
+        $discount = 0;
+        if ($this->getParent()) {
+            $discount = $this->getParent()->getSonsAmount() * self::DISCOUNT_PER_SON;
+        }
+        return $discount;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasDiscount()
+    {
+        if ($this->getParent()) {
+            return $this->getParent()->getSonsAmount() > 1 ? true : false;
+        }
+
+        return false;
     }
 }

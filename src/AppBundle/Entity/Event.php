@@ -58,11 +58,8 @@ class Event extends AbstractBase
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Student")
-     * @ORM\JoinTable(name="events_students",
-     *      joinColumns={@ORM\JoinColumn(name="event_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="student_id", referencedColumnName="id")}
-     * )
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Student", inversedBy="events")
+     * @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
      */
     private $students;
 

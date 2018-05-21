@@ -52,7 +52,7 @@ class Teacher extends AbstractBase
      *     maxSize="10M",
      *     mimeTypes={"image/jpg", "image/jpeg", "image/png", "image/gif"}
      * )
-     * @Assert\Image(allowLandscape=false, allowPortrait=true)
+     * @Assert\Image(allowLandscape=false, allowPortrait=true, minWidth=600)
      */
     private $imageFile;
 
@@ -62,6 +62,13 @@ class Teacher extends AbstractBase
      * @ORM\Column(type="integer", options={"default"=0})
      */
     private $color = 0;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $showInHomepage = true;
 
     /**
      * Methods.
@@ -111,6 +118,26 @@ class Teacher extends AbstractBase
     public function setColor($color)
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isShowInHomepage()
+    {
+        return $this->showInHomepage;
+    }
+
+    /**
+     * @param bool $showInHomepage
+     *
+     * @return Teacher
+     */
+    public function setShowInHomepage($showInHomepage)
+    {
+        $this->showInHomepage = $showInHomepage;
 
         return $this;
     }

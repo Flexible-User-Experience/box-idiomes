@@ -24,6 +24,7 @@ class StudentRepository extends EntityRepository
             ->where('s.enabled = :enabled')
             ->setParameter('enabled', true)
             ->orderBy('s.name', 'ASC')
+            ->addOrderBy('s.surname', 'ASC')
         ;
     }
 
@@ -70,5 +71,41 @@ class StudentRepository extends EntityRepository
     public function getEnabledSortedBySurname()
     {
         return $this->getEnabledSortedBySurnameQ()->getResult();
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     * @return QueryBuilder
+     */
+    public function getStudentsInEventsByYearAndMonthQB($year, $month)
+    {
+        return $this->createQueryBuilder('s')
+            ->join('s.events', 'e')
+            ->where('YEAR(e.begin) = :year')
+            ->andWhere('MONTH(e.begin) = :month')
+            ->setParameter('year', $year)
+            ->setParameter('month', $month)
+        ;
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     * @return Query
+     */
+    public function getStudentsInEventsByYearAndMonthQ($year, $month)
+    {
+        return $this->getStudentsInEventsByYearAndMonthQB($year, $month)->getQuery();
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     * @return array
+     */
+    public function getStudentsInEventsByYearAndMonth($year, $month)
+    {
+        return $this->getStudentsInEventsByYearAndMonthQ($year, $month)->getResult();
     }
 }

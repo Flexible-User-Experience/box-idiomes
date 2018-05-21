@@ -9,6 +9,13 @@ liip_imagine:
           web_path: ~
     filter_sets:
         cache: ~
+        585x756_teacher_mask:
+            filters:
+                thumbnail: { size: [ 585, 756 ], mode: outbound }
+                watermark:
+                    image: Resources/Watermark/teacher-mask-big.png
+#                    size: 1
+                    position: center
         480x620_teacher_mask:
             filters:
                 thumbnail: { size: [ 480, 620 ], mode: outbound }
@@ -20,6 +27,10 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [ 2400, null ], mode: outbound }
+        585xY:
+            quality: 100
+            filters:
+                thumbnail: { size: [ 585, null ], mode: outbound }
         480xY:
             quality: 100
             filters:

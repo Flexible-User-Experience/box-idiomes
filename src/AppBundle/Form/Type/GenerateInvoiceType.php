@@ -31,6 +31,7 @@ class GenerateInvoiceType extends AbstractType
                     'label' => 'backend.admin.invoice.year',
                     'required' => true,
                     'choices' => InvoiceYearMonthEnum::getYearEnumArray(),
+                    'choices_as_values' => true,
                 )
             )
             ->add(
@@ -44,15 +45,26 @@ class GenerateInvoiceType extends AbstractType
                 )
             )
             ->add(
-                'generate',
+                'preview',
                 SubmitType::class,
                 array(
-                    'label' => 'backend.admin.invoice.generate',
+                    'label' => 'backend.admin.invoice.preview_invoice',
                     'attr'  => array(
                         'class' => 'btn btn-success',
                     ),
                 )
-            );
+            )
+            ->add(
+                'generate',
+                SubmitType::class,
+                array(
+                   'label' => 'backend.admin.invoice.generate',
+                    'attr' => array(
+                        'class' => 'btn btn-success'
+                    ),
+                )
+            )
+        ;
     }
 
     /**

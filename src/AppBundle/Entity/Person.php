@@ -69,4 +69,12 @@ class Person extends AbstractPerson
 
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getSonsAmount()
+    {
+        return count($this->students);
+    }
 }
