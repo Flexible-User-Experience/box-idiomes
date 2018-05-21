@@ -80,7 +80,7 @@
                             {% for absence in absences %}
                                 <tr class="sonata-ba-view-container">
                                     <td>{{ absence.day | date('d/m/Y') }}</td>
-                                    <td>{{ absence.type }}</td>
+                                    <td>{{ absence | draw_teacher_absence_type | raw  }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
