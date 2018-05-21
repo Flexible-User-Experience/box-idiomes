@@ -46,7 +46,7 @@ class InvoiceAdminController extends BaseAdminController
         if ($form->isSubmitted() && $form->isValid()) {
             $year = $form->getData()['year'];
             $month = $form->getData()['month'];
-            $students = $this->get('app.student_repository')->getStudentsInEventsByYearAndMonth($year, $month);
+            $students = $this->get('app.student_repository')->getStudentsInEventsByYearAndMonthSortedBySurname($year, $month);
             // preview invoices action
             if ($form->get('preview')->isClicked()) {
                 if (count($students) == 0) {

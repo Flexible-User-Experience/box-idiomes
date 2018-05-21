@@ -76,6 +76,7 @@ class StudentRepository extends EntityRepository
     /**
      * @param int $year
      * @param int $month
+     *
      * @return QueryBuilder
      */
     public function getStudentsInEventsByYearAndMonthQB($year, $month)
@@ -92,6 +93,7 @@ class StudentRepository extends EntityRepository
     /**
      * @param int $year
      * @param int $month
+     *
      * @return Query
      */
     public function getStudentsInEventsByYearAndMonthQ($year, $month)
@@ -102,10 +104,47 @@ class StudentRepository extends EntityRepository
     /**
      * @param int $year
      * @param int $month
+     *
      * @return array
      */
     public function getStudentsInEventsByYearAndMonth($year, $month)
     {
         return $this->getStudentsInEventsByYearAndMonthQ($year, $month)->getResult();
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     *
+     * @return QueryBuilder
+     */
+    public function getStudentsInEventsByYearAndMonthSortedBySurnameQB($year, $month)
+    {
+        return $this->getStudentsInEventsByYearAndMonthQB($year, $month)
+            ->orderBy('s.surname', 'ASC')
+            ->addOrderBy('s.name', 'ASC')
+        ;
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     *
+     * @return Query
+     */
+    public function getStudentsInEventsByYearAndMonthSortedBySurnameQ($year, $month)
+    {
+        return $this->getStudentsInEventsByYearAndMonthSortedBySurnameQB($year, $month)->getQuery();
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     *
+     * @return array
+     */
+    public function getStudentsInEventsByYearAndMonthSortedBySurname($year, $month)
+    {
+        return $this->getStudentsInEventsByYearAndMonthSortedBySurnameQ($year, $month)->getResult();
     }
 }
