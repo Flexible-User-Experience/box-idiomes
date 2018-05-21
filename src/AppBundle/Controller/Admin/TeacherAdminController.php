@@ -38,11 +38,14 @@ class TeacherAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
+        $absences = $this->container->get('app.teacher_absence_repository')->getTeacherAbsencesSortedByDate($object);
+
         return $this->render(
             '::Admin/Teacher/detail.html.twig',
             array(
                 'action' => 'show',
                 'object' => $object,
+                'absences' => $absences,
                 'elements' => $this->admin->getShow(),
             )
         );

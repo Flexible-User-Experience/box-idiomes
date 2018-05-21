@@ -214,6 +214,11 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - "AppBundle:Teacher"
+    app.teacher_absence_repository:
+        class: AppBundle\Repository\TeacherAbsenceRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:TeacherAbsence"
     app.student_repository:
         class: AppBundle\Repository\StudentRepository
         factory: [ "@doctrine", getRepository ]
