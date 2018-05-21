@@ -35,7 +35,7 @@ class StudentImageRightsPdfService
     private $pwt;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
@@ -94,10 +94,10 @@ class StudentImageRightsPdfService
         $pdf->Write(0, $this->ts->trans('backend.admin.imagerigths.description2'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
         // Contact name
-        $contactName = $student->getName();
+        $contactName = $student->getName().' '.$student->getSurname();
         $contactDni = $student->getDni();
         if ($student->getParent()) {
-            $contactName = $student->getParent()->getName();
+            $contactName = $student->getParent()->getName().' '.$student->getParent()->getSurname();
             $contactDni = $student->getParent()->getDni();
         }
         $pdf->Write(0, $this->ts->trans(($student->getParent() ? 'backend.admin.imagerigths.contact_name_with_parent' : 'backend.admin.imagerigths.contact_name_without_parent'), array('%name%' => $contactName)), '', false, 'L', true);
