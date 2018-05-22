@@ -160,6 +160,25 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'isSended',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.invoice.isSended',
+                    'required' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'sendDate',
+                DatePickerType::class,
+                array(
+                    'label' => 'backend.admin.invoice.sendDate',
+                    'format' => 'd/M/y',
+                    'required' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
                 'isPayed',
                 CheckboxType::class,
                 array(
@@ -277,6 +296,22 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'isSended',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.isSended',
+                )
+            )
+            ->add(
+                'sendDate',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'backend.admin.invoice.sendDate',
+                    'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
+                )
+            )
+            ->add(
                 'isPayed',
                 null,
                 array(
@@ -307,7 +342,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.id',
-                    'template' => '::Admin/Cells/list__cell_event_id.html.twig',
+                    'template' => '::Admin/Cells/list__cell_invoice_number.html.twig',
                 )
             )
             ->add(
@@ -345,6 +380,14 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.invoice.totalAmount',
                     'template' => '::Admin/Cells/list__cell_invoice_amount.html.twig',
                     'editable' => false,
+                )
+            )
+            ->add(
+                'isSended',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.isSended',
+                    'editable' => true,
                 )
             )
             ->add(

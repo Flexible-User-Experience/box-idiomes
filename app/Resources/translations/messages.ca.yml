@@ -224,6 +224,8 @@ backend:
             date: Data factura
             isPayed: Pagat
             paymentDate: Data pagament
+            isSended: Enviada
+            sendDate: Data enviament
             baseAmount: Base imposable
             id: Núm. Factura
             taxParcentage: IVA
