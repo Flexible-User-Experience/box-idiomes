@@ -40,6 +40,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
         $collection
             ->add('generate')
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
+            ->add('send', $this->getRouterIdParameter().'/send')
             ->remove('delete');
     }
 
@@ -155,6 +156,25 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.discountApplied',
+                    'required' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'isSended',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.invoice.isSended',
+                    'required' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'sendDate',
+                DatePickerType::class,
+                array(
+                    'label' => 'backend.admin.invoice.sendDate',
+                    'format' => 'd/M/y',
                     'required' => false,
                     'disabled' => true,
                 )
@@ -277,6 +297,22 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'isSended',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.isSended',
+                )
+            )
+            ->add(
+                'sendDate',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'backend.admin.invoice.sendDate',
+                    'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
+                )
+            )
+            ->add(
                 'isPayed',
                 null,
                 array(
@@ -307,7 +343,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.id',
-                    'template' => '::Admin/Cells/list__cell_event_id.html.twig',
+                    'template' => '::Admin/Cells/list__cell_invoice_number.html.twig',
                 )
             )
             ->add(
@@ -348,6 +384,14 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'isSended',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.isSended',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 'isPayed',
                 null,
                 array(
@@ -362,6 +406,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'invoice' => array('template' => '::Admin/Buttons/list__action_invoice_pdf_button.html.twig'),
+                        'send' => array('template' => '::Admin/Buttons/list__action_invoice_send_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )
@@ -389,6 +434,10 @@ class InvoiceAdmin extends AbstractBaseAdmin
      */
     private function commonPreActions($object)
     {
-        $object->setTotalAmount($object->calculateTotalBaseAmount());
+        $object
+            ->setIrpf($object->calculateIrpf())
+            ->setBaseAmount($object->calculateTotalBaseAmount())
+            ->setTotalAmount($object->calculateTotal())
+        ;
     }
 }

@@ -1,0 +1,33 @@
+{% extends "::Admin/edit.html.twig" %}
+
+{# override javascript includes #}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            {# Handler for .ready() called. #}
+            console.log('#{{ form.isPayed.vars.id }}');
+            {#var isPayedNode = document.getElementById('{{ form.isPayed.vars.id }}');#}
+            {#var paymentDateNode = jQuery('#sonata-ba-field-container-{{ form.paymentDate.vars.id }}');#}
+            {#var bankNameNode = jQuery('#sonata-ba-field-container-{{ form.bank.vars.id }}');#}
+            {# on init #}
+            {#if (parseInt(paymentNode.val()) !== {{ constant('AppBundle\\Enum\\StudentPaymentEnum::BANK_ACCOUNT_NUMBER') }}) {#}
+                {#bankNode.addClass("hidden");#}
+                {#bankNameNode.addClass("hidden");#}
+            {#}#}
+            {# on change #}
+            // isPayedNode.change(function() {
+            //     console.log('hit');
+                {#if (parseInt(jQuery(this).val()) === {{ constant('AppBundle\\Enum\\StudentPaymentEnum::BANK_ACCOUNT_NUMBER') }}) {#}
+                    {# bank account #}
+                    {#bankNode.removeClass("hidden");#}
+                    {#bankNameNode.removeClass("hidden");#}
+                {#} else {#}
+                    {# cash #}
+                    {#bankNode.addClass("hidden");#}
+                    {#bankNameNode.addClass("hidden");#}
+                {#}#}
+            // });
+        });
+    </script>
+{% endblock %}

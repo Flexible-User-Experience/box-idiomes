@@ -224,6 +224,8 @@ backend:
             date: Data factura
             isPayed: Pagat
             paymentDate: Data pagament
+            isSended: Enviada
+            sendDate: Data enviament
             baseAmount: Base imposable
             id: Núm. Factura
             taxParcentage: IVA
@@ -232,6 +234,7 @@ backend:
             totalAmount: Total
             month: Mes
             year: Any
+            send: Enviar PDF per email
             generator:
                 flash_success: "S'han generat %amount% factures correctament."
                 no_records_found: "No s'ha trobat cap alumne a les classes realitzades durant el període seleccionat."

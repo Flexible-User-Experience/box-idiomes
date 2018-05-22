@@ -5,7 +5,7 @@
     {{ parent() }}
     {% if form.payment is defined %}
         <script type="text/javascript">
-            $(document).ready(function() {
+            jQuery(document).ready(function() {
                 {# Handler for .ready() called. #}
                 var paymentNode = jQuery('#{{ form.payment.vars.id }}');
                 var bankNode = jQuery('#sonata-ba-field-container-{{ form.bank.vars.id }}');
