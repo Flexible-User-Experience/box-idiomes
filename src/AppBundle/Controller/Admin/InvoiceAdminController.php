@@ -104,4 +104,40 @@ class InvoiceAdminController extends BaseAdminController
             $request
         );
     }
+
+    /**
+     * Generate PDF invoice action.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException                 If the object does not exist
+     * @throws AccessDeniedException                 If access is not granted
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function pdfAction(Request $request = null)
+    {
+        $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha generat cap factura amb PDF.');
+
+        return $this->redirectToList();
+    }
+
+    /**
+     * Send PDF invoice action.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException                 If the object does not exist
+     * @throws AccessDeniedException                 If access is not granted
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function sendAction(Request $request = null)
+    {
+        $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha enviat cap factura per email.');
+
+        return $this->redirectToList();
+    }
 }
