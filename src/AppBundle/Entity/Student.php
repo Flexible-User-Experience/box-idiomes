@@ -241,7 +241,7 @@ class Student extends AbstractPerson
     {
         $price = $this->getTariff()->getPrice();
         if ($this->getParent()) {
-            $price = $price - ($this->getParent()->getExtraSonsAmount() * self::DISCOUNT_PER_EXTRA_SON);
+            $price = $price - (($this->getParent()->getExtraSonsAmount() * self::DISCOUNT_PER_EXTRA_SON) / $this->getParent()->getSonsAmount());
         }
 
         return $price;
@@ -254,7 +254,7 @@ class Student extends AbstractPerson
     {
         $discount = 0;
         if ($this->getParent()) {
-            $discount = $this->getParent()->getExtraSonsAmount() * self::DISCOUNT_PER_EXTRA_SON;
+            $discount = round($this->getParent()->getExtraSonsAmount() * self::DISCOUNT_PER_EXTRA_SON / $this->getParent()->getSonsAmount(), 2);
         }
 
         return $discount;
