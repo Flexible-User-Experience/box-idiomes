@@ -128,7 +128,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.taxParcentage',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -151,20 +151,12 @@ class InvoiceAdmin extends AbstractBaseAdmin
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
-                'paymentDate',
-                DatePickerType::class,
-                array(
-                    'label' => 'backend.admin.invoice.paymentDate',
-                    'format' => 'd/M/y',
-                    'required' => false,
-                )
-            )
-            ->add(
                 'discountApplied',
                 null,
                 array(
                     'label' => 'backend.admin.invoice.discountApplied',
                     'required' => false,
+                    'disabled' => true,
                 )
             )
             ->add(
@@ -172,6 +164,15 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 CheckboxType::class,
                 array(
                     'label' => 'backend.admin.invoice.isPayed',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'paymentDate',
+                DatePickerType::class,
+                array(
+                    'label' => 'backend.admin.invoice.paymentDate',
+                    'format' => 'd/M/y',
                     'required' => false,
                 )
             )

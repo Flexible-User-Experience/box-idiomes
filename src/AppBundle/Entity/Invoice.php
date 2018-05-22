@@ -65,6 +65,20 @@ class Invoice extends AbstractBase
     private $paymentDate;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isSended;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $sendDate;
+
+    /**
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -246,6 +260,14 @@ class Invoice extends AbstractBase
     }
 
     /**
+     * @return bool
+     */
+    public function getIsPayed()
+    {
+        return $this->isPayed();
+    }
+
+    /**
      * @param bool $isPayed
      *
      * @return Invoice
@@ -273,6 +295,54 @@ class Invoice extends AbstractBase
     public function setPaymentDate(\DateTime $paymentDate)
     {
         $this->paymentDate = $paymentDate;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSended()
+    {
+        return $this->isSended;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsSended()
+    {
+        return $this->isSended();
+    }
+
+    /**
+     * @param bool $isSended
+     *
+     * @return $this
+     */
+    public function setIsSended($isSended)
+    {
+        $this->isSended = $isSended;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getSendDate()
+    {
+        return $this->sendDate;
+    }
+
+    /**
+     * @param \DateTime $sendDate
+     *
+     * @return $this
+     */
+    public function setSendDate(\DateTime $sendDate)
+    {
+        $this->sendDate = $sendDate;
 
         return $this;
     }
@@ -363,6 +433,14 @@ class Invoice extends AbstractBase
     public function getTotalAmount()
     {
         return $this->totalAmount;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTotalAmountString()
+    {
+        return number_format($this->totalAmount, 2, ',', '.').'€';
     }
 
     /**
@@ -468,6 +546,6 @@ class Invoice extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getYear().'/'.$this->id : '---';
+        return $this->id ? $this->getInvoiceNumber().' · '.$this->getStudent().' · '.$this->getTotalAmountString() : '---';
     }
 }
