@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\InvoiceLine;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Student;
+use AppBundle\Enum\InvoiceYearMonthEnum;
 use AppBundle\Form\Type\GenerateInvoiceType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -63,7 +64,7 @@ class InvoiceAdminController extends BaseAdminController
                     $invoiceLine = new InvoiceLine();
                     $invoiceLine
                         ->setStudent($student)
-                        ->setDescription($translator->trans('backend.admin.invoiceLine.generator.line', array('%month%' => $month, '%year%' => $year), 'messages'))
+                        ->setDescription($translator->trans('backend.admin.invoiceLine.generator.line', array('%month%' => InvoiceYearMonthEnum::getTranslatedMonthEnumArray()[$month], '%year%' => $year), 'messages'))
                         ->setUnits(1)
                         ->setPriceUnit($student->getTariff()->getPrice())
                         ->setDiscount($student->calculateMonthlyDiscount())
@@ -80,7 +81,7 @@ class InvoiceAdminController extends BaseAdminController
                         ->addLine($invoiceLine)
                         ->setIrpf($invoice->calculateIrpf())
                         ->setTaxParcentage(0)
-                        ->setTotalAmount($invoice->calculateTotal())
+                        ->setTotalAmount($invoiceLine->getTotal() - $invoice->getIrpf())
                     ;
                     $em->persist($invoice);
                 }
