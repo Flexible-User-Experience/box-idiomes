@@ -49,7 +49,7 @@ class InvoiceAdminController extends BaseAdminController
             $students = $this->get('app.student_repository')->getStudentsInEventsByYearAndMonthSortedBySurname($year, $month);
             // preview invoices action
             if ($form->get('preview')->isClicked()) {
-                if (count($students) == 0) {
+                if (0 == count($students)) {
                     $hideGenerateSubmitButton = true;
                 }
             }
@@ -65,7 +65,7 @@ class InvoiceAdminController extends BaseAdminController
                         ->setStudent($student)
                         ->setDescription($translator->trans('backend.admin.invoiceLine.generator.line', array('%month%' => $month, '%year%' => $year), 'messages'))
                         ->setUnits(1)
-                        ->setPriceUnit($student->calculateMonthlyTariff())
+                        ->setPriceUnit($student->getTariff()->getPrice())
                         ->setDiscount($student->calculateMonthlyDiscount())
                         ->setTotal($invoiceLine->calculateBaseAmount())
                     ;
