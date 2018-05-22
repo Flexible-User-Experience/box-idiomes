@@ -15,8 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InvoiceRepository")
  * @ORM\Table(name="invoice")
- * @UniqueEntity({"month", "year", "student"})
- * @UniqueEntity({"month", "year", "person"})
+ * @UniqueEntity(fields={"month", "year", "student"})
  */
 class Invoice extends AbstractBase
 {
@@ -244,7 +243,7 @@ class Invoice extends AbstractBase
      *
      * @return Invoice
      */
-    public function setDate(\DateTime $date)
+    public function setDate($date)
     {
         $this->date = $date;
 
@@ -292,7 +291,7 @@ class Invoice extends AbstractBase
      *
      * @return Invoice
      */
-    public function setPaymentDate(\DateTime $paymentDate)
+    public function setPaymentDate($paymentDate)
     {
         $this->paymentDate = $paymentDate;
 
@@ -340,7 +339,7 @@ class Invoice extends AbstractBase
      *
      * @return $this
      */
-    public function setSendDate(\DateTime $sendDate)
+    public function setSendDate($sendDate)
     {
         $this->sendDate = $sendDate;
 
