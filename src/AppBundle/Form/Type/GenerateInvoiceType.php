@@ -3,13 +3,16 @@
 namespace AppBundle\Form\Type;
 
 use AppBundle\Enum\InvoiceYearMonthEnum;
+use AppBundle\Form\Model\GenerateInvoiceModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class GenerateInvoiceType
+ * Class GenerateInvoiceType.
  *
  * @category FormType
  *
@@ -45,11 +48,23 @@ class GenerateInvoiceType extends AbstractType
                 )
             )
             ->add(
+                'items',
+                CollectionType::class,
+                array(
+                    'label' => 'backend.admin.invoice.items',
+                    'required' => false,
+                    'entry_type' => GenerateInvoiceItemType::class,
+                    'entry_options' => array(
+                        'label' => false,
+                    ),
+                )
+            )
+            ->add(
                 'preview',
                 SubmitType::class,
                 array(
                     'label' => 'backend.admin.invoice.preview_invoice',
-                    'attr'  => array(
+                    'attr' => array(
                         'class' => 'btn btn-success',
                     ),
                 )
@@ -60,7 +75,7 @@ class GenerateInvoiceType extends AbstractType
                 array(
                    'label' => 'backend.admin.invoice.generate',
                     'attr' => array(
-                        'class' => 'btn btn-success'
+                        'class' => 'btn btn-success',
                     ),
                 )
             )
@@ -73,5 +88,17 @@ class GenerateInvoiceType extends AbstractType
     public function getBlockPrefix()
     {
         return 'generate_invoice';
+    }
+
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'data_class' => GenerateInvoiceModel::class,
+            )
+        );
     }
 }

@@ -72,6 +72,20 @@ class Student extends AbstractPerson
     private $events;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
+     */
+    private $hasImageRightsAccepted = false;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
+     */
+    private $hasSepaAgreementAccepted = false;
+
+    /**
      * Methods.
      */
 
@@ -96,7 +110,7 @@ class Student extends AbstractPerson
      *
      * @return Student
      */
-    public function setBirthDate($birthDate)
+    public function setBirthDate(\DateTime $birthDate)
     {
         $this->birthDate = $birthDate;
 
@@ -232,6 +246,62 @@ class Student extends AbstractPerson
         if ($this->events->contains($event)) {
             $this->events->removeElement($event);
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHasImageRightsAccepted()
+    {
+        return $this->hasImageRightsAccepted;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHasImageRightsAccepted()
+    {
+        return $this->isHasImageRightsAccepted();
+    }
+
+    /**
+     * @param bool $hasImageRightsAccepted
+     *
+     * @return $this
+     */
+    public function setHasImageRightsAccepted($hasImageRightsAccepted)
+    {
+        $this->hasImageRightsAccepted = $hasImageRightsAccepted;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHasSepaAgreementAccepted()
+    {
+        return $this->hasSepaAgreementAccepted;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHasSepaAgreementAccepted()
+    {
+        return $this->isHasSepaAgreementAccepted();
+    }
+
+    /**
+     * @param bool $hasSepaAgreementAccepted
+     *
+     * @return $this
+     */
+    public function setHasSepaAgreementAccepted($hasSepaAgreementAccepted)
+    {
+        $this->hasSepaAgreementAccepted = $hasSepaAgreementAccepted;
+
+        return $this;
     }
 
     /**

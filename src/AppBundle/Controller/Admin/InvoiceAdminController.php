@@ -33,7 +33,9 @@ class InvoiceAdminController extends BaseAdminController
      */
     public function generateAction(Request $request = null)
     {
-        $form = $this->createForm(GenerateInvoiceType::class);
+        $generateInvoice = $this->get('app.generate_invoice_form_manager')->buildFormCompleted(2018, 5);
+
+        $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
         $form->handleRequest($request);
 
         $students = [];
@@ -45,8 +47,8 @@ class InvoiceAdminController extends BaseAdminController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $year = $form->getData()['year'];
-            $month = $form->getData()['month'];
+            $year = $generateInvoice->getYear();
+            $month = $generateInvoice->getMonth();
             $students = $this->get('app.student_repository')->getStudentsInEventsByYearAndMonthSortedBySurname($year, $month);
             // preview invoices action
             if ($form->get('preview')->isClicked()) {
@@ -112,9 +114,8 @@ class InvoiceAdminController extends BaseAdminController
      *
      * @return Response
      *
-     * @throws NotFoundHttpException                 If the object does not exist
-     * @throws AccessDeniedException                 If access is not granted
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
      */
     public function pdfAction(Request $request = null)
     {
@@ -130,9 +131,8 @@ class InvoiceAdminController extends BaseAdminController
      *
      * @return Response
      *
-     * @throws NotFoundHttpException                 If the object does not exist
-     * @throws AccessDeniedException                 If access is not granted
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
      */
     public function sendAction(Request $request = null)
     {

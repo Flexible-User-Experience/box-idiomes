@@ -19,6 +19,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Invoice extends AbstractBase
 {
+    const TAX_IVA = 21;
+
     /**
      * @var ArrayCollection|array|InvoiceLine[]
      *
@@ -243,7 +245,7 @@ class Invoice extends AbstractBase
      *
      * @return Invoice
      */
-    public function setDate($date)
+    public function setDate(\DateTime $date)
     {
         $this->date = $date;
 
@@ -291,7 +293,7 @@ class Invoice extends AbstractBase
      *
      * @return Invoice
      */
-    public function setPaymentDate($paymentDate)
+    public function setPaymentDate(\DateTime $paymentDate)
     {
         $this->paymentDate = $paymentDate;
 
@@ -339,7 +341,7 @@ class Invoice extends AbstractBase
      *
      * @return $this
      */
-    public function setSendDate($sendDate)
+    public function setSendDate(\DateTime $sendDate)
     {
         $this->sendDate = $sendDate;
 
@@ -499,7 +501,12 @@ class Invoice extends AbstractBase
      */
     public function getInvoiceNumber()
     {
-        return  $this->getDate()->format('Y').'-'.$this->getId();
+        $date = new \DateTime();
+        if ($this->getDate()) {
+            $date = $this->getDate();
+        }
+
+        return $date->format('Y').'-'.$this->getId();
     }
 
     /**
@@ -521,7 +528,7 @@ class Invoice extends AbstractBase
      */
     public function calculateTaxParcentage()
     {
-        return $this->calculateTotalBaseAmount() * (21 / 100);
+        return $this->calculateTotalBaseAmount() * (self::TAX_IVA / 100);
     }
 
     /**
