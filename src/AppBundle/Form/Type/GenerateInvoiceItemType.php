@@ -45,7 +45,7 @@ class GenerateInvoiceItemType extends AbstractType
                 )
             )
             ->add(
-                'priceUnits',
+                'unitPrice',
                 IntegerType::class,
                 array(
                     'label' => 'backend.admin.invoiceLine.priceUnit',
@@ -70,7 +70,7 @@ class GenerateInvoiceItemType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\NewsletterContact',
+                'data_class' => GenerateInvoiceItemModel::class,
             )
         );
     }
