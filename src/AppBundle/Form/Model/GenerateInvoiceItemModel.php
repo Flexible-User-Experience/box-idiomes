@@ -29,6 +29,21 @@ class GenerateInvoiceItemModel
     private $unitPrice;
 
     /**
+     * @var float
+     */
+    private $discount;
+
+    /**
+     * @var bool
+     */
+    private $isReadyToGenerate;
+
+    /**
+     * @var bool
+     */
+    private $isPreviouslyGenerated;
+
+    /**
      * Methods.
      */
 
@@ -88,6 +103,82 @@ class GenerateInvoiceItemModel
     public function setUnitPrice($unitPrice)
     {
         $this->unitPrice = $unitPrice;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
+     * @param float $discount
+     *
+     * @return $this
+     */
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReadyToGenerate()
+    {
+        return $this->isReadyToGenerate;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsReadyToGenerate()
+    {
+        return $this->isReadyToGenerate();
+    }
+
+    /**
+     * @param bool $isReadyToGenerate
+     *
+     * @return $this
+     */
+    public function setIsReadyToGenerate($isReadyToGenerate)
+    {
+        $this->isReadyToGenerate = $isReadyToGenerate;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPreviouslyGenerated()
+    {
+        return $this->isPreviouslyGenerated;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsPreviouslyGenerated()
+    {
+        return $this->isPreviouslyGenerated();
+    }
+
+    /**
+     * @param bool $isPreviouslyGenerated
+     *
+     * @return $this
+     */
+    public function setIsPreviouslyGenerated($isPreviouslyGenerated)
+    {
+        $this->isPreviouslyGenerated = $isPreviouslyGenerated;
 
         return $this;
     }

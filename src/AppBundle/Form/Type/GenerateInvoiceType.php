@@ -6,6 +6,7 @@ use AppBundle\Enum\InvoiceYearMonthEnum;
 use AppBundle\Form\Model\GenerateInvoiceModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -44,6 +45,18 @@ class GenerateInvoiceType extends AbstractType
                     'required' => true,
                     'choices' => InvoiceYearMonthEnum::getMonthEnumArray(),
                     'choices_as_values' => false,
+                )
+            )
+            ->add(
+                'items',
+                CollectionType::class,
+                array(
+                    'label' => 'backend.admin.invoice.items',
+                    'required' => false,
+                    'entry_type' => GenerateInvoiceItemType::class,
+                    'entry_options' => array(
+                        'label' => false,
+                    ),
                 )
             )
             ->add(
