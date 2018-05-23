@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Form\Type;
+namespace AppBundle\Form\Model;
 
 /**
  * Class GenerateInvoiceModel.

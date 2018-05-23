@@ -6,6 +6,7 @@ use AppBundle\Entity\InvoiceLine;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Student;
 use AppBundle\Enum\InvoiceYearMonthEnum;
+use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Form\Type\GenerateInvoiceType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -33,7 +34,8 @@ class InvoiceAdminController extends BaseAdminController
      */
     public function generateAction(Request $request = null)
     {
-        $form = $this->createForm(GenerateInvoiceType::class);
+        $generateInvoice = new GenerateInvoiceModel();
+        $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
         $form->handleRequest($request);
 
         $students = [];
@@ -45,8 +47,8 @@ class InvoiceAdminController extends BaseAdminController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $year = $form->getData()['year'];
-            $month = $form->getData()['month'];
+            $year = $generateInvoice->getYear();
+            $month = $generateInvoice->getMonth();
             $students = $this->get('app.student_repository')->getStudentsInEventsByYearAndMonthSortedBySurname($year, $month);
             // preview invoices action
             if ($form->get('preview')->isClicked()) {
