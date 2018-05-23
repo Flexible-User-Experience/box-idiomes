@@ -112,9 +112,8 @@ class InvoiceAdminController extends BaseAdminController
      *
      * @return Response
      *
-     * @throws NotFoundHttpException                 If the object does not exist
-     * @throws AccessDeniedException                 If access is not granted
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
      */
     public function pdfAction(Request $request = null)
     {
@@ -130,9 +129,8 @@ class InvoiceAdminController extends BaseAdminController
      *
      * @return Response
      *
-     * @throws NotFoundHttpException                 If the object does not exist
-     * @throws AccessDeniedException                 If access is not granted
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
      */
     public function sendAction(Request $request = null)
     {

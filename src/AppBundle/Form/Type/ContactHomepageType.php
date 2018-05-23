@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\NewsletterContact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -10,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class ContactHomepageType
+ * Class ContactHomepageType.
  *
  * @category FormType
  *
@@ -30,15 +31,15 @@ class ContactHomepageType extends AbstractType
                 EmailType::class,
                 array(
                     'required' => false,
-                    'attr'  => array(
+                    'attr' => array(
                         'placeholder' => 'frontend.forms.email',
-                        'class' => 'newsletter-email'
+                        'class' => 'newsletter-email',
                     ),
                     'constraints' => array(
                         new Assert\NotBlank(),
                         new Assert\Email(array(
-                            'strict'    => true,
-                            'checkMX'   => true,
+                            'strict' => true,
+                            'checkMX' => true,
                             'checkHost' => true,
                         )),
                     ),
@@ -49,7 +50,7 @@ class ContactHomepageType extends AbstractType
                 SubmitType::class,
                 array(
                     'label' => 'frontend.forms.subscribe',
-                    'attr'  => array(
+                    'attr' => array(
                         'class' => 'btn-newsletter',
                     ),
                 )
@@ -71,7 +72,7 @@ class ContactHomepageType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\NewsletterContact',
+                'data_class' => NewsletterContact::class,
             )
         );
     }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Entity\ContactMessage;
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue as RecaptchaTrue;
 use Symfony\Component\Form\AbstractType;
@@ -14,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class ContactMessageType
+ * Class ContactMessageType.
  *
  * @category FormType
  *
@@ -33,11 +34,11 @@ class ContactMessageType extends AbstractType
                 'name',
                 TextType::class,
                 array(
-                    'label'       => false,
-                    'required'    => true,
-                    'attr'        => array(
+                    'label' => false,
+                    'required' => true,
+                    'attr' => array(
                         'placeholder' => 'frontend.forms.name',
-                        'class'       => 'common-fields'
+                        'class' => 'common-fields',
                     ),
                     'constraints' => array(
                         new Assert\NotBlank(),
@@ -48,17 +49,17 @@ class ContactMessageType extends AbstractType
                 'email',
                 EmailType::class,
                 array(
-                    'label'       => false,
-                    'required'    => true,
-                    'attr'        => array(
+                    'label' => false,
+                    'required' => true,
+                    'attr' => array(
                         'placeholder' => 'frontend.forms.email',
-                        'class'       => 'common-fields'
+                        'class' => 'common-fields',
                     ),
                     'constraints' => array(
                         new Assert\NotBlank(),
                         new Assert\Email(array(
-                            'strict'    => true,
-                            'checkMX'   => true,
+                            'strict' => true,
+                            'checkMX' => true,
                             'checkHost' => true,
                         )),
                     ),
@@ -68,11 +69,11 @@ class ContactMessageType extends AbstractType
                 'phone',
                 TextType::class,
                 array(
-                    'label'    => false,
+                    'label' => false,
                     'required' => false,
-                    'attr'     => array(
+                    'attr' => array(
                         'placeholder' => 'frontend.forms.phone',
-                        'class'       => 'common-fields'
+                        'class' => 'common-fields',
                     ),
                 )
             )
@@ -80,11 +81,11 @@ class ContactMessageType extends AbstractType
                 'message',
                 TextareaType::class,
                 array(
-                    'label'       => 'frontend.forms.message',
-                    'required'    => true,
-                    'attr'        => array(
-                        'rows'        => 5,
-                        'class'       => 'message-field'
+                    'label' => 'frontend.forms.message',
+                    'required' => true,
+                    'attr' => array(
+                        'rows' => 5,
+                        'class' => 'message-field',
                     ),
                     'constraints' => array(
                         new Assert\NotBlank(),
@@ -99,9 +100,9 @@ class ContactMessageType extends AbstractType
                     'attr' => array(
                         'options' => array(
                             'theme' => 'light',
-                            'type'  => 'image',
-                            'size'  => 'normal',
-                        )
+                            'type' => 'image',
+                            'size' => 'normal',
+                        ),
                     ),
                     'mapped' => false,
                     'constraints' => array(
@@ -114,7 +115,7 @@ class ContactMessageType extends AbstractType
                 SubmitType::class,
                 array(
                     'label' => 'frontend.forms.send',
-                    'attr'  => array(
+                    'attr' => array(
                         'class' => 'btn-newsletter',
                     ),
                 )
@@ -136,7 +137,7 @@ class ContactMessageType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\ContactMessage',
+                'data_class' => ContactMessage::class,
             )
         );
     }
