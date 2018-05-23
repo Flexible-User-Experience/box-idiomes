@@ -2,6 +2,8 @@
 
 namespace AppBundle\Form\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Class GenerateInvoiceModel.
  *
@@ -22,8 +24,21 @@ class GenerateInvoiceModel
     private $month;
 
     /**
+     * @var GenerateInvoiceItemModel[]
+     */
+    private $items;
+
+    /**
      * Methods.
      */
+
+    /**
+     * GenerateInvoiceModel constructor.
+     */
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -61,6 +76,50 @@ class GenerateInvoiceModel
     public function setMonth($month)
     {
         $this->month = $month;
+
+        return $this;
+    }
+
+    /**
+     * @return GenerateInvoiceItemModel[]
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param GenerateInvoiceItemModel[] $items
+     *
+     * @return $this
+     */
+    public function setItems($items)
+    {
+        $this->items = $items;
+
+        return $this;
+    }
+
+    /**
+     * @param GenerateInvoiceItemModel $item
+     *
+     * @return $this
+     */
+    public function addItem(GenerateInvoiceItemModel $item)
+    {
+        $this->items->add($item);
+
+        return $this;
+    }
+
+    /**
+     * @param GenerateInvoiceItemModel $item
+     *
+     * @return $this
+     */
+    public function removeItem(GenerateInvoiceItemModel $item)
+    {
+        $this->items->removeElement($item);
 
         return $this;
     }

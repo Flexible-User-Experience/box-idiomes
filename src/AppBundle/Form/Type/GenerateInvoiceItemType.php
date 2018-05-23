@@ -6,6 +6,7 @@ use AppBundle\Entity\Student;
 use AppBundle\Form\Model\GenerateInvoiceItemModel;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,8 +34,6 @@ class GenerateInvoiceItemType extends AbstractType
                     'label' => 'backend.admin.student.student',
                     'class' => Student::class,
                     'required' => true,
-//                    'choices' => InvoiceYearMonthEnum::getYearEnumArray(),
-//                    'choices_as_values' => true,
                 )
             )
             ->add(
@@ -50,6 +49,14 @@ class GenerateInvoiceItemType extends AbstractType
                 IntegerType::class,
                 array(
                     'label' => 'backend.admin.invoiceLine.priceUnit',
+                    'required' => true,
+                )
+            )
+            ->add(
+                'isReadyToGenerate',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.invoiceLine.isReadyToGenerate',
                     'required' => true,
                 )
             )

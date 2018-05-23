@@ -29,6 +29,11 @@ class GenerateInvoiceItemModel
     private $unitPrice;
 
     /**
+     * @var bool
+     */
+    private $isReadyToGenerate;
+
+    /**
      * Methods.
      */
 
@@ -88,6 +93,34 @@ class GenerateInvoiceItemModel
     public function setUnitPrice($unitPrice)
     {
         $this->unitPrice = $unitPrice;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isReadyToGenerate()
+    {
+        return $this->isReadyToGenerate;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsReadyToGenerate()
+    {
+        return $this->isReadyToGenerate();
+    }
+
+    /**
+     * @param bool $isReadyToGenerate
+     *
+     * @return $this
+     */
+    public function setIsReadyToGenerate($isReadyToGenerate)
+    {
+        $this->isReadyToGenerate = $isReadyToGenerate;
 
         return $this;
     }

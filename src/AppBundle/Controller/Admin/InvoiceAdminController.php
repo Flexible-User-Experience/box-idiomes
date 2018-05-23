@@ -6,6 +6,7 @@ use AppBundle\Entity\InvoiceLine;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Student;
 use AppBundle\Enum\InvoiceYearMonthEnum;
+use AppBundle\Form\Model\GenerateInvoiceItemModel;
 use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Form\Type\GenerateInvoiceType;
 use Doctrine\ORM\EntityManager;
@@ -34,7 +35,14 @@ class InvoiceAdminController extends BaseAdminController
      */
     public function generateAction(Request $request = null)
     {
+        $generateInvoiceItem = new GenerateInvoiceItemModel();
+        $generateInvoiceItem
+            ->setUnits(1)
+            ->setUnitPrice(24)
+            ->setIsReadyToGenerate(true)
+        ;
         $generateInvoice = new GenerateInvoiceModel();
+        $generateInvoice->addItem($generateInvoiceItem);
         $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
         $form->handleRequest($request);
 
