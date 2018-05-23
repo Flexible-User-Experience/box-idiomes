@@ -3,6 +3,7 @@
 namespace AppBundle\Manager;
 
 use AppBundle\Entity\Student;
+use AppBundle\Enum\TariffTypeEnum;
 use AppBundle\Form\Model\GenerateInvoiceItemModel;
 use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Repository\StudentRepository;
@@ -46,10 +47,15 @@ class GenerateInvoiceFormManager
         /** @var Student $student */
         foreach ($students as $student) {
             $generateInvoiceItem = new GenerateInvoiceItemModel();
+            $units = 1;
+            if (TariffTypeEnum::TARIFF_SIGLE_HOUR == $student->getTariff()->getType()) {
+                // TODO set units acording to assisted classes in selected year & month
+            }
             $generateInvoiceItem
                 ->setStudent($student)
-                ->setUnits(1)
-                ->setUnitPrice(24)
+                ->setUnits($units)
+                ->setUnitPrice($student->getTariff()->getPrice())
+                ->setDiscount($student->calculateMonthlyDiscount())
                 ->setIsReadyToGenerate(true)
             ;
             $generateInvoice->addItem($generateInvoiceItem);
