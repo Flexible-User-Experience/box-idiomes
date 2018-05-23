@@ -195,6 +195,22 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'hasImageRightsAccepted',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.imagerigths.checkbox_label',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'hasSepaAgreementAccepted',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.sepaagreement.checkbox_label',
+                    'required' => false,
+                )
+            )
+            ->add(
                 'enabled',
                 CheckboxType::class,
                 array(
@@ -284,6 +300,20 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'hasImageRightsAccepted',
+                null,
+                array(
+                    'label' => 'backend.admin.imagerigths.checkbox_label',
+                )
+            )
+            ->add(
+                'hasSepaAgreementAccepted',
+                null,
+                array(
+                    'label' => 'backend.admin.sepaagreement.checkbox_label',
+                )
+            )
+            ->add(
                 'enabled',
                 null,
                 array(
@@ -329,6 +359,22 @@ class StudentAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.student.email',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'hasImageRightsAccepted',
+                null,
+                array(
+                    'label' => 'backend.admin.imagerigths.checkbox_label',
+                    'editable' => true,
+                )
+            )
+            ->add(
+                'hasSepaAgreementAccepted',
+                null,
+                array(
+                    'label' => 'backend.admin.sepaagreement.checkbox_label',
                     'editable' => true,
                 )
             )

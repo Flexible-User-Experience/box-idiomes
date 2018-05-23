@@ -171,6 +171,7 @@ backend:
             postalCode: Codi postal
             province: Província
         imagerigths:
+            checkbox_label: Drets Imatge Acceptats
             pdf_metadata_title: Drets Imatge
             pdf_metadata_subject: Document autorització Drets Imatge
             description1: "El centre Box, viu els idiomes gestiona diversos espais a la xarxa: web, Facebook Instagram i diverses pàgines associades on, de tant en tant, poden aparèixer, ja sigui individualment o en grup imatges dels nostres alumnes fent algunes de les activitats que es duguin a terme a les aules o fora d’elles."
@@ -183,6 +184,7 @@ backend:
             registration_date: "Amposta, %day% %month% de %year%"
             sign: Signatura
         sepaagreement:
+            checkbox_label: SEPA Acceptat
             first_text: Autorització de domiciliació bancària per al pagament de rebuts
             text1: "D’acord amb el que estableixen els articles 25,26 i 31 de la llei 16/2009 de serveis de pagament:"
             text2: "Autoritzo i consenteixo la present ordre de domiciliació bancària per què, a càrrec del compte del qual s’indica el titular i número, i fins nou avís, Ester Escrihuela Simó procedeixi al cobrament de rebuts bancaris que s’originin mensualment amb relació a les classes impartides."
