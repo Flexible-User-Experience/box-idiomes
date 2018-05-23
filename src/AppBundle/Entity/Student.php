@@ -96,7 +96,7 @@ class Student extends AbstractPerson
      *
      * @return Student
      */
-    public function setBirthDate($birthDate)
+    public function setBirthDate(\DateTime $birthDate)
     {
         $this->birthDate = $birthDate;
 

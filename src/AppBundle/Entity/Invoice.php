@@ -245,7 +245,7 @@ class Invoice extends AbstractBase
      *
      * @return Invoice
      */
-    public function setDate($date)
+    public function setDate(\DateTime $date)
     {
         $this->date = $date;
 
@@ -293,7 +293,7 @@ class Invoice extends AbstractBase
      *
      * @return Invoice
      */
-    public function setPaymentDate($paymentDate)
+    public function setPaymentDate(\DateTime $paymentDate)
     {
         $this->paymentDate = $paymentDate;
 
@@ -341,7 +341,7 @@ class Invoice extends AbstractBase
      *
      * @return $this
      */
-    public function setSendDate($sendDate)
+    public function setSendDate(\DateTime $sendDate)
     {
         $this->sendDate = $sendDate;
 
