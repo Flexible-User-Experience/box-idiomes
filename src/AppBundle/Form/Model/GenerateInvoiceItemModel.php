@@ -39,6 +39,11 @@ class GenerateInvoiceItemModel
     private $isReadyToGenerate;
 
     /**
+     * @var bool
+     */
+    private $isPreviouslyGenerated;
+
+    /**
      * Methods.
      */
 
@@ -146,6 +151,34 @@ class GenerateInvoiceItemModel
     public function setIsReadyToGenerate($isReadyToGenerate)
     {
         $this->isReadyToGenerate = $isReadyToGenerate;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPreviouslyGenerated()
+    {
+        return $this->isPreviouslyGenerated;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsPreviouslyGenerated()
+    {
+        return $this->isPreviouslyGenerated();
+    }
+
+    /**
+     * @param bool $isPreviouslyGenerated
+     *
+     * @return $this
+     */
+    public function setIsPreviouslyGenerated($isPreviouslyGenerated)
+    {
+        $this->isPreviouslyGenerated = $isPreviouslyGenerated;
 
         return $this;
     }

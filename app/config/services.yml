@@ -168,6 +168,7 @@ services:
         class: AppBundle\Manager\GenerateInvoiceFormManager
         arguments:
             - "@app.student_repository"
+            - "@app.invoice_repository"
 # PDF service builders
     app.base_tcpdf:
         class: AppBundle\Pdf\BaseTcpdf

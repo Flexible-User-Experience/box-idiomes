@@ -6,6 +6,7 @@ use AppBundle\Entity\Student;
 use AppBundle\Enum\TariffTypeEnum;
 use AppBundle\Form\Model\GenerateInvoiceItemModel;
 use AppBundle\Form\Model\GenerateInvoiceModel;
+use AppBundle\Repository\InvoiceRepository;
 use AppBundle\Repository\StudentRepository;
 
 /**
@@ -21,6 +22,11 @@ class GenerateInvoiceFormManager
     private $sr;
 
     /**
+     * @var InvoiceRepository
+     */
+    private $ir;
+
+    /**
      * Methods.
      */
 
@@ -28,10 +34,12 @@ class GenerateInvoiceFormManager
      * GenerateInvoiceFormManager constructor.
      *
      * @param StudentRepository $sr
+     * @param InvoiceRepository $ir
      */
-    public function __construct(StudentRepository $sr)
+    public function __construct(StudentRepository $sr, InvoiceRepository $ir)
     {
         $this->sr = $sr;
+        $this->ir = $ir;
     }
 
     /**
@@ -39,6 +47,8 @@ class GenerateInvoiceFormManager
      * @param int $month
      *
      * @return GenerateInvoiceModel
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function buildFormCompleted($year, $month)
     {
@@ -46,17 +56,23 @@ class GenerateInvoiceFormManager
         $students = $this->sr->getStudentsInEventsByYearAndMonthSortedBySurname($year, $month);
         /** @var Student $student */
         foreach ($students as $student) {
-            $generateInvoiceItem = new GenerateInvoiceItemModel();
+            $isPreviouslyGenerated = false;
+            $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentYearAndMonthOrNull($student, $year, $month);
+            if (!is_null($previousInvoice)) {
+                $isPreviouslyGenerated = true;
+            }
             $units = 1;
             if (TariffTypeEnum::TARIFF_SIGLE_HOUR == $student->getTariff()->getType()) {
                 // TODO set units acording to assisted classes in selected year & month
             }
+            $generateInvoiceItem = new GenerateInvoiceItemModel();
             $generateInvoiceItem
                 ->setStudent($student)
                 ->setUnits($units)
                 ->setUnitPrice($student->getTariff()->getPrice())
                 ->setDiscount($student->calculateMonthlyDiscount())
-                ->setIsReadyToGenerate(true)
+                ->setIsReadyToGenerate($isPreviouslyGenerated ? false : true)
+                ->setIsPreviouslyGenerated($isPreviouslyGenerated)
             ;
             $generateInvoice->addItem($generateInvoiceItem);
         }
