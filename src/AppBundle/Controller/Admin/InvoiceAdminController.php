@@ -38,7 +38,7 @@ class InvoiceAdminController extends BaseAdminController
         $generateInvoiceItem = new GenerateInvoiceItemModel();
         $generateInvoiceItem
             ->setUnits(1)
-            ->setUnitPrice(24)
+            ->setUnitPrice(2400.356)
             ->setIsReadyToGenerate(true)
         ;
         $generateInvoice = new GenerateInvoiceModel();

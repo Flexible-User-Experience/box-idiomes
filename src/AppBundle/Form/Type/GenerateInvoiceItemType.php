@@ -7,7 +7,7 @@ use AppBundle\Form\Model\GenerateInvoiceItemModel;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -38,17 +38,31 @@ class GenerateInvoiceItemType extends AbstractType
             )
             ->add(
                 'units',
-                IntegerType::class,
+                NumberType::class,
                 array(
                     'label' => 'backend.admin.invoiceLine.units',
+                    'scale' => 1,
+                    'grouping' => true,
                     'required' => true,
                 )
             )
             ->add(
                 'unitPrice',
-                IntegerType::class,
+                NumberType::class,
                 array(
                     'label' => 'backend.admin.invoiceLine.priceUnit',
+                    'scale' => 2,
+                    'grouping' => true,
+                    'required' => true,
+                )
+            )
+            ->add(
+                'discount',
+                NumberType::class,
+                array(
+                    'label' => 'backend.admin.invoiceLine.discount',
+                    'scale' => 2,
+                    'grouping' => true,
                     'required' => true,
                 )
             )

@@ -29,6 +29,11 @@ class GenerateInvoiceItemModel
     private $unitPrice;
 
     /**
+     * @var float
+     */
+    private $discount;
+
+    /**
      * @var bool
      */
     private $isReadyToGenerate;
@@ -93,6 +98,26 @@ class GenerateInvoiceItemModel
     public function setUnitPrice($unitPrice)
     {
         $this->unitPrice = $unitPrice;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
+     * @param float $discount
+     *
+     * @return $this
+     */
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
 
         return $this;
     }

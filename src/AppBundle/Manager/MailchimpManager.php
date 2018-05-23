@@ -4,13 +4,13 @@ namespace AppBundle\Manager;
 
 use AppBundle\Entity\NewsletterContact;
 use AppBundle\Service\NotificationService;
-use \DrewM\MailChimp\MailChimp;
+use DrewM\MailChimp\MailChimp;
 
 /**
- * Class MailchimpManager
+ * Class MailchimpManager.
  *
  * @category Manager
- * @package  AppBundle\Manager
+ *
  * @author   Anton Serra <aserratorta@gmail.com>
  */
 class MailchimpManager
@@ -18,9 +18,9 @@ class MailchimpManager
     const SUBSCRIBED = 'subscribed';
 
     /**
-     * @var MailChimp $mailChimp
+     * @var MailChimp
      */
-     private $mailChimp;
+    private $mailChimp;
 
     /**
      * @var NotificationService
@@ -28,11 +28,7 @@ class MailchimpManager
     private $messenger;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
@@ -40,6 +36,8 @@ class MailchimpManager
      *
      * @param NotificationService $messenger
      * @param string              $apiKey
+     *
+     * @throws \Exception
      */
     public function __construct(NotificationService $messenger, $apiKey)
     {
@@ -48,23 +46,27 @@ class MailchimpManager
     }
 
     /**
-     * Mailchimp Manager
+     * Mailchimp Manager.
      *
      * @param NewsletterContact $newsletterContact
      * @param string            $listId
      *
      * @return bool $result = false if everything goes well
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function subscribeContactToList(NewsletterContact $newsletterContact, $listId)
     {
         // make HTTP API request
-        $result = $this->mailChimp->post('lists/' . $listId . '/members', array(
+        $result = $this->mailChimp->post('lists/'.$listId.'/members', array(
             'email_address' => $newsletterContact->getEmail(),
-            'status'        => self::SUBSCRIBED,
+            'status' => self::SUBSCRIBED,
         ));
 
         // check error
-        if (is_array($result) && $result['status'] == self::SUBSCRIBED) {
+        if (is_array($result) && self::SUBSCRIBED == $result['status']) {
             $this->messenger->sendCommonNewsletterUserNotification($newsletterContact);
         } else {
             $this->messenger->sendFailureNewsletterSubscriptionAdminNotification($newsletterContact);

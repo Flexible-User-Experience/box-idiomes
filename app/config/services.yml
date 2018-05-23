@@ -163,6 +163,11 @@ services:
         arguments:
             - "@app.notification"
             - "%mailchimp_api_key%"
+# Generate Invoice Form Manager
+    app.generate_invoice_form_manager:
+        class: AppBundle\Manager\GenerateInvoiceFormManager
+        arguments:
+            - "@app.student_repository"
 # PDF service builders
     app.base_tcpdf:
         class: AppBundle\Pdf\BaseTcpdf
