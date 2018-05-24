@@ -4,10 +4,8 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Enum\InvoiceYearMonthEnum;
 use AppBundle\Form\Model\GenerateInvoiceModel;
-use AppBundle\Manager\GenerateInvoiceFormManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,27 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *
  * @category FormType
  */
-class GenerateInvoiceType extends AbstractType
+class GenerateInvoiceYearMonthChooserType extends AbstractType
 {
-    /**
-     * @var GenerateInvoiceFormManager
-     */
-    private $gifm;
-
-    /**
-     * Methods.
-     */
-
-    /**
-     * GenerateInvoiceType constructor.
-     *
-     * @param GenerateInvoiceFormManager $gifm
-     */
-    public function __construct(GenerateInvoiceFormManager $gifm)
-    {
-        $this->gifm = $gifm;
-    }
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -66,22 +45,10 @@ class GenerateInvoiceType extends AbstractType
                 )
             )
             ->add(
-                'items',
-                CollectionType::class,
-                array(
-                    'label' => 'backend.admin.invoice.items',
-                    'required' => false,
-                    'entry_type' => GenerateInvoiceItemType::class,
-                    'entry_options' => array(
-                        'label' => false,
-                    ),
-                )
-            )
-            ->add(
-                'generate',
+                'preview',
                 SubmitType::class,
                 array(
-                    'label' => 'backend.admin.invoice.generate',
+                    'label' => 'backend.admin.invoice.preview_invoice',
                     'attr' => array(
                         'class' => 'btn btn-success',
                     ),
@@ -95,7 +62,7 @@ class GenerateInvoiceType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'generate_invoice';
+        return 'generate_invoice_year_month_chooser';
     }
 
     /**

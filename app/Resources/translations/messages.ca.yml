@@ -217,7 +217,7 @@ backend:
             generate: Generar factures
             items: Ítems
             preview_invoice: Previsualitzar llistat de factures
-            list: Llistat de factures disponibles para generar
+            list: Llistat de factures disponibles a generar
             generate_batch: Generar facturació mensual
             invoice: Factura
             lines: Línies de factura
