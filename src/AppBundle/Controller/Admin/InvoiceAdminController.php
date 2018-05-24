@@ -2,16 +2,13 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\InvoiceLine;
-use AppBundle\Entity\Invoice;
-use AppBundle\Entity\Student;
-use AppBundle\Enum\InvoiceYearMonthEnum;
 use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Form\Type\GenerateInvoiceType;
 use AppBundle\Form\Type\GenerateInvoiceYearMonthChooserType;
 use AppBundle\Manager\GenerateInvoiceFormManager;
 use AppBundle\Repository\StudentRepository;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\NonUniqueResultException;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,9 +28,9 @@ class InvoiceAdminController extends BaseAdminController
      *
      * @return Response
      *
-     * @throws NotFoundHttpException                  If the object does not exist
-     * @throws AccessDeniedException                  If access is not granted
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NotFoundHttpException    If the object does not exist
+     * @throws AccessDeniedException    If access is not granted
+     * @throws NonUniqueResultException
      */
     public function generateAction(Request $request = null)
     {
@@ -43,11 +40,13 @@ class InvoiceAdminController extends BaseAdminController
         $gifm = $this->container->get('app.generate_invoice_form_manager');
 
         $generateInvoiceYearMonthChooser = new GenerateInvoiceModel();
+        /** @var Controller $this */
         $yearMonthForm = $this->createForm(GenerateInvoiceYearMonthChooserType::class, $generateInvoiceYearMonthChooser);
         $yearMonthForm->handleRequest($request);
 
         /** @var GenerateInvoiceModel $generateInvoice */
         $generateInvoice = new GenerateInvoiceModel();
+        /** @var Controller $this */
         $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
         $form->handleRequest($request);
 
@@ -63,6 +62,7 @@ class InvoiceAdminController extends BaseAdminController
             $year = $generateInvoiceYearMonthChooser->getYear();
             $month = $generateInvoiceYearMonthChooser->getMonth();
             $generateInvoice = $gifm->buildFullModelForm($year, $month);
+            /** @var Controller $this */
             $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
 
             $students = $sr->getStudentsInEventsByYearAndMonthSortedBySurname($year, $month);
@@ -121,24 +121,21 @@ class InvoiceAdminController extends BaseAdminController
                 'form' => $form->createView(),
                 'students' => $students,
 //                'hide_generate_button' => $hideGenerateSubmitButton,
-            ),
-            null,
-            $request
+            )
         );
     }
 
     /**
      * Generate PDF invoice action.
      *
-     * @param Request $request
-     *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
-    public function pdfAction(Request $request = null)
+    public function pdfAction()
     {
+        /* @var Controller $this */
         $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha generat cap factura amb PDF.');
 
         return $this->redirectToList();
@@ -147,15 +144,14 @@ class InvoiceAdminController extends BaseAdminController
     /**
      * Send PDF invoice action.
      *
-     * @param Request $request
-     *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
-    public function sendAction(Request $request = null)
+    public function sendAction()
     {
+        /* @var Controller $this */
         $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha enviat cap factura per email.');
 
         return $this->redirectToList();

@@ -1,121 +1,8 @@
 imports:
+    - { resource: admins.yml }
     - { resource: repositories.yml }
 
 services:
-# Sonata Admin
-    # students
-    admin.student:
-        class: AppBundle\Admin\StudentAdmin
-        arguments: [ ~, AppBundle\Entity\Student, AppBundle:Admin\StudentAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Alumne", group: "Alumnes" }
-        calls:
-            - [ setTemplate, [ edit, "::Admin/Student/edit.html.twig" ] ]
-
-    admin.parent:
-        class: AppBundle\Admin\PersonAdmin
-        arguments: [ ~, AppBundle\Entity\Person, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Pare, mare o tutor", group: "Alumnes" }
-        calls:
-            - [ setTemplate, [ edit, "::Admin/Student/edit.html.twig" ] ]
-
-    # teachers
-    admin.teacher:
-        class: AppBundle\Admin\TeacherAdmin
-        arguments: [ ~, AppBundle\Entity\Teacher, AppBundle:Admin\TeacherAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Professor", group: "Professors" }
-
-    admin.teacher_absence:
-        class: AppBundle\Admin\TeacherAbsenceAdmin
-        arguments: [ ~, AppBundle\Entity\TeacherAbsence, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Absència", group: "Professors" }
-
-    # classrooms
-    admin.class_group:
-        class: AppBundle\Admin\ClassGroupAdmin
-        arguments: [ ~, AppBundle\Entity\ClassGroup, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Grup", group: "Aules" }
-        calls:
-            - [ setTemplate, [ edit, "::Admin/ClassGroup/edit.html.twig" ] ]
-
-    admin.event:
-        class: AppBundle\Admin\EventAdmin
-        arguments: [ ~, AppBundle\Entity\Event, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Horari", group: "Aules" }
-        calls:
-            - [ setTemplate, [ edit, "::Admin/Event/edit.html.twig" ] ]
-
-    # billings
-    admin.tariff:
-        class: AppBundle\Admin\TariffAdmin
-        arguments: [ ~, AppBundle\Entity\Tariff, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Tarifa", group: "Facturació" }
-
-    admin.invoice:
-        class: AppBundle\Admin\InvoiceAdmin
-        arguments: [ ~, AppBundle\Entity\Invoice, AppBundle:Admin\InvoiceAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Factura", group: "Facturació" }
-        calls:
-            - [ setTemplate, [ edit, "::Admin/Invoice/edit.html.twig" ] ]
-
-    admin.billing.invoice_line:
-        class: AppBundle\Admin\InvoiceLineAdmin
-        arguments: [ ~, AppBundle\Entity\InvoiceLine, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Línies", group: "Facturació", show_in_dashboard: false }
-
-    # services
-    admin.service:
-        class: AppBundle\Admin\ServiceAdmin
-        arguments: [ ~, AppBundle\Entity\Service, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Servei", group: "Serveis" }
-
-    # contacts
-    admin.contactmessage:
-        class: AppBundle\Admin\ContactMessageAdmin
-        arguments: [ ~, AppBundle\Entity\ContactMessage, AppBundle:Admin\ContactMessageAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Messatge de contacte", group: "Contactes" }
-
-    admin.newslettercontact:
-        class: AppBundle\Admin\NewsletterContactAdmin
-        arguments: [ ~, AppBundle\Entity\NewsletterContact, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Butlletí de contacte", group: "Contactes" }
-
-    # admins
-    admin.province:
-        class: AppBundle\Admin\ProvinceAdmin
-        arguments: [ ~, AppBundle\Entity\Province, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Província", group: "Administració" }
-
-    admin.city:
-        class: AppBundle\Admin\CityAdmin
-        arguments: [ ~, AppBundle\Entity\City, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Ciutat", group: "Administració" }
-
-    admin.user:
-        class: AppBundle\Admin\UserAdmin
-        arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Administració" }
-
-    admin.bank:
-        class: AppBundle\Admin\BankAdmin
-        arguments: [ ~, AppBundle\Entity\Bank, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Bank", group: "Administració", show_in_dashboard: false }
-
 # Template Blocks
     app.block.event_calendar:
         class: AppBundle\Block\EventCalendarBlock
@@ -185,14 +72,13 @@ services:
         tags:
             - { name: twig.extension }
 
-# Mailchimp Manager
+# Managers
     app.mailchimp_manager:
         class: AppBundle\Manager\MailchimpManager
         arguments:
             - "@app.notification"
             - "%mailchimp_api_key%"
 
-# Generate Invoice Form Manager
     app.generate_invoice_form_manager:
         class: AppBundle\Manager\GenerateInvoiceFormManager
         arguments:

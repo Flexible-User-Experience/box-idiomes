@@ -31,17 +31,23 @@
                                             <th>{{ 'backend.admin.invoiceLine.priceUnit' | trans }}</th>
                                             <th>{{ 'backend.admin.student.discountApplied' | trans }}</th>
                                             <th class="text-right">{{ 'backend.admin.student.total' | trans }}</th>
+                                            <th class="text-right">{{ 'backend.admin.actions' | trans }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {% for item in form.items  %}
+                                    {% for item in form.items %}
                                         <tr>
-                                            <td>{{ form_widget(item.isReadyToGenerate) }}</td>
+                                            <td>{{ form_widget(item.isReadyToGenerate, {attr: {disabled: not item.vars.value.isReadyToGenerate}}) }}</td>
                                             <td>{{ students[loop.index0].fullCanonicalName }}</td>
-                                            <td>{{ form_widget(item.units) }}</td>
-                                            <td>{{ form_widget(item.unitPrice) }}</td>
-                                            <td>{{ form_widget(item.discount) }}</td>
+                                            <td>{{ form_widget(item.units, {attr: {disabled: not item.vars.value.isReadyToGenerate}}) }}</td>
+                                            <td>{{ form_widget(item.unitPrice, {attr: {disabled: not item.vars.value.isReadyToGenerate}}) }}</td>
+                                            <td>{{ form_widget(item.discount, {attr: {disabled: not item.vars.value.isReadyToGenerate}}) }}</td>
                                             <td class="text-right">{{ students[loop.index0].calculateMonthlyTariff | draw_money | raw }}</td>
+                                            <td class="text-right">
+                                                {% if not item.vars.value.isReadyToGenerate %}
+                                                    <a href="{# TODO fetch a route to edit an invoice from a student, year & month values #}#" class="btn btn-default btn-sm" title="{{ 'action_edit' | trans({}, 'SonataAdminBundle') }}"><i class="fa fa-edit"></i></a>
+                                                {% endif %}
+                                            </td>
                                             {% set carriedTotalAmount = carriedTotalAmount + students[loop.index0].calculateMonthlyTariff %}
                                         </tr>
                                     {% endfor %}
