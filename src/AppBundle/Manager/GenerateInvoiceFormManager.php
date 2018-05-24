@@ -8,6 +8,7 @@ use AppBundle\Form\Model\GenerateInvoiceItemModel;
 use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Repository\InvoiceRepository;
 use AppBundle\Repository\StudentRepository;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Class GenerateInvoiceFormManager.
@@ -16,6 +17,11 @@ use AppBundle\Repository\StudentRepository;
  */
 class GenerateInvoiceFormManager
 {
+    /**
+     * @var EntityManager
+     */
+    private $em;
+
     /**
      * @var StudentRepository
      */
@@ -33,11 +39,13 @@ class GenerateInvoiceFormManager
     /**
      * GenerateInvoiceFormManager constructor.
      *
+     * @param EntityManager     $em
      * @param StudentRepository $sr
      * @param InvoiceRepository $ir
      */
-    public function __construct(StudentRepository $sr, InvoiceRepository $ir)
+    public function __construct(EntityManager $em, StudentRepository $sr, InvoiceRepository $ir)
     {
+        $this->em = $em;
         $this->sr = $sr;
         $this->ir = $ir;
     }
@@ -50,9 +58,13 @@ class GenerateInvoiceFormManager
      *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function buildFormCompleted($year, $month)
+    public function buildFullModelForm($year, $month)
     {
         $generateInvoice = new GenerateInvoiceModel();
+        $generateInvoice
+            ->setYear($year)
+            ->setMonth($month)
+        ;
         $students = $this->sr->getStudentsInEventsByYearAndMonthSortedBySurname($year, $month);
         /** @var Student $student */
         foreach ($students as $student) {
@@ -78,5 +90,23 @@ class GenerateInvoiceFormManager
         }
 
         return $generateInvoice;
+    }
+
+    /**
+     * @param GenerateInvoiceModel $generateInvoiceModel
+     *
+     * @return int
+     */
+    public function persistFullModelForm(GenerateInvoiceModel $generateInvoiceModel)
+    {
+        $invoicesAmount = 0;
+        /** @var GenerateInvoiceItemModel $generateInvoiceItemModel */
+        foreach ($generateInvoiceModel->getItems() as $generateInvoiceItemModel) {
+            if ($generateInvoiceItemModel->isReadyToGenerate()) {
+                ++$invoicesAmount;
+            }
+        }
+
+        return $invoicesAmount;
     }
 }

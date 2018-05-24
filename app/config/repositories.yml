@@ -1,0 +1,67 @@
+services:
+# Repositories
+    app.bank_repository:
+        class: AppBundle\Repository\BankRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Bank"
+
+    app.parent_repository:
+        class: AppBundle\Repository\PersonRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Person"
+
+    app.city_repository:
+        class: AppBundle\Repository\CityRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:City"
+
+    app.province_repository:
+        class: AppBundle\Repository\ProvinceRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Province"
+
+    app.teacher_repository:
+        class: AppBundle\Repository\TeacherRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Teacher"
+
+    app.teacher_absence_repository:
+        class: AppBundle\Repository\TeacherAbsenceRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:TeacherAbsence"
+
+    app.student_repository:
+        class: AppBundle\Repository\StudentRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Student"
+
+    app.event_repository:
+        class: AppBundle\Repository\EventRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Event"
+
+    app.class_group_repository:
+        class: AppBundle\Repository\ClassGroupRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:ClassGroup"
+
+    app.tariff_repository:
+        class: AppBundle\Repository\TariffRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Tariff"
+
+    app.invoice_repository:
+        class: AppBundle\Repository\InvoiceRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Invoice"

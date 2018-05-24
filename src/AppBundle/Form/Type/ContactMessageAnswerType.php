@@ -11,11 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class ContactMessageAnswerType
+ * Class ContactMessageAnswerType.
  *
  * @category FormType
- *
- * @author   David Romaní <david@flux.cat>
  */
 class ContactMessageAnswerType extends AbstractType
 {
@@ -30,9 +28,9 @@ class ContactMessageAnswerType extends AbstractType
                 'name',
                 TextType::class,
                 array(
-                    'label'       => false,
-                    'required'    => true,
-                    'attr'        => array(
+                    'label' => false,
+                    'required' => true,
+                    'attr' => array(
                         'placeholder' => 'frontend.forms.name',
                     ),
                     'constraints' => array(
@@ -44,16 +42,16 @@ class ContactMessageAnswerType extends AbstractType
                 'email',
                 EmailType::class,
                 array(
-                    'label'       => false,
-                    'required'    => true,
-                    'attr'        => array(
+                    'label' => false,
+                    'required' => true,
+                    'attr' => array(
                         'placeholder' => 'frontend.forms.email',
                     ),
                     'constraints' => array(
                         new Assert\NotBlank(),
                         new Assert\Email(array(
-                            'strict'    => true,
-                            'checkMX'   => true,
+                            'strict' => true,
+                            'checkMX' => true,
                             'checkHost' => true,
                         )),
                     ),
@@ -63,9 +61,9 @@ class ContactMessageAnswerType extends AbstractType
                 'description',
                 TextareaType::class,
                 array(
-                    'label'    => 'backend.admin.contact.answer',
+                    'label' => 'backend.admin.contact.answer',
                     'required' => true,
-                    'attr'     => array(
+                    'attr' => array(
                         'rows' => 6,
                     ),
                 )
@@ -74,8 +72,8 @@ class ContactMessageAnswerType extends AbstractType
                 'send',
                 SubmitType::class,
                 array(
-                    'label'    => 'backend.admin.submit',
-                    'attr'  => array(
+                    'label' => 'backend.admin.submit',
+                    'attr' => array(
                         'class' => 'btn-primary',
                     ),
                 )
