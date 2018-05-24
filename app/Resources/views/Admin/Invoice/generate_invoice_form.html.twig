@@ -78,7 +78,10 @@
                                     </tbody>
                                     <tfoot>
                                     <tr class="active">
-                                        <th colspan="6" class="text-right">
+                                        <td>
+                                            {{ students | length }} {{ 'backend.admin.invoice.generator.ready' | trans }}
+                                        </td>
+                                        <th colspan="5" class="text-right">
                                             {{ 'backend.admin.student.total' | trans | upper }}
                                         </th>
                                         <th class="text-right">
