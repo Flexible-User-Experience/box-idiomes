@@ -9,6 +9,7 @@ use AppBundle\Manager\GenerateInvoiceFormManager;
 use AppBundle\Repository\StudentRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,7 +47,7 @@ class InvoiceAdminController extends BaseAdminController
         $yearMonthForm = $this->createForm(GenerateInvoiceYearMonthChooserType::class, $generateInvoiceYearMonthChooser);
         $yearMonthForm->handleRequest($request);
 
-        // full items form
+        // build items form
         $generateInvoice = new GenerateInvoiceModel();
         /** @var Controller $this */
         $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
@@ -59,65 +60,11 @@ class InvoiceAdminController extends BaseAdminController
             $year = $generateInvoiceYearMonthChooser->getYear();
             $month = $generateInvoiceYearMonthChooser->getMonth();
             // fill students found
-            $students = $sr->getStudentsInEventsByYearAndMonthSortedBySurname($year, $month);
+            $students = $sr->getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariff($year, $month);
             // fill full items form
             $generateInvoice = $gifm->buildFullModelForm($year, $month);
             /** @var Controller $this */
             $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
-
-            // preview invoices action
-//            if ($form->get('preview')->isClicked()) {
-//                if (0 == count($students)) {
-//                    $hideGenerateSubmitButton = true;
-//                } else {
-//                    $generateInvoice->setItems($formGeneratorService->buildFormItems($year, $month));
-//                    $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
-//                }
-//            }
-            // generate invoices action
-            /*if ($form->get('generate')->isClicked()) {
-                $translator = $this->container->get('translator.default');
-                /** @var EntityManager $em *
-                $em = $this->get('doctrine')->getManager();
-                /** @var Student $student *
-                foreach ($students as $student) {
-                    $invoiceLine = new InvoiceLine();
-                    $invoiceLine
-                        ->setStudent($student)
-                        ->setDescription($translator->trans('backend.admin.invoiceLine.generator.line', array('%month%' => InvoiceYearMonthEnum::getTranslatedMonthEnumArray()[$month], '%year%' => $year), 'messages'))
-                        ->setUnits(1)
-                        ->setPriceUnit($student->getTariff()->getPrice())
-                        ->setDiscount($student->calculateMonthlyDiscount())
-                        ->setTotal($invoiceLine->calculateBaseAmount())
-                    ;
-                    $invoice = new Invoice();
-                    $invoice
-                        ->setStudent($student)
-                        ->setPerson($student->getParent() ? $student->getParent() : null)
-                        ->setDate(new \DateTime())
-                        ->setIsPayed(false)
-                        ->setYear($year)
-                        ->setMonth($month)
-                        ->addLine($invoiceLine)
-                        ->setIrpf($invoice->calculateIrpf())
-                        ->setTaxParcentage(0)
-                        ->setTotalAmount($invoiceLine->getTotal() - $invoice->getIrpf())
-                    ;
-                    $em->persist($invoice);
-                }
-                $em->flush();
-                $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => count($students)), 'messages'));
-
-                return $this->redirectToList('admin_app_invoice_list');
-            }*/
-        }
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $translator = $this->container->get('translator.default');
-            $invoicesAmount = $gifm->persistFullModelForm($form->getData());
-            $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => $invoicesAmount), 'messages'));
-
-//            return $this->redirectToList('admin_app_invoice_list');
         }
 
         return $this->renderWithExtraParams(
@@ -129,6 +76,36 @@ class InvoiceAdminController extends BaseAdminController
                 'students' => $students,
             )
         );
+    }
+
+    /**
+     * Generate invoice action.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException                 If the object does not exist
+     * @throws AccessDeniedException                 If access is not granted
+     * @throws NonUniqueResultException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function creatorAction(Request $request = null)
+    {
+        /** @var GenerateInvoiceFormManager $gifm */
+        $gifm = $this->container->get('app.generate_invoice_form_manager');
+        $generateInvoice = $gifm->transformRequestArrayToModel($request->get('generate_invoice'));
+        $recordsParsed = $gifm->persistFullModelForm($generateInvoice);
+
+        /** @var Translator $translator */
+        $translator = $this->container->get('translator.default');
+        if (0 === $recordsParsed) {
+            $this->addFlash('warning', $translator->trans('backend.admin.invoice.generator.no_records_presisted'));
+        } else {
+            $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => $recordsParsed), 'messages'));
+        }
+
+        return $this->redirectToList();
     }
 
     /**

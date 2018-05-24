@@ -60,6 +60,7 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Factura", group: "Facturació" }
         calls:
             - [ setTemplate, [ edit, "::Admin/Invoice/edit.html.twig" ] ]
+            - [ setTemplate, [ list, "::Admin/Invoice/list.html.twig" ] ]
 
     admin.billing.invoice_line:
         class: AppBundle\Admin\InvoiceLineAdmin

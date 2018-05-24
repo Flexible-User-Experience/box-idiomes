@@ -8,8 +8,6 @@ use AppBundle\Entity\Student;
  * Class GenerateInvoiceItemModel.
  *
  * @category FormModel
- *
- * @author   David Romaní <david@flux.cat>
  */
 class GenerateInvoiceItemModel
 {
