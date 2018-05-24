@@ -1,11 +1,10 @@
 {% extends ":Admin:layout.html.twig" %}
 
-{% form_theme form.items _self %}
+{% form_theme form _self %}
 
-{% block _isReadyToGenerate_widget %}
-    {{ parent() }}
-    hit!
-{% endblock %}
+{% block checkbox_radio_label %}
+    {{- widget|raw }}
+{% endblock checkbox_radio_label %}
 
 {% block sonata_admin_content %}
     <div class="sonata-ba-show">
@@ -29,7 +28,7 @@
                                 <h4 class="box-title">{{ 'backend.admin.invoice.list' | trans }}</h4>
                             </div>
                             <div class="box-body">
-                                <table class="table" style="margin-bottom:20px">
+                                <table class="table table-bordered table-condensed" style="margin-bottom:20px">
                                     <thead>
                                         <tr>
                                             <th>{{ 'backend.admin.invoiceLine.isReadyToGenerate' | trans }}</th>
@@ -43,28 +42,48 @@
                                     </thead>
                                     <tbody>
                                     {% for item in form.items %}
+                                        {% set carriedTotalAmount = carriedTotalAmount + students[loop.index0].calculateMonthlyTariff %}
                                         <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
-                                            <td>{{ form_widget(item.isReadyToGenerate) }}</td>
                                             <td>
-                                                {% if item.vars.value.isPreviouslyGenerated %}
-                                                    <span class="label label-success">{{ 'backend.admin.yes' | trans }}</span>
+                                                {{ form_widget(item.isReadyToGenerate) }}
+                                                {{ form_errors(item.isReadyToGenerate) }}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {% if not item.vars.value.isPreviouslyGenerated %}
+                                                    <span class="label label-warning">{{ 'backend.admin.yes' | trans }}</span>
                                                 {% else %}
                                                     <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
                                                 {% endif %}
                                             </td>
-                                            <td>{{ students[loop.index0].fullCanonicalName }}</td>
-                                            <td>{{ form_widget(item.units) }}</td>
-                                            <td>{{ form_widget(item.unitPrice) }}</td>
-                                            <td>{{ form_widget(item.discount) }}</td>
-                                            <td class="text-right">{{ students[loop.index0].calculateMonthlyTariff | draw_money | raw }}</td>
-                                            {% set carriedTotalAmount = carriedTotalAmount + students[loop.index0].calculateMonthlyTariff %}
+                                            <td style="vertical-align:middle">
+                                                {{ students[loop.index0].fullCanonicalName }}
+                                            </td>
+                                            <td>
+                                                {{ form_widget(item.units) }}
+                                                {{ form_errors(item.units) }}
+                                            </td>
+                                            <td>
+                                                {{ form_widget(item.unitPrice) }}
+                                                {{ form_errors(item.unitPrice) }}
+                                            </td>
+                                            <td>
+                                                {{ form_widget(item.discount) }}
+                                                {{ form_errors(item.discount) }}
+                                            </td>
+                                            <td class="text-right" style="vertical-align:middle">
+                                                <strong>{{ students[loop.index0].calculateMonthlyTariff | draw_money | raw }}</strong>
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
                                     <tfoot>
                                     <tr class="active">
-                                        <th colspan="6" class="text-right">{{ 'backend.admin.student.total' | trans | upper }}</th>
-                                        <th class="text-right">{{ carriedTotalAmount | draw_money | raw }}</th>
+                                        <th colspan="6" class="text-right">
+                                            {{ 'backend.admin.student.total' | trans | upper }}
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>{{ carriedTotalAmount | draw_money | raw }}</strong>
+                                        </th>
                                     </tr>
                                     </tfoot>
                                 </table>

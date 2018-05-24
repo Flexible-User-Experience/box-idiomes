@@ -225,7 +225,7 @@ backend:
             student: Estudiant
             person: Pare mare o tutor
             date: Data factura
-            isPayed: Pagat
+            isPayed: Pagada
             paymentDate: Data pagament
             isSended: Enviada
             sendDate: Data enviament
