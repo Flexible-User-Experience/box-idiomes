@@ -59,7 +59,7 @@ class InvoiceAdminController extends BaseAdminController
             $year = $generateInvoiceYearMonthChooser->getYear();
             $month = $generateInvoiceYearMonthChooser->getMonth();
             // fill students found
-            $students = $sr->getStudentsInEventsByYearAndMonthSortedBySurname($year, $month);
+            $students = $sr->getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariff($year, $month);
             // fill full items form
             $generateInvoice = $gifm->buildFullModelForm($year, $month);
             /** @var Controller $this */

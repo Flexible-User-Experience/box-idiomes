@@ -147,4 +147,39 @@ class StudentRepository extends EntityRepository
     {
         return $this->getStudentsInEventsByYearAndMonthSortedBySurnameQ($year, $month)->getResult();
     }
+
+    /**
+     * @param int $year
+     * @param int $month
+     *
+     * @return QueryBuilder
+     */
+    public function getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)
+    {
+        return $this->getStudentsInEventsByYearAndMonthSortedBySurnameQB($year, $month)
+            ->andWhere('s.tariff IS NOT NULL')
+        ;
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     *
+     * @return Query
+     */
+    public function getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariffQ($year, $month)
+    {
+        return $this->getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)->getQuery();
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     *
+     * @return array
+     */
+    public function getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariff($year, $month)
+    {
+        return $this->getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariffQ($year, $month)->getResult();
+    }
 }

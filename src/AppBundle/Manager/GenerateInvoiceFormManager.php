@@ -65,7 +65,7 @@ class GenerateInvoiceFormManager
             ->setYear($year)
             ->setMonth($month)
         ;
-        $students = $this->sr->getStudentsInEventsByYearAndMonthSortedBySurname($year, $month);
+        $students = $this->sr->getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariff($year, $month);
         /** @var Student $student */
         foreach ($students as $student) {
             $isPreviouslyGenerated = false;
