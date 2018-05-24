@@ -5,6 +5,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Class GenerateInvoiceType.
@@ -13,6 +14,25 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class GenerateInvoiceType extends GenerateInvoiceYearMonthChooserType
 {
+    /**
+     * @var RouterInterface
+     */
+    private $rs;
+
+    /**
+     * Methods.
+     */
+
+    /**
+     * GenerateInvoiceType constructor.
+     *
+     * @param RouterInterface $rs
+     */
+    public function __construct(RouterInterface $rs)
+    {
+        $this->rs = $rs;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -47,6 +67,7 @@ class GenerateInvoiceType extends GenerateInvoiceYearMonthChooserType
                     ),
                 )
             )
+            ->setAction($this->rs->generate('admin_app_invoice_creator'))
         ;
     }
 
