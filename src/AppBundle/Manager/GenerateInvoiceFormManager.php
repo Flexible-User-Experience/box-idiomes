@@ -79,25 +79,41 @@ class GenerateInvoiceFormManager
         $students = $this->sr->getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariff($year, $month);
         /** @var Student $student */
         foreach ($students as $student) {
-            $isPreviouslyGenerated = false;
+            /** @var Invoice $previousInvoice */
             $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentYearAndMonthOrNull($student, $year, $month);
             if (!is_null($previousInvoice)) {
-                $isPreviouslyGenerated = true;
+                // old
+                if (TariffTypeEnum::TARIFF_SIGLE_HOUR == $student->getTariff()->getType()) {
+                    // TODO set units acording to assisted classes in selected year & month
+                }
+                /** @var InvoiceLine $previousItem */
+                $previousItem = $previousInvoice->getLines()[0];
+                $generateInvoiceItem = new GenerateInvoiceItemModel();
+                $generateInvoiceItem
+                    ->setStudent($student)
+                    ->setUnits($previousItem->getUnits())
+                    ->setUnitPrice($previousItem->getPriceUnit())
+                    ->setDiscount($previousItem->getDiscount())
+                    ->setIsReadyToGenerate(false)
+                    ->setIsPreviouslyGenerated(true)
+                ;
+                $generateInvoice->addItem($generateInvoiceItem);
+            } else {
+                // new
+                if (TariffTypeEnum::TARIFF_SIGLE_HOUR == $student->getTariff()->getType()) {
+                    // TODO set units acording to assisted classes in selected year & month
+                }
+                $generateInvoiceItem = new GenerateInvoiceItemModel();
+                $generateInvoiceItem
+                    ->setStudent($student)
+                    ->setUnits(1)
+                    ->setUnitPrice($student->getTariff()->getPrice())
+                    ->setDiscount($student->calculateMonthlyDiscount())
+                    ->setIsReadyToGenerate(true)
+                    ->setIsPreviouslyGenerated(false)
+                ;
+                $generateInvoice->addItem($generateInvoiceItem);
             }
-            $units = 1;
-            if (TariffTypeEnum::TARIFF_SIGLE_HOUR == $student->getTariff()->getType()) {
-                // TODO set units acording to assisted classes in selected year & month
-            }
-            $generateInvoiceItem = new GenerateInvoiceItemModel();
-            $generateInvoiceItem
-                ->setStudent($student)
-                ->setUnits($units)
-                ->setUnitPrice($student->getTariff()->getPrice())
-                ->setDiscount($student->calculateMonthlyDiscount())
-                ->setIsReadyToGenerate($isPreviouslyGenerated ? false : true)
-                ->setIsPreviouslyGenerated($isPreviouslyGenerated)
-            ;
-            $generateInvoice->addItem($generateInvoiceItem);
         }
 
         return $generateInvoice;
@@ -160,8 +176,27 @@ class GenerateInvoiceFormManager
             if ($generateInvoiceItemModel->isReadyToGenerate()) {
                 ++$recordsParsed;
                 if ($generateInvoiceItemModel->isPreviouslyGenerated()) {
-                    // TODO update old invoice
+                    /** @var Invoice $previousInvoice */
                     $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentYearAndMonthOrNull($generateInvoiceItemModel->getStudent(), $generateInvoiceModel->getYear(), $generateInvoiceModel->getMonth());
+                    if (1 === count($previousInvoice->getLines())) {
+                        /** @var InvoiceLine $invoiceLine */
+                        $invoiceLine = $previousInvoice->getLines()[0];
+                        $invoiceLine
+                            ->setStudent($generateInvoiceItemModel->getStudent())
+                            ->setDescription($this->ts->trans('backend.admin.invoiceLine.generator.line', array('%month%' => InvoiceYearMonthEnum::getTranslatedMonthEnumArray()[$generateInvoiceModel->getMonth()], '%year%' => $generateInvoiceModel->getYear()), 'messages'))
+                            ->setUnits($generateInvoiceItemModel->getUnits())
+                            ->setPriceUnit($generateInvoiceItemModel->getUnitPrice())
+                            ->setDiscount($generateInvoiceItemModel->getDiscount())
+                            ->setTotal($generateInvoiceItemModel->getUnits() * $generateInvoiceItemModel->getUnitPrice() - $generateInvoiceItemModel->getDiscount())
+                        ;
+                        $previousInvoice
+                            ->setTaxParcentage(0)
+                            ->setBaseAmount($invoiceLine->getTotal())
+                            ->setIrpf($previousInvoice->calculateIrpf())
+                            ->setTotalAmount($invoiceLine->getTotal() - $previousInvoice->getIrpf())
+                        ;
+                        $this->em->flush();
+                    }
                 } else {
                     // create new invoice
                     $invoiceLine = new InvoiceLine();

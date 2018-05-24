@@ -19,6 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Invoice extends AbstractBase
 {
+    const TAX_IRPF = 15;
     const TAX_IVA = 21;
 
     /**
@@ -536,7 +537,7 @@ class Invoice extends AbstractBase
      */
     public function calculateIrpf()
     {
-        return $this->calculateTotalBaseAmount() * ($this->irpf / 100);
+        return $this->calculateTotalBaseAmount() * (self::TAX_IRPF / 100);
     }
 
     /**
