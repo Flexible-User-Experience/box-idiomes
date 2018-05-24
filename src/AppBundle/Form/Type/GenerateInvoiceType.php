@@ -9,6 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -48,18 +51,6 @@ class GenerateInvoiceType extends AbstractType
                 )
             )
             ->add(
-                'items',
-                CollectionType::class,
-                array(
-                    'label' => 'backend.admin.invoice.items',
-                    'required' => false,
-                    'entry_type' => GenerateInvoiceItemType::class,
-                    'entry_options' => array(
-                        'label' => false,
-                    ),
-                )
-            )
-            ->add(
                 'preview',
                 SubmitType::class,
                 array(
@@ -69,17 +60,44 @@ class GenerateInvoiceType extends AbstractType
                     ),
                 )
             )
-            ->add(
-                'generate',
-                SubmitType::class,
-                array(
-                   'label' => 'backend.admin.invoice.generate',
-                    'attr' => array(
-                        'class' => 'btn btn-success',
-                    ),
-                )
-            )
         ;
+
+        $formModifier = function (FormInterface $form, $year = null, $month = null) {
+            $form
+                ->add(
+                    'generate',
+                    SubmitType::class,
+                    array(
+                        'label' => 'backend.admin.invoice.generate',
+                        'attr' => array(
+                            'class' => 'btn btn-success',
+                        ),
+                    )
+                )
+                ->add(
+                    'items',
+                    CollectionType::class,
+                    array(
+                        'label' => 'backend.admin.invoice.items',
+                        'required' => false,
+                        'entry_type' => GenerateInvoiceItemType::class,
+                        'entry_options' => array(
+                            'label' => false,
+                        ),
+                    )
+                )
+            ;
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                $form = $event->getForm();
+                /** @var GenerateInvoiceModel $data */
+                $data = $form->getData();
+                $formModifier($form, $data->getYear(), $data->getMonth());
+            }
+        );
     }
 
     /**

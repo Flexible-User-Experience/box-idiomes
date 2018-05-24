@@ -61,7 +61,7 @@
                         </div>
                     </div>
                 {% endif %}
-                {% if students | length == 0 and hide_generate_button and form.generate is defined %}
+                {% if students | length == 0 and form.generate is defined %}
                     <div class="col-md-8">
                         <div class="box box-primary">
                             <div class="box-header with-border">
@@ -75,11 +75,11 @@
                 {% endif %}
             </div>
         </div>
-        {% if hide_generate_button and form.generate is defined %}
-            <div class="hidden">
-                {{ form_row(form.generate) }}
-            </div>
-        {% endif %}
+        {#{% if hide_generate_button and form.generate is defined %}#}
+            {#<div class="hidden">#}
+                {#{{ form_row(form.generate) }}#}
+            {#</div>#}
+        {#{% endif %}#}
         {{ form_rest(form) }}
     {{ form_end(form) }}
 {% endblock %}

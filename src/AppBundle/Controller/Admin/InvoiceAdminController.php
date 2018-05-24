@@ -6,6 +6,7 @@ use AppBundle\Entity\InvoiceLine;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Student;
 use AppBundle\Enum\InvoiceYearMonthEnum;
+use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Form\Type\GenerateInvoiceType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -33,18 +34,19 @@ class InvoiceAdminController extends BaseAdminController
      */
     public function generateAction(Request $request = null)
     {
+        /** @var GenerateInvoiceModel $generateInvoice */
         $generateInvoice = $this->get('app.generate_invoice_form_manager')->buildFormCompleted(2018, 5);
 
         $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
         $form->handleRequest($request);
 
         $students = [];
-        $hideGenerateSubmitButton = false;
+//        $hideGenerateSubmitButton = false;
 
-        if (!$form->isSubmitted()) {
-            $form->remove('generate');
-            $hideGenerateSubmitButton = true;
-        }
+//        if (!$form->isSubmitted()) {
+//            $form->remove('generate');
+//            $hideGenerateSubmitButton = true;
+//        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $year = $generateInvoice->getYear();
@@ -53,7 +55,7 @@ class InvoiceAdminController extends BaseAdminController
             // preview invoices action
             if ($form->get('preview')->isClicked()) {
                 if (0 == count($students)) {
-                    $hideGenerateSubmitButton = true;
+//                    $hideGenerateSubmitButton = true;
                 }
             }
             // generate invoices action
@@ -100,7 +102,7 @@ class InvoiceAdminController extends BaseAdminController
                 'action' => 'generate',
                 'form' => $form->createView(),
                 'students' => $students,
-                'hide_generate_button' => $hideGenerateSubmitButton,
+//                'hide_generate_button' => $hideGenerateSubmitButton,
             ),
             null,
             $request
