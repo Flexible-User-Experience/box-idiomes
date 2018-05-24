@@ -74,6 +74,14 @@ class GenerateInvoiceItemType extends AbstractType
                     'required' => true,
                 )
             )
+            ->add(
+                'isPreviouslyGenerated',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.invoiceLine.isPreviouslyGenerated',
+                    'required' => true,
+                )
+            )
         ;
     }
 

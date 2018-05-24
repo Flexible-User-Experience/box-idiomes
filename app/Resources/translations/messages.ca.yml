@@ -216,7 +216,7 @@ backend:
             download: Descarregar PDF
             generate: Generar factures
             items: Ítems
-            preview_invoice: Previsualitzar llistat de factures
+            preview_invoice: Crear llistat de factures
             list: Llistat de factures disponibles a generar
             generate_batch: Generar facturació mensual
             invoice: Factura
@@ -247,6 +247,7 @@ backend:
             units: Unitats
             priceUnit: Preu Unitat
             isReadyToGenerate: Facturar
+            isPreviouslyGenerated: Nova
             discount: Descompte
             total: Total
             generator:
