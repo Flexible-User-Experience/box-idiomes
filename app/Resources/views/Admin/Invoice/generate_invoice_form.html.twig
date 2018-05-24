@@ -54,9 +54,17 @@
                                                 {% else %}
                                                     <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
                                                 {% endif %}
+                                                <div class="hidden">
+                                                    {{ form_widget(item.isPreviouslyGenerated) }}
+                                                    {{ form_errors(item.isPreviouslyGenerated) }}
+                                                </div>
                                             </td>
                                             <td style="vertical-align:middle">
                                                 {{ students[loop.index0].fullCanonicalName }}
+                                                <div class="hidden">
+                                                    {{ form_widget(item.student) }}
+                                                    {{ form_errors(item.student) }}
+                                                </div>
                                             </td>
                                             <td>
                                                 {{ form_widget(item.units) }}

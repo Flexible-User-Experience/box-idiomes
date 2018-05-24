@@ -14,8 +14,6 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Class ContactHomepageType.
  *
  * @category FormType
- *
- * @author   Wilson Iglesias <wiglesias83@gmail.com>
  */
 class ContactHomepageType extends AbstractType
 {

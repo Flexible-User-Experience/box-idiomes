@@ -15,8 +15,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Class GenerateInvoiceItemType.
  *
  * @category FormType
- *
- * @author   David Romaní <david@flux.cat>
  */
 class GenerateInvoiceItemType extends AbstractType
 {
@@ -71,7 +69,7 @@ class GenerateInvoiceItemType extends AbstractType
                 CheckboxType::class,
                 array(
                     'label' => 'backend.admin.invoiceLine.isReadyToGenerate',
-                    'required' => true,
+                    'required' => false,
                 )
             )
             ->add(
@@ -79,7 +77,7 @@ class GenerateInvoiceItemType extends AbstractType
                 CheckboxType::class,
                 array(
                     'label' => 'backend.admin.invoiceLine.isPreviouslyGenerated',
-                    'required' => true,
+                    'required' => false,
                 )
             )
         ;
