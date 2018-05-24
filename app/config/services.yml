@@ -118,7 +118,9 @@ services:
             - "@translator.default"
 
 # Forms
-    app.form.type.generate_invoice_item:
-        class: AppBundle\Form\Type\GenerateInvoiceItemType
+    app.form.type.generate_invoice:
+        class: AppBundle\Form\Type\GenerateInvoiceType
+        arguments:
+            - "@router.default"
         tags:
             - { name: form.type }

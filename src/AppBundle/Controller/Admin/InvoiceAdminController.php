@@ -9,6 +9,7 @@ use AppBundle\Manager\GenerateInvoiceFormManager;
 use AppBundle\Repository\StudentRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,7 +47,7 @@ class InvoiceAdminController extends BaseAdminController
         $yearMonthForm = $this->createForm(GenerateInvoiceYearMonthChooserType::class, $generateInvoiceYearMonthChooser);
         $yearMonthForm->handleRequest($request);
 
-        // full items form
+        // build items form
         $generateInvoice = new GenerateInvoiceModel();
         /** @var Controller $this */
         $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
@@ -129,6 +130,29 @@ class InvoiceAdminController extends BaseAdminController
                 'students' => $students,
             )
         );
+    }
+
+    /**
+     * Generate invoice action.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
+     */
+    public function creatorAction(Request $request = null)
+    {
+        /** @var GenerateInvoiceFormManager $gifm */
+        $gifm = $this->container->get('app.generate_invoice_form_manager');
+        $generateInvoice = $gifm->transformRequestArrayToModel($request->get('generate_invoice'));
+
+        /** @var Translator $translator */
+        $translator = $this->container->get('translator.default');
+        $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => count($generateInvoice->getItems())), 'messages'));
+
+        return $this->redirectToList('admin_app_invoice_list');
     }
 
     /**

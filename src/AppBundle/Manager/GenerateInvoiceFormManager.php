@@ -93,6 +93,47 @@ class GenerateInvoiceFormManager
     }
 
     /**
+     * @param array $requestArray
+     *
+     * @return GenerateInvoiceModel
+     */
+    public function transformRequestArrayToModel($requestArray)
+    {
+        $generateInvoice = new GenerateInvoiceModel();
+        if (array_key_exists('year', $requestArray)) {
+            $generateInvoice->setYear(intval($requestArray['year']));
+        }
+        if (array_key_exists('month', $requestArray)) {
+            $generateInvoice->setMonth(intval($requestArray['month']));
+        }
+        if (array_key_exists('items', $requestArray)) {
+            $items = $requestArray['items'];
+            /** @var array $item */
+            foreach ($items as $item) {
+                if (array_key_exists('units', $item) && array_key_exists('unitPrice', $item) && array_key_exists('discount', $item) && array_key_exists('student', $item)) {
+                    $studentId = intval($item['student']);
+                    /** @var Student $student */
+                    $student = $this->sr->find($studentId);
+                    if ($student) {
+                        $generateInvoiceItem = new GenerateInvoiceItemModel();
+                        $generateInvoiceItem
+                            ->setStudent($student)
+                            ->setUnits($this->parseStringToFloat($item['units']))
+                            ->setUnitPrice($this->parseStringToFloat($item['unitPrice']))
+                            ->setDiscount($this->parseStringToFloat($item['discount']))
+                            ->setIsReadyToGenerate(array_key_exists('isReadyToGenerate', $item))
+                            ->setIsPreviouslyGenerated(array_key_exists('isPreviouslyGenerated', $item))
+                        ;
+                        $generateInvoice->addItem($generateInvoiceItem);
+                    }
+                }
+            }
+        }
+
+        return $generateInvoice;
+    }
+
+    /**
      * @param GenerateInvoiceModel $generateInvoiceModel
      *
      * @return int
@@ -108,5 +149,18 @@ class GenerateInvoiceFormManager
         }
 
         return $invoicesAmount;
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return float
+     */
+    private function parseStringToFloat($value)
+    {
+        $stringParsedValue = str_replace('.', '', $value);
+        $stringParsedValue = str_replace(',', '.', $stringParsedValue);
+
+        return floatval($stringParsedValue);
     }
 }

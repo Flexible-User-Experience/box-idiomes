@@ -8,8 +8,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class GenerateInvoiceModel.
  *
  * @category FormModel
- *
- * @author   David Romaní <david@flux.cat>
  */
 class GenerateInvoiceModel
 {
