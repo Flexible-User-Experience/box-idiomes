@@ -65,51 +65,6 @@ class InvoiceAdminController extends BaseAdminController
             $generateInvoice = $gifm->buildFullModelForm($year, $month);
             /** @var Controller $this */
             $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
-
-            // generate invoices action
-            /*if ($form->get('generate')->isClicked()) {
-                $translator = $this->container->get('translator.default');
-                /** @var EntityManager $em *
-                $em = $this->get('doctrine')->getManager();
-                /** @var Student $student *
-                foreach ($students as $student) {
-                    $invoiceLine = new InvoiceLine();
-                    $invoiceLine
-                        ->setStudent($student)
-                        ->setDescription($translator->trans('backend.admin.invoiceLine.generator.line', array('%month%' => InvoiceYearMonthEnum::getTranslatedMonthEnumArray()[$month], '%year%' => $year), 'messages'))
-                        ->setUnits(1)
-                        ->setPriceUnit($student->getTariff()->getPrice())
-                        ->setDiscount($student->calculateMonthlyDiscount())
-                        ->setTotal($invoiceLine->calculateBaseAmount())
-                    ;
-                    $invoice = new Invoice();
-                    $invoice
-                        ->setStudent($student)
-                        ->setPerson($student->getParent() ? $student->getParent() : null)
-                        ->setDate(new \DateTime())
-                        ->setIsPayed(false)
-                        ->setYear($year)
-                        ->setMonth($month)
-                        ->addLine($invoiceLine)
-                        ->setIrpf($invoice->calculateIrpf())
-                        ->setTaxParcentage(0)
-                        ->setTotalAmount($invoiceLine->getTotal() - $invoice->getIrpf())
-                    ;
-                    $em->persist($invoice);
-                }
-                $em->flush();
-                $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => count($students)), 'messages'));
-
-                return $this->redirectToList('admin_app_invoice_list');
-            }*/
-        }
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $translator = $this->container->get('translator.default');
-            $invoicesAmount = $gifm->persistFullModelForm($form->getData());
-            $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => $invoicesAmount), 'messages'));
-
-//            return $this->redirectToList('admin_app_invoice_list');
         }
 
         return $this->renderWithExtraParams(
@@ -144,9 +99,13 @@ class InvoiceAdminController extends BaseAdminController
 
         /** @var Translator $translator */
         $translator = $this->container->get('translator.default');
-        $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => $recordsParsed), 'messages'));
+        if (0 === $recordsParsed) {
+            $this->addFlash('warning', $translator->trans('backend.admin.invoice.generator.no_records_presisted'));
+        } else {
+            $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => $recordsParsed), 'messages'));
+        }
 
-        return $this->redirectToList('admin_app_invoice_list');
+        return $this->redirectToList();
     }
 
     /**
