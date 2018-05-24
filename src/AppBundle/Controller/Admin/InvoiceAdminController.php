@@ -66,15 +66,6 @@ class InvoiceAdminController extends BaseAdminController
             /** @var Controller $this */
             $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
 
-            // preview invoices action
-//            if ($form->get('preview')->isClicked()) {
-//                if (0 == count($students)) {
-//                    $hideGenerateSubmitButton = true;
-//                } else {
-//                    $generateInvoice->setItems($formGeneratorService->buildFormItems($year, $month));
-//                    $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
-//                }
-//            }
             // generate invoices action
             /*if ($form->get('generate')->isClicked()) {
                 $translator = $this->container->get('translator.default');
@@ -139,18 +130,21 @@ class InvoiceAdminController extends BaseAdminController
      *
      * @return Response
      *
-     * @throws NotFoundHttpException If the object does not exist
-     * @throws AccessDeniedException If access is not granted
+     * @throws NotFoundHttpException                 If the object does not exist
+     * @throws AccessDeniedException                 If access is not granted
+     * @throws NonUniqueResultException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function creatorAction(Request $request = null)
     {
         /** @var GenerateInvoiceFormManager $gifm */
         $gifm = $this->container->get('app.generate_invoice_form_manager');
         $generateInvoice = $gifm->transformRequestArrayToModel($request->get('generate_invoice'));
+        $recordsParsed = $gifm->persistFullModelForm($generateInvoice);
 
         /** @var Translator $translator */
         $translator = $this->container->get('translator.default');
-        $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => count($generateInvoice->getItems())), 'messages'));
+        $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => $recordsParsed), 'messages'));
 
         return $this->redirectToList('admin_app_invoice_list');
     }

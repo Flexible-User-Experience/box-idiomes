@@ -2,13 +2,17 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\Entity\Invoice;
+use AppBundle\Entity\InvoiceLine;
 use AppBundle\Entity\Student;
+use AppBundle\Enum\InvoiceYearMonthEnum;
 use AppBundle\Enum\TariffTypeEnum;
 use AppBundle\Form\Model\GenerateInvoiceItemModel;
 use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Repository\InvoiceRepository;
 use AppBundle\Repository\StudentRepository;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class GenerateInvoiceFormManager.
@@ -21,6 +25,11 @@ class GenerateInvoiceFormManager
      * @var EntityManager
      */
     private $em;
+
+    /**
+     * @var TranslatorInterface
+     */
+    private $ts;
 
     /**
      * @var StudentRepository
@@ -39,13 +48,15 @@ class GenerateInvoiceFormManager
     /**
      * GenerateInvoiceFormManager constructor.
      *
-     * @param EntityManager     $em
-     * @param StudentRepository $sr
-     * @param InvoiceRepository $ir
+     * @param EntityManager       $em
+     * @param TranslatorInterface $ts
+     * @param StudentRepository   $sr
+     * @param InvoiceRepository   $ir
      */
-    public function __construct(EntityManager $em, StudentRepository $sr, InvoiceRepository $ir)
+    public function __construct(EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, InvoiceRepository $ir)
     {
         $this->em = $em;
+        $this->ts = $ts;
         $this->sr = $sr;
         $this->ir = $ir;
     }
@@ -137,18 +148,51 @@ class GenerateInvoiceFormManager
      * @param GenerateInvoiceModel $generateInvoiceModel
      *
      * @return int
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function persistFullModelForm(GenerateInvoiceModel $generateInvoiceModel)
     {
-        $invoicesAmount = 0;
+        $recordsParsed = 0;
         /** @var GenerateInvoiceItemModel $generateInvoiceItemModel */
         foreach ($generateInvoiceModel->getItems() as $generateInvoiceItemModel) {
             if ($generateInvoiceItemModel->isReadyToGenerate()) {
-                ++$invoicesAmount;
+                ++$recordsParsed;
+                if ($generateInvoiceItemModel->isPreviouslyGenerated()) {
+                    // TODO update old invoice
+                    $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentYearAndMonthOrNull($generateInvoiceItemModel->getStudent(), $generateInvoiceModel->getYear(), $generateInvoiceModel->getMonth());
+                } else {
+                    // create new invoice
+                    $invoiceLine = new InvoiceLine();
+                    $invoiceLine
+                        ->setStudent($generateInvoiceItemModel->getStudent())
+                        ->setDescription($this->ts->trans('backend.admin.invoiceLine.generator.line', array('%month%' => InvoiceYearMonthEnum::getTranslatedMonthEnumArray()[$generateInvoiceModel->getMonth()], '%year%' => $generateInvoiceModel->getYear()), 'messages'))
+                        ->setUnits($generateInvoiceItemModel->getUnits())
+                        ->setPriceUnit($generateInvoiceItemModel->getUnitPrice())
+                        ->setDiscount($generateInvoiceItemModel->getDiscount())
+                        ->setTotal($generateInvoiceItemModel->getUnits() * $generateInvoiceItemModel->getUnitPrice() - $generateInvoiceItemModel->getDiscount())
+                    ;
+                    $invoice = new Invoice();
+                    $invoice
+                        ->setStudent($generateInvoiceItemModel->getStudent())
+                        ->setPerson($generateInvoiceItemModel->getStudent()->getParent() ? $generateInvoiceItemModel->getStudent()->getParent() : null)
+                        ->setDate(new \DateTime())
+                        ->setIsPayed(false)
+                        ->setYear($generateInvoiceModel->getYear())
+                        ->setMonth($generateInvoiceModel->getMonth())
+                        ->addLine($invoiceLine)
+                        ->setIrpf($invoice->calculateIrpf())
+                        ->setTaxParcentage(0)
+                        ->setTotalAmount($invoiceLine->getTotal() - $invoice->getIrpf())
+                    ;
+                    $this->em->persist($invoice);
+                }
             }
         }
+        $this->em->flush();
 
-        return $invoicesAmount;
+        return $recordsParsed;
     }
 
     /**

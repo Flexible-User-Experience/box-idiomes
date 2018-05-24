@@ -83,6 +83,7 @@ services:
         class: AppBundle\Manager\GenerateInvoiceFormManager
         arguments:
             - "@doctrine.orm.entity_manager"
+            - "@translator.default"
             - "@app.student_repository"
             - "@app.invoice_repository"
 
