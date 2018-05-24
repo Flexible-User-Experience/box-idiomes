@@ -54,17 +54,9 @@
                                                 {% else %}
                                                     <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
                                                 {% endif %}
-                                                <div class="hidden">
-                                                    {{ form_widget(item.isPreviouslyGenerated) }}
-                                                    {{ form_errors(item.isPreviouslyGenerated) }}
-                                                </div>
                                             </td>
                                             <td style="vertical-align:middle">
                                                 {{ students[loop.index0].fullCanonicalName }}
-                                                <div class="hidden">
-                                                    {{ form_widget(item.student) }}
-                                                    {{ form_errors(item.student) }}
-                                                </div>
                                             </td>
                                             <td>
                                                 {{ form_widget(item.units) }}
@@ -104,7 +96,7 @@
                     </div>
                 {{ form_end(form) }}
             {% endif %}
-            {% if students | length == 0 and form.generate is defined %}
+            {% if students | length == 0 and year_month_form.vars.submitted %}
                 <div class="col-md-10">
                     <div class="box box-primary">
                         <div class="box-header with-border">

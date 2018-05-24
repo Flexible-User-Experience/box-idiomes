@@ -114,9 +114,10 @@ class InvoiceAdminController extends BaseAdminController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $translator = $this->container->get('translator.default');
-            $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => count($students)), 'messages'));
+            $invoicesAmount = $gifm->persistFullModelForm($form->getData());
+            $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => $invoicesAmount), 'messages'));
 
-            return $this->redirectToList('admin_app_invoice_list');
+//            return $this->redirectToList('admin_app_invoice_list');
         }
 
         return $this->renderWithExtraParams(

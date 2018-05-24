@@ -82,6 +82,7 @@ services:
     app.generate_invoice_form_manager:
         class: AppBundle\Manager\GenerateInvoiceFormManager
         arguments:
+            - "@doctrine.orm.entity_manager"
             - "@app.student_repository"
             - "@app.invoice_repository"
 
@@ -115,3 +116,9 @@ services:
             - "@white_october.tcpdf"
             - "@templating.helper.assets"
             - "@translator.default"
+
+# Forms
+    app.form.type.generate_invoice_item:
+        class: AppBundle\Form\Type\GenerateInvoiceItemType
+        tags:
+            - { name: form.type }
