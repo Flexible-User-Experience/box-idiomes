@@ -38,6 +38,7 @@ sonata_admin:
                 icon: "<i class='fa fa-window-maximize'></i>"
             Facturació:
                 icon: "<i class='fa fa-eur'></i>"
+                provider: "backend_invoice_menu"
             Serveis:
                 icon: "<i class='fa fa-list-ul'></i>"
             Contactes:
@@ -57,21 +58,21 @@ sonata_admin:
                 type: app.block.event_calendar
                 class: "col-xs-12"
                 roles: [ "ROLE_ADMIN" ]
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: "col-md-6 col-lg-4"
-                settings:
-                    groups: [ Alumnes, Professors ]
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: "col-md-6 col-lg-4"
-                settings:
-                    groups: [ Aules, Facturació ]
-            -
-                position: top
-                type: sonata.admin.block.admin_list
-                class: "col-md-6 col-lg-4"
-                settings:
-                    groups: [ Serveis, Contactes, Administració ]
+#            -
+#                position: top
+#                type: sonata.admin.block.admin_list
+#                class: "col-md-6 col-lg-4"
+#                settings:
+#                    groups: [ Alumnes, Professors ]
+#            -
+#                position: top
+#                type: sonata.admin.block.admin_list
+#                class: "col-md-6 col-lg-4"
+#                settings:
+#                    groups: [ Aules, Facturació ]
+#            -
+#                position: top
+#                type: sonata.admin.block.admin_list
+#                class: "col-md-6 col-lg-4"
+#                settings:
+#                    groups: [ Serveis, Contactes, Administració ]

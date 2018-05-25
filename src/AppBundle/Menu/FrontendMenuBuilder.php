@@ -8,11 +8,9 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 /**
- * Class FrontendMenuBuilder
+ * Class FrontendMenuBuilder.
  *
  * @category Menu
- * @package  AppBundle\Menu
- * @author   David Romaní <david@flux.cat>
  */
 class FrontendMenuBuilder
 {
@@ -32,23 +30,19 @@ class FrontendMenuBuilder
     private $ts;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * Methods.
      */
 
     /**
-     * @param FactoryInterface     $factory
-     * @param AuthorizationChecker $ac
+     * @param FactoryInterface      $factory
+     * @param AuthorizationChecker  $ac
      * @param TokenStorageInterface $ts
      */
     public function __construct(FactoryInterface $factory, AuthorizationChecker $ac, TokenStorageInterface $ts)
     {
         $this->factory = $factory;
         $this->ac = $ac;
-        $this->ts      = $ts;
+        $this->ts = $ts;
     }
 
     /**
@@ -70,22 +64,22 @@ class FrontendMenuBuilder
         $menu->addChild(
             'app_services',
             array(
-                'label'   => 'frontend.menu.services',
-                'route'   => 'app_services',
+                'label' => 'frontend.menu.services',
+                'route' => 'app_services',
             )
         );
         $menu->addChild(
             'app_academy',
             array(
-                'label'   => 'frontend.menu.academy',
-                'route'   => 'app_academy',
+                'label' => 'frontend.menu.academy',
+                'route' => 'app_academy',
             )
         );
         $menu->addChild(
             'app_contact',
             array(
-                'label'   => 'frontend.menu.contact',
-                'route'   => 'app_contact',
+                'label' => 'frontend.menu.contact',
+                'route' => 'app_contact',
             )
         );
 
