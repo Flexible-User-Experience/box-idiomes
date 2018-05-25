@@ -158,23 +158,40 @@ class InvoicePdfBuilderService
 
         // invoce table header
         $pdf->setFontStyle(null, 'B', 9);
-        $pdf->Cell(75, 8, $this->ts->trans('backend.admin.invoiceLine.description'), false, 0, 'L');
+        $pdf->Cell(80, 8, $this->ts->trans('backend.admin.invoiceLine.description'), false, 0, 'L');
         $pdf->Cell(15, 8, $this->ts->trans('backend.admin.invoiceLine.units'), false, 0, 'R');
         $pdf->Cell(20, 8, $this->ts->trans('backend.admin.invoiceLine.priceUnit'), false, 0, 'R');
         $pdf->Cell(20, 8, $this->ts->trans('backend.admin.invoiceLine.discount'), false, 0, 'R');
-        $pdf->Cell(20, 8, $this->ts->trans('backend.admin.invoiceLine.total'), false, 1, 'R');
+        $pdf->Cell(15, 8, $this->ts->trans('backend.admin.invoiceLine.total'), false, 1, 'R');
         $pdf->setFontStyle(null, '', 9);
 
-        // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
         // invoce lines table rows
         /** @var InvoiceLine $line */
         foreach ($invoice->getLines() as $line) {
-            $pdf->MultiCell(75, 8, $line->getDescription(), 0, 'L', 0, 0, '', '', true, 0, false, true, 0, 'M');
+            // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+            $pdf->MultiCell(80, 8, $line->getDescription(), 0, 'L', 0, 0, '', '', true, 0, false, true, 0, 'M');
             $pdf->MultiCell(15, 8, $this->floatStringFormat($line->getUnits()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
             $pdf->MultiCell(20, 8, $this->floatStringFormat($line->getPriceUnit()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
             $pdf->MultiCell(20, 8, $this->floatStringFormat($line->getDiscount()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-            $pdf->MultiCell(20, 8, $this->floatStringFormat($line->getTotal()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(15, 8, $this->floatStringFormat($line->getTotal()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
         }
+
+        // horitzonal divider
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        $pdf->drawInvoiceLineSeparator($pdf->GetY());
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+
+        // invoice table footer
+        $pdf->MultiCell(135, 8, '-'.Invoice::TAX_IRPF.'% IRPF', 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+        $pdf->MultiCell(15, 8, $this->floatMoneyFormat($invoice->getIrpf()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+        $pdf->setFontStyle(null, 'B', 9);
+        $pdf->MultiCell(135, 8, strtoupper($this->ts->trans('backend.admin.invoiceLine.total')), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+        $pdf->MultiCell(15, 8, $this->floatMoneyFormat($invoice->getTotalAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+        $pdf->setFontStyle(null, '', 9);
+
+        // horitzonal divider
+        $pdf->drawInvoiceLineSeparator($pdf->GetY());
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
 
         return $pdf;
     }
@@ -187,5 +204,15 @@ class InvoicePdfBuilderService
     private function floatStringFormat($val)
     {
         return number_format($val, 2, ',', '.');
+    }
+
+    /**
+     * @param float $val
+     *
+     * @return string
+     */
+    private function floatMoneyFormat($val)
+    {
+        return $this->floatStringFormat($val).' €';
     }
 }
