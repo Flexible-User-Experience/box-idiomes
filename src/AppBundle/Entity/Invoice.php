@@ -294,7 +294,7 @@ class Invoice extends AbstractBase
      *
      * @return Invoice
      */
-    public function setPaymentDate(\DateTime $paymentDate)
+    public function setPaymentDate($paymentDate)
     {
         $this->paymentDate = $paymentDate;
 

@@ -241,7 +241,7 @@ backend:
             generator:
                 flash_success: "S'han generat %amount% factures correctament."
                 no_records_found: "No s'ha trobat cap alumne a les classes realitzades durant el període seleccionat."
-                ready: "factures"
+                ready: "{1}factura|]1,Inf]factures"
                 no_records_presisted: "Atenció: no s'ha creat cap factura nova, recorda que has de marcar la casella 'Facturar'."
         invoiceLine:
             invoice: Factura
