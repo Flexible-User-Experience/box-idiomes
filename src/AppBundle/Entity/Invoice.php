@@ -507,7 +507,7 @@ class Invoice extends AbstractBase
             $date = $this->getDate();
         }
 
-        return $date->format('Y').'-'.$this->getId();
+        return $date->format('Y').'/'.$this->getId();
     }
 
     /**
