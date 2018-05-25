@@ -174,7 +174,6 @@ AppBundle\Entity\Invoice:
     person: @person1
     date: <date()>
     isPayed: <boolean()>
-    paymentDate: <date()>
     baseAmount: <randomFloat(1, 5)>
     taxParcentage: <randomFloat(1, 5)>
     irpf: <randomFloat(1, 5)>

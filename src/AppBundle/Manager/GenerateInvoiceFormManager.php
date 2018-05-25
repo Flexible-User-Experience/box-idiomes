@@ -83,25 +83,24 @@ class GenerateInvoiceFormManager
             $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentYearAndMonthOrNull($student, $year, $month);
             if (!is_null($previousInvoice)) {
                 // old
-                if (TariffTypeEnum::TARIFF_SIGLE_HOUR == $student->getTariff()->getType()) {
-                    // TODO set units acording to assisted classes in selected year & month
+                if (count($previousInvoice->getLines()) > 0) {
+                    /** @var InvoiceLine $previousItem */
+                    $previousItem = $previousInvoice->getLines()[0];
+                    $generateInvoiceItem = new GenerateInvoiceItemModel();
+                    $generateInvoiceItem
+                        ->setStudent($student)
+                        ->setUnits($previousItem->getUnits())
+                        ->setUnitPrice($previousItem->getPriceUnit())
+                        ->setDiscount($previousItem->getDiscount())
+                        ->setIsReadyToGenerate(false)
+                        ->setIsPreviouslyGenerated(true)
+                    ;
+                    $generateInvoice->addItem($generateInvoiceItem);
                 }
-                /** @var InvoiceLine $previousItem */
-                $previousItem = $previousInvoice->getLines()[0];
-                $generateInvoiceItem = new GenerateInvoiceItemModel();
-                $generateInvoiceItem
-                    ->setStudent($student)
-                    ->setUnits($previousItem->getUnits())
-                    ->setUnitPrice($previousItem->getPriceUnit())
-                    ->setDiscount($previousItem->getDiscount())
-                    ->setIsReadyToGenerate(false)
-                    ->setIsPreviouslyGenerated(true)
-                ;
-                $generateInvoice->addItem($generateInvoiceItem);
             } else {
                 // new
                 if (TariffTypeEnum::TARIFF_SIGLE_HOUR == $student->getTariff()->getType()) {
-                    // TODO set units acording to assisted classes in selected year & month
+                    // TODO set units acording to assisted classes in selected year & month before
                 }
                 $generateInvoiceItem = new GenerateInvoiceItemModel();
                 $generateInvoiceItem

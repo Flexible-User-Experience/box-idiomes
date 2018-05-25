@@ -180,4 +180,12 @@ class GenerateInvoiceItemModel
 
         return $this;
     }
+
+    /**
+     * @return float
+     */
+    public function getTotal()
+    {
+        return $this->getUnits() * $this->getUnitPrice() - $this->getDiscount();
+    }
 }

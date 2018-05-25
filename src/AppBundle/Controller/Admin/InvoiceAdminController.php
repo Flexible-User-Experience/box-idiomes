@@ -53,14 +53,9 @@ class InvoiceAdminController extends BaseAdminController
         $form = $this->createForm(GenerateInvoiceType::class, $generateInvoice);
         $form->handleRequest($request);
 
-        // emtpy students found
-        $students = [];
-
         if ($yearMonthForm->isSubmitted() && $yearMonthForm->isValid()) {
             $year = $generateInvoiceYearMonthChooser->getYear();
             $month = $generateInvoiceYearMonthChooser->getMonth();
-            // fill students found
-            $students = $sr->getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariff($year, $month);
             // fill full items form
             $generateInvoice = $gifm->buildFullModelForm($year, $month);
             /** @var Controller $this */
@@ -73,7 +68,7 @@ class InvoiceAdminController extends BaseAdminController
                 'action' => 'generate',
                 'year_month_form' => $yearMonthForm->createView(),
                 'form' => $form->createView(),
-                'students' => $students,
+                'generate_invoice' => $generateInvoice,
             )
         );
     }
