@@ -79,7 +79,7 @@
                                     <tfoot>
                                     <tr class="active">
                                         <td>
-                                            {{ students | length }} {{ 'backend.admin.invoice.generator.ready' | trans }}
+                                            {{ students | length }} {{ 'backend.admin.invoice.generator.ready' | transchoice(students | length) }}
                                         </td>
                                         <th colspan="5" class="text-right">
                                             {{ 'backend.admin.student.total' | trans | upper }}
