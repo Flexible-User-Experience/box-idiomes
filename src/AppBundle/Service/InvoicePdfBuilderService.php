@@ -150,8 +150,19 @@ class InvoicePdfBuilderService
         $pdf->Write(0, $this->ba, '', false, 'L', true);
         $pdf->Write(0, $this->bc, '', false, 'L', true);
 
+        // horitzonal divider
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG * 2);
         $pdf->drawInvoiceLineSeparator($pdf->GetY());
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+
+        // invoce table header
+        $pdf->setFontStyle(null, 'B', 9);
+        $pdf->Cell(75, 8, $this->ts->trans('backend.admin.invoiceLine.description'), false, 0, 'L');
+        $pdf->Cell(15, 8, $this->ts->trans('backend.admin.invoiceLine.units'), false, 0, 'R');
+        $pdf->Cell(20, 8, $this->ts->trans('backend.admin.invoiceLine.priceUnit'), false, 0, 'R');
+        $pdf->Cell(20, 8, $this->ts->trans('backend.admin.invoiceLine.discount'), false, 0, 'R');
+        $pdf->Cell(20, 8, $this->ts->trans('backend.admin.invoiceLine.total'), false, 1, 'R');
+        $pdf->setFontStyle(null, '', 9);
 
         return $pdf;
     }
