@@ -152,6 +152,9 @@ class InvoicePdfBuilderService
         $pdf->Write(0, $this->ba, '', false, 'L', true);
         $pdf->Write(0, $this->bc, '', false, 'L', true);
 
+        // TODO draw SVG
+        // $pdf->drawSvg(30, 30, 30, 30);
+
         // horitzonal divider
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG * 3);
         $pdf->drawInvoiceLineSeparator($pdf->GetY());

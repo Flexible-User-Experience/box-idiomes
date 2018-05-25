@@ -4,6 +4,7 @@ namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class BackendInvoiceMenuBuilder.
@@ -30,10 +31,13 @@ class BackendInvoiceMenuBuilder
     }
 
     /**
+     * @param RequestStack $requestStack
+     *
      * @return ItemInterface
      */
-    public function createSideMenu()
+    public function createSideMenu(RequestStack $requestStack)
     {
+        $route = $requestStack->getCurrentRequest()->get('_route');
         $menu = $this->factory->createItem('Facturació');
         $menu
             ->addChild(
@@ -41,6 +45,7 @@ class BackendInvoiceMenuBuilder
                 array(
                     'label' => 'backend.admin.student.tariff',
                     'route' => 'admin_app_tariff_list',
+                    'current' => 'admin_app_tariff_list' == $route || 'admin_app_tariff_edit' == $route,
                 )
             )
         ;
@@ -50,6 +55,7 @@ class BackendInvoiceMenuBuilder
                 array(
                     'label' => 'backend.admin.invoice.invoice',
                     'route' => 'admin_app_invoice_list',
+                    'current' => 'admin_app_invoice_list' == $route || 'admin_app_invoice_edit' == $route,
                 )
             )
         ;
@@ -59,6 +65,7 @@ class BackendInvoiceMenuBuilder
                 array(
                     'label' => 'backend.admin.invoice.generate_batch',
                     'route' => 'admin_app_invoice_generate',
+                    'current' => 'admin_app_invoice_generate' == $route,
                 )
             )
             ->setExtras(
