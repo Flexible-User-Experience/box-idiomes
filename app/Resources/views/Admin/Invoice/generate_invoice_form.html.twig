@@ -3,7 +3,7 @@
 {% form_theme form _self %}
 
 {% block checkbox_radio_label %}
-    {{- widget|raw }}
+    {{- widget | raw }}
 {% endblock checkbox_radio_label %}
 
 {% block sonata_admin_content %}
@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            {% if students | length > 0 %}
+            {% if generate_invoice.items | length > 0 %}
                 {% set carriedTotalAmount = 0 %}
                 {{ form_start(form) }}
                     <div class="col-md-10">
@@ -42,7 +42,6 @@
                                     </thead>
                                     <tbody>
                                     {% for item in form.items %}
-                                        {% set carriedTotalAmount = carriedTotalAmount + students[loop.index0].calculateMonthlyTariff %}
                                         <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
                                             <td>
                                                 {{ form_widget(item.isReadyToGenerate) }}
@@ -56,7 +55,7 @@
                                                 {% endif %}
                                             </td>
                                             <td style="vertical-align:middle">
-                                                {{ students[loop.index0].fullCanonicalName }}
+                                                {{ generate_invoice.items[loop.index0].student.fullCanonicalName }}
                                             </td>
                                             <td>
                                                 {{ form_widget(item.units) }}
@@ -71,7 +70,7 @@
                                                 {{ form_errors(item.discount) }}
                                             </td>
                                             <td class="text-right" style="vertical-align:middle">
-                                                <strong>{{ students[loop.index0].calculateMonthlyTariff | draw_money | raw }}</strong>
+                                                <strong>{{ generate_invoice.items[loop.index0].total | draw_money | raw }}</strong>
                                             </td>
                                         </tr>
                                     {% endfor %}
@@ -79,13 +78,13 @@
                                     <tfoot>
                                     <tr class="active">
                                         <td>
-                                            {{ students | length }} {{ 'backend.admin.invoice.generator.ready' | transchoice(students | length) }}
+                                            {{ generate_invoice.items | length }} {{ 'backend.admin.invoice.generator.ready' | transchoice(generate_invoice.items | length) }}
                                         </td>
                                         <th colspan="5" class="text-right">
                                             {{ 'backend.admin.student.total' | trans | upper }}
                                         </th>
                                         <th class="text-right">
-                                            <strong>{{ carriedTotalAmount | draw_money | raw }}</strong>
+                                            <strong>{{ generate_invoice.totalAmount | draw_money | raw }}</strong>
                                         </th>
                                     </tr>
                                     </tfoot>
@@ -99,7 +98,7 @@
                     </div>
                 {{ form_end(form) }}
             {% endif %}
-            {% if students | length == 0 and year_month_form.vars.submitted %}
+            {% if generate_invoice.items | length == 0 and year_month_form.vars.submitted %}
                 <div class="col-md-10">
                     <div class="box box-primary">
                         <div class="box-header with-border">

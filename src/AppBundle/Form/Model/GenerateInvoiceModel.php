@@ -121,4 +121,18 @@ class GenerateInvoiceModel
 
         return $this;
     }
+
+    /**
+     * @return float
+     */
+    public function getTotalAmount()
+    {
+        $result = 0.0;
+        /** @var GenerateInvoiceItemModel $item */
+        foreach ($this->getItems() as $item) {
+            $result = $result + $item->getTotal();
+        }
+
+        return $result;
+    }
 }
