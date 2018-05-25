@@ -3,6 +3,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Invoice;
+use AppBundle\Entity\InvoiceLine;
 use AppBundle\Pdf\BaseTcpdf;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -164,6 +165,27 @@ class InvoicePdfBuilderService
         $pdf->Cell(20, 8, $this->ts->trans('backend.admin.invoiceLine.total'), false, 1, 'R');
         $pdf->setFontStyle(null, '', 9);
 
+        // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+        // invoce lines table rows
+        /** @var InvoiceLine $line */
+        foreach ($invoice->getLines() as $line) {
+            $pdf->MultiCell(75, 8, $line->getDescription(), 0, 'L', 0, 0, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(15, 8, $this->floatStringFormat($line->getUnits()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(20, 8, $this->floatStringFormat($line->getPriceUnit()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(20, 8, $this->floatStringFormat($line->getDiscount()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(20, 8, $this->floatStringFormat($line->getTotal()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+        }
+
         return $pdf;
+    }
+
+    /**
+     * @param float $val
+     *
+     * @return string
+     */
+    private function floatStringFormat($val)
+    {
+        return number_format($val, 2, ',', '.');
     }
 }
