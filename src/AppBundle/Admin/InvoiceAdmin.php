@@ -101,7 +101,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'required' => false,
                     'class' => 'AppBundle:Student',
                     'choice_label' => 'fullCanonicalName',
-                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedBySurnameQB(),
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedBySurnameValidTariffQB(),
                 )
             )
             ->add(

@@ -74,6 +74,30 @@ class StudentRepository extends EntityRepository
     }
 
     /**
+     * @return QueryBuilder
+     */
+    public function getEnabledSortedBySurnameValidTariffQB()
+    {
+        return $this->getEnabledSortedBySurnameQB()->andWhere('s.tariff IS NOT NULL');
+    }
+
+    /**
+     * @return Query
+     */
+    public function getEnabledSortedBySurnameValidTariffQ()
+    {
+        return $this->getEnabledSortedBySurnameValidTariffQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getEnabledSortedBySurnameWithValidTariff()
+    {
+        return $this->getEnabledSortedBySurnameValidTariffQ()->getResult();
+    }
+
+    /**
      * @param int $year
      * @param int $month
      *
