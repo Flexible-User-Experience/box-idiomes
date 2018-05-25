@@ -41,6 +41,21 @@ class InvoicePdfBuilderService
     private $bn;
 
     /**
+     * @var string boss DNI
+     */
+    private $bd;
+
+    /**
+     * @var string boss address
+     */
+    private $ba;
+
+    /**
+     * @var string boss city
+     */
+    private $bc;
+
+    /**
      * @var string IBAN bussines
      */
     private $ib;
@@ -53,15 +68,21 @@ class InvoicePdfBuilderService
      * @param Translator      $ts
      * @param string          $pwt
      * @param string          $bn
+     * @param string          $bd
+     * @param string          $ba
+     * @param string          $bc
      * @param string          $ib
      */
-    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn, $ib)
+    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn, $bd, $ba, $bc, $ib)
     {
         $this->tcpdf = $tcpdf;
         $this->tha = $tha;
         $this->ts = $ts;
         $this->pwt = $pwt;
         $this->bn = $bn;
+        $this->bd = $bd;
+        $this->ba = $ba;
+        $this->bc = $bc;
         $this->ib = $ib;
     }
 
@@ -75,7 +96,7 @@ class InvoicePdfBuilderService
         /** @var BaseTcpdf $pdf */
         $pdf = $this->tcpdf->create($this->tha, $this->ts);
 
-        $maxCellWidth = BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT;
+        // $maxCellWidth = BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT;
 
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
@@ -100,19 +121,37 @@ class InvoicePdfBuilderService
         $pdf->SetXY(BaseTcpdf::PDF_MARGIN_LEFT, BaseTcpdf::PDF_MARGIN_TOP);
 
         // invoice header
+        $column2Gap = 114;
         $pdf->setFontStyle(null, 'B', 9);
-        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_data'), '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_data'), '', false, 'L', false);
+        $pdf->SetX($column2Gap);
+        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.customer_data'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
 
+        // TODO fetch right customer name (student or parent)
         $pdf->setFontStyle(null, '', 9);
-        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_number').' '.$invoice->getInvoiceNumber(), '', false, 'L', true);
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
-        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_date').' '.$invoice->getDateString(), '', false, 'L', true);
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
-        $pdf->Write(0, $this->bn, '', false, 'L', true);
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
-        $pdf->Write(0, $this->ib, '', false, 'L', true);
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+
+        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_number').' '.$invoice->getInvoiceNumber(), '', false, 'L', false);
+        $pdf->SetX($column2Gap);
+        $pdf->Write(0, $invoice->getStudent()->getFullName(), '', false, 'L', true);
+
+        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_date').' '.$invoice->getDateString(), '', false, 'L', false);
+        $pdf->SetX($column2Gap);
+        $pdf->Write(0, $invoice->getStudent()->getDni(), '', false, 'L', true);
+
+        $pdf->Write(0, $this->bn, '', false, 'L', false);
+        $pdf->SetX($column2Gap);
+        $pdf->Write(0, $invoice->getStudent()->getAddress(), '', false, 'L', true);
+
+        $pdf->Write(0, $this->bd, '', false, 'L', false);
+        $pdf->SetX($column2Gap);
+        $pdf->Write(0, $invoice->getStudent()->getCity()->getCanonicalPostalString(), '', false, 'L', true);
+
+//        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        $pdf->Write(0, $this->ba, '', false, 'L', true);
+//        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        $pdf->Write(0, $this->bc, '', false, 'L', true);
+//        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
 
         return $pdf;
     }

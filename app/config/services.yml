@@ -132,6 +132,9 @@ services:
             - "@translator.default"
             - "%project_web_title%"
             - "%boss_name%"
+            - "%boss_dni%"
+            - "%boss_address%"
+            - "%boss_city%"
             - "%iban_business%"
 
 # Forms
