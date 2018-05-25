@@ -216,7 +216,7 @@ backend:
             download: Descarregar PDF
             generate: Generar factures
             items: Ítems
-            preview_invoice: Crear llistat de factures
+            preview_invoice: Mostrar factures a generar
             list: Llistat de factures disponibles a generar
             generate_batch: Generar facturació mensual
             invoice: Factura
@@ -243,6 +243,13 @@ backend:
                 no_records_found: "No s'ha trobat cap alumne a les classes realitzades durant el període seleccionat."
                 ready: "{1}factura|]1,Inf]factures"
                 no_records_presisted: "Atenció: no s'ha creat cap factura nova, recorda que has de marcar la casella 'Facturar'."
+            pdf:
+                invoice_data: "Dades factura:"
+                invoice_number: Núm.
+                invoice_date: "Data:"
+                customer_data: Dades client
+                payment_type: "Modalitat de pagament:"
+                account_number: "Número de compte:"
         invoiceLine:
             invoice: Factura
             description: Descripció

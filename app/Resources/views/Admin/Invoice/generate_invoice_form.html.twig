@@ -31,7 +31,10 @@
                                 <table class="table table-bordered table-condensed" style="margin-bottom:20px">
                                     <thead>
                                         <tr>
-                                            <th>{{ 'backend.admin.invoiceLine.isReadyToGenerate' | trans }}</th>
+                                            <th>
+                                                {#{{ 'backend.admin.invoiceLine.isReadyToGenerate' | trans }}<br>#}
+                                                <input id="mark-all-helper" type="checkbox" name="mark-all-helper">
+                                            </th>
                                             <th>{{ 'backend.admin.invoiceLine.isPreviouslyGenerated' | trans }}</th>
                                             <th>{{ 'backend.admin.student.student' | trans }}</th>
                                             <th>{{ 'backend.admin.invoiceLine.units' | trans }}</th>
@@ -112,4 +115,19 @@
             {% endif %}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            var markAllHelperNode = jQuery('#mark-all-helper');
+            markAllHelperNode.on('ifChecked', function() {
+                jQuery('input').iCheck('check');
+            });
+            markAllHelperNode.on('ifUnchecked', function() {
+                jQuery('input').iCheck('uncheck');
+            });
+        });
+    </script>
 {% endblock %}
