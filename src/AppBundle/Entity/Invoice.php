@@ -20,7 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Invoice extends AbstractBase
 {
     const TAX_IRPF = 15;
-    const TAX_IVA = 21;
+    const TAX_IVA = 0;
 
     /**
      * @var ArrayCollection|array|InvoiceLine[]

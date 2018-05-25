@@ -436,9 +436,10 @@ class InvoiceAdmin extends AbstractBaseAdmin
     private function commonPreActions($object)
     {
         $object
-            ->setIrpf($object->calculateIrpf())
             ->setBaseAmount($object->calculateTotalBaseAmount())
-            ->setTotalAmount($object->calculateTotal())
+            ->setTaxParcentage($object->getBaseAmount() * (Invoice::TAX_IVA / 100))
+            ->setIrpf($object->getBaseAmount() * (Invoice::TAX_IRPF / 100))
+            ->setTotalAmount($object->getBaseAmount() + $object->getTaxParcentage() - $object->getIrpf())
         ;
     }
 }
