@@ -511,6 +511,19 @@ class Invoice extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getSluggedInvoiceNumber()
+    {
+        $date = new \DateTime();
+        if ($this->getDate()) {
+            $date = $this->getDate();
+        }
+
+        return $date->format('Y').'_'.$this->getId();
+    }
+
+    /**
      * @return float
      */
     public function calculateTotalBaseAmount()

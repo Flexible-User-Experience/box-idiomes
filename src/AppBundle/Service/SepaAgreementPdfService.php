@@ -12,8 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
  * Class SepaAgreementPdfService.
  *
  * @category Service
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class SepaAgreementPdfService
 {

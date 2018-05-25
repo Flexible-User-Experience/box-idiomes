@@ -130,6 +130,8 @@ services:
             - "@white_october.tcpdf"
             - "@templating.helper.assets"
             - "@translator.default"
+            - "%project_web_title%"
+            - "%iban_business%"
 
 # Forms
     app.form.type.generate_invoice:
