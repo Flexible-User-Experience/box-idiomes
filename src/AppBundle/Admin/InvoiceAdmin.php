@@ -98,7 +98,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 EntityType::class,
                 array(
                     'label' => 'backend.admin.invoice.student',
-                    'required' => false,
+                    'required' => true,
                     'class' => 'AppBundle:Student',
                     'choice_label' => 'fullCanonicalName',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedBySurnameValidTariffQB(),

@@ -1,16 +1,17 @@
 <?php
 
 namespace AppBundle\Admin;
+
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class InvoiceLineAdmin
+ * Class InvoiceLineAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
+ *
  * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class InvoiceLineAdmin extends AbstractBaseAdmin
@@ -55,13 +56,6 @@ class InvoiceLineAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoiceLine.discount',
-                )
-            )
-            ->add(
-                'total',
-                null,
-                array(
-                    'label' => 'backend.admin.invoiceLine.total',
                 )
             )
             ->end()
