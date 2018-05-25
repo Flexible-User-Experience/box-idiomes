@@ -11,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
  * Class StudentImageRightsPdfService.
+ *
+ * @category Service
  */
 class StudentImageRightsPdfService
 {

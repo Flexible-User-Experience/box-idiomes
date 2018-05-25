@@ -36,6 +36,10 @@ parameters:
     project_web_title: "Project Name"
     project_backend_title: "Project Backend Name"
     boss_name: boss name
+    boss_dni: boss dni
+    boss_address: boss address
+    boss_city: boss city
+    iban_business: "ES00..."
 
     facebook_pixel_enabled: false
     facebook_pixel_id: XXXXXX

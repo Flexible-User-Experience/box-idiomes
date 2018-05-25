@@ -20,7 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Invoice extends AbstractBase
 {
     const TAX_IRPF = 15;
-    const TAX_IVA = 21;
+    const TAX_IVA = 0;
 
     /**
      * @var ArrayCollection|array|InvoiceLine[]
@@ -239,6 +239,14 @@ class Invoice extends AbstractBase
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateString()
+    {
+        return $this->date->format('d/m/Y');
     }
 
     /**
@@ -507,7 +515,20 @@ class Invoice extends AbstractBase
             $date = $this->getDate();
         }
 
-        return $date->format('Y').'-'.$this->getId();
+        return $date->format('Y').'/'.$this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSluggedInvoiceNumber()
+    {
+        $date = new \DateTime();
+        if ($this->getDate()) {
+            $date = $this->getDate();
+        }
+
+        return $date->format('Y').'_'.$this->getId();
     }
 
     /**

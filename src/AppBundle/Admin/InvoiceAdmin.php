@@ -72,7 +72,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
         $currentYear = $now->format('Y');
 
         $formMapper
-            ->with('backend.admin.invoice.invoice', $this->getFormMdSuccessBoxArray(4))
+            ->with('backend.admin.invoice.invoice', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'year',
                 ChoiceType::class,
@@ -116,7 +116,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('backend.admin.invoice.detail', $this->getFormMdSuccessBoxArray(4))
+            ->with('backend.admin.invoice.detail', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'baseAmount',
                 null,
@@ -436,9 +436,10 @@ class InvoiceAdmin extends AbstractBaseAdmin
     private function commonPreActions($object)
     {
         $object
-            ->setIrpf($object->calculateIrpf())
             ->setBaseAmount($object->calculateTotalBaseAmount())
-            ->setTotalAmount($object->calculateTotal())
+            ->setTaxParcentage($object->getBaseAmount() * (Invoice::TAX_IVA / 100))
+            ->setIrpf($object->getBaseAmount() * (Invoice::TAX_IRPF / 100))
+            ->setTotalAmount($object->getBaseAmount() + $object->getTaxParcentage() - $object->getIrpf())
         ;
     }
 }

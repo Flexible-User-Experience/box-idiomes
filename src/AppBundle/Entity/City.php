@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Class City
+ * Class City.
  *
  * @category Entity
  *
@@ -101,6 +101,14 @@ class City extends AbstractBase
         $this->province = $province;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCanonicalPostalString()
+    {
+        return $this->getPostalCode().' '.$this->getName().' ('.$this->getProvince()->getName().')';
     }
 
     /**

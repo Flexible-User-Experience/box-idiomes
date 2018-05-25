@@ -8,11 +8,9 @@ use AppBundle\Entity\Event as AppEvent;
 use AppBundle\Entity\EventFullCalendar;
 
 /**
- * Class EventTrasnformerFactoryService
+ * Class EventTrasnformerFactoryService.
  *
  * @category Service
- * @package  AppBundle\Service
- * @author   David Romaní <david@flux.cat>
  */
 class EventTrasnformerFactoryService
 {
@@ -22,7 +20,7 @@ class EventTrasnformerFactoryService
     private $router;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
@@ -36,7 +34,7 @@ class EventTrasnformerFactoryService
     }
 
     /**
-     * Builder
+     * Builder.
      *
      * @param AppEvent $appEvent
      *

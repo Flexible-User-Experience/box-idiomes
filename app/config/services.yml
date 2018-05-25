@@ -33,12 +33,25 @@ services:
             - "@router"
 
 # Menus
+    app.backend_invoice_menu_builder:
+        class: AppBundle\Menu\BackendInvoiceMenuBuilder
+        arguments:
+            - "@knp_menu.factory"
+
     app.frontend_menu_builder:
         class: AppBundle\Menu\FrontendMenuBuilder
         arguments:
             - "@knp_menu.factory"
             - "@security.authorization_checker"
             - "@security.token_storage"
+
+    app.backend_invoice_menu:
+        class: Knp\Menu\MenuItem
+        factory: [ "@app.backend_invoice_menu_builder", createSideMenu ]
+        arguments:
+            - "@request_stack"
+        tags:
+            - { name: knp_menu.menu, alias: backend_invoice_menu }
 
     app.frontend_top_menu:
         class: Knp\Menu\MenuItem
@@ -117,6 +130,12 @@ services:
             - "@white_october.tcpdf"
             - "@templating.helper.assets"
             - "@translator.default"
+            - "%project_web_title%"
+            - "%boss_name%"
+            - "%boss_dni%"
+            - "%boss_address%"
+            - "%boss_city%"
+            - "%iban_business%"
 
 # Forms
     app.form.type.generate_invoice:

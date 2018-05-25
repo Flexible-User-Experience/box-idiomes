@@ -2,11 +2,13 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\Invoice;
 use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Form\Type\GenerateInvoiceType;
 use AppBundle\Form\Type\GenerateInvoiceYearMonthChooserType;
 use AppBundle\Manager\GenerateInvoiceFormManager;
 use AppBundle\Repository\StudentRepository;
+use AppBundle\Service\InvoicePdfBuilderService;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -106,29 +108,56 @@ class InvoiceAdminController extends BaseAdminController
     /**
      * Generate PDF invoice action.
      *
+     * @param int|string|null $id
+     * @param Request         $request
+     *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
-    public function pdfAction()
+    public function pdfAction($id = null, Request $request)
     {
-        /* @var Controller $this */
-        $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha generat cap factura amb PDF.');
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
 
-        return $this->redirectToList();
+        /** @var Invoice $object */
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        /** @var InvoicePdfBuilderService $ips */
+        $ips = $this->get('app.invoice_pdf_builder');
+        $pdf = $ips->build($object);
+
+        return new Response($pdf->Output('box_idiomes_invoice_'.$object->getSluggedInvoiceNumber().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
 
     /**
      * Send PDF invoice action.
      *
+     * @param int|string|null $id
+     * @param Request         $request
+     *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
-    public function sendAction()
+    public function sendAction($id = null, Request $request)
     {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Invoice $object */
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        }
+
         /* @var Controller $this */
         $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha enviat cap factura per email.');
 

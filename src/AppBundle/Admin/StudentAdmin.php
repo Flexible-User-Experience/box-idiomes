@@ -58,7 +58,7 @@ class StudentAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(4))
+            ->with('backend.admin.general', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'name',
                 null,

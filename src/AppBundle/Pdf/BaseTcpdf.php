@@ -9,8 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
  * Class BaseTcpdf.
  *
  * @category Pdf
- *
- * @author Wils Iglesias <wiglesias83@gmail.com>
  */
 class BaseTcpdf extends \TCPDF
 {
@@ -67,5 +65,25 @@ class BaseTcpdf extends \TCPDF
         // print standard ASCII chars, you can use core fonts like
         // helvetica or times to reduce file size.
         $this->SetFont($font, $style, $size, '', true);
+    }
+
+    /**
+     * @param float $y
+     */
+    public function drawInvoiceLineSeparator($y)
+    {
+        $this->Line(
+            self::PDF_MARGIN_LEFT,
+            $y,
+            self::PDF_WIDTH - self::PDF_MARGIN_RIGHT,
+            $y,
+            array(
+                'width' => 5,
+                'cap' => 'butt',
+                'join' => 'miter',
+                'dash' => 0,
+                'color' => array(125, 20, 126),
+            )
+        );
     }
 }
