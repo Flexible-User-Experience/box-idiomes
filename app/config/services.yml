@@ -131,6 +131,7 @@ services:
             - "@templating.helper.assets"
             - "@translator.default"
             - "%project_web_title%"
+            - "%boss_name%"
             - "%iban_business%"
 
 # Forms

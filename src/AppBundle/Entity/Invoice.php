@@ -242,6 +242,14 @@ class Invoice extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getDateString()
+    {
+        return $this->date->format('d/m/Y');
+    }
+
+    /**
      * @param \DateTime $date
      *
      * @return Invoice
