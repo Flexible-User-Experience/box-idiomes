@@ -147,11 +147,11 @@ class InvoicePdfBuilderService
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $invoice->getStudent()->getCity()->getCanonicalPostalString(), '', false, 'L', true);
 
-//        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
         $pdf->Write(0, $this->ba, '', false, 'L', true);
-//        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
         $pdf->Write(0, $this->bc, '', false, 'L', true);
-//        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG * 2);
+        $pdf->drawInvoiceLineSeparator($pdf->GetY());
 
         return $pdf;
     }
