@@ -152,46 +152,50 @@ class InvoicePdfBuilderService
         $pdf->Write(0, $this->bc, '', false, 'L', true);
 
         // horitzonal divider
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG * 2);
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG * 3);
         $pdf->drawInvoiceLineSeparator($pdf->GetY());
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
         // invoce table header
+        $verticalTableGap = 14;
         $pdf->setFontStyle(null, 'B', 9);
-        $pdf->Cell(80, 8, $this->ts->trans('backend.admin.invoiceLine.description'), false, 0, 'L');
-        $pdf->Cell(15, 8, $this->ts->trans('backend.admin.invoiceLine.units'), false, 0, 'R');
-        $pdf->Cell(20, 8, $this->ts->trans('backend.admin.invoiceLine.priceUnit'), false, 0, 'R');
-        $pdf->Cell(20, 8, $this->ts->trans('backend.admin.invoiceLine.discount'), false, 0, 'R');
-        $pdf->Cell(15, 8, $this->ts->trans('backend.admin.invoiceLine.total'), false, 1, 'R');
+        $pdf->Cell(80, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.description'), false, 0, 'L');
+        $pdf->Cell(15, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.units'), false, 0, 'R');
+        $pdf->Cell(20, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.priceUnit'), false, 0, 'R');
+        $pdf->Cell(20, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.discount'), false, 0, 'R');
+        $pdf->Cell(15, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.total'), false, 1, 'R');
         $pdf->setFontStyle(null, '', 9);
 
         // invoce lines table rows
         /** @var InvoiceLine $line */
         foreach ($invoice->getLines() as $line) {
             // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
-            $pdf->MultiCell(80, 8, $line->getDescription(), 0, 'L', 0, 0, '', '', true, 0, false, true, 0, 'M');
-            $pdf->MultiCell(15, 8, $this->floatStringFormat($line->getUnits()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-            $pdf->MultiCell(20, 8, $this->floatStringFormat($line->getPriceUnit()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-            $pdf->MultiCell(20, 8, $this->floatStringFormat($line->getDiscount()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-            $pdf->MultiCell(15, 8, $this->floatStringFormat($line->getTotal()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(80, $verticalTableGap, $line->getDescription(), 0, 'L', 0, 0, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(15, $verticalTableGap, $this->floatStringFormat($line->getUnits()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(20, $verticalTableGap, $this->floatStringFormat($line->getPriceUnit()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(20, $verticalTableGap, $this->floatStringFormat($line->getDiscount()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(15, $verticalTableGap, $this->floatStringFormat($line->getTotal()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
         }
 
         // horitzonal divider
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
         $pdf->drawInvoiceLineSeparator($pdf->GetY());
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
         // invoice table footer
-        $pdf->MultiCell(135, 8, '-'.Invoice::TAX_IRPF.'% IRPF', 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-        $pdf->MultiCell(15, 8, $this->floatMoneyFormat($invoice->getIrpf()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+        $pdf->MultiCell(135, $verticalTableGap, '-'.Invoice::TAX_IRPF.'% IRPF', 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+        $pdf->MultiCell(15, $verticalTableGap, $this->floatMoneyFormat($invoice->getIrpf()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
         $pdf->setFontStyle(null, 'B', 9);
-        $pdf->MultiCell(135, 8, strtoupper($this->ts->trans('backend.admin.invoiceLine.total')), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-        $pdf->MultiCell(15, 8, $this->floatMoneyFormat($invoice->getTotalAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+        $pdf->MultiCell(135, $verticalTableGap, strtoupper($this->ts->trans('backend.admin.invoiceLine.total')), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+        $pdf->MultiCell(15, $verticalTableGap, $this->floatMoneyFormat($invoice->getTotalAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
         $pdf->setFontStyle(null, '', 9);
 
         // horitzonal divider
-        $pdf->drawInvoiceLineSeparator($pdf->GetY());
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        $pdf->drawInvoiceLineSeparator($pdf->GetY());
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
+
+        // payment method
 
         return $pdf;
     }
