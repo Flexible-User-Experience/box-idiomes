@@ -246,7 +246,7 @@ class Invoice extends AbstractBase
      */
     public function getDateString()
     {
-        return $this->date->format('d/m/Y');
+        return $this->date ? $this->date->format('d/m/Y') : '--/--/----';
     }
 
     /**
