@@ -240,7 +240,7 @@ abstract class AbstractPerson extends AbstractBase
     }
 
     /**
-     * @return float
+     * @return int
      */
     public function getPayment()
     {
@@ -248,7 +248,7 @@ abstract class AbstractPerson extends AbstractBase
     }
 
     /**
-     * @param float $payment
+     * @param int $payment
      *
      * @return AbstractPerson
      */

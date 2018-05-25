@@ -4,6 +4,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\InvoiceLine;
+use AppBundle\Enum\StudentPaymentEnum;
 use AppBundle\Pdf\BaseTcpdf;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -196,6 +197,10 @@ class InvoicePdfBuilderService
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
         // payment method
+        $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment_type').' '.$this->ts->trans(StudentPaymentEnum::getEnumArray()[$invoice->getStudent()->getPayment()]), '', false, 'L', true);
+        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $invoice->getStudent()->getPayment()) {
+            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.account_number').' '.$this->ib, '', false, 'L', true);
+        }
 
         return $pdf;
     }
