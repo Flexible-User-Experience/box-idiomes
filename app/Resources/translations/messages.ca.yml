@@ -216,7 +216,7 @@ backend:
             download: Descarregar PDF
             generate: Generar factures
             items: Ítems
-            preview_invoice: Crear llistat de factures
+            preview_invoice: Mostrar factures a generar
             list: Llistat de factures disponibles a generar
             generate_batch: Generar facturació mensual
             invoice: Factura
