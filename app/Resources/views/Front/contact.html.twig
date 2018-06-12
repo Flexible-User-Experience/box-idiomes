@@ -1,10 +1,12 @@
 {% extends 'Front/layout.html.twig' %}
 
-{# TODO Change block name#}
-{% block _contact_privacy_widget %}
-    <div class="checkbox ">
+{% form_theme contactMessageForm _self %}
+
+{# TODO Change class, id#}
+{% block _contact_message_privacy_widget %}
+    <div class="">
         <input type="checkbox" {{ block('widget_attributes') }} />
-        <label>
+        <label class="control-label">
             Accepto la <a href="{{ path('app_privacy_policy')}}">política de privacitat</a>
         </label>
     </div>
