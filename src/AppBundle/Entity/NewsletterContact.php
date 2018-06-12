@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class NewsletterContact
+ * Class NewsletterContact.
  *
  * @category Entity
  *
@@ -16,7 +16,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class NewsletterContact extends AbstractBase
 {
-
     /**
      * @var string
      *
@@ -25,15 +24,16 @@ class NewsletterContact extends AbstractBase
     private $email;
 
     /**
-     *
-     *
-     * Methods
-     *
-     *
+     * @var bool
+     */
+    private $privacy;
+
+    /**
+     * Methods.
      */
 
     /**
-     * Set Email
+     * Set Email.
      *
      * @param string $email
      *
@@ -47,12 +47,32 @@ class NewsletterContact extends AbstractBase
     }
 
     /**
-     * Get Email
+     * Get Email.
      *
      * @return string
      */
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrivacy()
+    {
+        return $this->privacy;
+    }
+
+    /**
+     * @param bool $privacy
+     *
+     * @return $this
+     */
+    public function setPrivacy($privacy)
+    {
+        $this->privacy = $privacy;
+
+        return $this;
     }
 }

@@ -51,6 +51,7 @@ frontend:
         phone: Telèfon
         email: Email
         message: Missatge
+        privacy: Accepto la política de privacitat
         subscribe: SUBSCRIU-T'HI
         send: Envia
 

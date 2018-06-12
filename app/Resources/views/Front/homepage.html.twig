@@ -72,6 +72,8 @@
                 <div class="col-sm-4">
                     {{ form_widget(newsletterForm.email) }}
                     {{ form_errors(newsletterForm.email) }}
+                    {{ form_widget(newsletterForm.privacy) }}
+                    {{ form_errors(newsletterForm.privacy) }}
                 </div>
                 <div class="col-sm-4 text-center top-margin-responsive">
                     {{ form_rest(newsletterForm) }}
