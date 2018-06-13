@@ -77,7 +77,8 @@ class ContactMessageAnswerType extends AbstractType
                         'class' => 'btn-primary',
                     ),
                 )
-            );
+            )
+        ;
     }
 
     /**

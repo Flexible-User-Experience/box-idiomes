@@ -127,7 +127,8 @@ class ContactMessageType extends AbstractType
                         'class' => 'btn-newsletter',
                     ),
                 )
-            );
+            )
+        ;
     }
 
     /**

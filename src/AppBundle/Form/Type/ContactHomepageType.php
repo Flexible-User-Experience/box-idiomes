@@ -62,7 +62,8 @@ class ContactHomepageType extends AbstractType
                         'class' => 'btn-newsletter',
                     ),
                 )
-            );
+            )
+        ;
     }
 
     /**
