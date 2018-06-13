@@ -20,7 +20,7 @@ class ReceiptLine extends AbstractBase
      * @var Receipt
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Receipt", inversedBy="lines")
-     * @ORM\JoinColumn(name="invoice_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="receipt_id", referencedColumnName="id")
      */
     private $receipt;
 

@@ -24,7 +24,7 @@ class Receipt extends AbstractBase
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ReceiptLine", mappedBy="receipt", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private $lines;
+    protected $lines;
 
     /**
      * @var Student
@@ -32,7 +32,7 @@ class Receipt extends AbstractBase
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Student")
      * @ORM\JoinColumn(name="student_id", referencedColumnName="id")
      */
-    private $student;
+    protected $student;
 
     /**
      * @var Person
@@ -40,70 +40,70 @@ class Receipt extends AbstractBase
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
-    private $person;
+    protected $person;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      */
-    private $date;
+    protected $date;
 
     /**
      * @var bool
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isPayed;
+    protected $isPayed;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      */
-    private $paymentDate;
+    protected $paymentDate;
 
     /**
      * @var bool
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isSended;
+    protected $isSended;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(type="date", nullable=true)
      */
-    private $sendDate;
+    protected $sendDate;
 
     /**
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
      */
-    private $baseAmount;
+    protected $baseAmount;
 
     /**
      * @var bool
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $discountApplied;
+    protected $discountApplied;
 
     /**
      * @var int
      *
      * @ORM\Column(type="integer")
      */
-    private $month;
+    protected $month;
 
     /**
      * @var int
      *
      * @ORM\Column(type="integer")
      */
-    private $year;
+    protected $year;
 
     /**
      * Methods.
