@@ -6,7 +6,7 @@ use AppBundle\Entity\Invoice;
 use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Form\Type\GenerateInvoiceType;
 use AppBundle\Form\Type\GenerateInvoiceYearMonthChooserType;
-use AppBundle\Manager\GenerateInvoiceFormManager;
+use AppBundle\Manager\GenerateReceiptFormManager;
 use AppBundle\Service\InvoicePdfBuilderService;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -36,8 +36,8 @@ class ReceiptAdminController extends BaseAdminController
      */
     public function generateAction(Request $request = null)
     {
-        /** @var GenerateInvoiceFormManager $gifm */
-        $gifm = $this->container->get('app.generate_invoice_form_manager');
+        /** @var GenerateReceiptFormManager $grfm */
+        $grfm = $this->container->get('app.generate_receipt_form_manager');
 
         // year & month chooser form
         $generateInvoiceYearMonthChooser = new GenerateInvoiceModel();
@@ -61,7 +61,7 @@ class ReceiptAdminController extends BaseAdminController
         }
 
         return $this->renderWithExtraParams(
-            '::Admin/Invoice/generate_invoice_form.html.twig',
+            '::Admin/Receipt/generate_receipt_form.html.twig',
             array(
                 'action' => 'generate',
                 'year_month_form' => $yearMonthForm->createView(),

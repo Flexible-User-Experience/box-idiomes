@@ -153,6 +153,14 @@ class InvoiceAdmin extends AbstractBaseAdmin
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
+                'receipt',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.receipt',
+                    'required' => false,
+                )
+            )
+            ->add(
                 'discountApplied',
                 null,
                 array(
@@ -246,6 +254,13 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.month',
+                )
+            )
+            ->add(
+                'receipt',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.receipt',
                 )
             )
             ->add(
@@ -361,6 +376,18 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.month',
                     'template' => '::Admin/Cells/list__cell_event_month.html.twig',
+                )
+            )
+            ->add(
+                'receipt',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.receipt',
+                    'editable' => false,
+// TODO                   'associated_property' => 'fullCanonicalName',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'id'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'receipt')),
                 )
             )
             ->add(

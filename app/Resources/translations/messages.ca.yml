@@ -42,6 +42,15 @@ User List: Usuaris
 User Create: Crear
 User Delete: Esborrar
 
+Client: Client
+Usuari: Usuari
+Alumne: Alumne
+Professor: Professor
+Grup: Grup
+Horari: Horari
+Servei: Servei
+Ciutat: Ciutat
+
 frontend:
     menu:
         academy: l'acadèmia
@@ -221,6 +230,7 @@ backend:
             receipt: Rebut
             generate_batch: Generar rebuts mensuals
         invoice:
+            receipt: Rebut
             download: Descarregar PDF
             generate: Generar factures
             items: Ítems
