@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Invoice;
-use AppBundle\Form\Model\GenerateInvoiceModel;
+use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Form\Type\GenerateInvoiceType;
 use AppBundle\Form\Type\GenerateInvoiceYearMonthChooserType;
 use AppBundle\Manager\GenerateReceiptFormManager;
@@ -40,7 +40,7 @@ class ReceiptAdminController extends BaseAdminController
         $grfm = $this->container->get('app.generate_receipt_form_manager');
 
         // year & month chooser form
-        $generateInvoiceYearMonthChooser = new GenerateInvoiceModel();
+        $generateInvoiceYearMonthChooser = new GenerateReceiptModel();
         /** @var Controller $this */
         $yearMonthForm = $this->createForm(GenerateInvoiceYearMonthChooserType::class, $generateInvoiceYearMonthChooser);
         $yearMonthForm->handleRequest($request);
