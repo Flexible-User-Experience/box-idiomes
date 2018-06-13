@@ -29,7 +29,7 @@ class ContactHomepageType extends AbstractType
                 'email',
                 EmailType::class,
                 array(
-                    'required' => false,
+                    'required' => true,
                     'attr' => array(
                         'placeholder' => 'frontend.forms.email',
                         'class' => 'newsletter-email',

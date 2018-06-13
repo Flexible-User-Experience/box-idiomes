@@ -2,7 +2,6 @@
 
 {% form_theme contactMessageForm _self %}
 
-{# TODO Change class, id#}
 {% block _contact_message_privacy_widget %}
     <div class="checkbox">
         <input type="checkbox" id="privacy_checkbox" {{ block('widget_attributes') }} />
@@ -13,7 +12,7 @@
 {% endblock %}
 
 {% block main %}
-    <div class="container container-main">gi
+    <div class="container container-main">
         <div class="row">
             <div class="col-sm-5 col-md-4">
                 {{ form_start(contactMessageForm) }}
