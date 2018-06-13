@@ -1,5 +1,17 @@
 {% extends 'Front/layout.html.twig' %}
 
+{% form_theme contactMessageForm _self %}
+
+{# TODO Change class, id#}
+{% block _contact_message_privacy_widget %}
+    <div class="">
+        <input type="checkbox" {{ block('widget_attributes') }} />
+        <label class="control-label">
+            Accepto la <a href="{{ path('app_privacy_policy')}}">política de privacitat</a>
+        </label>
+    </div>
+{% endblock %}
+
 {% block main %}
     <div class="container container-main">
         <div class="row">
@@ -9,6 +21,7 @@
                     {{ form_row(contactMessageForm.phone) }}
                     {{ form_row(contactMessageForm.email) }}
                     {{ form_row(contactMessageForm.message) }}
+                    {{ form_row(contactMessageForm.privacy) }}
                     {{ form_rest(contactMessageForm) }}
                 {{ form_end(contactMessageForm) }}
             </div>

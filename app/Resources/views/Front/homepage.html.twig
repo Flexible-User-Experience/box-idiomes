@@ -1,5 +1,17 @@
 {% extends 'Front/layout.html.twig' %}
 
+{% form_theme newsletterForm _self %}
+
+{# TODO Change class, id#}
+{% block _contact_homepage_privacy_widget %}
+    <div class="">
+        <input type="checkbox" {{ block('widget_attributes') }} />
+        <label>
+            Accepto la <a href="{{ path('app_privacy_policy')}}">política de privacitat</a>
+        </label>
+    </div>
+{% endblock %}
+
 {% block main %}
     <div class="container">
         <div class="row extra-m-bottom">
@@ -72,6 +84,8 @@
                 <div class="col-sm-4">
                     {{ form_widget(newsletterForm.email) }}
                     {{ form_errors(newsletterForm.email) }}
+                    {{ form_widget(newsletterForm.privacy) }}
+                    {{ form_errors(newsletterForm.privacy) }}
                 </div>
                 <div class="col-sm-4 text-center top-margin-responsive">
                     {{ form_rest(newsletterForm) }}
