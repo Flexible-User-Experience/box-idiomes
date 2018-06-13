@@ -7,7 +7,6 @@ use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Form\Type\GenerateInvoiceType;
 use AppBundle\Form\Type\GenerateInvoiceYearMonthChooserType;
 use AppBundle\Manager\GenerateInvoiceFormManager;
-use AppBundle\Repository\StudentRepository;
 use AppBundle\Service\InvoicePdfBuilderService;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -37,9 +36,6 @@ class InvoiceAdminController extends BaseAdminController
      */
     public function generateAction(Request $request = null)
     {
-        /** @var StudentRepository $sr */
-        $sr = $this->container->get('app.student_repository');
-
         /** @var GenerateInvoiceFormManager $gifm */
         $gifm = $this->container->get('app.generate_invoice_form_manager');
 
@@ -76,7 +72,7 @@ class InvoiceAdminController extends BaseAdminController
     }
 
     /**
-     * Generate invoice action.
+     * Creator invoice action.
      *
      * @param Request $request
      *

@@ -60,6 +60,12 @@ services:
         arguments:
             - "AppBundle:Tariff"
 
+    app.receipt_repository:
+        class: AppBundle\Repository\ReceiptRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Receipt"
+
     app.invoice_repository:
         class: AppBundle\Repository\InvoiceRepository
         factory: [ "@doctrine", getRepository ]

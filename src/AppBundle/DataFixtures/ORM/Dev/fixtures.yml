@@ -167,9 +167,32 @@ AppBundle\Entity\Event:
     dayFrequencyRepeat: <randomDigit()>
     until: <dateTimeThisMonth()>
 
+# Receipt
+AppBundle\Entity\Receipt:
+  receipt{1..10}:
+    student: @student<current()>
+    person: @person1
+    date: <date()>
+    isPayed: <boolean()>
+    baseAmount: <randomFloat(1, 5)>
+    discountApplied: <boolean()>
+    month: <month()>
+    year: <year()>
+
+# ReceiptLine
+AppBundle\Entity\ReceiptLine:
+  lineReceipt{1..10}:
+    description: <sentence()>
+    units: <numberBetween(1, 100)>
+    priceUnit: <randomFloat(1, 5)>
+    discount: <randomFloat(1, 5)>
+    total: <randomFloat(1, 5)>
+    receipt: @receipt<current()>
+
 # Invoice
 AppBundle\Entity\Invoice:
   invoice{1..10}:
+    receipt: @receipt<current()>
     student: @student<current()>
     person: @person1
     date: <date()>

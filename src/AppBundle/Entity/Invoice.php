@@ -11,16 +11,24 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @category Entity
  *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
+ * @author   David Romaní <david@flux.cat>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InvoiceRepository")
  * @ORM\Table(name="invoice")
  * @UniqueEntity(fields={"month", "year", "student", "person"})
  */
-class Invoice extends AbstractBase
+class Invoice extends AbstractReceiptInvoice
 {
     const TAX_IRPF = 15;
     const TAX_IVA = 0;
+
+    /**
+     * @var Receipt
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Receipt")
+     * @ORM\JoinColumn(name="receipt_id", referencedColumnName="id")
+     */
+    private $receipt;
 
     /**
      * @var ArrayCollection|array|InvoiceLine[]
@@ -30,83 +38,18 @@ class Invoice extends AbstractBase
     private $lines;
 
     /**
-     * @var Student
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Student")
-     * @ORM\JoinColumn(name="student_id", referencedColumnName="id")
-     */
-    private $student;
-
-    /**
-     * @var Person
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person")
-     * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
-     */
-    private $person;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $date;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $isPayed;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $paymentDate;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $isSended;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $sendDate;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $baseAmount;
-
-    /**
      * @var float
      *
      * @ORM\Column(type="float", options={"default"=0})
      */
-    private $taxParcentage = 0;
+    private $taxParcentage = self::TAX_IVA;
 
     /**
      * @var float
      *
      * @ORM\Column(type="float", nullable=true, options={"default"=15})
      */
-    private $irpf = 15;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $discountApplied;
+    private $irpf = self::TAX_IRPF;
 
     /**
      * @var float
@@ -114,20 +57,6 @@ class Invoice extends AbstractBase
      * @ORM\Column(type="float", nullable=true)
      */
     private $totalAmount;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer")
-     */
-    private $month;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(type="integer")
-     */
-    private $year;
 
     /**
      * Methods.
@@ -139,6 +68,26 @@ class Invoice extends AbstractBase
     public function __construct()
     {
         $this->lines = new ArrayCollection();
+    }
+
+    /**
+     * @return Receipt
+     */
+    public function getReceipt()
+    {
+        return $this->receipt;
+    }
+
+    /**
+     * @param Receipt $receipt
+     *
+     * @return $this
+     */
+    public function setReceipt($receipt)
+    {
+        $this->receipt = $receipt;
+
+        return $this;
     }
 
     /**
@@ -194,190 +143,6 @@ class Invoice extends AbstractBase
     }
 
     /**
-     * @return Student
-     */
-    public function getStudent()
-    {
-        return $this->student;
-    }
-
-    /**
-     * @param Student $student
-     *
-     * @return Invoice
-     */
-    public function setStudent($student)
-    {
-        $this->student = $student;
-
-        return $this;
-    }
-
-    /**
-     * @return Person
-     */
-    public function getPerson()
-    {
-        return $this->person;
-    }
-
-    /**
-     * @param Person $person
-     *
-     * @return Invoice
-     */
-    public function setPerson($person)
-    {
-        $this->person = $person;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDateString()
-    {
-        return $this->date ? $this->date->format('d/m/Y') : '--/--/----';
-    }
-
-    /**
-     * @param \DateTime $date
-     *
-     * @return Invoice
-     */
-    public function setDate(\DateTime $date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPayed()
-    {
-        return $this->isPayed;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsPayed()
-    {
-        return $this->isPayed();
-    }
-
-    /**
-     * @param bool $isPayed
-     *
-     * @return Invoice
-     */
-    public function setIsPayed($isPayed)
-    {
-        $this->isPayed = $isPayed;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getPaymentDate()
-    {
-        return $this->paymentDate;
-    }
-
-    /**
-     * @param \DateTime $paymentDate
-     *
-     * @return Invoice
-     */
-    public function setPaymentDate($paymentDate)
-    {
-        $this->paymentDate = $paymentDate;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isSended()
-    {
-        return $this->isSended;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsSended()
-    {
-        return $this->isSended();
-    }
-
-    /**
-     * @param bool $isSended
-     *
-     * @return $this
-     */
-    public function setIsSended($isSended)
-    {
-        $this->isSended = $isSended;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getSendDate()
-    {
-        return $this->sendDate;
-    }
-
-    /**
-     * @param \DateTime $sendDate
-     *
-     * @return $this
-     */
-    public function setSendDate(\DateTime $sendDate)
-    {
-        $this->sendDate = $sendDate;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getBaseAmount()
-    {
-        return $this->baseAmount;
-    }
-
-    /**
-     * @param float $baseAmount
-     *
-     * @return Invoice
-     */
-    public function setBaseAmount($baseAmount)
-    {
-        $this->baseAmount = $baseAmount;
-
-        return $this;
-    }
-
-    /**
      * @return float
      */
     public function getTaxParcentage()
@@ -418,26 +183,6 @@ class Invoice extends AbstractBase
     }
 
     /**
-     * @return bool
-     */
-    public function isDiscountApplied()
-    {
-        return $this->discountApplied;
-    }
-
-    /**
-     * @param bool $discountApplied
-     *
-     * @return Invoice
-     */
-    public function setDiscountApplied($discountApplied)
-    {
-        $this->discountApplied = $discountApplied;
-
-        return $this;
-    }
-
-    /**
      * @return float
      */
     public function getTotalAmount()
@@ -461,46 +206,6 @@ class Invoice extends AbstractBase
     public function setTotalAmount($totalAmount)
     {
         $this->totalAmount = $totalAmount;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMonth()
-    {
-        return $this->month;
-    }
-
-    /**
-     * @param int $month
-     *
-     * @return Invoice
-     */
-    public function setMonth($month)
-    {
-        $this->month = $month;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getYear()
-    {
-        return $this->year;
-    }
-
-    /**
-     * @param int $year
-     *
-     * @return Invoice
-     */
-    public function setYear($year)
-    {
-        $this->year = $year;
 
         return $this;
     }

@@ -8,16 +8,16 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class InvoiceLineAdmin.
+ * Class ReceiptLineAdmin.
  *
  * @category Admin
  *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
+ * @author   David Romaní <david@flux.cat>
  */
-class InvoiceLineAdmin extends AbstractBaseAdmin
+class ReceiptLineAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Invoice Line';
-    protected $baseRoutePattern = 'billings/invoice-line';
+    protected $classnameLabel = 'Receipt Line';
+    protected $baseRoutePattern = 'billings/receipt-line';
     protected $datagridValues = array(
         '_sort_by' => 'description',
         '_sort_order' => 'asc',
@@ -61,10 +61,10 @@ class InvoiceLineAdmin extends AbstractBaseAdmin
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(6))
             ->add(
-                'invoice',
+                'receipt',
                 null,
                 array(
-                    'label' => 'backend.admin.invoiceLine.invoice',
+                    'label' => 'backend.admin.receiptLine.receipt',
                     'attr' => array(
                         'hidden' => true,
                     ),
@@ -93,10 +93,10 @@ class InvoiceLineAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
-                'invoice',
+                'receipt',
                 null,
                 array(
-                    'label' => 'backend.admin.invoiceLine.invoice',
+                    'label' => 'backend.admin.receiptLine.receipt',
                 )
             )
             ->add(
@@ -152,10 +152,10 @@ class InvoiceLineAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'invoice',
+                'receipt',
                 null,
                 array(
-                    'label' => 'backend.admin.invoiceLine.invoice',
+                    'label' => 'backend.admin.receiptLine.receipt',
                     'editable' => true,
                 )
             )

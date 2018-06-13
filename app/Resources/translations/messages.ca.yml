@@ -9,6 +9,10 @@ Student Delete: Esborrar
 Grups List: Grups
 Grups Create: Crear
 Grups Delete: Esborrar
+Receipt List: Rebuts
+Receipt Create: Crear
+Receipt Generate: Generar rebuts mensual
+Receipt Delete: Esborrar
 Invoice List: Factures
 Invoice Create: Crear
 Invoice Generate: Generar facturació mensual
@@ -37,6 +41,15 @@ City Delete: Esborrar
 User List: Usuaris
 User Create: Crear
 User Delete: Esborrar
+
+Client: Client
+Usuari: Usuari
+Alumne: Alumne
+Professor: Professor
+Grup: Grup
+Horari: Horari
+Servei: Servei
+Ciutat: Ciutat
 
 frontend:
     menu:
@@ -213,7 +226,23 @@ backend:
             city: Ciutat
             payment: Pagament
             bank: Banc
+        receipt:
+            receipt: Rebut
+            generate: Generar rebuts
+            generate_batch: Generar rebuts mensuals
+            preview_invoice: Mostrar rebuts a generar
+            list: Llistat de rebuts disponibles a generar
+            lines: Línies de rebut
+            id: Núm. Rebut
+            isPayed: Pagat
+            isSended: Enviat
+            createInvoice: Crear factura
+            generator:
+                flash_success: "S'han generat %amount% rebuts correctament."
+                ready: "{1}rebut|]1,Inf]rebuts"
+                no_records_presisted: "Atenció: no s'ha creat cap rebut nou, recorda que has de marcar la casella de la primera columna."
         invoice:
+            receipt: Rebut
             download: Descarregar PDF
             generate: Generar factures
             items: Ítems
@@ -221,6 +250,7 @@ backend:
             list: Llistat de factures disponibles a generar
             generate_batch: Generar facturació mensual
             invoice: Factura
+            line: Línia
             lines: Línies de factura
             detail: Detall
             student: Estudiant

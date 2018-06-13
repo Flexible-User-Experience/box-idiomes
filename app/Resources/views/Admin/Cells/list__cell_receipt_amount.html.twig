@@ -2,8 +2,8 @@
 
 {% block field %}
     {% spaceless %}
-        <div class="text-left">
-            {{ object.invoiceNumber }}
+        <div class="text-right">
+            {{ object.baseAmount | draw_money | raw }}
         </div>
     {% endspaceless %}
 {% endblock %}

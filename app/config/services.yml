@@ -92,6 +92,14 @@ services:
             - "@app.notification"
             - "%mailchimp_api_key%"
 
+    app.generate_receipt_form_manager:
+        class: AppBundle\Manager\GenerateReceiptFormManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@translator.default"
+            - "@app.student_repository"
+            - "@app.receipt_repository"
+
     app.generate_invoice_form_manager:
         class: AppBundle\Manager\GenerateInvoiceFormManager
         arguments:
@@ -138,6 +146,13 @@ services:
             - "%iban_business%"
 
 # Forms
+    app.form.type.generate_receipt:
+        class: AppBundle\Form\Type\GenerateReceiptType
+        arguments:
+            - "@router.default"
+        tags:
+            - { name: form.type }
+
     app.form.type.generate_invoice:
         class: AppBundle\Form\Type\GenerateInvoiceType
         arguments:
