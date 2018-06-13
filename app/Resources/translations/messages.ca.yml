@@ -228,7 +228,10 @@ backend:
             bank: Banc
         receipt:
             receipt: Rebut
+            generate: Generar rebuts
             generate_batch: Generar rebuts mensuals
+            preview_invoice: Mostrar rebuts a generar
+            list: Llistat de rebuts disponibles a generar
         invoice:
             receipt: Rebut
             download: Descarregar PDF
