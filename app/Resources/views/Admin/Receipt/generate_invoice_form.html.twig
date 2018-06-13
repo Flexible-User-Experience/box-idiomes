@@ -1,0 +1,133 @@
+{% extends ":Admin:layout.html.twig" %}
+
+{% form_theme form _self %}
+
+{% block checkbox_radio_label %}
+    {{- widget | raw }}
+{% endblock checkbox_radio_label %}
+
+{% block sonata_admin_content %}
+    <div class="sonata-ba-show">
+        <div class="sonata-ba-view row">
+            <div class="col-md-2">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">{{ 'backend.admin.invoice.generate' | trans }}</h4>
+                    </div>
+                    <div class="box-body">
+                        {{ form(year_month_form) }}
+                    </div>
+                </div>
+            </div>
+            {% if generate_invoice.items | length > 0 %}
+                {% set carriedTotalAmount = 0 %}
+                {{ form_start(form) }}
+                    <div class="col-md-10">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">{{ 'backend.admin.invoice.list' | trans }}</h4>
+                            </div>
+                            <div class="box-body">
+                                <table class="table table-bordered table-condensed" style="margin-bottom:20px">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                {#{{ 'backend.admin.invoiceLine.isReadyToGenerate' | trans }}<br>#}
+                                                <input id="mark-all-helper" type="checkbox" name="mark-all-helper">
+                                            </th>
+                                            <th>{{ 'backend.admin.invoiceLine.isPreviouslyGenerated' | trans }}</th>
+                                            <th>{{ 'backend.admin.student.student' | trans }}</th>
+                                            <th>{{ 'backend.admin.invoiceLine.units' | trans }}</th>
+                                            <th>{{ 'backend.admin.invoiceLine.priceUnit' | trans }}</th>
+                                            <th>{{ 'backend.admin.student.discountApplied' | trans }}</th>
+                                            <th class="text-right">{{ 'backend.admin.student.total' | trans }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in form.items %}
+                                        <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
+                                            <td>
+                                                {{ form_widget(item.isReadyToGenerate) }}
+                                                {{ form_errors(item.isReadyToGenerate) }}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {% if not item.vars.value.isPreviouslyGenerated %}
+                                                    <span class="label label-warning">{{ 'backend.admin.yes' | trans }}</span>
+                                                {% else %}
+                                                    <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {{ generate_invoice.items[loop.index0].student.fullCanonicalName }}
+                                            </td>
+                                            <td>
+                                                {{ form_widget(item.units) }}
+                                                {{ form_errors(item.units) }}
+                                            </td>
+                                            <td>
+                                                {{ form_widget(item.unitPrice) }}
+                                                {{ form_errors(item.unitPrice) }}
+                                            </td>
+                                            <td>
+                                                {{ form_widget(item.discount) }}
+                                                {{ form_errors(item.discount) }}
+                                            </td>
+                                            <td class="text-right" style="vertical-align:middle">
+                                                <strong>{{ generate_invoice.items[loop.index0].total | draw_money | raw }}</strong>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                    <tr class="active">
+                                        <td>
+                                            {{ generate_invoice.items | length }} {{ 'backend.admin.invoice.generator.ready' | transchoice(generate_invoice.items | length) }}
+                                        </td>
+                                        <th colspan="5" class="text-right">
+                                            {{ 'backend.admin.student.total' | trans | upper }}
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>{{ generate_invoice.totalAmount | draw_money | raw }}</strong>
+                                        </th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                {{ form_row(form.generate) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden">
+                        {{ form_rest(form) }}
+                    </div>
+                {{ form_end(form) }}
+            {% endif %}
+            {% if generate_invoice.items | length == 0 and year_month_form.vars.submitted %}
+                <div class="col-md-10">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h4 class="box-title">{{ 'backend.admin.invoice.list' | trans }}</h4>
+                        </div>
+                        <div class="box-body">
+                            <div class="alert alert-warning"><i class="fa fa-warning"></i> {{ 'backend.admin.invoice.generator.no_records_found' | trans }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            var markAllHelperNode = jQuery('#mark-all-helper');
+            markAllHelperNode.on('ifChecked', function() {
+                jQuery('input').iCheck('check');
+            });
+            markAllHelperNode.on('ifUnchecked', function() {
+                jQuery('input').iCheck('uncheck');
+            });
+        });
+    </script>
+{% endblock %}

@@ -9,6 +9,10 @@ Student Delete: Esborrar
 Grups List: Grups
 Grups Create: Crear
 Grups Delete: Esborrar
+Receipt List: Rebuts
+Receipt Create: Crear
+Receipt Generate: Generar rebuts mensual
+Receipt Delete: Esborrar
 Invoice List: Factures
 Invoice Create: Crear
 Invoice Generate: Generar facturació mensual
@@ -213,6 +217,9 @@ backend:
             city: Ciutat
             payment: Pagament
             bank: Banc
+        receipt:
+            receipt: Rebut
+            generate_batch: Generar rebuts mensuals
         invoice:
             download: Descarregar PDF
             generate: Generar factures

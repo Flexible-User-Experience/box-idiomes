@@ -63,9 +63,9 @@ class BackendInvoiceMenuBuilder
             ->addChild(
                 'generator',
                 array(
-                    'label' => 'backend.admin.invoice.generate_batch',
-                    'route' => 'admin_app_invoice_generate',
-                    'current' => 'admin_app_invoice_generate' == $route,
+                    'label' => 'backend.admin.receipt.generate_batch',
+                    'route' => 'admin_app_receipt_generate',
+                    'current' => 'admin_app_receipt_generate' == $route,
                 )
             )
             ->setExtras(

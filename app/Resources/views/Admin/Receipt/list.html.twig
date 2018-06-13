@@ -1,0 +1,8 @@
+{% extends "SonataAdminBundle:CRUD:base_list.html.twig" %}
+
+{% block list_table %}
+    <div class="col-xs-12" style="margin-bottom:10px">
+        <a href="{{ path('admin_app_receipt_generate') }}" class="btn btn-warning"><i class="fa fa-inbox"></i> {{ 'backend.admin.receipt.generate_batch' | trans({}, 'messages') }}</a>
+    </div>
+    {{ parent() }}
+{% endblock %}

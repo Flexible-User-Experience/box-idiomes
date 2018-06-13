@@ -17,14 +17,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class InvoiceAdminController.
+ * Class ReceiptAdminController.
  *
  * @category Controller
  */
-class InvoiceAdminController extends BaseAdminController
+class ReceiptAdminController extends BaseAdminController
 {
     /**
-     * Generate invoice action.
+     * Generate receipt action.
      *
      * @param Request $request
      *
@@ -72,7 +72,7 @@ class InvoiceAdminController extends BaseAdminController
     }
 
     /**
-     * Creator invoice action.
+     * Creator receipt action.
      *
      * @param Request $request
      *
@@ -102,7 +102,7 @@ class InvoiceAdminController extends BaseAdminController
     }
 
     /**
-     * Generate PDF invoice action.
+     * Generate PDF receipt action.
      *
      * @param int|string|null $id
      * @param Request         $request
@@ -132,7 +132,7 @@ class InvoiceAdminController extends BaseAdminController
     }
 
     /**
-     * Send PDF invoice action.
+     * Send PDF receipt action.
      *
      * @param int|string|null $id
      * @param Request         $request
