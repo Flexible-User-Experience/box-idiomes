@@ -40,6 +40,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
         $collection
             ->add('generate')
             ->add('creator')
+            ->add('createInvoice', $this->getRouterIdParameter().'/create-invoice')
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
             ->add('send', $this->getRouterIdParameter().'/send')
             ->remove('delete');

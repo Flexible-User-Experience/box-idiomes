@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\Invoice;
+use AppBundle\Entity\InvoiceLine;
 use AppBundle\Entity\Receipt;
 use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Form\Type\GenerateReceiptType;
@@ -97,6 +99,66 @@ class ReceiptAdminController extends BaseAdminController
         } else {
             $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => $recordsParsed), 'messages'));
         }
+
+        return $this->redirectToList();
+    }
+
+    /**
+     * Create Invoice action.
+     *
+     * @param int|string|null $id
+     * @param Request         $request
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
+     */
+    public function createInvoiceAction($id = null, Request $request)
+    {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Receipt $object */
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        $invoice = new Invoice();
+        $invoice
+            ->setReceipt($object)
+            ->setStudent($object->getStudent())
+            ->setPerson($object->getPerson())
+            ->setDate($object->getDate())
+            ->setIsPayed($object->getIsPayed())
+            ->setPaymentDate($object->getPaymentDate())
+            ->setBaseAmount($object->getBaseAmount())
+            ->setDiscountApplied($object->isDiscountApplied())
+            ->setMonth($object->getMonth())
+            ->setYear($object->getYear())
+            ->setIsSended(false)
+        ;
+        foreach ($object->getLines() as $line) {
+            $invoiceLine = new InvoiceLine();
+            $invoiceLine
+                ->setInvoice($invoice)
+                ->setDescription($line->getDescription())
+                ->setUnits($line->getUnits())
+                ->setPriceUnit($line->getPriceUnit())
+                ->setDiscount($line->getDiscount())
+                ->setTotal($line->getTotal())
+            ;
+            $invoice->addLine($invoiceLine);
+        }
+
+        $em = $this->container->get('doctrine')->getManager();
+        $em->persist($invoice);
+        $em->flush();
+
+        /* @var Controller $this */
+        $this->addFlash('success', 'Aquesta funcionalitat encara no està disponible. No s\'ha enviat cap rebut per email.');
 
         return $this->redirectToList();
     }

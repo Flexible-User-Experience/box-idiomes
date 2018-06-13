@@ -94,6 +94,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/billings/receipt/create'),
             array('/admin/billings/receipt/generate'),
             array('/admin/billings/receipt/1/edit'),
+            array('/admin/billings/receipt/1/create-invoice'),
             array('/admin/billings/receipt-line/list'),
             array('/admin/billings/receipt-line/create'),
             array('/admin/billings/receipt-line/1/edit'),
@@ -153,6 +154,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/classrooms/timetable/1/delete'),
             array('/admin/billings/receipt/1/delete'),
             array('/admin/billings/invoice/1/delete'),
+            array('/admin/billings/invoice/generate'),
         );
     }
 }
