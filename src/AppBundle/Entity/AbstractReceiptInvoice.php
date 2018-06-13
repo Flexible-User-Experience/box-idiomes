@@ -153,11 +153,11 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     }
 
     /**
-     * @param \DateTime $date
+     * @param \DateTime|null $date
      *
      * @return $this
      */
-    public function setDate(\DateTime $date)
+    public function setDate($date)
     {
         $this->date = $date;
 
@@ -249,11 +249,11 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     }
 
     /**
-     * @param \DateTime $sendDate
+     * @param \DateTime|null $sendDate
      *
      * @return $this
      */
-    public function setSendDate(\DateTime $sendDate)
+    public function setSendDate($sendDate)
     {
         $this->sendDate = $sendDate;
 

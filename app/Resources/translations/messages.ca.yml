@@ -236,6 +236,7 @@ backend:
             id: Núm. Rebut
             isPayed: Pagat
             isSended: Enviat
+            createInvoice: Crear factura
             generator:
                 flash_success: "S'han generat %amount% rebuts correctament."
                 ready: "{1}rebut|]1,Inf]rebuts"

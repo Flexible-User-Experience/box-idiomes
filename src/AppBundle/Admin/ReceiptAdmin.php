@@ -361,7 +361,8 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'invoice' => array('template' => '::Admin/Buttons/list__action_receipt_pdf_button.html.twig'),
+                        'createInvoice' => array('template' => '::Admin/Buttons/list__action_receipt_create_invoice_button.html.twig'),
+                        'pdf' => array('template' => '::Admin/Buttons/list__action_receipt_pdf_button.html.twig'),
                         'send' => array('template' => '::Admin/Buttons/list__action_receipt_send_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
