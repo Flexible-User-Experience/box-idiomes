@@ -2,7 +2,7 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Invoice;
+use AppBundle\Entity\Receipt;
 use AppBundle\Enum\InvoiceYearMonthEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -14,16 +14,16 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
- * Class InvoiceAdmin.
+ * Class ReceiptAdmin.
  *
  * @category Admin
  *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
+ * @author   David Romaní <david@flux.cat>
  */
-class InvoiceAdmin extends AbstractBaseAdmin
+class ReceiptAdmin extends AbstractBaseAdmin
 {
-    protected $classnameLabel = 'Invoice';
-    protected $baseRoutePattern = 'billings/invoice';
+    protected $classnameLabel = 'Receipt';
+    protected $baseRoutePattern = 'billings/receipt';
     protected $datagridValues = array(
         '_sort_by' => 'id',
         '_sort_order' => 'desc',
@@ -38,6 +38,9 @@ class InvoiceAdmin extends AbstractBaseAdmin
     {
         parent::configureRoutes($collection);
         $collection
+            ->add('generate')
+            ->add('creator')
+            ->add('createInvoice', $this->getRouterIdParameter().'/create-invoice')
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
             ->add('send', $this->getRouterIdParameter().'/send')
             ->remove('delete');
@@ -52,7 +55,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
     {
         $actions = parent::getDashboardActions();
         $actions['generate'] = array(
-            'label' => 'backend.admin.invoice.generate_batch',
+            'label' => 'backend.admin.receipt.generate_batch',
             'translation_domain' => 'messages',
             'url' => $this->generateUrl('generate'),
             'icon' => 'inbox',
@@ -70,7 +73,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
         $currentYear = $now->format('Y');
 
         $formMapper
-            ->with('backend.admin.invoice.invoice', $this->getFormMdSuccessBoxArray(3))
+            ->with('backend.admin.receipt.receipt', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'year',
                 ChoiceType::class,
@@ -123,41 +126,8 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'required' => true,
                 )
             )
-            ->add(
-                'taxParcentage',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.taxParcentage',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'irpf',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.irpf',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'totalAmount',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.totalAmount',
-                    'required' => true,
-                    'disabled' => true,
-                )
-            )
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
-            ->add(
-                'receipt',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.receipt',
-                    'required' => false,
-                )
-            )
             ->add(
                 'discountApplied',
                 null,
@@ -171,7 +141,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 'isSended',
                 CheckboxType::class,
                 array(
-                    'label' => 'backend.admin.invoice.isSended',
+                    'label' => 'backend.admin.receipt.isSended',
                     'required' => false,
                     'disabled' => true,
                 )
@@ -190,7 +160,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 'isPayed',
                 CheckboxType::class,
                 array(
-                    'label' => 'backend.admin.invoice.isPayed',
+                    'label' => 'backend.admin.receipt.isPayed',
                     'required' => false,
                 )
             )
@@ -206,7 +176,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
             $formMapper
-                ->with('backend.admin.invoice.lines', $this->getFormMdSuccessBoxArray(12))
+                ->with('backend.admin.receipt.lines', $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'lines',
                     'sonata_type_collection',
@@ -237,7 +207,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 'id',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.id',
+                    'label' => 'backend.admin.receipt.id',
                 )
             )
             ->add(
@@ -252,13 +222,6 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.month',
-                )
-            )
-            ->add(
-                'receipt',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.receipt',
                 )
             )
             ->add(
@@ -290,31 +253,10 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'taxParcentage',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.taxParcentage',
-                )
-            )
-            ->add(
-                'irpf',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.irpf',
-                )
-            )
-            ->add(
-                'totalAmount',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.totalAmount',
-                )
-            )
-            ->add(
                 'isSended',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.isSended',
+                    'label' => 'backend.admin.receipt.isSended',
                 )
             )
             ->add(
@@ -330,7 +272,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 'isPayed',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.isPayed',
+                    'label' => 'backend.admin.receipt.isPayed',
                 )
             )
             ->add(
@@ -356,8 +298,8 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 'id',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.id',
-                    'template' => '::Admin/Cells/list__cell_invoice_number.html.twig',
+                    'label' => 'backend.admin.receipt.id',
+                    'template' => '::Admin/Cells/list__cell_receipt_number.html.twig',
                 )
             )
             ->add(
@@ -378,18 +320,6 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'receipt',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.receipt',
-                    'editable' => false,
-                    'associated_property' => 'receiptNumber',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'id'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'receipt')),
-                )
-            )
-            ->add(
                 'student',
                 null,
                 array(
@@ -402,11 +332,11 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'totalAmount',
+                'baseAmount',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.totalAmount',
-                    'template' => '::Admin/Cells/list__cell_invoice_amount.html.twig',
+                    'label' => 'backend.admin.invoice.baseAmount',
+                    'template' => '::Admin/Cells/list__cell_receipt_amount.html.twig',
                     'editable' => false,
                 )
             )
@@ -414,7 +344,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 'isSended',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.isSended',
+                    'label' => 'backend.admin.receipt.isSended',
                     'editable' => true,
                 )
             )
@@ -422,7 +352,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 'isPayed',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.isPayed',
+                    'label' => 'backend.admin.receipt.isPayed',
                     'editable' => true,
                 )
             )
@@ -432,8 +362,9 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'invoice' => array('template' => '::Admin/Buttons/list__action_invoice_pdf_button.html.twig'),
-                        'send' => array('template' => '::Admin/Buttons/list__action_invoice_send_button.html.twig'),
+                        'createInvoice' => array('template' => '::Admin/Buttons/list__action_receipt_create_invoice_button.html.twig'),
+                        'pdf' => array('template' => '::Admin/Buttons/list__action_receipt_pdf_button.html.twig'),
+                        'send' => array('template' => '::Admin/Buttons/list__action_receipt_send_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )
@@ -441,7 +372,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param Invoice $object
+     * @param Receipt $object
      */
     public function prePersist($object)
     {
@@ -449,7 +380,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param Invoice $object
+     * @param Receipt $object
      */
     public function preUpdate($object)
     {
@@ -457,15 +388,10 @@ class InvoiceAdmin extends AbstractBaseAdmin
     }
 
     /**
-     * @param Invoice $object
+     * @param Receipt $object
      */
     private function commonPreActions($object)
     {
-        $object
-            ->setBaseAmount($object->calculateTotalBaseAmount())
-            ->setTaxParcentage($object->getBaseAmount() * (Invoice::TAX_IVA / 100))
-            ->setIrpf($object->getBaseAmount() * (Invoice::TAX_IRPF / 100))
-            ->setTotalAmount($object->getBaseAmount() + $object->getTaxParcentage() - $object->getIrpf())
-        ;
+        $object->setBaseAmount($object->calculateTotalBaseAmount());
     }
 }

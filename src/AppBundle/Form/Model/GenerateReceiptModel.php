@@ -5,14 +5,14 @@ namespace AppBundle\Form\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class GenerateInvoiceModel.
+ * Class GenerateReceiptModel.
  *
  * @category FormModel
  */
-class GenerateInvoiceModel extends AbstractGenerateReceiptInvoiceModel
+class GenerateReceiptModel extends AbstractGenerateReceiptInvoiceModel
 {
     /**
-     * @var GenerateInvoiceItemModel[]
+     * @var GenerateReceiptItemModel[]
      */
     private $items;
 
@@ -21,7 +21,7 @@ class GenerateInvoiceModel extends AbstractGenerateReceiptInvoiceModel
      */
 
     /**
-     * GenerateInvoiceModel constructor.
+     * GenerateReceiptModel constructor.
      */
     public function __construct()
     {
@@ -29,7 +29,7 @@ class GenerateInvoiceModel extends AbstractGenerateReceiptInvoiceModel
     }
 
     /**
-     * @return GenerateInvoiceItemModel[]
+     * @return GenerateReceiptItemModel[]
      */
     public function getItems()
     {
@@ -37,7 +37,7 @@ class GenerateInvoiceModel extends AbstractGenerateReceiptInvoiceModel
     }
 
     /**
-     * @param GenerateInvoiceItemModel[] $items
+     * @param GenerateReceiptItemModel[] $items
      *
      * @return $this
      */
@@ -49,11 +49,11 @@ class GenerateInvoiceModel extends AbstractGenerateReceiptInvoiceModel
     }
 
     /**
-     * @param GenerateInvoiceItemModel $item
+     * @param GenerateReceiptItemModel $item
      *
      * @return $this
      */
-    public function addItem(GenerateInvoiceItemModel $item)
+    public function addItem(GenerateReceiptItemModel $item)
     {
         $this->items->add($item);
 
@@ -61,11 +61,11 @@ class GenerateInvoiceModel extends AbstractGenerateReceiptInvoiceModel
     }
 
     /**
-     * @param GenerateInvoiceItemModel $item
+     * @param GenerateReceiptItemModel $item
      *
      * @return $this
      */
-    public function removeItem(GenerateInvoiceItemModel $item)
+    public function removeItem(GenerateReceiptItemModel $item)
     {
         $this->items->removeElement($item);
 

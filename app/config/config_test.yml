@@ -22,7 +22,7 @@ doctrine:
     orm:
         dql:
             datetime_functions:
-                month: DoctrineExtensions\Query\Sqlite\Month
+                month:  DoctrineExtensions\Query\Sqlite\Month
                 year:   DoctrineExtensions\Query\Sqlite\Year
 
 liip_functional_test:
