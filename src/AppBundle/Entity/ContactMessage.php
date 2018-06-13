@@ -78,8 +78,6 @@ class ContactMessage extends AbstractBase
      */
 
     /**
-     * Get Name.
-     *
      * @return string
      */
     public function getName()
@@ -88,8 +86,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Set Name.
-     *
      * @param string $name
      *
      * @return $this
@@ -102,8 +98,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Set Email.
-     *
      * @param string $email
      *
      * @return $this
@@ -116,8 +110,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Get Email.
-     *
      * @return string
      */
     public function getEmail()
@@ -126,8 +118,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Set Checked.
-     *
      * @param bool $checked
      *
      * @return $this
@@ -140,8 +130,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Get Checked.
-     *
      * @return bool
      */
     public function getChecked()
@@ -150,8 +138,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Set Answered.
-     *
      * @param bool $answered
      *
      * @return $this
@@ -164,8 +150,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Get Answered.
-     *
      * @return bool
      */
     public function getAnswered()
@@ -174,8 +158,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Get Subject.
-     *
      * @return string
      */
     public function getSubject()
@@ -184,8 +166,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Set Subject.
-     *
      * @param string $subject
      *
      * @return $this
@@ -198,8 +178,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Set Message.
-     *
      * @param string $message
      *
      * @return $this
@@ -212,8 +190,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Get Message.
-     *
      * @return string
      */
     public function getMessage()

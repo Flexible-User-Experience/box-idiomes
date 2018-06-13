@@ -33,8 +33,6 @@ class NewsletterContact extends AbstractBase
      */
 
     /**
-     * Set Email.
-     *
      * @param string $email
      *
      * @return $this
@@ -47,8 +45,6 @@ class NewsletterContact extends AbstractBase
     }
 
     /**
-     * Get Email.
-     *
      * @return string
      */
     public function getEmail()
