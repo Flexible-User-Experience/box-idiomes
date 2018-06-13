@@ -170,13 +170,10 @@ AppBundle\Entity\Event:
 # Invoice
 AppBundle\Entity\Invoice:
   invoice{1..10}:
-    lines:
-        - @invoiceLine*
     student: @student<current()>
     person: @person1
     date: <date()>
     isPayed: <boolean()>
-    paymentDate: <date()>
     baseAmount: <randomFloat(1, 5)>
     taxParcentage: <randomFloat(1, 5)>
     irpf: <randomFloat(1, 5)>
@@ -193,6 +190,7 @@ AppBundle\Entity\InvoiceLine:
     priceUnit: <randomFloat(1, 5)>
     discount: <randomFloat(1, 5)>
     total: <randomFloat(1, 5)>
+    invoice: @invoice<current()>
 
 ## Users
 AppBundle\Entity\User:

@@ -6,7 +6,7 @@ use AppBundle\Entity\Traits\DescriptionTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class ContactMessage
+ * Class ContactMessage.
  *
  * @category Entity
  *
@@ -34,19 +34,18 @@ class ContactMessage extends AbstractBase
     private $email;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
     private $checked = false;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
     private $answered = false;
-
 
     /**
      * @var string
@@ -70,12 +69,15 @@ class ContactMessage extends AbstractBase
     private $message;
 
     /**
-     * Methods
+     * @var bool
+     */
+    private $privacy;
+
+    /**
+     * Methods.
      */
 
     /**
-     * Get Name
-     *
      * @return string
      */
     public function getName()
@@ -84,8 +86,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Set Name
-     *
      * @param string $name
      *
      * @return $this
@@ -98,8 +98,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Set Email
-     *
      * @param string $email
      *
      * @return $this
@@ -112,8 +110,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Get Email
-     *
      * @return string
      */
     public function getEmail()
@@ -122,9 +118,7 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Set Checked
-     *
-     * @param boolean $checked
+     * @param bool $checked
      *
      * @return $this
      */
@@ -136,9 +130,7 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Get Checked
-     *
-     * @return boolean
+     * @return bool
      */
     public function getChecked()
     {
@@ -146,9 +138,7 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Set Answered
-     *
-     * @param boolean $answered
+     * @param bool $answered
      *
      * @return $this
      */
@@ -160,9 +150,7 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Get Answered
-     *
-     * @return boolean
+     * @return bool
      */
     public function getAnswered()
     {
@@ -170,8 +158,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Get Subject
-     *
      * @return string
      */
     public function getSubject()
@@ -180,8 +166,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Set Subject
-     *
      * @param string $subject
      *
      * @return $this
@@ -194,8 +178,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Set Message
-     *
      * @param string $message
      *
      * @return $this
@@ -208,8 +190,6 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * Get Message
-     *
      * @return string
      */
     public function getMessage()
@@ -238,12 +218,32 @@ class ContactMessage extends AbstractBase
     }
 
     /**
-     * To string
+     * @return bool
+     */
+    public function isPrivacy()
+    {
+        return $this->privacy;
+    }
+
+    /**
+     * @param bool $privacy
+     *
+     * @return $this
+     */
+    public function setPrivacy($privacy)
+    {
+        $this->privacy = $privacy;
+
+        return $this;
+    }
+
+    /**
+     * To string.
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->id ? $this->getCreatedAt()->format('d/m/Y') . ' · ' . $this->getEmail() : '---';
+        return $this->id ? $this->getCreatedAt()->format('d/m/Y').' · '.$this->getEmail() : '---';
     }
 }

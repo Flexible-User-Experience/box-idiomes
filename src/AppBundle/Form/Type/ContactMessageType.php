@@ -6,6 +6,7 @@ use AppBundle\Entity\ContactMessage;
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue as RecaptchaTrue;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -91,6 +92,15 @@ class ContactMessageType extends AbstractType
                 )
             )
             ->add(
+                'privacy',
+                CheckboxType::class,
+                array(
+                    'required' => true,
+                    'label' => 'frontend.forms.privacy',
+                    'mapped' => false,
+                )
+            )
+            ->add(
                 'captcha',
                 EWZRecaptchaType::class,
                 array(
@@ -117,7 +127,8 @@ class ContactMessageType extends AbstractType
                         'class' => 'btn-newsletter',
                     ),
                 )
-            );
+            )
+        ;
     }
 
     /**
