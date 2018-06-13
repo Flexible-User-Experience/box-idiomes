@@ -51,11 +51,11 @@ class BackendInvoiceMenuBuilder
         ;
         $menu
             ->addChild(
-                'invoices',
+                'receipts',
                 array(
-                    'label' => 'backend.admin.invoice.invoice',
-                    'route' => 'admin_app_invoice_list',
-                    'current' => 'admin_app_invoice_list' == $route || 'admin_app_invoice_edit' == $route,
+                    'label' => 'backend.admin.receipt.receipt',
+                    'route' => 'admin_app_receipt_list',
+                    'current' => 'admin_app_receipt_list' == $route || 'admin_app_receipt_edit' == $route,
                 )
             )
         ;
@@ -71,6 +71,16 @@ class BackendInvoiceMenuBuilder
             ->setExtras(
                 array(
                     'icon' => '<i class="fa fa-inbox"></i>',
+                )
+            )
+        ;
+        $menu
+            ->addChild(
+                'invoices',
+                array(
+                    'label' => 'backend.admin.invoice.invoice',
+                    'route' => 'admin_app_invoice_list',
+                    'current' => 'admin_app_invoice_list' == $route || 'admin_app_invoice_edit' == $route,
                 )
             )
         ;

@@ -53,6 +53,21 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tarifa", group: "Facturació" }
 
+    admin.receipt:
+        class: AppBundle\Admin\ReceiptAdmin
+        arguments: [ ~, AppBundle\Entity\Receipt, AppBundle:Admin\ReceiptAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Rebut", group: "Facturació" }
+        calls:
+            - [ setTemplate, [ edit, "::Admin/Receipt/edit.html.twig" ] ]
+            - [ setTemplate, [ list, "::Admin/Receipt/list.html.twig" ] ]
+
+    admin.billing.receipt_line:
+        class: AppBundle\Admin\ReceiptLineAdmin
+        arguments: [ ~, AppBundle\Entity\ReceiptLine, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Línies rebut", group: "Facturació", show_in_dashboard: false }
+
     admin.invoice:
         class: AppBundle\Admin\InvoiceAdmin
         arguments: [ ~, AppBundle\Entity\Invoice, AppBundle:Admin\InvoiceAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -67,12 +82,6 @@ services:
         arguments: [ ~, AppBundle\Entity\InvoiceLine, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Línies factura", group: "Facturació", show_in_dashboard: false }
-
-    admin.billing.receipt_line:
-        class: AppBundle\Admin\ReceiptLineAdmin
-        arguments: [ ~, AppBundle\Entity\ReceiptLine, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
-        tags:
-            - { name: sonata.admin, manager_type: orm, label: "Línies rebut", group: "Facturació", show_in_dashboard: false }
 
     # Services
     admin.service:
