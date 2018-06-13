@@ -23,6 +23,14 @@ class Invoice extends AbstractReceiptInvoice
     const TAX_IVA = 0;
 
     /**
+     * @var Receipt
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Receipt")
+     * @ORM\JoinColumn(name="receipt_id", referencedColumnName="id")
+     */
+    private $receipt;
+
+    /**
      * @var ArrayCollection|array|InvoiceLine[]
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\InvoiceLine", mappedBy="invoice", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -53,6 +61,26 @@ class Invoice extends AbstractReceiptInvoice
     /**
      * Methods.
      */
+
+    /**
+     * @return Receipt
+     */
+    public function getReceipt()
+    {
+        return $this->receipt;
+    }
+
+    /**
+     * @param Receipt $receipt
+     *
+     * @return $this
+     */
+    public function setReceipt($receipt)
+    {
+        $this->receipt = $receipt;
+
+        return $this;
+    }
 
     /**
      * @return InvoiceLine[]|array|ArrayCollection
