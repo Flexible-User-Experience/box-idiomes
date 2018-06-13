@@ -40,9 +40,9 @@ class ReceiptAdminController extends BaseAdminController
         $grfm = $this->container->get('app.generate_receipt_form_manager');
 
         // year & month chooser form
-        $generateInvoiceYearMonthChooser = new GenerateReceiptModel();
+        $generateReceiptYearMonthChooser = new GenerateReceiptModel();
         /** @var Controller $this */
-        $yearMonthForm = $this->createForm(GenerateInvoiceYearMonthChooserType::class, $generateInvoiceYearMonthChooser);
+        $yearMonthForm = $this->createForm(GenerateInvoiceYearMonthChooserType::class, $generateReceiptYearMonthChooser);
         $yearMonthForm->handleRequest($request);
 
         // build items form
