@@ -27,7 +27,7 @@ class Invoice extends Receipt
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\InvoiceLine", mappedBy="invoice", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private $lines;
+    protected $lines;
 
     /**
      * @var float
@@ -53,14 +53,6 @@ class Invoice extends Receipt
     /**
      * Methods.
      */
-
-    /**
-     * Invoice constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * @return InvoiceLine[]|array|ArrayCollection
@@ -115,66 +107,6 @@ class Invoice extends Receipt
     }
 
     /**
-     * @return bool
-     */
-    public function getIsSended()
-    {
-        return $this->isSended();
-    }
-
-    /**
-     * @param bool $isSended
-     *
-     * @return $this
-     */
-    public function setIsSended($isSended)
-    {
-        $this->isSended = $isSended;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getSendDate()
-    {
-        return $this->sendDate;
-    }
-
-    /**
-     * @param \DateTime $sendDate
-     *
-     * @return $this
-     */
-    public function setSendDate(\DateTime $sendDate)
-    {
-        $this->sendDate = $sendDate;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getBaseAmount()
-    {
-        return $this->baseAmount;
-    }
-
-    /**
-     * @param float $baseAmount
-     *
-     * @return Invoice
-     */
-    public function setBaseAmount($baseAmount)
-    {
-        $this->baseAmount = $baseAmount;
-
-        return $this;
-    }
-
-    /**
      * @return float
      */
     public function getTaxParcentage()
@@ -215,26 +147,6 @@ class Invoice extends Receipt
     }
 
     /**
-     * @return bool
-     */
-    public function isDiscountApplied()
-    {
-        return $this->discountApplied;
-    }
-
-    /**
-     * @param bool $discountApplied
-     *
-     * @return Invoice
-     */
-    public function setDiscountApplied($discountApplied)
-    {
-        $this->discountApplied = $discountApplied;
-
-        return $this;
-    }
-
-    /**
      * @return float
      */
     public function getTotalAmount()
@@ -263,46 +175,6 @@ class Invoice extends Receipt
     }
 
     /**
-     * @return int
-     */
-    public function getMonth()
-    {
-        return $this->month;
-    }
-
-    /**
-     * @param int $month
-     *
-     * @return Invoice
-     */
-    public function setMonth($month)
-    {
-        $this->month = $month;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getYear()
-    {
-        return $this->year;
-    }
-
-    /**
-     * @param int $year
-     *
-     * @return Invoice
-     */
-    public function setYear($year)
-    {
-        $this->year = $year;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getInvoiceNumber()
@@ -326,20 +198,6 @@ class Invoice extends Receipt
         }
 
         return $date->format('Y').'_'.$this->getId();
-    }
-
-    /**
-     * @return float
-     */
-    public function calculateTotalBaseAmount()
-    {
-        $result = 0.0;
-        /** @var InvoiceLine $line */
-        foreach ($this->lines as $line) {
-            $result = $result + $line->calculateBaseAmount();
-        }
-
-        return $result;
     }
 
     /**
