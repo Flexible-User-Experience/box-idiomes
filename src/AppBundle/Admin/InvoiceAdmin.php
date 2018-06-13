@@ -384,7 +384,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.receipt',
                     'editable' => false,
-// TODO                   'associated_property' => 'fullCanonicalName',
+                    'associated_property' => 'receiptNumber',
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'id'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'receipt')),
