@@ -95,9 +95,9 @@ class ReceiptAdminController extends BaseAdminController
         /** @var Translator $translator */
         $translator = $this->container->get('translator.default');
         if (0 === $recordsParsed) {
-            $this->addFlash('warning', $translator->trans('backend.admin.invoice.generator.no_records_presisted'));
+            $this->addFlash('warning', $translator->trans('backend.admin.receipt.generator.no_records_presisted'));
         } else {
-            $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => $recordsParsed), 'messages'));
+            $this->addFlash('success', $translator->trans('backend.admin.receipt.generator.flash_success', array('%amount%' => $recordsParsed), 'messages'));
         }
 
         return $this->redirectToList();
@@ -132,8 +132,8 @@ class ReceiptAdminController extends BaseAdminController
             ->setStudent($object->getStudent())
             ->setPerson($object->getPerson())
             ->setDate($object->getDate())
-            ->setIsPayed($object->getIsPayed())
-            ->setPaymentDate($object->getPaymentDate())
+            ->setIsPayed($object->getIsPayed() ? $object->getIsPayed() : false)
+            ->setPaymentDate($object->getPaymentDate() ? $object->getPaymentDate() : null)
             ->setBaseAmount($object->getBaseAmount())
             ->setDiscountApplied($object->isDiscountApplied())
             ->setMonth($object->getMonth())
