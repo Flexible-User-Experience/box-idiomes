@@ -232,6 +232,10 @@ backend:
             generate_batch: Generar rebuts mensuals
             preview_invoice: Mostrar rebuts a generar
             list: Llistat de rebuts disponibles a generar
+            lines: Línies de rebut
+            id: Núm. Rebut
+            isPayed: Pagat
+            isSended: Enviat
         invoice:
             receipt: Rebut
             download: Descarregar PDF
@@ -241,6 +245,7 @@ backend:
             list: Llistat de factures disponibles a generar
             generate_batch: Generar facturació mensual
             invoice: Factura
+            line: Línia
             lines: Línies de factura
             detail: Detall
             student: Estudiant

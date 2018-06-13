@@ -213,7 +213,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'lines',
                     'sonata_type_collection',
                     array(
-                        'label' => 'Línia',
+                        'label' => 'backend.admin.invoice.line',
                         'required' => true,
                         'cascade_validation' => true,
                         'error_bubbling' => true,

@@ -140,7 +140,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 'isSended',
                 CheckboxType::class,
                 array(
-                    'label' => 'backend.admin.invoice.isSended',
+                    'label' => 'backend.admin.receipt.isSended',
                     'required' => false,
                     'disabled' => true,
                 )
@@ -159,7 +159,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 'isPayed',
                 CheckboxType::class,
                 array(
-                    'label' => 'backend.admin.invoice.isPayed',
+                    'label' => 'backend.admin.receipt.isPayed',
                     'required' => false,
                 )
             )
@@ -180,7 +180,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                     'lines',
                     'sonata_type_collection',
                     array(
-                        'label' => 'Línia',
+                        'label' => 'backend.admin.invoice.line',
                         'required' => true,
                         'cascade_validation' => true,
                         'error_bubbling' => true,
@@ -206,7 +206,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 'id',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.id',
+                    'label' => 'backend.admin.receipt.id',
                 )
             )
             ->add(
@@ -255,7 +255,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 'isSended',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.isSended',
+                    'label' => 'backend.admin.receipt.isSended',
                 )
             )
             ->add(
@@ -271,7 +271,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 'isPayed',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.isPayed',
+                    'label' => 'backend.admin.receipt.isPayed',
                 )
             )
             ->add(
@@ -297,8 +297,8 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 'id',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.id',
-                    'template' => '::Admin/Cells/list__cell_invoice_number.html.twig',
+                    'label' => 'backend.admin.receipt.id',
+                    'template' => '::Admin/Cells/list__cell_receipt_number.html.twig',
                 )
             )
             ->add(
@@ -342,7 +342,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 'isSended',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.isSended',
+                    'label' => 'backend.admin.receipt.isSended',
                     'editable' => true,
                 )
             )
@@ -350,7 +350,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 'isPayed',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.isPayed',
+                    'label' => 'backend.admin.receipt.isPayed',
                     'editable' => true,
                 )
             )
