@@ -152,13 +152,14 @@ class ReceiptAdminController extends BaseAdminController
             ;
             $invoice->addLine($invoiceLine);
         }
+        // TODO set IRPF, IVA, etc..
 
         $em = $this->container->get('doctrine')->getManager();
         $em->persist($invoice);
         $em->flush();
 
         /* @var Controller $this */
-        $this->addFlash('success', 'Aquesta funcionalitat encara no està disponible. No s\'ha enviat cap rebut per email.');
+        $this->addFlash('success', 'S\'ha generat la factura núm. '.$invoice->getInvoiceNumber());
 
         return $this->redirectToList();
     }

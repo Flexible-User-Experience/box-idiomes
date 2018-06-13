@@ -63,6 +63,14 @@ class Invoice extends AbstractReceiptInvoice
      */
 
     /**
+     * Invoice constructor.
+     */
+    public function __construct()
+    {
+        $this->lines = new ArrayCollection();
+    }
+
+    /**
      * @return Receipt
      */
     public function getReceipt()

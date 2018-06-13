@@ -307,6 +307,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.year',
+                    'template' => '::Admin/Cells/list__cell_event_year.html.twig',
                     'editable' => false,
                 )
             )
