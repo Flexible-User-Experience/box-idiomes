@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="invoice")
  * @UniqueEntity(fields={"month", "year", "student", "person"})
  */
-class Invoice extends Receipt
+class Invoice extends AbstractReceiptInvoice
 {
     const TAX_IRPF = 15;
     const TAX_IVA = 0;
@@ -27,7 +27,7 @@ class Invoice extends Receipt
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\InvoiceLine", mappedBy="invoice", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    protected $lines;
+    private $lines;
 
     /**
      * @var float
@@ -198,6 +198,20 @@ class Invoice extends Receipt
         }
 
         return $date->format('Y').'_'.$this->getId();
+    }
+
+    /**
+     * @return float
+     */
+    public function calculateTotalBaseAmount()
+    {
+        $result = 0.0;
+        /** @var InvoiceLine $line */
+        foreach ($this->lines as $line) {
+            $result = $result + $line->calculateBaseAmount();
+        }
+
+        return $result;
     }
 
     /**
