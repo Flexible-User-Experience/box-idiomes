@@ -4,8 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Invoice;
 use AppBundle\Form\Model\GenerateReceiptModel;
-use AppBundle\Form\Type\GenerateInvoiceType;
-use AppBundle\Form\Type\GenerateInvoiceYearMonthChooserType;
+use AppBundle\Form\Type\GenerateReceiptYearMonthChooserType;
 use AppBundle\Manager\GenerateReceiptFormManager;
 use AppBundle\Service\InvoicePdfBuilderService;
 use Doctrine\ORM\NonUniqueResultException;
@@ -42,7 +41,7 @@ class ReceiptAdminController extends BaseAdminController
         // year & month chooser form
         $generateReceiptYearMonthChooser = new GenerateReceiptModel();
         /** @var Controller $this */
-        $yearMonthForm = $this->createForm(GenerateInvoiceYearMonthChooserType::class, $generateReceiptYearMonthChooser);
+        $yearMonthForm = $this->createForm(GenerateReceiptYearMonthChooserType::class, $generateReceiptYearMonthChooser);
         $yearMonthForm->handleRequest($request);
 
         // build items form
