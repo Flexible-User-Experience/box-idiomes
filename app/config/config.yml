@@ -55,8 +55,7 @@ assetic:
     assets:
         mycss:
             inputs:
-#                - "@AppBundle/Resources/public/css/frontend.less"
-                - "@AppBundle/Resources/public/css/icomoon.less"
+                - "@AppBundle/Resources/public/css/frontend.less"
         mybackendcss:
             inputs:
                 - "@AppBundle/Resources/public/css/backend.less"

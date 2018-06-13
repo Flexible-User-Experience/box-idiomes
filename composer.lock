@@ -106,16 +106,16 @@
         },
         {
             "name": "beberlei/DoctrineExtensions",
-            "version": "v1.0.21",
+            "version": "v1.0.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/DoctrineExtensions.git",
-                "reference": "b4dc688b5f7f9645920f4c81703e83a45cab09c2"
+                "reference": "dacd609f1fefb0e59054f2d09be594dfed9a46a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/b4dc688b5f7f9645920f4c81703e83a45cab09c2",
-                "reference": "b4dc688b5f7f9645920f4c81703e83a45cab09c2",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/dacd609f1fefb0e59054f2d09be594dfed9a46a6",
+                "reference": "dacd609f1fefb0e59054f2d09be594dfed9a46a6",
                 "shasum": ""
             },
             "require": {
@@ -164,7 +164,7 @@
                 "doctrine",
                 "orm"
             ],
-            "time": "2018-01-27T07:05:10+00:00"
+            "time": "2018-05-28T08:54:30+00:00"
         },
         {
             "name": "behat/transliterator",
@@ -1647,16 +1647,16 @@
         },
         {
             "name": "excelwebzone/recaptcha-bundle",
-            "version": "v1.5.8",
+            "version": "v1.5.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/excelwebzone/EWZRecaptchaBundle.git",
-                "reference": "9e2148658af3e06efdcad66bc30fca453bc90d3c"
+                "reference": "32c70c0276d3644abc6391c2305a5d906d3c9c9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/9e2148658af3e06efdcad66bc30fca453bc90d3c",
-                "reference": "9e2148658af3e06efdcad66bc30fca453bc90d3c",
+                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/32c70c0276d3644abc6391c2305a5d906d3c9c9b",
+                "reference": "32c70c0276d3644abc6391c2305a5d906d3c9c9b",
                 "shasum": ""
             },
             "require": {
@@ -1692,7 +1692,7 @@
             "keywords": [
                 "recaptcha"
             ],
-            "time": "2018-05-23T13:34:31+00:00"
+            "time": "2018-06-09T14:11:54+00:00"
         },
         {
             "name": "friendsofsymfony/jsrouting-bundle",
@@ -3332,16 +3332,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.12",
+            "version": "v2.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "258c89a6b97de7dfaf5b8c7607d0478e236b04fb"
+                "reference": "10bcb46e8f3d365170f6de9d05245aa066b81f09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/258c89a6b97de7dfaf5b8c7607d0478e236b04fb",
-                "reference": "258c89a6b97de7dfaf5b8c7607d0478e236b04fb",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/10bcb46e8f3d365170f6de9d05245aa066b81f09",
+                "reference": "10bcb46e8f3d365170f6de9d05245aa066b81f09",
                 "shasum": ""
             },
             "require": {
@@ -3373,10 +3373,11 @@
             "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
             "keywords": [
                 "csprng",
+                "polyfill",
                 "pseudorandom",
                 "random"
             ],
-            "time": "2018-04-04T21:24:14+00:00"
+            "time": "2018-06-08T15:26:40+00:00"
         },
         {
             "name": "presta/sitemap-bundle",
@@ -3490,16 +3491,16 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v5.0.21",
+            "version": "v5.0.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "eb6266b3b472e4002538610b28a0a04bcf94891a"
+                "reference": "209b11f8cee5bf71986dd703e45e27d3ed7a6d15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/eb6266b3b472e4002538610b28a0a04bcf94891a",
-                "reference": "eb6266b3b472e4002538610b28a0a04bcf94891a",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/209b11f8cee5bf71986dd703e45e27d3ed7a6d15",
+                "reference": "209b11f8cee5bf71986dd703e45e27d3ed7a6d15",
                 "shasum": ""
             },
             "require": {
@@ -3538,7 +3539,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2017-08-25T16:55:44+00:00"
+            "time": "2018-06-07T06:22:12+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -3917,16 +3918,16 @@
         },
         {
             "name": "sonata-project/core-bundle",
-            "version": "3.9.1",
+            "version": "3.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "57f81fd5ec48d8260096959a8dfe9fc62a4ca836"
+                "reference": "352275323c28f921c57312d5fb609b693a8bc8e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/57f81fd5ec48d8260096959a8dfe9fc62a4ca836",
-                "reference": "57f81fd5ec48d8260096959a8dfe9fc62a4ca836",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/352275323c28f921c57312d5fb609b693a8bc8e0",
+                "reference": "352275323c28f921c57312d5fb609b693a8bc8e0",
                 "shasum": ""
             },
             "require": {
@@ -3990,7 +3991,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2018-02-23T16:42:24+00:00"
+            "time": "2018-06-13T04:16:25+00:00"
         },
         {
             "name": "sonata-project/datagrid-bundle",
@@ -4100,16 +4101,16 @@
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
-            "version": "3.6.0",
+            "version": "3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataDoctrineORMAdminBundle.git",
-                "reference": "ce108f8de5b681568d56ce8bf91cc1475df53a1a"
+                "reference": "fa542f6f5cf2b4e1b612da8fc8588acc231ccea5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/ce108f8de5b681568d56ce8bf91cc1475df53a1a",
-                "reference": "ce108f8de5b681568d56ce8bf91cc1475df53a1a",
+                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/fa542f6f5cf2b4e1b612da8fc8588acc231ccea5",
+                "reference": "fa542f6f5cf2b4e1b612da8fc8588acc231ccea5",
                 "shasum": ""
             },
             "require": {
@@ -4180,7 +4181,7 @@
                 "generator",
                 "sonata"
             ],
-            "time": "2018-04-23T09:21:48+00:00"
+            "time": "2018-06-04T17:10:47+00:00"
         },
         {
             "name": "sonata-project/easy-extends-bundle",
@@ -5340,16 +5341,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.8.40",
+            "version": "v2.8.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "901a4fb385d02eb407774d6e81a91845a7fb6d66"
+                "reference": "24fc640d544a67869a4106de5fc303c597398629"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/901a4fb385d02eb407774d6e81a91845a7fb6d66",
-                "reference": "901a4fb385d02eb407774d6e81a91845a7fb6d66",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/24fc640d544a67869a4106de5fc303c597398629",
+                "reference": "24fc640d544a67869a4106de5fc303c597398629",
                 "shasum": ""
             },
             "require": {
@@ -5476,7 +5477,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2018-05-21T13:17:42+00:00"
+            "time": "2018-05-25T12:03:11+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
@@ -6042,16 +6043,16 @@
     "packages-dev": [
         {
             "name": "cypresslab/gitelephant",
-            "version": "v2.0.0",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matteosister/GitElephant.git",
-                "reference": "f9cf0d963f34f76486059d6e4f92c4bd9e5cf052"
+                "reference": "6a06e180188ea52e802eb144de1b1aacde30fd81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matteosister/GitElephant/zipball/f9cf0d963f34f76486059d6e4f92c4bd9e5cf052",
-                "reference": "f9cf0d963f34f76486059d6e4f92c4bd9e5cf052",
+                "url": "https://api.github.com/repos/matteosister/GitElephant/zipball/6a06e180188ea52e802eb144de1b1aacde30fd81",
+                "reference": "6a06e180188ea52e802eb144de1b1aacde30fd81",
                 "shasum": ""
             },
             "require": {
@@ -6063,7 +6064,8 @@
             },
             "require-dev": {
                 "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~6.0"
+                "phpunit/phpunit": "~6.0",
+                "symfony/var-dumper": "3.*|4.*"
             },
             "type": "library",
             "autoload": {
@@ -6086,7 +6088,7 @@
             "keywords": [
                 "git"
             ],
-            "time": "2018-04-30T15:14:11+00:00"
+            "time": "2018-06-04T14:54:26+00:00"
         },
         {
             "name": "cypresslab/gitelephant-bundle",
@@ -6138,25 +6140,28 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.7.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e"
+                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
-                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
+                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0"
+                "php": "^7.1"
+            },
+            "replace": {
+                "myclabs/deep-copy": "self.version"
             },
             "require-dev": {
                 "doctrine/collections": "^1.0",
                 "doctrine/common": "^2.6",
-                "phpunit/phpunit": "^4.1"
+                "phpunit/phpunit": "^7.1"
             },
             "type": "library",
             "autoload": {
@@ -6179,7 +6184,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2017-10-19T19:58:43+00:00"
+            "time": "2018-06-11T23:09:50+00:00"
         },
         {
             "name": "phpcollection/phpcollection",
