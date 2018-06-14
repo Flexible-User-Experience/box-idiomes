@@ -125,7 +125,7 @@ class InvoiceAdminController extends BaseAdminController
         }
 
         /** @var InvoicePdfBuilderService $ips */
-        $ips = $this->get('app.invoice_pdf_builder');
+        $ips = $this->container->get('app.invoice_pdf_builder');
         $pdf = $ips->build($object);
 
         return new Response($pdf->Output('box_idiomes_invoice_'.$object->getSluggedInvoiceNumber().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));

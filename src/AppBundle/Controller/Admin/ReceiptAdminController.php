@@ -188,7 +188,7 @@ class ReceiptAdminController extends BaseAdminController
         }
 
         /** @var ReceiptPdfBuilderService $rps */
-        $rps = $this->get('app.receipt_pdf_builder');
+        $rps = $this->container->get('app.receipt_pdf_builder');
         $pdf = $rps->build($object);
 
         return new Response($pdf->Output('box_idiomes_receipt_'.$object->getSluggedReceiptNumber().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));

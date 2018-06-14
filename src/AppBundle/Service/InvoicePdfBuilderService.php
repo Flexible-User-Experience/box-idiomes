@@ -161,6 +161,7 @@ class InvoicePdfBuilderService
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
         // invoice table header
+        $verticalTableGapSmall = 8;
         $verticalTableGap = 14;
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Cell(80, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.description'), false, 0, 'L');
@@ -174,11 +175,11 @@ class InvoicePdfBuilderService
         /** @var InvoiceLine $line */
         foreach ($invoice->getLines() as $line) {
             // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
-            $pdf->MultiCell(80, $verticalTableGap, $line->getDescription(), 0, 'L', 0, 0, '', '', true, 0, false, true, 0, 'M');
-            $pdf->MultiCell(15, $verticalTableGap, $this->floatStringFormat($line->getUnits()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-            $pdf->MultiCell(20, $verticalTableGap, $this->floatStringFormat($line->getPriceUnit()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-            $pdf->MultiCell(20, $verticalTableGap, $this->floatStringFormat($line->getDiscount()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-            $pdf->MultiCell(15, $verticalTableGap, $this->floatStringFormat($line->getTotal()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(80, $verticalTableGapSmall, $line->getDescription(), 0, 'L', 0, 0, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatStringFormat($line->getUnits()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(20, $verticalTableGapSmall, $this->floatStringFormat($line->getPriceUnit()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(20, $verticalTableGapSmall, $this->floatStringFormat($line->getDiscount()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatStringFormat($line->getTotal()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
         }
 
         // horitzonal divider
@@ -187,20 +188,20 @@ class InvoicePdfBuilderService
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
         // invoice table footer
-        $pdf->MultiCell(135, $verticalTableGap, '-'.Invoice::TAX_IRPF.'% IRPF', 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-        $pdf->MultiCell(15, $verticalTableGap, $this->floatMoneyFormat($invoice->getIrpf()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+        $pdf->MultiCell(135, $verticalTableGapSmall, '-'.Invoice::TAX_IRPF.'% IRPF', 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+        $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatMoneyFormat($invoice->getIrpf()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
         $pdf->setFontStyle(null, 'B', 9);
-        $pdf->MultiCell(135, $verticalTableGap, strtoupper($this->ts->trans('backend.admin.invoiceLine.total')), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-        $pdf->MultiCell(15, $verticalTableGap, $this->floatMoneyFormat($invoice->getTotalAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+        $pdf->MultiCell(135, $verticalTableGapSmall, strtoupper($this->ts->trans('backend.admin.invoiceLine.total')), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+        $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatMoneyFormat($invoice->getTotalAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
         $pdf->setFontStyle(null, '', 9);
 
         // horitzonal divider
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL + 1);
         $pdf->drawInvoiceLineSeparator($pdf->GetY());
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG + $verticalTableGapSmall);
 
         // payment method
-        $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment_type').' '.$this->ts->trans(StudentPaymentEnum::getEnumArray()[$invoice->getStudent()->getPayment()]), '', false, 'L', true);
+        $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment_type').' '.strtoupper($this->ts->trans(StudentPaymentEnum::getEnumArray()[$invoice->getStudent()->getPayment()])), '', false, 'L', true);
         if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $invoice->getStudent()->getPayment()) {
             $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.account_number').' '.$this->ib, '', false, 'L', true);
         }
