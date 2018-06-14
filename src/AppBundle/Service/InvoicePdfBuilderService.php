@@ -160,7 +160,7 @@ class InvoicePdfBuilderService
         $pdf->drawInvoiceLineSeparator($pdf->GetY());
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
-        // invoce table header
+        // invoice table header
         $verticalTableGap = 14;
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Cell(80, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.description'), false, 0, 'L');
@@ -170,7 +170,7 @@ class InvoicePdfBuilderService
         $pdf->Cell(15, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.total'), false, 1, 'R');
         $pdf->setFontStyle(null, '', 9);
 
-        // invoce lines table rows
+        // invoice lines table rows
         /** @var InvoiceLine $line */
         foreach ($invoice->getLines() as $line) {
             // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)

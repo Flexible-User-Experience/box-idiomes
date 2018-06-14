@@ -160,7 +160,7 @@ class ReceiptPdfBuilderService
         $pdf->drawInvoiceLineSeparator($pdf->GetY());
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
-        // invoce table header
+        // receipt table header
         $verticalTableGap = 14;
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Cell(80, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.description'), false, 0, 'L');
@@ -178,7 +178,7 @@ class ReceiptPdfBuilderService
             $pdf->MultiCell(15, $verticalTableGap, $this->floatStringFormat($line->getUnits()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
             $pdf->MultiCell(20, $verticalTableGap, $this->floatStringFormat($line->getPriceUnit()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
             $pdf->MultiCell(20, $verticalTableGap, $this->floatStringFormat($line->getDiscount()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-            $pdf->MultiCell(15, $verticalTableGap, $this->floatStringFormat($line->getTotal()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(15, $verticalTableGap, $this->floatStringFormat($line->calculateBaseAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
         }
 
         // horitzonal divider
