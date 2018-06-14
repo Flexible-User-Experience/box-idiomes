@@ -72,6 +72,16 @@ class InvoiceAdmin extends AbstractBaseAdmin
         $formMapper
             ->with('backend.admin.invoice.invoice', $this->getFormMdSuccessBoxArray(3))
             ->add(
+                'date',
+                DatePickerType::class,
+                array(
+                    'label' => 'backend.admin.receipt.date',
+                    'format' => 'd/M/y',
+                    'required' => $this->id($this->getSubject()) ? false : true,
+                    'disabled' => $this->id($this->getSubject()) ? true : false,
+                )
+            )
+            ->add(
                 'year',
                 ChoiceType::class,
                 array(
@@ -116,19 +126,12 @@ class InvoiceAdmin extends AbstractBaseAdmin
             ->end()
             ->with('backend.admin.invoice.detail', $this->getFormMdSuccessBoxArray(3))
             ->add(
-                'baseAmount',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.baseAmount',
-                    'required' => true,
-                )
-            )
-            ->add(
                 'taxParcentage',
                 null,
                 array(
                     'label' => 'backend.admin.invoice.taxParcentage',
                     'required' => false,
+                    'help' => '%',
                 )
             )
             ->add(
@@ -137,6 +140,16 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.irpf',
                     'required' => false,
+                    'help' => '%',
+                )
+            )
+            ->add(
+                'baseAmount',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.baseAmount',
+                    'required' => false,
+                    'disabled' => true,
                 )
             )
             ->add(
@@ -144,7 +157,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.totalAmount',
-                    'required' => true,
+                    'required' => false,
                     'disabled' => true,
                 )
             )
@@ -221,6 +234,13 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.id',
+                )
+            )
+            ->add(
+                'date',
+                null,
+                array(
+                    'label' => 'backend.admin.receipt.date',
                 )
             )
             ->add(
@@ -328,6 +348,15 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'date',
+                null,
+                array(
+                    'label' => 'backend.admin.receipt.date',
+                    'template' => '::Admin/Cells/list__cell_receipt_date.html.twig',
+                    'editable' => false,
+                )
+            )
+            ->add(
                 'year',
                 null,
                 array(
@@ -382,7 +411,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.isSended',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
             ->add(
