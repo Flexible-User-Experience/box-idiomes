@@ -73,8 +73,6 @@ services:
         arguments: [ ~, AppBundle\Entity\Invoice, AppBundle:Admin\InvoiceAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Factura", group: "Facturació" }
-        calls:
-            - [ setTemplate, [ edit, "::Admin/Invoice/edit.html.twig" ] ]
 
     admin.billing.invoice_line:
         class: AppBundle\Admin\InvoiceLineAdmin

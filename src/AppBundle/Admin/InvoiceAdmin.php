@@ -186,23 +186,6 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'disabled' => true,
                 )
             )
-            ->add(
-                'isPayed',
-                CheckboxType::class,
-                array(
-                    'label' => 'backend.admin.invoice.isPayed',
-                    'required' => false,
-                )
-            )
-            ->add(
-                'paymentDate',
-                DatePickerType::class,
-                array(
-                    'label' => 'backend.admin.invoice.paymentDate',
-                    'format' => 'd/M/y',
-                    'required' => false,
-                )
-            )
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
             $formMapper
@@ -326,22 +309,6 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'format' => 'd-m-Y',
                 )
             )
-            ->add(
-                'isPayed',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.isPayed',
-                )
-            )
-            ->add(
-                'paymentDate',
-                'doctrine_orm_date',
-                array(
-                    'label' => 'backend.admin.invoice.paymentDate',
-                    'field_type' => 'sonata_type_date_picker',
-                    'format' => 'd-m-Y',
-                )
-            )
         ;
     }
 
@@ -415,14 +382,6 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.isSended',
-                    'editable' => true,
-                )
-            )
-            ->add(
-                'isPayed',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.isPayed',
                     'editable' => true,
                 )
             )
