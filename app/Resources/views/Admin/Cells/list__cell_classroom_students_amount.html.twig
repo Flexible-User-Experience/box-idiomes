@@ -3,7 +3,7 @@
 {% block field %}
     {% spaceless %}
         <div class="text-left">
-            <span class="text {% if object.students | length > 0 %}text-success{% else %}text-danger{% endif %}">
+            <span class="label {% if object.students | length > 0 %}label-success{% else %}label-danger{% endif %}">
                 {{ object.students | length }}
             </span>
         </div>

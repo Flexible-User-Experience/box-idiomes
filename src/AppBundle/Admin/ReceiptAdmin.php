@@ -119,16 +119,6 @@ class ReceiptAdmin extends AbstractBaseAdmin
             ->end()
             ->with('backend.admin.invoice.detail', $this->getFormMdSuccessBoxArray(3))
             ->add(
-                'baseAmount',
-                null,
-                array(
-                    'label' => 'backend.admin.invoice.baseAmount',
-                    'required' => true,
-                )
-            )
-            ->end()
-            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
-            ->add(
                 'discountApplied',
                 null,
                 array(
@@ -137,6 +127,17 @@ class ReceiptAdmin extends AbstractBaseAdmin
                     'disabled' => true,
                 )
             )
+            ->add(
+                'baseAmount',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.baseAmount',
+                    'required' => false,
+                    'disabled' => true,
+                )
+            )
+            ->end()
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'isSended',
                 CheckboxType::class,
@@ -345,7 +346,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.receipt.isSended',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
             ->add(
@@ -353,7 +354,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.receipt.isPayed',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
             ->add(
