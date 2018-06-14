@@ -132,6 +132,19 @@ services:
             - "%project_web_title%"
             - "%boss_name%"
 
+    app.receipt_pdf_builder:
+        class: AppBundle\Service\ReceiptPdfBuilderService
+        arguments:
+            - "@white_october.tcpdf"
+            - "@templating.helper.assets"
+            - "@translator.default"
+            - "%project_web_title%"
+            - "%boss_name%"
+            - "%boss_dni%"
+            - "%boss_address%"
+            - "%boss_city%"
+            - "%iban_business%"
+
     app.invoice_pdf_builder:
         class: AppBundle\Service\InvoicePdfBuilderService
         arguments:

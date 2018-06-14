@@ -241,6 +241,11 @@ backend:
                 flash_success: "S'han generat %amount% rebuts correctament."
                 ready: "{1}rebut|]1,Inf]rebuts"
                 no_records_presisted: "Atenció: no s'ha creat cap rebut nou, recorda que has de marcar la casella de la primera columna."
+            pdf:
+                receipt_data: "Dades rebut:"
+                receipt_number: "Núm."
+                receipt_date: "Data:"
+                receipt_data: "Dades client:"
         invoice:
             receipt: Rebut
             download: Descarregar PDF
@@ -276,9 +281,9 @@ backend:
                 no_records_presisted: "Atenció: no s'ha creat cap factura nova, recorda que has de marcar la casella 'Facturar'."
             pdf:
                 invoice_data: "Dades factura:"
-                invoice_number: Núm.
+                invoice_number: "Núm."
                 invoice_date: "Data:"
-                customer_data: Dades client
+                customer_data: "Dades client:"
                 payment_type: "Modalitat de pagament:"
                 account_number: "Número de compte:"
         invoiceLine:

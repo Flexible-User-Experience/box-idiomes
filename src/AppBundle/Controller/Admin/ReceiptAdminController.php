@@ -9,7 +9,7 @@ use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Form\Type\GenerateReceiptType;
 use AppBundle\Form\Type\GenerateReceiptYearMonthChooserType;
 use AppBundle\Manager\GenerateReceiptFormManager;
-use AppBundle\Service\InvoicePdfBuilderService;
+use AppBundle\Service\ReceiptPdfBuilderService;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -187,11 +187,11 @@ class ReceiptAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        /** TODO @var InvoicePdfBuilderService $ips */
-        $ips = $this->get('app.invoice_pdf_builder');
-        $pdf = $ips->build($object);
+        /** @var ReceiptPdfBuilderService $rps */
+        $rps = $this->get('app.receipt_pdf_builder');
+        $pdf = $rps->build($object);
 
-        return new Response($pdf->Output('box_idiomes_invoice_'.$object->getSluggedReceiptNumber().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
+        return new Response($pdf->Output('box_idiomes_receipt_'.$object->getSluggedReceiptNumber().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
 
     /**
