@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\City;
 use AppBundle\Enum\StudentPaymentEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -98,7 +99,7 @@ class PersonAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.parent.city',
                     'required' => true,
-                    'class' => 'AppBundle:City',
+                    'class' => City::class,
                     'choice_label' => 'name',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.city_repository')->getEnabledSortedByNameQB(),
                 )

@@ -1,0 +1,11 @@
+{% extends "SonataAdminBundle:CRUD:base_list_field.html.twig" %}
+
+{% block field %}
+    {% spaceless %}
+        <div class="text-left">
+            <span class="label {% if object.students | length > 0 %}label-success{% else %}label-danger{% endif %}">
+                {{ object.students | length }}
+            </span>
+        </div>
+    {% endspaceless %}
+{% endblock %}

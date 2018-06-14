@@ -189,10 +189,10 @@ class GenerateInvoiceFormManager
                             ->setTotal($generateInvoiceItemModel->getUnits() * $generateInvoiceItemModel->getUnitPrice() - $generateInvoiceItemModel->getDiscount())
                         ;
                         $previousInvoice
-                            ->setTaxParcentage(0)
+                            ->setTaxPercentage(0)
                             ->setBaseAmount($invoiceLine->getTotal())
-                            ->setIrpf($previousInvoice->calculateIrpf())
-                            ->setTotalAmount($invoiceLine->getTotal() - $previousInvoice->getIrpf())
+                            ->setIrpfPercentage($previousInvoice->calculateIrpf())
+                            ->setTotalAmount($invoiceLine->getTotal() - $previousInvoice->getIrpfPercentage())
                         ;
                         $this->em->flush();
                     }
@@ -216,9 +216,9 @@ class GenerateInvoiceFormManager
                         ->setYear($generateInvoiceModel->getYear())
                         ->setMonth($generateInvoiceModel->getMonth())
                         ->addLine($invoiceLine)
-                        ->setIrpf($invoice->calculateIrpf())
-                        ->setTaxParcentage(0)
-                        ->setTotalAmount($invoiceLine->getTotal() - $invoice->getIrpf())
+                        ->setIrpfPercentage($invoice->calculateIrpf())
+                        ->setTaxPercentage(0)
+                        ->setTotalAmount($invoiceLine->getTotal() - $invoice->getIrpfPercentage())
                     ;
                     $this->em->persist($invoice);
                 }

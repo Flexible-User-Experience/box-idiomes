@@ -42,14 +42,14 @@ class Invoice extends AbstractReceiptInvoice
      *
      * @ORM\Column(type="float", options={"default"=0})
      */
-    private $taxParcentage = self::TAX_IVA;
+    private $taxPercentage = self::TAX_IVA;
 
     /**
      * @var float
      *
      * @ORM\Column(type="float", nullable=true, options={"default"=15})
      */
-    private $irpf = self::TAX_IRPF;
+    private $irpfPercentage = self::TAX_IRPF;
 
     /**
      * @var float
@@ -115,6 +115,18 @@ class Invoice extends AbstractReceiptInvoice
      *
      * @return $this
      */
+    public function basicAddLine(InvoiceLine $line)
+    {
+        $this->lines->add($line);
+
+        return $this;
+    }
+
+    /**
+     * @param InvoiceLine $line
+     *
+     * @return $this
+     */
     public function addLine(InvoiceLine $line)
     {
         if (!$this->lines->contains($line)) {
@@ -145,19 +157,19 @@ class Invoice extends AbstractReceiptInvoice
     /**
      * @return float
      */
-    public function getTaxParcentage()
+    public function getTaxPercentage()
     {
-        return $this->taxParcentage;
+        return $this->taxPercentage;
     }
 
     /**
-     * @param float $taxParcentage
+     * @param float $taxPercentage
      *
      * @return Invoice
      */
-    public function setTaxParcentage($taxParcentage)
+    public function setTaxPercentage($taxPercentage)
     {
-        $this->taxParcentage = $taxParcentage;
+        $this->taxPercentage = $taxPercentage;
 
         return $this;
     }
@@ -165,19 +177,19 @@ class Invoice extends AbstractReceiptInvoice
     /**
      * @return float
      */
-    public function getIrpf()
+    public function getIrpfPercentage()
     {
-        return $this->irpf;
+        return $this->irpfPercentage;
     }
 
     /**
-     * @param float $irpf
+     * @param float $irpfPercentage
      *
      * @return Invoice
      */
-    public function setIrpf($irpf)
+    public function setIrpfPercentage($irpfPercentage)
     {
-        $this->irpf = $irpf;
+        $this->irpfPercentage = $irpfPercentage;
 
         return $this;
     }
@@ -239,7 +251,7 @@ class Invoice extends AbstractReceiptInvoice
     /**
      * @return float
      */
-    public function calculateTotalBaseAmount()
+    public function calculateBaseAmount()
     {
         $result = 0.0;
         /** @var InvoiceLine $line */
@@ -253,25 +265,35 @@ class Invoice extends AbstractReceiptInvoice
     /**
      * @return float|int
      */
-    public function calculateTaxParcentage()
+    public function calculateTaxPercentage()
     {
-        return $this->calculateTotalBaseAmount() * (self::TAX_IVA / 100);
+        return $this->getBaseAmount() * ($this->getTaxPercentage() / 100);
     }
 
     /**
      * @return float|int
      */
-    public function calculateIrpf()
+    public function calculateIrpfPercentatge()
     {
-        return $this->calculateTotalBaseAmount() * (self::TAX_IRPF / 100);
+        return $this->getBaseAmount() * ($this->getIrpfPercentage() / 100);
     }
 
     /**
      * @return float|int
      */
-    public function calculateTotal()
+    public function calculateTotalAmount()
     {
-        return $this->calculateTotalBaseAmount() + $this->calculateTaxParcentage() - $this->calculateIrpf();
+        return $this->getBaseAmount() + $this->calculateTaxPercentage() - $this->calculateIrpfPercentatge();
+    }
+
+    /**
+     * @param int|float $value
+     *
+     * @return float
+     */
+    public function calculateIrpfOverhead($value)
+    {
+        return $value / (1 - ($this->getIrpfPercentage() / 100));
     }
 
     /**

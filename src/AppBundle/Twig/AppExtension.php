@@ -5,6 +5,7 @@ namespace AppBundle\Twig;
 use AppBundle\Entity\ClassGroup;
 use AppBundle\Entity\Event;
 use AppBundle\Entity\Invoice;
+use AppBundle\Entity\Receipt;
 use AppBundle\Entity\Tariff;
 use AppBundle\Entity\Teacher;
 use AppBundle\Entity\TeacherAbsence;
@@ -15,6 +16,7 @@ use AppBundle\Enum\TariffTypeEnum;
 use AppBundle\Enum\TeacherAbsenceTypeEnum;
 use AppBundle\Enum\TeacherColorEnum;
 use AppBundle\Enum\UserRolesEnum;
+use AppBundle\Manager\ReceiptManager;
 
 /**
  * Class AppExtension.
@@ -26,6 +28,25 @@ use AppBundle\Enum\UserRolesEnum;
 class AppExtension extends \Twig_Extension
 {
     /**
+     * @var ReceiptManager
+     */
+    private $rm;
+
+    /**
+     * Methods.
+     */
+
+    /**
+     * AppExtension constructor.
+     *
+     * @param ReceiptManager $rm
+     */
+    public function __construct(ReceiptManager $rm)
+    {
+        $this->rm = $rm;
+    }
+
+    /**
      * Twig Functions.
      */
 
@@ -36,6 +57,7 @@ class AppExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('randomErrorText', array($this, 'randomErrorTextFunction')),
+            new \Twig_SimpleFunction('is_receipt_invoiced', array($this, 'isReceiptInvoicedFunction')),
         );
     }
 
@@ -53,6 +75,16 @@ class AppExtension extends \Twig_Extension
         $chrRepeatMax = 30; // Maximum times to repeat the seed string
 
         return substr(str_shuffle(str_repeat($chrList, mt_rand($chrRepeatMin, $chrRepeatMax))), 1, $length);
+    }
+
+    /**
+     * @param Receipt $receipt
+     *
+     * @return bool
+     */
+    public function isReceiptInvoicedFunction(Receipt $receipt)
+    {
+        return $this->rm->isReceiptInvoiced($receipt);
     }
 
     /**
@@ -87,11 +119,11 @@ class AppExtension extends \Twig_Extension
         if ($object instanceof User && count($object->getRoles()) > 0) {
             /** @var string $role */
             foreach ($object->getRoles() as $role) {
-                if ($role == UserRolesEnum::ROLE_CMS) {
+                if (UserRolesEnum::ROLE_CMS == $role) {
                     $span .= '<span class="label label-warning" style="margin-right:10px">editor</span>';
-                } elseif ($role == UserRolesEnum::ROLE_ADMIN) {
+                } elseif (UserRolesEnum::ROLE_ADMIN == $role) {
                     $span .= '<span class="label label-primary" style="margin-right:10px">administrador</span>';
-                } elseif ($role == UserRolesEnum::ROLE_SUPER_ADMIN) {
+                } elseif (UserRolesEnum::ROLE_SUPER_ADMIN == $role) {
                     $span .= '<span class="label label-danger" style="margin-right:10px">superadministrador</span>';
                 }
             }
@@ -111,13 +143,13 @@ class AppExtension extends \Twig_Extension
     {
         $span = '';
         if ($object instanceof Teacher) {
-            if ($object->getColor() == TeacherColorEnum::MAGENTA) {
+            if (TeacherColorEnum::MAGENTA == $object->getColor()) {
                 $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #EE388A"></span>';
-            } elseif ($object->getColor() == TeacherColorEnum::BLUE) {
+            } elseif (TeacherColorEnum::BLUE == $object->getColor()) {
                 $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #00ABE0"></span>';
-            } elseif ($object->getColor() == TeacherColorEnum::YELLOW) {
+            } elseif (TeacherColorEnum::YELLOW == $object->getColor()) {
                 $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #FFCD38"></span>';
-            } elseif ($object->getColor() == TeacherColorEnum::GREEN) {
+            } elseif (TeacherColorEnum::GREEN == $object->getColor()) {
                 $span .= '<span class="label" style="margin-right:10px; width: 100%; height: 12px; display: block; background-color: #CEC533"></span>';
             }
         } else {

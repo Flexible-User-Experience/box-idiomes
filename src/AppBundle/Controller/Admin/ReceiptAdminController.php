@@ -3,13 +3,12 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Invoice;
-use AppBundle\Entity\InvoiceLine;
 use AppBundle\Entity\Receipt;
 use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Form\Type\GenerateReceiptType;
 use AppBundle\Form\Type\GenerateReceiptYearMonthChooserType;
 use AppBundle\Manager\GenerateReceiptFormManager;
-use AppBundle\Service\InvoicePdfBuilderService;
+use AppBundle\Service\ReceiptPdfBuilderService;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -87,24 +86,30 @@ class ReceiptAdminController extends BaseAdminController
      */
     public function creatorAction(Request $request = null)
     {
-        /** @var GenerateReceiptFormManager $grfm */
-        $grfm = $this->container->get('app.generate_receipt_form_manager');
-        $generateReceipt = $grfm->transformRequestArrayToModel($request->get('generate_receipt'));
-        $recordsParsed = $grfm->persistFullModelForm($generateReceipt);
-
         /** @var Translator $translator */
         $translator = $this->container->get('translator.default');
-        if (0 === $recordsParsed) {
-            $this->addFlash('warning', $translator->trans('backend.admin.receipt.generator.no_records_presisted'));
+
+        if (array_key_exists('generate_and_send', $request->get(GenerateReceiptType::NAME))) {
+            // TODO generate receipts and send it by email
+            $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha generat ni enviat cap rebut per email.');
         } else {
-            $this->addFlash('success', $translator->trans('backend.admin.receipt.generator.flash_success', array('%amount%' => $recordsParsed), 'messages'));
+            // only generate receipts
+            /** @var GenerateReceiptFormManager $grfm */
+            $grfm = $this->container->get('app.generate_receipt_form_manager');
+            $generateReceipt = $grfm->transformRequestArrayToModel($request->get('generate_receipt'));
+            $recordsParsed = $grfm->persistFullModelForm($generateReceipt);
+            if (0 === $recordsParsed) {
+                $this->addFlash('danger', $translator->trans('backend.admin.receipt.generator.no_records_presisted'));
+            } else {
+                $this->addFlash('success', $translator->trans('backend.admin.receipt.generator.flash_success', array('%amount%' => $recordsParsed), 'messages'));
+            }
         }
 
         return $this->redirectToList();
     }
 
     /**
-     * Create Invoice action.
+     * Create an Invoice from a Receipt action.
      *
      * @param int|string|null $id
      * @param Request         $request
@@ -126,33 +131,7 @@ class ReceiptAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        $invoice = new Invoice();
-        $invoice
-            ->setReceipt($object)
-            ->setStudent($object->getStudent())
-            ->setPerson($object->getPerson())
-            ->setDate($object->getDate())
-            ->setIsPayed($object->getIsPayed() ? $object->getIsPayed() : false)
-            ->setPaymentDate($object->getPaymentDate() ? $object->getPaymentDate() : null)
-            ->setBaseAmount($object->getBaseAmount())
-            ->setDiscountApplied($object->isDiscountApplied())
-            ->setMonth($object->getMonth())
-            ->setYear($object->getYear())
-            ->setIsSended(false)
-        ;
-        foreach ($object->getLines() as $line) {
-            $invoiceLine = new InvoiceLine();
-            $invoiceLine
-                ->setInvoice($invoice)
-                ->setDescription($line->getDescription())
-                ->setUnits($line->getUnits())
-                ->setPriceUnit($line->getPriceUnit())
-                ->setDiscount($line->getDiscount())
-                ->setTotal($line->getTotal())
-            ;
-            $invoice->addLine($invoiceLine);
-        }
-        // TODO set IRPF, IVA, etc..
+        $invoice = $this->container->get('app.receipt_manager')->createInvoiceFromReceipt($object);
 
         $em = $this->container->get('doctrine')->getManager();
         $em->persist($invoice);
@@ -187,11 +166,11 @@ class ReceiptAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        /** TODO @var InvoicePdfBuilderService $ips */
-        $ips = $this->get('app.invoice_pdf_builder');
-        $pdf = $ips->build($object);
+        /** @var ReceiptPdfBuilderService $rps */
+        $rps = $this->container->get('app.receipt_pdf_builder');
+        $pdf = $rps->build($object);
 
-        return new Response($pdf->Output('box_idiomes_invoice_'.$object->getSluggedReceiptNumber().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
+        return new Response($pdf->Output('box_idiomes_receipt_'.$object->getSluggedReceiptNumber().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
 
     /**

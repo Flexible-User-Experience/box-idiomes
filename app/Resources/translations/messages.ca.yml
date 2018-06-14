@@ -228,7 +228,10 @@ backend:
             bank: Banc
         receipt:
             receipt: Rebut
-            generate: Generar rebuts
+            date: Data
+            generate_only: Generar rebuts
+            generate: Generar rebuts marcats
+            generate_and_send: Generar rebuts marcats i enviar per email
             generate_batch: Generar rebuts mensuals
             preview_invoice: Mostrar rebuts a generar
             list: Llistat de rebuts disponibles a generar
@@ -241,6 +244,13 @@ backend:
                 flash_success: "S'han generat %amount% rebuts correctament."
                 ready: "{1}rebut|]1,Inf]rebuts"
                 no_records_presisted: "Atenció: no s'ha creat cap rebut nou, recorda que has de marcar la casella de la primera columna."
+            pdf:
+                receipt_data: "Dades rebut:"
+                receipt_number: "Núm."
+                receipt_date: "Data:"
+                receipt_data: "Dades client:"
+        receiptLine:
+            isPreviouslyGenerated: Nou
         invoice:
             receipt: Rebut
             download: Descarregar PDF
@@ -262,8 +272,8 @@ backend:
             sendDate: Data enviament
             baseAmount: Base imposable
             id: Núm. Factura
-            taxParcentage: IVA
-            irpf: IRPF
+            taxPercentage: IVA
+            irpfPercentage: IRPF
             discountApplied: Descompte aplicat
             totalAmount: Total
             month: Mes
@@ -276,9 +286,9 @@ backend:
                 no_records_presisted: "Atenció: no s'ha creat cap factura nova, recorda que has de marcar la casella 'Facturar'."
             pdf:
                 invoice_data: "Dades factura:"
-                invoice_number: Núm.
+                invoice_number: "Núm."
                 invoice_date: "Data:"
-                customer_data: Dades client
+                customer_data: "Dades client:"
                 payment_type: "Modalitat de pagament:"
                 account_number: "Número de compte:"
         invoiceLine:

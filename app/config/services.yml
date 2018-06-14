@@ -82,6 +82,8 @@ services:
     app.twig_extension:
         class: AppBundle\Twig\AppExtension
         public: false
+        arguments:
+            - "@app.receipt_manager"
         tags:
             - { name: twig.extension }
 
@@ -91,6 +93,11 @@ services:
         arguments:
             - "@app.notification"
             - "%mailchimp_api_key%"
+
+    app.receipt_manager:
+        class: AppBundle\Manager\ReceiptManager
+        arguments:
+            - "@app.invoice_repository"
 
     app.generate_receipt_form_manager:
         class: AppBundle\Manager\GenerateReceiptFormManager
@@ -131,6 +138,19 @@ services:
             - "@translator.default"
             - "%project_web_title%"
             - "%boss_name%"
+
+    app.receipt_pdf_builder:
+        class: AppBundle\Service\ReceiptPdfBuilderService
+        arguments:
+            - "@white_october.tcpdf"
+            - "@templating.helper.assets"
+            - "@translator.default"
+            - "%project_web_title%"
+            - "%boss_name%"
+            - "%boss_dni%"
+            - "%boss_address%"
+            - "%boss_city%"
+            - "%iban_business%"
 
     app.invoice_pdf_builder:
         class: AppBundle\Service\InvoicePdfBuilderService

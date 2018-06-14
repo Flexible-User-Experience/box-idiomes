@@ -2,7 +2,9 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Person;
 use AppBundle\Entity\Receipt;
+use AppBundle\Entity\Student;
 use AppBundle\Enum\InvoiceYearMonthEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -100,7 +102,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.student',
                     'required' => true,
-                    'class' => 'AppBundle:Student',
+                    'class' => Student::class,
                     'choice_label' => 'fullCanonicalName',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedBySurnameValidTariffQB(),
                 )
@@ -111,7 +113,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.person',
                     'required' => false,
-                    'class' => 'AppBundle:Person',
+                    'class' => Person::class,
                     'choice_label' => 'fullCanonicalName',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.parent_repository')->getEnabledSortedBySurnameQB(),
                 )
@@ -119,15 +121,15 @@ class ReceiptAdmin extends AbstractBaseAdmin
             ->end()
             ->with('backend.admin.invoice.detail', $this->getFormMdSuccessBoxArray(3))
             ->add(
-                'baseAmount',
-                null,
+                'date',
+                DatePickerType::class,
                 array(
-                    'label' => 'backend.admin.invoice.baseAmount',
-                    'required' => true,
+                    'label' => 'backend.admin.receipt.date',
+                    'format' => 'd/M/y',
+                    'required' => $this->id($this->getSubject()) ? false : true,
+                    'disabled' => $this->id($this->getSubject()) ? true : false,
                 )
             )
-            ->end()
-            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'discountApplied',
                 null,
@@ -137,6 +139,17 @@ class ReceiptAdmin extends AbstractBaseAdmin
                     'disabled' => true,
                 )
             )
+            ->add(
+                'baseAmount',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.baseAmount',
+                    'required' => false,
+                    'disabled' => true,
+                )
+            )
+            ->end()
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'isSended',
                 CheckboxType::class,
@@ -208,6 +221,13 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.receipt.id',
+                )
+            )
+            ->add(
+                'date',
+                null,
+                array(
+                    'label' => 'backend.admin.receipt.date',
                 )
             )
             ->add(
@@ -303,6 +323,15 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'date',
+                null,
+                array(
+                    'label' => 'backend.admin.receipt.date',
+                    'template' => '::Admin/Cells/list__cell_receipt_date.html.twig',
+                    'editable' => false,
+                )
+            )
+            ->add(
                 'year',
                 null,
                 array(
@@ -345,7 +374,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.receipt.isSended',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
             ->add(
@@ -353,7 +382,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.receipt.isPayed',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
             ->add(
@@ -362,9 +391,9 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
-                        'createInvoice' => array('template' => '::Admin/Buttons/list__action_receipt_create_invoice_button.html.twig'),
                         'pdf' => array('template' => '::Admin/Buttons/list__action_receipt_pdf_button.html.twig'),
                         'send' => array('template' => '::Admin/Buttons/list__action_receipt_send_button.html.twig'),
+                        'createInvoice' => array('template' => '::Admin/Buttons/list__action_receipt_create_invoice_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )
