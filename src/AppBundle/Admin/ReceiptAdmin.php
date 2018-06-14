@@ -119,6 +119,16 @@ class ReceiptAdmin extends AbstractBaseAdmin
             ->end()
             ->with('backend.admin.invoice.detail', $this->getFormMdSuccessBoxArray(3))
             ->add(
+                'date',
+                DatePickerType::class,
+                array(
+                    'label' => 'backend.admin.receipt.date',
+                    'format' => 'd/M/y',
+                    'required' => $this->id($this->getSubject()) ? false : true,
+                    'disabled' => $this->id($this->getSubject()) ? true : false,
+                )
+            )
+            ->add(
                 'discountApplied',
                 null,
                 array(
@@ -212,6 +222,13 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'date',
+                null,
+                array(
+                    'label' => 'backend.admin.receipt.date',
+                )
+            )
+            ->add(
                 'year',
                 null,
                 array(
@@ -301,6 +318,15 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.receipt.id',
                     'template' => '::Admin/Cells/list__cell_receipt_number.html.twig',
+                )
+            )
+            ->add(
+                'date',
+                null,
+                array(
+                    'label' => 'backend.admin.receipt.date',
+                    'template' => '::Admin/Cells/list__cell_receipt_date.html.twig',
+                    'editable' => false,
                 )
             )
             ->add(
