@@ -2,7 +2,9 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Person;
 use AppBundle\Entity\Receipt;
+use AppBundle\Entity\Student;
 use AppBundle\Enum\InvoiceYearMonthEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -100,7 +102,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.student',
                     'required' => true,
-                    'class' => 'AppBundle:Student',
+                    'class' => Student::class,
                     'choice_label' => 'fullCanonicalName',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedBySurnameValidTariffQB(),
                 )
@@ -111,7 +113,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.person',
                     'required' => false,
-                    'class' => 'AppBundle:Person',
+                    'class' => Person::class,
                     'choice_label' => 'fullCanonicalName',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.parent_repository')->getEnabledSortedBySurnameQB(),
                 )

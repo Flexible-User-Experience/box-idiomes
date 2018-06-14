@@ -2,7 +2,10 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\ClassGroup;
 use AppBundle\Entity\Event;
+use AppBundle\Entity\Student;
+use AppBundle\Entity\Teacher;
 use AppBundle\Enum\EventClassroomTypeEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -106,7 +109,7 @@ class EventAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.event.teacher',
                     'required' => true,
-                    'class' => 'AppBundle:Teacher',
+                    'class' => Teacher::class,
                     'choice_label' => 'name',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.teacher_repository')->getEnabledSortedByNameQB(),
                 )
@@ -118,7 +121,7 @@ class EventAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.event.group',
                     'required' => true,
-                    'class' => 'AppBundle:ClassGroup',
+                    'class' => ClassGroup::class,
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.class_group_repository')->getEnabledSortedByCodeQB(),
                 )
             )
@@ -131,7 +134,7 @@ class EventAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.event.students',
                     'required' => false,
                     'multiple' => true,
-                    'class' => 'AppBundle:Student',
+                    'class' => Student::class,
                     'choice_label' => 'fullCanonicalName',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedBySurnameQB(),
                 )

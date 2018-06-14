@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Teacher;
 use AppBundle\Enum\TeacherAbsenceTypeEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -71,7 +72,7 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.teacher_absence.teacher',
                     'required' => true,
-                    'class' => 'AppBundle:Teacher',
+                    'class' => Teacher::class,
                     'choice_label' => 'name',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.teacher_repository')->getEnabledSortedByNameQB(),
                 )

@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Invoice;
+use AppBundle\Entity\Receipt;
 use AppBundle\Entity\Student;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
@@ -25,10 +26,10 @@ class ReceiptRepository extends EntityRepository
     public function findOnePreviousReceiptByStudentYearAndMonthOrNullQB(Student $student, $year, $month)
     {
         $qb = $this
-            ->createQueryBuilder('i')
-            ->where('i.student = :student')
-            ->andWhere('i.year = :year')
-            ->andWhere('i.month = :month')
+            ->createQueryBuilder('r')
+            ->where('r.student = :student')
+            ->andWhere('r.year = :year')
+            ->andWhere('r.month = :month')
             ->setParameter('student', $student)
             ->setParameter('year', $year)
             ->setParameter('month', $month)
@@ -62,5 +63,34 @@ class ReceiptRepository extends EntityRepository
     public function findOnePreviousReceiptByStudentYearAndMonthOrNull(Student $student, $year, $month)
     {
         return $this->findOnePreviousReceiptByStudentYearAndMonthOrNullQ($student, $year, $month)->getOneOrNullResult();
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getAllSortedByNumberDescQB()
+    {
+        $qb = $this
+            ->createQueryBuilder('r')
+            ->orderBy('r.id', 'DESC')
+        ;
+
+        return $qb;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getAllSortedByNumberDescQ()
+    {
+        return $this->getAllSortedByNumberDescQB()->getQuery();
+    }
+
+    /**
+     * @return Receipt[]|null
+     */
+    public function getAllSortedByNumberDesc()
+    {
+        return $this->getAllSortedByNumberDescQ()->getResult();
     }
 }

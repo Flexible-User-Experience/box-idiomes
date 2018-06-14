@@ -2,6 +2,7 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Province;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -65,7 +66,7 @@ class CityAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.city.province',
                     'required' => true,
-                    'class' => 'AppBundle:Province',
+                    'class' => Province::class,
                     'choice_label' => 'name',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.province_repository')->getEnabledSortedByNameQB(),
                 )
