@@ -62,7 +62,7 @@ class ReceiptManager
                 ->setUnits($line->getUnits())
                 ->setPriceUnit($line->getPriceUnit())
                 ->setDiscount($line->getDiscount())
-                ->setTotal($line->getTotal())
+                ->setTotal($line->calculateBaseAmount())
             ;
             $invoice->addLine($invoiceLine);
         }

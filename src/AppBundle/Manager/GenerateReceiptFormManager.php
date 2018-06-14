@@ -177,6 +177,7 @@ class GenerateReceiptFormManager
                 if ($generateReceiptItemModel->isPreviouslyGenerated()) {
                     /** @var Receipt $previousReceipt */
                     $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
+                    $previousReceipt->setDate(new \DateTime());
                     if (1 === count($previousReceipt->getLines())) {
                         /** @var ReceiptLine $receiptLine */
                         $receiptLine = $previousReceipt->getLines()[0];
@@ -204,6 +205,7 @@ class GenerateReceiptFormManager
                     ;
                     $receipt = new Receipt();
                     $receipt
+                        ->setDate(new \DateTime())
                         ->setStudent($generateReceiptItemModel->getStudent())
                         ->setPerson($generateReceiptItemModel->getStudent()->getParent() ? $generateReceiptItemModel->getStudent()->getParent() : null)
                         ->setDate(new \DateTime())
