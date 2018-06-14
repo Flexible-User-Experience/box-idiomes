@@ -92,6 +92,11 @@ services:
             - "@app.notification"
             - "%mailchimp_api_key%"
 
+    app.receipt_manager:
+        class: AppBundle\Manager\ReceiptManager
+        arguments:
+            - "@app.invoice_repository"
+
     app.generate_receipt_form_manager:
         class: AppBundle\Manager\GenerateReceiptFormManager
         arguments:

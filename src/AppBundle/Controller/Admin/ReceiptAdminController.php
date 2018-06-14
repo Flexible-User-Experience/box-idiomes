@@ -3,7 +3,6 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Invoice;
-use AppBundle\Entity\InvoiceLine;
 use AppBundle\Entity\Receipt;
 use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Form\Type\GenerateReceiptType;
@@ -104,7 +103,7 @@ class ReceiptAdminController extends BaseAdminController
     }
 
     /**
-     * Create Invoice action.
+     * Create an Invoice from a Receipt action.
      *
      * @param int|string|null $id
      * @param Request         $request
@@ -126,33 +125,7 @@ class ReceiptAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        $invoice = new Invoice();
-        $invoice
-            ->setReceipt($object)
-            ->setStudent($object->getStudent())
-            ->setPerson($object->getPerson())
-            ->setDate($object->getDate())
-            ->setIsPayed($object->getIsPayed() ? $object->getIsPayed() : false)
-            ->setPaymentDate($object->getPaymentDate() ? $object->getPaymentDate() : null)
-            ->setBaseAmount($object->getBaseAmount())
-            ->setDiscountApplied($object->isDiscountApplied())
-            ->setMonth($object->getMonth())
-            ->setYear($object->getYear())
-            ->setIsSended(false)
-        ;
-        foreach ($object->getLines() as $line) {
-            $invoiceLine = new InvoiceLine();
-            $invoiceLine
-                ->setInvoice($invoice)
-                ->setDescription($line->getDescription())
-                ->setUnits($line->getUnits())
-                ->setPriceUnit($line->getPriceUnit())
-                ->setDiscount($line->getDiscount())
-                ->setTotal($line->getTotal())
-            ;
-            $invoice->addLine($invoiceLine);
-        }
-        // TODO set IRPF, IVA, etc..
+        $invoice = $this->container->get('app.receipt_manager')->createInvoiceFromReceipt($object);
 
         $em = $this->container->get('doctrine')->getManager();
         $em->persist($invoice);
