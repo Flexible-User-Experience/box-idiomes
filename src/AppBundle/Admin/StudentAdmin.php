@@ -2,6 +2,9 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\City;
+use AppBundle\Entity\Person;
+use AppBundle\Entity\Tariff;
 use AppBundle\Enum\StudentPaymentEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -79,7 +82,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.student.parent',
                     'required' => false,
-                    'class' => 'AppBundle:Person',
+                    'class' => Person::class,
                     'choice_label' => 'fullcanonicalname',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.parent_repository')->getEnabledSortedBySurnameQB(),
                 )
@@ -127,7 +130,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.student.city',
                     'required' => true,
-                    'class' => 'AppBundle:City',
+                    'class' => City::class,
                     'choice_label' => 'name',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.city_repository')->getEnabledSortedByNameQB(),
                 )
@@ -190,7 +193,7 @@ class StudentAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.student.tariff',
                     'required' => true,
-                    'class' => 'AppBundle:Tariff',
+                    'class' => Tariff::class,
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.tariff_repository')->findAllSortedByYearAndPriceQB(),
                 )
             )
