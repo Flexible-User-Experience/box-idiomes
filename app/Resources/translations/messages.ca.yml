@@ -229,7 +229,8 @@ backend:
         receipt:
             receipt: Rebut
             date: Data
-            generate: Generar rebuts
+            generate: Generar rebuts marcats
+            generate_and_send: Generar rebuts marcats i enviar per email
             generate_batch: Generar rebuts mensuals
             preview_invoice: Mostrar rebuts a generar
             list: Llistat de rebuts disponibles a generar
@@ -247,6 +248,8 @@ backend:
                 receipt_number: "Núm."
                 receipt_date: "Data:"
                 receipt_data: "Dades client:"
+        receiptLine:
+            isPreviouslyGenerated: Nou
         invoice:
             receipt: Rebut
             download: Descarregar PDF

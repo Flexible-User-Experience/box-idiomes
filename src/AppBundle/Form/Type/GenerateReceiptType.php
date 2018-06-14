@@ -67,6 +67,16 @@ class GenerateReceiptType extends GenerateReceiptYearMonthChooserType
                     ),
                 )
             )
+            ->add(
+                'generate_and_send',
+                SubmitType::class,
+                array(
+                    'label' => 'backend.admin.receipt.generate_and_send',
+                    'attr' => array(
+                        'class' => 'btn btn-success',
+                    ),
+                )
+            )
             ->setAction($this->rs->generate('admin_app_receipt_creator'))
         ;
     }

@@ -32,10 +32,9 @@
                                     <thead>
                                         <tr>
                                             <th>
-                                                {#{{ 'backend.admin.receipt.isReadyToGenerate' | trans }}<br>#}
                                                 <input id="mark-all-helper" type="checkbox" name="mark-all-helper">
                                             </th>
-                                            <th>{{ 'backend.admin.invoiceLine.isPreviouslyGenerated' | trans }}</th>
+                                            <th>{{ 'backend.admin.receiptLine.isPreviouslyGenerated' | trans }}</th>
                                             <th>{{ 'backend.admin.student.student' | trans }}</th>
                                             <th>{{ 'backend.admin.invoiceLine.units' | trans }}</th>
                                             <th>{{ 'backend.admin.invoiceLine.priceUnit' | trans }}</th>
@@ -60,15 +59,15 @@
                                             <td style="vertical-align:middle">
                                                 {{ generate_receipt.items[loop.index0].student.fullCanonicalName }}
                                             </td>
-                                            <td>
+                                            <td style="vertical-align:middle">
                                                 {{ form_widget(item.units) }}
                                                 {{ form_errors(item.units) }}
                                             </td>
-                                            <td>
+                                            <td style="vertical-align:middle">
                                                 {{ form_widget(item.unitPrice) }}
                                                 {{ form_errors(item.unitPrice) }}
                                             </td>
-                                            <td>
+                                            <td style="vertical-align:middle">
                                                 {{ form_widget(item.discount) }}
                                                 {{ form_errors(item.discount) }}
                                             </td>
@@ -92,7 +91,14 @@
                                     </tr>
                                     </tfoot>
                                 </table>
-                                {{ form_row(form.generate) }}
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        {{ form_row(form.generate) }}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{ form_row(form.generate_and_send) }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
