@@ -14,6 +14,8 @@ use Symfony\Component\Routing\RouterInterface;
  */
 class GenerateReceiptType extends GenerateReceiptYearMonthChooserType
 {
+    const NAME = 'generate_receipt';
+
     /**
      * @var RouterInterface
      */
@@ -86,6 +88,6 @@ class GenerateReceiptType extends GenerateReceiptYearMonthChooserType
      */
     public function getBlockPrefix()
     {
-        return 'generate_receipt';
+        return self::NAME;
     }
 }

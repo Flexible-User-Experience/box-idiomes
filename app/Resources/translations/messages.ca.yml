@@ -229,6 +229,7 @@ backend:
         receipt:
             receipt: Rebut
             date: Data
+            generate_only: Generar rebuts
             generate: Generar rebuts marcats
             generate_and_send: Generar rebuts marcats i enviar per email
             generate_batch: Generar rebuts mensuals

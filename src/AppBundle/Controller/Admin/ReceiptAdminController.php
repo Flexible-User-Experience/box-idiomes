@@ -86,17 +86,23 @@ class ReceiptAdminController extends BaseAdminController
      */
     public function creatorAction(Request $request = null)
     {
-        /** @var GenerateReceiptFormManager $grfm */
-        $grfm = $this->container->get('app.generate_receipt_form_manager');
-        $generateReceipt = $grfm->transformRequestArrayToModel($request->get('generate_receipt'));
-        $recordsParsed = $grfm->persistFullModelForm($generateReceipt);
-
         /** @var Translator $translator */
         $translator = $this->container->get('translator.default');
-        if (0 === $recordsParsed) {
-            $this->addFlash('warning', $translator->trans('backend.admin.receipt.generator.no_records_presisted'));
+
+        if (array_key_exists('generate_and_send', $request->get(GenerateReceiptType::NAME))) {
+            // TODO generate receipts and send it by email
+            $this->addFlash('warning', 'Aquesta funcionalitat encara no està disponible. No s\'ha generat ni enviat cap rebut per email.');
         } else {
-            $this->addFlash('success', $translator->trans('backend.admin.receipt.generator.flash_success', array('%amount%' => $recordsParsed), 'messages'));
+            // only generate receipts
+            /** @var GenerateReceiptFormManager $grfm */
+            $grfm = $this->container->get('app.generate_receipt_form_manager');
+            $generateReceipt = $grfm->transformRequestArrayToModel($request->get('generate_receipt'));
+            $recordsParsed = $grfm->persistFullModelForm($generateReceipt);
+            if (0 === $recordsParsed) {
+                $this->addFlash('warning', $translator->trans('backend.admin.receipt.generator.no_records_presisted'));
+            } else {
+                $this->addFlash('success', $translator->trans('backend.admin.receipt.generator.flash_success', array('%amount%' => $recordsParsed), 'messages'));
+            }
         }
 
         return $this->redirectToList();
