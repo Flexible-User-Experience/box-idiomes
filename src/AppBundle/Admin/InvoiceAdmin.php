@@ -126,19 +126,19 @@ class InvoiceAdmin extends AbstractBaseAdmin
             ->end()
             ->with('backend.admin.invoice.detail', $this->getFormMdSuccessBoxArray(3))
             ->add(
-                'taxParcentage',
+                'taxPercentage',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.taxParcentage',
+                    'label' => 'backend.admin.invoice.taxPercentage',
                     'required' => false,
                     'help' => '%',
                 )
             )
             ->add(
-                'irpf',
+                'irpfPercentage',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.irpf',
+                    'label' => 'backend.admin.invoice.irpfPercentage',
                     'required' => false,
                     'help' => '%',
                 )
@@ -293,17 +293,17 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'taxParcentage',
+                'taxPercentage',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.taxParcentage',
+                    'label' => 'backend.admin.invoice.taxPercentage',
                 )
             )
             ->add(
-                'irpf',
+                'irpfPercentage',
                 null,
                 array(
-                    'label' => 'backend.admin.invoice.irpf',
+                    'label' => 'backend.admin.invoice.irpfPercentage',
                 )
             )
             ->add(
@@ -451,9 +451,9 @@ class InvoiceAdmin extends AbstractBaseAdmin
     {
         $object
             ->setBaseAmount($object->calculateTotalBaseAmount())
-            ->setTaxParcentage($object->getBaseAmount() * (Invoice::TAX_IVA / 100))
-            ->setIrpf($object->getBaseAmount() * (Invoice::TAX_IRPF / 100))
-            ->setTotalAmount($object->getBaseAmount() + $object->getTaxParcentage() - $object->getIrpf())
+            ->setTaxPercentage($object->getBaseAmount() * (Invoice::TAX_IVA / 100))
+            ->setIrpfPercentage($object->getBaseAmount() * (Invoice::TAX_IRPF / 100))
+            ->setTotalAmount($object->getBaseAmount() + $object->getTaxPercentage() - $object->getIrpfPercentage())
         ;
     }
 }

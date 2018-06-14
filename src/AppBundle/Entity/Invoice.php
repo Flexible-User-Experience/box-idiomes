@@ -42,14 +42,14 @@ class Invoice extends AbstractReceiptInvoice
      *
      * @ORM\Column(type="float", options={"default"=0})
      */
-    private $taxParcentage = self::TAX_IVA;
+    private $taxPercentage = self::TAX_IVA;
 
     /**
      * @var float
      *
      * @ORM\Column(type="float", nullable=true, options={"default"=15})
      */
-    private $irpf = self::TAX_IRPF;
+    private $irpfPercentage = self::TAX_IRPF;
 
     /**
      * @var float
@@ -145,19 +145,19 @@ class Invoice extends AbstractReceiptInvoice
     /**
      * @return float
      */
-    public function getTaxParcentage()
+    public function getTaxPercentage()
     {
-        return $this->taxParcentage;
+        return $this->taxPercentage;
     }
 
     /**
-     * @param float $taxParcentage
+     * @param float $taxPercentage
      *
      * @return Invoice
      */
-    public function setTaxParcentage($taxParcentage)
+    public function setTaxPercentage($taxPercentage)
     {
-        $this->taxParcentage = $taxParcentage;
+        $this->taxPercentage = $taxPercentage;
 
         return $this;
     }
@@ -165,19 +165,19 @@ class Invoice extends AbstractReceiptInvoice
     /**
      * @return float
      */
-    public function getIrpf()
+    public function getIrpfPercentage()
     {
-        return $this->irpf;
+        return $this->irpfPercentage;
     }
 
     /**
-     * @param float $irpf
+     * @param float $irpfPercentage
      *
      * @return Invoice
      */
-    public function setIrpf($irpf)
+    public function setIrpfPercentage($irpfPercentage)
     {
-        $this->irpf = $irpf;
+        $this->irpfPercentage = $irpfPercentage;
 
         return $this;
     }
@@ -253,7 +253,7 @@ class Invoice extends AbstractReceiptInvoice
     /**
      * @return float|int
      */
-    public function calculateTaxParcentage()
+    public function calculateTaxPercentage()
     {
         return $this->calculateTotalBaseAmount() * (self::TAX_IVA / 100);
     }
@@ -271,7 +271,7 @@ class Invoice extends AbstractReceiptInvoice
      */
     public function calculateTotal()
     {
-        return $this->calculateTotalBaseAmount() + $this->calculateTaxParcentage() - $this->calculateIrpf();
+        return $this->calculateTotalBaseAmount() + $this->calculateTaxPercentage() - $this->calculateIrpf();
     }
 
     /**

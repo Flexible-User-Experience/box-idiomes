@@ -272,8 +272,8 @@ backend:
             sendDate: Data enviament
             baseAmount: Base imposable
             id: Núm. Factura
-            taxParcentage: IVA
-            irpf: IRPF
+            taxPercentage: IVA
+            irpfPercentage: IRPF
             discountApplied: Descompte aplicat
             totalAmount: Total
             month: Mes

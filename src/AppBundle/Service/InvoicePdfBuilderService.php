@@ -189,7 +189,7 @@ class InvoicePdfBuilderService
 
         // invoice table footer
         $pdf->MultiCell(135, $verticalTableGapSmall, '-'.Invoice::TAX_IRPF.'% IRPF', 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-        $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatMoneyFormat($invoice->getIrpf()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+        $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatMoneyFormat($invoice->getIrpfPercentage()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->MultiCell(135, $verticalTableGapSmall, strtoupper($this->ts->trans('backend.admin.invoiceLine.total')), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
         $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatMoneyFormat($invoice->getTotalAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
