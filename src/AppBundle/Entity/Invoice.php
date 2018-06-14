@@ -239,7 +239,7 @@ class Invoice extends AbstractReceiptInvoice
     /**
      * @return float
      */
-    public function calculateTotalBaseAmount()
+    public function calculateBaseAmount()
     {
         $result = 0.0;
         /** @var InvoiceLine $line */
@@ -255,23 +255,23 @@ class Invoice extends AbstractReceiptInvoice
      */
     public function calculateTaxPercentage()
     {
-        return $this->calculateTotalBaseAmount() * (self::TAX_IVA / 100);
+        return $this->getBaseAmount() * ($this->getTaxPercentage() / 100);
     }
 
     /**
      * @return float|int
      */
-    public function calculateIrpf()
+    public function calculateIrpfPercentatge()
     {
-        return $this->calculateTotalBaseAmount() * (self::TAX_IRPF / 100);
+        return $this->getBaseAmount() * ($this->getIrpfPercentage() / 100);
     }
 
     /**
      * @return float|int
      */
-    public function calculateTotal()
+    public function calculateTotalAmount()
     {
-        return $this->calculateTotalBaseAmount() + $this->calculateTaxPercentage() - $this->calculateIrpf();
+        return $this->getBaseAmount() + $this->calculateTaxPercentage() - $this->calculateIrpfPercentatge();
     }
 
     /**
