@@ -256,6 +256,14 @@ class EventAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'studentsAmount',
+                null,
+                array(
+                    'label' => 'backend.admin.event.students',
+                    'template' => '::Admin/Cells/list__cell_classroom_students_amount.html.twig',
+                )
+            )
+            ->add(
                 '_action',
                 'actions',
                 array(
@@ -269,6 +277,8 @@ class EventAdmin extends AbstractBaseAdmin
 
     /**
      * @param Event $object
+     *
+     * @throws \Exception
      */
     public function postPersist($object)
     {
