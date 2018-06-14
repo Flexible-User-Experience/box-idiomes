@@ -122,8 +122,12 @@ class InvoicePdfBuilderService
         $pdf->setPrintFooter(true);
         $pdf->SetXY(BaseTcpdf::PDF_MARGIN_LEFT, BaseTcpdf::PDF_MARGIN_TOP);
 
-        // invoice header
+        // gaps
         $column2Gap = 114;
+        $verticalTableGapSmall = 8;
+        $verticalTableGap = 14;
+
+        // invoice header
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_data'), '', false, 'L', false);
         $pdf->SetX($column2Gap);
@@ -141,6 +145,7 @@ class InvoicePdfBuilderService
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $invoice->getStudent()->getDni(), '', false, 'L', true);
 
+        $pdf->SetY($pdf->GetY() + 2);
         $pdf->Write(0, $this->bn, '', false, 'L', false);
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $invoice->getStudent()->getAddress(), '', false, 'L', true);
@@ -161,8 +166,6 @@ class InvoicePdfBuilderService
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
         // invoice table header
-        $verticalTableGapSmall = 8;
-        $verticalTableGap = 14;
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Cell(80, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.description'), false, 0, 'L');
         $pdf->Cell(15, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.units'), false, 0, 'R');

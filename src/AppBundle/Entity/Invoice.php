@@ -115,6 +115,18 @@ class Invoice extends AbstractReceiptInvoice
      *
      * @return $this
      */
+    public function basicAddLine(InvoiceLine $line)
+    {
+        $this->lines->add($line);
+
+        return $this;
+    }
+
+    /**
+     * @param InvoiceLine $line
+     *
+     * @return $this
+     */
     public function addLine(InvoiceLine $line)
     {
         if (!$this->lines->contains($line)) {
@@ -272,6 +284,16 @@ class Invoice extends AbstractReceiptInvoice
     public function calculateTotalAmount()
     {
         return $this->getBaseAmount() + $this->calculateTaxPercentage() - $this->calculateIrpfPercentatge();
+    }
+
+    /**
+     * @param int|float $value
+     *
+     * @return float
+     */
+    public function calculateIrpfOverhead($value)
+    {
+        return $value / (1 - ($this->getIrpfPercentage() / 100));
     }
 
     /**

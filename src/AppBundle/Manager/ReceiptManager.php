@@ -48,9 +48,8 @@ class ReceiptManager
             ->setDate(new \DateTime())
             ->setIrpfPercentage(Invoice::TAX_IRPF)
             ->setTaxPercentage(Invoice::TAX_IVA)
-            ->setIsPayed($receipt->getIsPayed() ? $receipt->getIsPayed() : false)
+            ->setIsPayed($receipt->getIsPayed())
             ->setPaymentDate($receipt->getPaymentDate() ? $receipt->getPaymentDate() : null)
-            ->setBaseAmount($receipt->getBaseAmount())
             ->setDiscountApplied($receipt->isDiscountApplied())
             ->setMonth($receipt->getMonth())
             ->setYear($receipt->getYear())
@@ -62,13 +61,17 @@ class ReceiptManager
                 ->setInvoice($invoice)
                 ->setDescription($line->getDescription())
                 ->setUnits($line->getUnits())
-                ->setPriceUnit($line->getPriceUnit())
-                ->setDiscount($line->getDiscount())
-                ->setTotal($line->calculateBaseAmount())
+                // fetch increment to keep same total amount like a base
+                ->setPriceUnit($invoice->calculateIrpfOverhead($line->getPriceUnit()))
+                ->setDiscount($invoice->calculateIrpfOverhead($line->getDiscount()))
+                ->setTotal($invoiceLine->getUnits() * $invoiceLine->getPriceUnit() - $invoiceLine->getDiscount())
             ;
-            $invoice->addLine($invoiceLine);
+            $invoice->basicAddLine($invoiceLine);
         }
-        // TODO set IRPF, IVA, etc..
+        $invoice
+            ->setBaseAmount($invoice->calculateBaseAmount())
+            ->setTotalAmount($invoice->calculateTotalAmount())
+        ;
 
         return $invoice;
     }
