@@ -175,6 +175,7 @@ class GenerateReceiptFormManager
             if ($generateReceiptItemModel->isReadyToGenerate()) {
                 ++$recordsParsed;
                 if ($generateReceiptItemModel->isPreviouslyGenerated()) {
+                    // update existing receipt
                     /** @var Receipt $previousReceipt */
                     $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
                     $previousReceipt->setDate(new \DateTime());
