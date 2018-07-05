@@ -1647,16 +1647,16 @@
         },
         {
             "name": "excelwebzone/recaptcha-bundle",
-            "version": "v1.5.10",
+            "version": "v1.5.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/excelwebzone/EWZRecaptchaBundle.git",
-                "reference": "32c70c0276d3644abc6391c2305a5d906d3c9c9b"
+                "reference": "609e2a59980825085f953c794bf85311032c9cc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/32c70c0276d3644abc6391c2305a5d906d3c9c9b",
-                "reference": "32c70c0276d3644abc6391c2305a5d906d3c9c9b",
+                "url": "https://api.github.com/repos/excelwebzone/EWZRecaptchaBundle/zipball/609e2a59980825085f953c794bf85311032c9cc2",
+                "reference": "609e2a59980825085f953c794bf85311032c9cc2",
                 "shasum": ""
             },
             "require": {
@@ -1671,6 +1671,11 @@
                 "phpunit/phpunit": "^5 || ^6 || ^7"
             },
             "type": "symfony-bundle",
+            "extra": {
+                "symfony": {
+                    "allow-contrib": "true"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "EWZ\\Bundle\\RecaptchaBundle\\": "src"
@@ -1692,7 +1697,7 @@
             "keywords": [
                 "recaptcha"
             ],
-            "time": "2018-06-09T14:11:54+00:00"
+            "time": "2018-06-19T01:14:57+00:00"
         },
         {
             "name": "friendsofsymfony/jsrouting-bundle",
@@ -3332,16 +3337,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.15",
+            "version": "v2.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "10bcb46e8f3d365170f6de9d05245aa066b81f09"
+                "reference": "29af24f25bab834fcbb38ad2a69fa93b867e070d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/10bcb46e8f3d365170f6de9d05245aa066b81f09",
-                "reference": "10bcb46e8f3d365170f6de9d05245aa066b81f09",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/29af24f25bab834fcbb38ad2a69fa93b867e070d",
+                "reference": "29af24f25bab834fcbb38ad2a69fa93b867e070d",
                 "shasum": ""
             },
             "require": {
@@ -3377,7 +3382,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2018-06-08T15:26:40+00:00"
+            "time": "2018-07-04T16:31:37+00:00"
         },
         {
             "name": "presta/sitemap-bundle",
@@ -4245,16 +4250,16 @@
         },
         {
             "name": "sonata-project/exporter",
-            "version": "1.9.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/exporter.git",
-                "reference": "c20cb476179d6b6e5902859c7be9512198e5a552"
+                "reference": "6dbea3379447f672f46fccd7e29210cc1246aea9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/exporter/zipball/c20cb476179d6b6e5902859c7be9512198e5a552",
-                "reference": "c20cb476179d6b6e5902859c7be9512198e5a552",
+                "url": "https://api.github.com/repos/sonata-project/exporter/zipball/6dbea3379447f672f46fccd7e29210cc1246aea9",
+                "reference": "6dbea3379447f672f46fccd7e29210cc1246aea9",
                 "shasum": ""
             },
             "require": {
@@ -4311,7 +4316,7 @@
                 "export",
                 "xls"
             ],
-            "time": "2018-05-10T11:12:53+00:00"
+            "time": "2018-07-04T16:52:00+00:00"
         },
         {
             "name": "sonata-project/google-authenticator",
@@ -5341,16 +5346,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.8.41",
+            "version": "v2.8.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "24fc640d544a67869a4106de5fc303c597398629"
+                "reference": "0084ec5bb6614688f547ef80bf1ef8a900c4e350"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/24fc640d544a67869a4106de5fc303c597398629",
-                "reference": "24fc640d544a67869a4106de5fc303c597398629",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/0084ec5bb6614688f547ef80bf1ef8a900c4e350",
+                "reference": "0084ec5bb6614688f547ef80bf1ef8a900c4e350",
                 "shasum": ""
             },
             "require": {
@@ -5477,7 +5482,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2018-05-25T12:03:11+00:00"
+            "time": "2018-06-25T12:02:18+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
@@ -5850,17 +5855,17 @@
         },
         {
             "name": "whiteoctober/tcpdf-bundle",
-            "version": "1.0.3",
+            "version": "1.1.0",
             "target-dir": "WhiteOctober/TCPDFBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/whiteoctober/WhiteOctoberTCPDFBundle.git",
-                "reference": "3a705b0f416792351fc531eb086e6f5caf5339a5"
+                "reference": "ed0fb15674d634e9e6bd9f15bb66c2a43e23e527"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/whiteoctober/WhiteOctoberTCPDFBundle/zipball/3a705b0f416792351fc531eb086e6f5caf5339a5",
-                "reference": "3a705b0f416792351fc531eb086e6f5caf5339a5",
+                "url": "https://api.github.com/repos/whiteoctober/WhiteOctoberTCPDFBundle/zipball/ed0fb15674d634e9e6bd9f15bb66c2a43e23e527",
+                "reference": "ed0fb15674d634e9e6bd9f15bb66c2a43e23e527",
                 "shasum": ""
             },
             "require": {
@@ -5890,7 +5895,7 @@
                 "TCPDF",
                 "pdf"
             ],
-            "time": "2017-05-25T07:39:11+00:00"
+            "time": "2018-06-21T14:45:02+00:00"
         },
         {
             "name": "willdurand/jsonp-callback-validator",
