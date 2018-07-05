@@ -29,7 +29,7 @@ class CourierService
     }
 
     /**
-     * Send an email.
+     * Build an email.
      *
      * @param string      $from
      * @param string      $to
@@ -37,9 +37,9 @@ class CourierService
      * @param string      $body
      * @param string|null $replyAddress
      *
-     * @return int
+     * @return \Swift_Message
      */
-    public function sendEmail($from, $to, $subject, $body, $replyAddress = null)
+    private function buildSwiftMesage($from, $to, $subject, $body, $replyAddress = null)
     {
         $message = new \Swift_Message();
         $message
@@ -52,6 +52,43 @@ class CourierService
         if (!is_null($replyAddress)) {
             $message->setReplyTo($replyAddress);
         }
+
+        return $message;
+    }
+
+    /**
+     * Send an email.
+     *
+     * @param string      $from
+     * @param string      $to
+     * @param string      $subject
+     * @param string      $body
+     * @param string|null $replyAddress
+     *
+     * @return int
+     */
+    public function sendEmail($from, $to, $subject, $body, $replyAddress = null)
+    {
+        $message = $this->buildSwiftMesage($from, $to, $subject, $body, $replyAddress);
+
+        return $this->mailer->send($message);
+    }
+
+    /**
+     * Send an email with an attatchment PDF.
+     *
+     * @param string      $from
+     * @param string      $to
+     * @param string      $subject
+     * @param string      $body
+     * @param string|null $replyAddress
+     * @param \TCPDF      $pdf
+     *
+     * @return int
+     */
+    public function sendEmailWithPdfAttached($from, $to, $subject, $body, $replyAddress = null, \TCPDF $pdf)
+    {
+        $message = $this->buildSwiftMesage($from, $to, $subject, $body, $replyAddress);
 
         return $this->mailer->send($message);
     }

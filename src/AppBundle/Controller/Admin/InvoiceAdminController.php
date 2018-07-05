@@ -8,6 +8,7 @@ use AppBundle\Form\Type\GenerateInvoiceType;
 use AppBundle\Form\Type\GenerateInvoiceYearMonthChooserType;
 use AppBundle\Manager\GenerateInvoiceFormManager;
 use AppBundle\Service\InvoicePdfBuilderService;
+use AppBundle\Service\NotificationService;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -153,6 +154,22 @@ class InvoiceAdminController extends BaseAdminController
         if (!$object) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
+
+        $object
+            ->setIsSended(true)
+            ->setSendDate(new \DateTime())
+        ;
+
+        $em = $this->container->get('doctrine')->getManager();
+        $em->flush();
+
+        /** @var InvoicePdfBuilderService $ips */
+        $ips = $this->container->get('app.invoice_pdf_builder');
+        $pdf = $ips->build($object);
+
+        /** @var NotificationService $messenger */
+        $messenger = $this->container->get('app.notification');
+        $messenger->sendInvoicePdfNotification($object, $pdf);
 
         /* @var Controller $this */
         $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha enviat cap factura per email.');
