@@ -196,6 +196,14 @@ class ReceiptAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
+        $object
+            ->setIsSended(true)
+            ->setSendDate(new \DateTime())
+        ;
+
+        $em = $this->container->get('doctrine')->getManager();
+        $em->flush();
+
         /* @var Controller $this */
         $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha enviat cap rebut per email.');
 
