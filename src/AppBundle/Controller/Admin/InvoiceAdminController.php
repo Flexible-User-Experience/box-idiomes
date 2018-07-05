@@ -141,7 +141,9 @@ class InvoiceAdminController extends BaseAdminController
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
-     * @throws AccessDeniedException If access is not granted
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendAction($id = null, Request $request)
     {

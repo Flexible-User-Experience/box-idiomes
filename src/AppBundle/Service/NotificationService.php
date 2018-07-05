@@ -223,9 +223,9 @@ class NotificationService
     {
         return $this->messenger->sendEmailWithPdfAttached(
             $this->amd,
-            $receipt->getEmail(),
-            'Notificació newsletter pàgina web '.$this->urlBase,
-            $this->twig->render(':Mails:common_newsletter_user_notification.html.twig', array(
+            $receipt->getMainEmail(),
+            'Rebut Box Idiomes núm. '.$receipt->getReceiptNumber(),
+            $this->twig->render(':Mails:receipt_pdf_notification.html.twig', array(
                 'receipt' => $receipt,
             )),
             $pdf
@@ -248,9 +248,9 @@ class NotificationService
     {
         return $this->messenger->sendEmailWithPdfAttached(
             $this->amd,
-            $invoice->getEmail(),
-            'Notificació newsletter pàgina web '.$this->urlBase,
-            $this->twig->render(':Mails:common_newsletter_user_notification.html.twig', array(
+            $invoice->getMainEmail(),
+            'Factura Box Idiomes núm. '.$invoice->getInvoiceNumber(),
+            $this->twig->render(':Mails:invoice_pdf_notification.html.twig', array(
                 'invoice' => $invoice,
             )),
             $pdf
