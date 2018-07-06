@@ -106,28 +106,29 @@
         },
         {
             "name": "beberlei/DoctrineExtensions",
-            "version": "v1.0.23",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/DoctrineExtensions.git",
-                "reference": "dacd609f1fefb0e59054f2d09be594dfed9a46a6"
+                "reference": "db49fc61f85578da1f7fd576388b755d4167eda2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/dacd609f1fefb0e59054f2d09be594dfed9a46a6",
-                "reference": "dacd609f1fefb0e59054f2d09be594dfed9a46a6",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/db49fc61f85578da1f7fd576388b755d4167eda2",
+                "reference": "db49fc61f85578da1f7fd576388b755d4167eda2",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2"
+                "php": ">=5.4"
             },
             "require-dev": {
-                "doctrine/orm": "~2.1",
+                "doctrine/orm": "^2.5",
+                "friendsofphp/php-cs-fixer": "^2.2.19",
                 "nesbot/carbon": "*",
-                "phpunit/phpunit": "~4.5",
-                "symfony/yaml": "~2.6",
-                "zf1/zend-date": "~1.12",
-                "zf1/zend-registry": "~1.12"
+                "phpunit/phpunit": "^4.5",
+                "symfony/yaml": "^2.6",
+                "zf1/zend-date": "^1.12",
+                "zf1/zend-registry": "^1.12"
             },
             "suggest": {
                 "nesbot/carbon": "Alternative to DateTime",
@@ -164,7 +165,7 @@
                 "doctrine",
                 "orm"
             ],
-            "time": "2018-05-28T08:54:30+00:00"
+            "time": "2018-07-05T17:51:28+00:00"
         },
         {
             "name": "behat/transliterator",
