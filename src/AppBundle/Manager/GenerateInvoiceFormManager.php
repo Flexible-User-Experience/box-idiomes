@@ -19,23 +19,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  *
  * @category Manager
  */
-class GenerateInvoiceFormManager
+class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManager
 {
-    /**
-     * @var EntityManager
-     */
-    private $em;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $ts;
-
-    /**
-     * @var StudentRepository
-     */
-    private $sr;
-
     /**
      * @var InvoiceRepository
      */
@@ -55,9 +40,7 @@ class GenerateInvoiceFormManager
      */
     public function __construct(EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, InvoiceRepository $ir)
     {
-        $this->em = $em;
-        $this->ts = $ts;
-        $this->sr = $sr;
+        parent::__construct($em, $ts, $sr);
         $this->ir = $ir;
     }
 
@@ -227,18 +210,5 @@ class GenerateInvoiceFormManager
         $this->em->flush();
 
         return $recordsParsed;
-    }
-
-    /**
-     * @param string $value
-     *
-     * @return float
-     */
-    private function parseStringToFloat($value)
-    {
-        $stringParsedValue = str_replace('.', '', $value);
-        $stringParsedValue = str_replace(',', '.', $stringParsedValue);
-
-        return floatval($stringParsedValue);
     }
 }

@@ -19,23 +19,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  *
  * @category Manager
  */
-class GenerateReceiptFormManager
+class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManager
 {
-    /**
-     * @var EntityManager
-     */
-    private $em;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $ts;
-
-    /**
-     * @var StudentRepository
-     */
-    private $sr;
-
     /**
      * @var ReceiptRepository
      */
@@ -55,9 +40,7 @@ class GenerateReceiptFormManager
      */
     public function __construct(EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, ReceiptRepository $rr)
     {
-        $this->em = $em;
-        $this->ts = $ts;
-        $this->sr = $sr;
+        parent::__construct($em, $ts, $sr);
         $this->rr = $rr;
     }
 
@@ -225,15 +208,25 @@ class GenerateReceiptFormManager
     }
 
     /**
-     * @param string $value
+     * @param GenerateReceiptModel $generateReceiptModel
      *
-     * @return float
+     * @return int
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    private function parseStringToFloat($value)
+    public function persistAndDeliverFullModelForm(GenerateReceiptModel $generateReceiptModel)
     {
-        $stringParsedValue = str_replace('.', '', $value);
-        $stringParsedValue = str_replace(',', '.', $stringParsedValue);
+        $recordsParsed = $this->persistFullModelForm($generateReceiptModel);
 
-        return floatval($stringParsedValue);
+        if (0 < $recordsParsed) {
+            /** @var GenerateReceiptItemModel $generateReceiptItemModel */
+            foreach ($generateReceiptModel->getItems() as $generateReceiptItemModel) {
+                /** @var Receipt $previousReceipt */
+                $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
+            }
+        }
+
+        return $recordsParsed;
     }
 }
