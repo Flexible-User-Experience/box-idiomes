@@ -14,6 +14,7 @@ use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
  */
 class BaseTcpdf extends \TCPDF
 {
+    const PHP_CLI_API = 'cli';
     const PDF_WIDTH = 210;
     const PDF_MARGIN_LEFT = 30;
     const PDF_MARGIN_RIGHT = 30;
@@ -58,7 +59,7 @@ class BaseTcpdf extends \TCPDF
     public function header()
     {
         // logo
-        if ('cli' === php_sapi_name()) {
+        if (self::PHP_CLI_API === php_sapi_name()) {
             $package = new UrlPackage('https://'.$this->mub.'/', new EmptyVersionStrategy());
             $this->Image($package->getUrl('/bundles/app/img/logo-pdf.png'), 75, 20, 60);
         } else {
