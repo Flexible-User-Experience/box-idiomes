@@ -229,6 +229,7 @@ class NotificationService
             $this->twig->render(':Mails:receipt_pdf_notification.html.twig', array(
                 'receipt' => $receipt,
             )),
+            'receipt_'.$receipt->getSluggedReceiptNumber().'.pdf',
             $pdf
         );
     }
@@ -255,6 +256,7 @@ class NotificationService
             $this->twig->render(':Mails:invoice_pdf_notification.html.twig', array(
                 'invoice' => $invoice,
             )),
+            'invoice_'.$invoice->getSluggedInvoiceNumber().'.pdf',
             $pdf
         );
     }

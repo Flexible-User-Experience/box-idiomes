@@ -84,13 +84,16 @@ class CourierService
      * @param string $toName
      * @param string $subject
      * @param string $body
+     * @param string $pdfFilename
      * @param \TCPDF $pdf
      *
      * @return int
      */
-    public function sendEmailWithPdfAttached($from, $toEmail, $toName, $subject, $body, \TCPDF $pdf)
+    public function sendEmailWithPdfAttached($from, $toEmail, $toName, $subject, $body, $pdfFilename, \TCPDF $pdf)
     {
+        $swiftAttatchment = new \Swift_Attachment($pdf, $pdfFilename, 'application/pdf');
         $message = $this->buildSwiftMesage($from, $toEmail, $subject, $body, null, $toName);
+        $message->attach($swiftAttatchment);
 
         return $this->mailer->send($message);
     }
