@@ -171,10 +171,15 @@ class InvoiceAdminController extends BaseAdminController
 
         /** @var NotificationService $messenger */
         $messenger = $this->container->get('app.notification');
-        $messenger->sendInvoicePdfNotification($object, $pdf);
+        $result = $messenger->sendInvoicePdfNotification($object, $pdf);
 
-        /* @var Controller $this */
-        $this->addFlash('success', 'S\'ha enviat la factura núm. '.$object->getInvoiceNumber().' amb PDF a la bústia '.$object->getMainEmail());
+        if (0 === $result) {
+            /* @var Controller $this */
+            $this->addFlash('danger', 'S\'ha produït un error durant l\'enviament de la factura núm. '.$object->getInvoiceNumber().'. La persona '.$object->getMainEmailName().' no ha rebut cap missatge a la seva bústia.');
+        } else {
+            /* @var Controller $this */
+            $this->addFlash('success', 'S\'ha enviat la factura núm. '.$object->getInvoiceNumber().' amb PDF a la bústia '.$object->getMainEmail());
+        }
 
         return $this->redirectToList();
     }

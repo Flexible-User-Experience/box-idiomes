@@ -213,10 +213,15 @@ class ReceiptAdminController extends BaseAdminController
 
         /** @var NotificationService $messenger */
         $messenger = $this->container->get('app.notification');
-        $messenger->sendReceiptPdfNotification($object, $pdf);
+        $result = $messenger->sendReceiptPdfNotification($object, $pdf);
 
-        /* @var Controller $this */
-        $this->addFlash('success', 'S\'ha enviat el rebut núm. '.$object->getReceiptNumber().' amb PDF a la bústia '.$object->getMainEmail());
+        if (0 === $result) {
+            /* @var Controller $this */
+            $this->addFlash('danger', 'S\'ha produït un error durant l\'enviament del rebut núm. '.$object->getReceiptNumber().'. La persona '.$object->getMainEmailName().' no ha rebut cap missatge a la seva bústia.');
+        } else {
+            /* @var Controller $this */
+            $this->addFlash('success', 'S\'ha enviat el rebut núm. '.$object->getReceiptNumber().' amb PDF a la bústia '.$object->getMainEmail());
+        }
 
         return $this->redirectToList();
     }
