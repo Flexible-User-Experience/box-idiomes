@@ -4,6 +4,8 @@ namespace AppBundle\Pdf;
 
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Asset\UrlPackage;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
 /**
  * Class BaseTcpdf.
@@ -31,29 +33,23 @@ class BaseTcpdf extends \TCPDF
     private $ts;
 
     /**
-     * @var string Kernel root dir
+     * @var string mailer URL base
      */
-    private $krd;
-
-    /**
-     * @var string absolute web dir path
-     */
-    private $awpd;
+    private $mub;
 
     /**
      * BaseTcpdf constructor.
      *
      * @param AssetsHelper $ahs
      * @param Translator   $ts
-     * @param string       $krd
+     * @param string       $mub
      */
-    public function __construct(AssetsHelper $ahs, Translator $ts, $krd)
+    public function __construct(AssetsHelper $ahs, Translator $ts, $mub)
     {
         parent::__construct();
         $this->ahs = $ahs;
         $this->ts = $ts;
-        $this->krd = $krd;
-        $this->awpd = realpath($this->krd.'/../web');
+        $this->mub = $mub;
     }
 
     /**
@@ -63,7 +59,8 @@ class BaseTcpdf extends \TCPDF
     {
         // logo
         if ('cli' === php_sapi_name()) {
-            $this->Image($this->awpd.'/bundles/app/img/logo-pdf.png', 75, 20, 60);
+            $package = new UrlPackage('https://'.$this->mub.'/', new EmptyVersionStrategy());
+            $this->Image($package->getUrl('/bundles/app/img/logo-pdf.png'), 75, 20, 60);
         } else {
             $this->Image($this->ahs->getUrl('/bundles/app/img/logo-pdf.png'), 75, 20, 60);
         }
