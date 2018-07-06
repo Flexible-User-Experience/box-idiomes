@@ -199,10 +199,10 @@ class DefaultController extends Controller
      */
     public function testEmailAction()
     {
-        $receipt = $this->getDoctrine()->getRepository('AppBundle:Receipt')->find(5);
+        $invoice = $this->getDoctrine()->getRepository('AppBundle:Invoice')->find(8);
 
-        return$this->render(':Mails:receipt_pdf_notification.html.twig', array(
-            'receipt' => $receipt,
+        return$this->render(':Mails:invoice_pdf_notification.html.twig', array(
+            'invoice' => $invoice,
         ));
     }
 }
