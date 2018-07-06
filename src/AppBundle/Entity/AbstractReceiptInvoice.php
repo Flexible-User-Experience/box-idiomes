@@ -349,7 +349,7 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     }
 
     /**
-     * Get parent's email first, or student's email if it's not set.
+     * Get parent's email first, or student's one if it's not set.
      *
      * @return string
      */
@@ -358,6 +358,21 @@ abstract class AbstractReceiptInvoice extends AbstractBase
         $email = $this->getStudent()->getEmail();
         if (!is_null($this->getPerson()) && $this->getPerson()->getEmail()) {
             $email = $this->getPerson()->getEmail();
+        }
+
+        return $email;
+    }
+
+    /**
+     * Get parent's name first, or student's one if it's not set.
+     *
+     * @return string
+     */
+    public function getMainEmailName()
+    {
+        $email = $this->getStudent()->getFullName();
+        if (!is_null($this->getPerson()) && $this->getPerson()->getFullName()) {
+            $email = $this->getPerson()->getFullName();
         }
 
         return $email;

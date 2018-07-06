@@ -224,6 +224,7 @@ class NotificationService
         return $this->messenger->sendEmailWithPdfAttached(
             $this->amd,
             $receipt->getMainEmail(),
+            $receipt->getMainEmailName(),
             'Rebut Box Idiomes núm. '.$receipt->getReceiptNumber(),
             $this->twig->render(':Mails:receipt_pdf_notification.html.twig', array(
                 'receipt' => $receipt,
@@ -249,6 +250,7 @@ class NotificationService
         return $this->messenger->sendEmailWithPdfAttached(
             $this->amd,
             $invoice->getMainEmail(),
+            $invoice->getMainEmailName(),
             'Factura Box Idiomes núm. '.$invoice->getInvoiceNumber(),
             $this->twig->render(':Mails:invoice_pdf_notification.html.twig', array(
                 'invoice' => $invoice,
