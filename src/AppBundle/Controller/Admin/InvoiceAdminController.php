@@ -174,7 +174,7 @@ class InvoiceAdminController extends BaseAdminController
         $messenger->sendInvoicePdfNotification($object, $pdf);
 
         /* @var Controller $this */
-        $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha enviat cap factura per email.');
+        $this->addFlash('success', 'S\'ha enviat la factura núm. '.$object->getInvoiceNumber().' amb PDF a la bústia '.$object->getMainEmail());
 
         return $this->redirectToList();
     }

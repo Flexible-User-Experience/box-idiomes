@@ -216,7 +216,7 @@ class ReceiptAdminController extends BaseAdminController
         $messenger->sendReceiptPdfNotification($object, $pdf);
 
         /* @var Controller $this */
-        $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha enviat cap rebut per email.');
+        $this->addFlash('success', 'S\'ha enviat el rebut núm. '.$object->getReceiptNumber().' amb PDF a la bústia '.$object->getMainEmail());
 
         return $this->redirectToList();
     }
