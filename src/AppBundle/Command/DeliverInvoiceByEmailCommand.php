@@ -3,6 +3,8 @@
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Invoice;
+use AppBundle\Service\NotificationService;
+use AppBundle\Service\InvoicePdfBuilderService;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -11,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 /**
  * Class DeliverInvoiceByEmailCommand.
+ *
+ * @category Command
  */
 class DeliverInvoiceByEmailCommand extends ContainerAwareCommand
 {
@@ -43,14 +47,33 @@ class DeliverInvoiceByEmailCommand extends ContainerAwareCommand
      * @param OutputInterface $output
      *
      * @return int|null|void
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('<info>Welcome to '.$this->getName().' command</info>');
-
-        /** @var Invoice|null $receipt */
-        $receipt = $this->getContainer()->get('doctrine')->getRepository('AppBundle:Invoice')->find(intval($input->getArgument('invoice')));
-        if ($receipt) {
+        /** @var Invoice|null $invoice */
+        $invoice = $this->getContainer()->get('doctrine')->getRepository('AppBundle:Invoice')->find(intval($input->getArgument('invoice')));
+        if ($invoice) {
+            $output->write('building PDF invoice number '.$invoice->getInvoiceNumber().'... ');
+            /** @var InvoicePdfBuilderService $ips */
+            $ips = $this->getContainer()->get('app.invoice_pdf_builder');
+            $pdf = $ips->build($invoice, true);
+            $output->writeln('<info>OK</info>');
+            if ($input->getOption('force')) {
+                $output->write('delivering PDF invoice number '.$invoice->getInvoiceNumber().'... ');
+                /** @var NotificationService $messenger */
+                $messenger = $this->getContainer()->get('app.notification');
+                $result = $messenger->sendInvoicePdfNotification($invoice, $pdf);
+                if (0 === $result) {
+                    $output->writeln('<error>KO</error>');
+                } else {
+                    $output->writeln('<info>OK</info>');
+                }
+            }
         } else {
             $output->writeln('<error>No invoice with ID#'.intval($input->getArgument('invoice')).' found. Nothing send.</error>');
         }

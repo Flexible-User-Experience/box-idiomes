@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 /**
  * Class DeliverReceiptByEmailCommand.
+ *
+ * @category Command
  */
 class DeliverReceiptByEmailCommand extends ContainerAwareCommand
 {
