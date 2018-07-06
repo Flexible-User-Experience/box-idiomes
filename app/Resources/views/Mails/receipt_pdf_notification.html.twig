@@ -1,0 +1,33 @@
+{% extends ':Mails:base.html.twig' %}
+
+{% block subject %}Rebut núm. {{ receipt.receiptNumber }}{% endblock %}
+
+{% block content %}
+    <table class="row">
+        <tbody>
+        <tr>
+            <th class="small-12 large-12 columns first last vertical-padding">
+                <table>
+                    <tr>
+                        <th>
+                            <h5 class="grey-color">A contiuació trobaràs adjunt el rebut número {{ receipt.receiptNumber }} amb data {{ receipt.dateString }}</h5>
+                            {% if receipt.lines | length > 0 %}
+                                <p>
+                                    {{ receipt.lines[0].description }}
+                                </p>
+                            {% endif %}
+                            <p>
+                                <strong>Import total: {{ receipt.baseAmountString }}</strong>
+                            </p>
+                            <p class="blue-color text-center normal-m-top">
+                                Moltes gràcies per confiar amb Box Idiomes.
+                            </p>
+                        </th>
+                        <th class="expander"></th>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

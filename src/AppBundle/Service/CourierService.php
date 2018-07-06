@@ -29,29 +29,71 @@ class CourierService
     }
 
     /**
-     * Send an email.
+     * Build an email.
      *
      * @param string      $from
-     * @param string      $to
+     * @param string      $toEmail
      * @param string      $subject
      * @param string      $body
      * @param string|null $replyAddress
+     * @param string|null $toName
      *
-     * @return int
+     * @return \Swift_Message
      */
-    public function sendEmail($from, $to, $subject, $body, $replyAddress = null)
+    private function buildSwiftMesage($from, $toEmail, $subject, $body, $replyAddress = null, $toName = null)
     {
         $message = new \Swift_Message();
         $message
             ->setSubject($subject)
             ->setFrom($from)
-            ->setTo($to)
+            ->setTo($toEmail, $toName)
             ->setBody($body)
             ->setCharset('UTF-8')
             ->setContentType('text/html');
         if (!is_null($replyAddress)) {
             $message->setReplyTo($replyAddress);
         }
+
+        return $message;
+    }
+
+    /**
+     * Send an email.
+     *
+     * @param string      $from
+     * @param string      $toEmail
+     * @param string      $subject
+     * @param string      $body
+     * @param string|null $replyAddress
+     * @param string|null $toName
+     *
+     * @return int
+     */
+    public function sendEmail($from, $toEmail, $subject, $body, $replyAddress = null, $toName = null)
+    {
+        $message = $this->buildSwiftMesage($from, $toEmail, $subject, $body, $replyAddress, $toName);
+
+        return $this->mailer->send($message);
+    }
+
+    /**
+     * Send an email with an attatchment PDF.
+     *
+     * @param string $from
+     * @param string $toEmail
+     * @param string $toName
+     * @param string $subject
+     * @param string $body
+     * @param string $pdfFilename
+     * @param \TCPDF $pdf
+     *
+     * @return int
+     */
+    public function sendEmailWithPdfAttached($from, $toEmail, $toName, $subject, $body, $pdfFilename, \TCPDF $pdf)
+    {
+        $swiftAttatchment = new \Swift_Attachment($pdf, $pdfFilename, 'application/pdf');
+        $message = $this->buildSwiftMesage($from, $toEmail, $subject, $body, null, $toName);
+        $message->attach($swiftAttatchment);
 
         return $this->mailer->send($message);
     }

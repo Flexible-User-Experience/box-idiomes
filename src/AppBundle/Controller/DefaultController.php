@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class DefaultController
+ * Class DefaultController.
  */
 class DefaultController extends Controller
 {
@@ -47,7 +47,7 @@ class DefaultController extends Controller
             // Subscribe contact to mailchimp list
             $result = $mailchimpManager->subscribeContactToList($contact, $this->getParameter('mailchimp_test_list_id'));
 
-            if (is_array($result) && $result['status'] == 'subscribed') {
+            if (is_array($result) && 'subscribed' == $result['status']) {
                 // Send notification and OK flash
                 $this->setFlashMessageAndEmailNotifications($contact);
                 // Clean up new form
@@ -64,7 +64,7 @@ class DefaultController extends Controller
 
         return $this->render('Front/homepage.html.twig',
             [
-                'teachers'       => $teachers,
+                'teachers' => $teachers,
                 'newsletterForm' => $newsletterForm->createView(),
             ]
         );
@@ -81,8 +81,8 @@ class DefaultController extends Controller
     {
         /** @var NotificationService $messenger */
         $messenger = $this->get('app.notification');
-            // Send email notifications
-        if ($messenger->sendCommonNewsletterUserNotification($newsletterContact) != 0) {
+        // Send email notifications
+        if (0 != $messenger->sendCommonNewsletterUserNotification($newsletterContact)) {
             // Set frontend flash message
             $this->addFlash(
                 'notice',
@@ -148,7 +148,7 @@ class DefaultController extends Controller
             // Send email notifications
             /** @var NotificationService $messenger */
             $messenger = $this->get('app.notification');
-            if ($messenger->sendCommonUserNotification($contactMessage) != 0) {
+            if (0 != $messenger->sendCommonUserNotification($contactMessage)) {
                 // Set frontend flash message
                 $this->addFlash(
                     'notice',
@@ -199,10 +199,10 @@ class DefaultController extends Controller
      */
     public function testEmailAction()
     {
-        $contact = $this->getDoctrine()->getRepository('AppBundle:ContactMessage')->find(1);
+        $invoice = $this->getDoctrine()->getRepository('AppBundle:Invoice')->find(8);
 
-        return$this->render(':Mails:base.html.twig', array(
-            'contact'=> $contact
+        return$this->render(':Mails:invoice_pdf_notification.html.twig', array(
+            'invoice' => $invoice,
         ));
     }
 }

@@ -279,6 +279,7 @@ backend:
             month: Mes
             year: Any
             send: Enviar PDF per email
+            resend: Tornar a enviar PDF per email
             generator:
                 flash_success: "S'han generat %amount% factures correctament."
                 no_records_found: "No s'ha trobat cap alumne a les classes realitzades durant el període seleccionat."
