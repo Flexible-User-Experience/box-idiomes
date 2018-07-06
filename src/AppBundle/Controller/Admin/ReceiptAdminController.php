@@ -8,6 +8,7 @@ use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Form\Type\GenerateReceiptType;
 use AppBundle\Form\Type\GenerateReceiptYearMonthChooserType;
 use AppBundle\Manager\GenerateReceiptFormManager;
+use AppBundle\Service\NotificationService;
 use AppBundle\Service\ReceiptPdfBuilderService;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -182,7 +183,9 @@ class ReceiptAdminController extends BaseAdminController
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
-     * @throws AccessDeniedException If access is not granted
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendAction($id = null, Request $request)
     {
@@ -196,8 +199,29 @@ class ReceiptAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        /* @var Controller $this */
-        $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha enviat cap rebut per email.');
+        $object
+            ->setIsSended(true)
+            ->setSendDate(new \DateTime())
+        ;
+
+        $em = $this->container->get('doctrine')->getManager();
+        $em->flush();
+
+        /** @var ReceiptPdfBuilderService $rps */
+        $rps = $this->container->get('app.receipt_pdf_builder');
+        $pdf = $rps->build($object);
+
+        /** @var NotificationService $messenger */
+        $messenger = $this->container->get('app.notification');
+        $result = $messenger->sendReceiptPdfNotification($object, $pdf);
+
+        if (0 === $result) {
+            /* @var Controller $this */
+            $this->addFlash('danger', 'S\'ha produït un error durant l\'enviament del rebut núm. '.$object->getReceiptNumber().'. La persona '.$object->getMainEmailName().' no ha rebut cap missatge a la seva bústia.');
+        } else {
+            /* @var Controller $this */
+            $this->addFlash('success', 'S\'ha enviat el rebut núm. '.$object->getReceiptNumber().' amb PDF a la bústia '.$object->getMainEmail());
+        }
 
         return $this->redirectToList();
     }

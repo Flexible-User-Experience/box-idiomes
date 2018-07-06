@@ -3,7 +3,9 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\ContactMessage;
+use AppBundle\Entity\Invoice;
 use AppBundle\Entity\NewsletterContact;
+use AppBundle\Entity\Receipt;
 
 /**
  * Class NotificationService.
@@ -23,7 +25,7 @@ class NotificationService
     private $twig;
 
     /**
-     * @var string
+     * @var string system's app email
      */
     private $amd;
 
@@ -126,7 +128,7 @@ class NotificationService
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function senddUserBackendNotification(ContactMessage $contactMessage)
+    public function sendUserBackendNotification(ContactMessage $contactMessage)
     {
         $this->messenger->sendEmail(
             $this->amd,
@@ -202,6 +204,60 @@ class NotificationService
             $this->twig->render(':Mails:common_newsletter_user_notification.html.twig', array(
                 'contact' => $newsletterContact,
             ))
+        );
+    }
+
+    /**
+     * Send attached receipt PDF to customer.
+     *
+     * @param Receipt $receipt
+     * @param \TCPDF  $pdf
+     *
+     * @return int If is 0 failure otherwise amount of recipients
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function sendReceiptPdfNotification(Receipt $receipt, \TCPDF $pdf)
+    {
+        return $this->messenger->sendEmailWithPdfAttached(
+            $this->amd,
+            $receipt->getMainEmail(),
+            $receipt->getMainEmailName(),
+            'Rebut Box Idiomes núm. '.$receipt->getReceiptNumber(),
+            $this->twig->render(':Mails:receipt_pdf_notification.html.twig', array(
+                'receipt' => $receipt,
+            )),
+            'receipt_'.$receipt->getSluggedReceiptNumber().'.pdf',
+            $pdf
+        );
+    }
+
+    /**
+     * Send attached invoice PDF to customer.
+     *
+     * @param Invoice $invoice
+     * @param \TCPDF  $pdf
+     *
+     * @return int If is 0 failure otherwise amount of recipients
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function sendInvoicePdfNotification(Invoice $invoice, \TCPDF $pdf)
+    {
+        return $this->messenger->sendEmailWithPdfAttached(
+            $this->amd,
+            $invoice->getMainEmail(),
+            $invoice->getMainEmailName(),
+            'Factura Box Idiomes núm. '.$invoice->getInvoiceNumber(),
+            $this->twig->render(':Mails:invoice_pdf_notification.html.twig', array(
+                'invoice' => $invoice,
+            )),
+            'invoice_'.$invoice->getSluggedInvoiceNumber().'.pdf',
+            $pdf
         );
     }
 }

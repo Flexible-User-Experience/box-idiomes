@@ -1,0 +1,34 @@
+{% extends ':Mails:base.html.twig' %}
+
+{% block subject %}Factura núm. {{ invoice.invoiceNumber }}{% endblock %}
+
+{% block content %}
+    <table class="row">
+        <tbody>
+        <tr>
+            <th class="small-12 large-12 columns first last vertical-padding">
+                <table>
+                    <tr>
+                        <th>
+                            <h5 class="grey-color">A contiuació trobaràs adjunt la factura número {{ invoice.invoiceNumber }} amb data {{ invoice.dateString }}</h5>
+                            {% if invoice.lines | length > 0 %}
+                                <p>
+                                    {{ invoice.lines[0].description }}
+                                </p>
+                            {% endif %}
+                            <p>
+                                Base imposable: {{ invoice.baseAmountString }}<br>
+                                <strong>Import total: {{ invoice.totalAmountString }}</strong>
+                            </p>
+                            <p class="blue-color text-center normal-m-top">
+                                Moltes gràcies per confiar amb Box Idiomes.
+                            </p>
+                        </th>
+                        <th class="expander"></th>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

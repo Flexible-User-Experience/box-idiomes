@@ -8,6 +8,7 @@ use AppBundle\Form\Type\GenerateInvoiceType;
 use AppBundle\Form\Type\GenerateInvoiceYearMonthChooserType;
 use AppBundle\Manager\GenerateInvoiceFormManager;
 use AppBundle\Service\InvoicePdfBuilderService;
+use AppBundle\Service\NotificationService;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -140,7 +141,9 @@ class InvoiceAdminController extends BaseAdminController
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
-     * @throws AccessDeniedException If access is not granted
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendAction($id = null, Request $request)
     {
@@ -154,8 +157,29 @@ class InvoiceAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        /* @var Controller $this */
-        $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha enviat cap factura per email.');
+        $object
+            ->setIsSended(true)
+            ->setSendDate(new \DateTime())
+        ;
+
+        $em = $this->container->get('doctrine')->getManager();
+        $em->flush();
+
+        /** @var InvoicePdfBuilderService $ips */
+        $ips = $this->container->get('app.invoice_pdf_builder');
+        $pdf = $ips->build($object);
+
+        /** @var NotificationService $messenger */
+        $messenger = $this->container->get('app.notification');
+        $result = $messenger->sendInvoicePdfNotification($object, $pdf);
+
+        if (0 === $result) {
+            /* @var Controller $this */
+            $this->addFlash('danger', 'S\'ha produït un error durant l\'enviament de la factura núm. '.$object->getInvoiceNumber().'. La persona '.$object->getMainEmailName().' no ha rebut cap missatge a la seva bústia.');
+        } else {
+            /* @var Controller $this */
+            $this->addFlash('success', 'S\'ha enviat la factura núm. '.$object->getInvoiceNumber().' amb PDF a la bústia '.$object->getMainEmail());
+        }
 
         return $this->redirectToList();
     }
