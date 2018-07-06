@@ -31,16 +31,29 @@ class BaseTcpdf extends \TCPDF
     private $ts;
 
     /**
+     * @var string Kernel root dir
+     */
+    private $krd;
+
+    /**
+     * @var string absolute web dir path
+     */
+    private $awpd;
+
+    /**
      * BaseTcpdf constructor.
      *
      * @param AssetsHelper $ahs
      * @param Translator   $ts
+     * @param string       $krd
      */
-    public function __construct(AssetsHelper $ahs, Translator $ts)
+    public function __construct(AssetsHelper $ahs, Translator $ts, $krd)
     {
         parent::__construct();
         $this->ahs = $ahs;
         $this->ts = $ts;
+        $this->krd = $krd;
+        $this->awpd = realpath($this->krd.'/../web');
     }
 
     /**
@@ -49,7 +62,11 @@ class BaseTcpdf extends \TCPDF
     public function header()
     {
         // logo
-        $this->Image($this->ahs->getUrl('/bundles/app/img/logo-pdf.png'), 75, 20, 60);
+        if ('cli' === php_sapi_name()) {
+            $this->Image($this->awpd.'/bundles/app/img/logo-pdf.png', 75, 20, 60);
+        } else {
+            $this->Image($this->ahs->getUrl('/bundles/app/img/logo-pdf.png'), 75, 20, 60);
+        }
         $this->SetXY(self::PDF_MARGIN_LEFT, 11);
         $this->setFontStyle(null, 'I', 8);
     }

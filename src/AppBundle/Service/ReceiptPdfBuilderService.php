@@ -63,7 +63,17 @@ class ReceiptPdfBuilderService
     private $ib;
 
     /**
-     * InvoicePdfBuilderService constructor.
+     * @var string default locale useful in CLI
+     */
+    private $locale;
+
+    /**
+     * @var string Kernel root dir
+     */
+    private $krd;
+
+    /**
+     * ReceiptPdfBuilderService constructor.
      *
      * @param TCPDFController $tcpdf
      * @param AssetsHelper    $tha
@@ -74,8 +84,10 @@ class ReceiptPdfBuilderService
      * @param string          $ba
      * @param string          $bc
      * @param string          $ib
+     * @param string          $locale
+     * @param string          $krd
      */
-    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn, $bd, $ba, $bc, $ib)
+    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn, $bd, $ba, $bc, $ib, $locale, $krd)
     {
         $this->tcpdf = $tcpdf;
         $this->tha = $tha;
@@ -86,19 +98,24 @@ class ReceiptPdfBuilderService
         $this->ba = $ba;
         $this->bc = $bc;
         $this->ib = $ib;
+        $this->locale = $locale;
+        $this->krd = $krd;
     }
 
     /**
      * @param Receipt $receipt
+     * @param bool    $isCliContext
      *
      * @return \TCPDF
      */
-    public function build(Receipt $receipt)
+    public function build(Receipt $receipt, $isCliContext = false)
     {
-        /** @var BaseTcpdf $pdf */
-        $pdf = $this->tcpdf->create($this->tha, $this->ts);
+        if ($isCliContext) {
+            $this->ts->setLocale($this->locale);
+        }
 
-        // $maxCellWidth = BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT;
+        /** @var BaseTcpdf $pdf */
+        $pdf = $this->tcpdf->create($this->tha, $this->ts, $this->krd);
 
         // set document information
         $pdf->SetCreator(PDF_CREATOR);

@@ -37,6 +37,11 @@ class StudentImageRightsPdfService
     private $pwt;
 
     /**
+     * @var string Kernel root dir
+     */
+    private $krd;
+
+    /**
      * Methods.
      */
 
@@ -47,13 +52,15 @@ class StudentImageRightsPdfService
      * @param AssetsHelper    $tha
      * @param Translator      $ts
      * @param string          $pwt
+     * @param string          $krd
      */
-    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt)
+    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $krd)
     {
         $this->tcpdf = $tcpdf;
         $this->tha = $tha;
         $this->ts = $ts;
         $this->pwt = $pwt;
+        $this->krd = $krd;
     }
 
     /**
@@ -64,7 +71,7 @@ class StudentImageRightsPdfService
     public function build(Student $student)
     {
         /** @var BaseTcpdf $pdf */
-        $pdf = $this->tcpdf->create($this->tha, $this->ts);
+        $pdf = $this->tcpdf->create($this->tha, $this->ts, $this->krd);
 
         // set document information
         $pdf->SetCreator(PDF_CREATOR);

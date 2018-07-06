@@ -3,6 +3,8 @@
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Receipt;
+use AppBundle\Service\NotificationService;
+use AppBundle\Service\ReceiptPdfBuilderService;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -43,14 +45,33 @@ class DeliverReceiptByEmailCommand extends ContainerAwareCommand
      * @param OutputInterface $output
      *
      * @return int|null|void
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('<info>Welcome to '.$this->getName().' command</info>');
-
         /** @var Receipt|null $receipt */
         $receipt = $this->getContainer()->get('doctrine')->getRepository('AppBundle:Receipt')->find(intval($input->getArgument('receipt')));
         if ($receipt) {
+            $output->write('building PDF receipt number '.$receipt->getReceiptNumber().'... ');
+            /** @var ReceiptPdfBuilderService $rps */
+            $rps = $this->getContainer()->get('app.receipt_pdf_builder');
+            $pdf = $rps->build($receipt, true);
+            $output->writeln('<info>OK</info>');
+            if ($input->getOption('force')) {
+                $output->write('delivering PDF receipt number '.$receipt->getReceiptNumber().'... ');
+                /** @var NotificationService $messenger */
+                $messenger = $this->getContainer()->get('app.notification');
+                $result = $messenger->sendReceiptPdfNotification($receipt, $pdf);
+                if (0 === $result) {
+                    $output->writeln('<error>KO</error>');
+                } else {
+                    $output->writeln('<info>OK</info>');
+                }
+            }
         } else {
             $output->writeln('<error>No receipt with ID#'.intval($input->getArgument('receipt')).' found. Nothing send.</error>');
         }

@@ -121,6 +121,7 @@ services:
         arguments:
             - "@templating.helper.assets"
             - "@translator.default"
+            - "%kernel.root_dir%"
 
     app.student_image_rights_pdf_builder:
         class: AppBundle\Service\StudentImageRightsPdfService
@@ -129,6 +130,7 @@ services:
             - "@templating.helper.assets"
             - "@translator.default"
             - "%project_web_title%"
+            - "%kernel.root_dir%"
 
     app.sepa_agreement_pdf_builder:
         class: AppBundle\Service\SepaAgreementPdfService
@@ -138,6 +140,7 @@ services:
             - "@translator.default"
             - "%project_web_title%"
             - "%boss_name%"
+            - "%kernel.root_dir%"
 
     app.receipt_pdf_builder:
         class: AppBundle\Service\ReceiptPdfBuilderService
@@ -151,6 +154,8 @@ services:
             - "%boss_address%"
             - "%boss_city%"
             - "%iban_business%"
+            - "%locale%"
+            - "%kernel.root_dir%"
 
     app.invoice_pdf_builder:
         class: AppBundle\Service\InvoicePdfBuilderService
@@ -164,6 +169,8 @@ services:
             - "%boss_address%"
             - "%boss_city%"
             - "%iban_business%"
+            - "%locale%"
+            - "%kernel.root_dir%"
 
 # Forms
     app.form.type.generate_receipt:

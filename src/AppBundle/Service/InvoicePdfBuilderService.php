@@ -63,6 +63,16 @@ class InvoicePdfBuilderService
     private $ib;
 
     /**
+     * @var string default locale useful in CLI
+     */
+    private $locale;
+
+    /**
+     * @var string Kernel root dir
+     */
+    private $krd;
+
+    /**
      * InvoicePdfBuilderService constructor.
      *
      * @param TCPDFController $tcpdf
@@ -74,8 +84,10 @@ class InvoicePdfBuilderService
      * @param string          $ba
      * @param string          $bc
      * @param string          $ib
+     * @param string          $locale
+     * @param string          $krd
      */
-    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn, $bd, $ba, $bc, $ib)
+    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn, $bd, $ba, $bc, $ib, $locale, $krd)
     {
         $this->tcpdf = $tcpdf;
         $this->tha = $tha;
@@ -86,6 +98,8 @@ class InvoicePdfBuilderService
         $this->ba = $ba;
         $this->bc = $bc;
         $this->ib = $ib;
+        $this->locale = $locale;
+        $this->krd = $krd;
     }
 
     /**
@@ -96,7 +110,7 @@ class InvoicePdfBuilderService
     public function build(Invoice $invoice)
     {
         /** @var BaseTcpdf $pdf */
-        $pdf = $this->tcpdf->create($this->tha, $this->ts);
+        $pdf = $this->tcpdf->create($this->tha, $this->ts, $this->krd);
 
         // $maxCellWidth = BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT;
 
