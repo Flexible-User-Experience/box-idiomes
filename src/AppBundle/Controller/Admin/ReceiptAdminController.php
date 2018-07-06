@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Receipt;
 use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Form\Type\GenerateReceiptType;
@@ -92,7 +91,18 @@ class ReceiptAdminController extends BaseAdminController
 
         if (array_key_exists('generate_and_send', $request->get(GenerateReceiptType::NAME))) {
             // TODO generate receipts and send it by email
-            $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha generat ni enviat cap rebut per email.');
+            // $this->addFlash('danger', 'Aquesta funcionalitat encara no està disponible. No s\'ha generat ni enviat cap rebut per email.');
+            // generate receipts and send it by email
+            /** @var GenerateReceiptFormManager $grfm */
+            $grfm = $this->container->get('app.generate_receipt_form_manager');
+            $generateReceipt = $grfm->transformRequestArrayToModel($request->get('generate_receipt'));
+            $recordsParsed = $grfm->persistFullModelForm($generateReceipt);
+            if (0 === $recordsParsed) {
+                $this->addFlash('danger', $translator->trans('backend.admin.receipt.generator.no_records_presisted'));
+            } else {
+                // TODO execute async process to delivey it
+                $this->addFlash('success', $translator->trans('backend.admin.receipt.generator.flash_success', array('%amount%' => $recordsParsed), 'messages'));
+            }
         } else {
             // only generate receipts
             /** @var GenerateReceiptFormManager $grfm */
