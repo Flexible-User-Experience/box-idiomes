@@ -73,10 +73,10 @@ class DeliverReceiptByEmailCommand extends ContainerAwareCommand
                 $result = $messenger->sendReceiptPdfNotification($receipt, $pdf);
                 if (0 === $result) {
                     $output->writeln('<error>KO</error>');
-                    $logger->error('delivering PDF receipt number '.$receipt->getReceiptNumber().' failed.');
+                    $logger->error('delivering PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' failed.');
                 } else {
                     $output->writeln('<info>OK</info>');
-                    $logger->info('PDF receipt number '.$receipt->getReceiptNumber().' succesfully delivered.');
+                    $logger->info('PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully delivered.');
                 }
             }
         } else {
