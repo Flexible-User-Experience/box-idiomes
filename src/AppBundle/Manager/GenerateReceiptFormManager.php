@@ -12,7 +12,10 @@ use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Repository\ReceiptRepository;
 use AppBundle\Repository\StudentRepository;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Process\Process;
 
 /**
  * Class GenerateReceiptFormManager.
@@ -33,14 +36,15 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
     /**
      * GenerateReceiptFormManager constructor.
      *
+     * @param KernelInterface     $kernel
      * @param EntityManager       $em
      * @param TranslatorInterface $ts
      * @param StudentRepository   $sr
      * @param ReceiptRepository   $rr
      */
-    public function __construct(EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, ReceiptRepository $rr)
+    public function __construct(KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, ReceiptRepository $rr)
     {
-        parent::__construct($em, $ts, $sr);
+        parent::__construct($kernel, $em, $ts, $sr);
         $this->rr = $rr;
     }
 
@@ -161,8 +165,8 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     // update existing receipt
                     /** @var Receipt $previousReceipt */
                     $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
-                    $previousReceipt->setDate(new \DateTime());
-                    if (1 === count($previousReceipt->getLines())) {
+                    if ($previousReceipt && 1 === count($previousReceipt->getLines())) {
+                        $previousReceipt->setDate(new \DateTime());
                         /** @var ReceiptLine $receiptLine */
                         $receiptLine = $previousReceipt->getLines()[0];
                         $receiptLine
@@ -220,10 +224,17 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
         $recordsParsed = $this->persistFullModelForm($generateReceiptModel);
 
         if (0 < $recordsParsed) {
+            $phpBinaryFinder = new PhpExecutableFinder();
+            $phpBinaryPath = $phpBinaryFinder->find();
             /** @var GenerateReceiptItemModel $generateReceiptItemModel */
             foreach ($generateReceiptModel->getItems() as $generateReceiptItemModel) {
                 /** @var Receipt $previousReceipt */
                 $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
+                if ($previousReceipt && 1 === count($previousReceipt->getLines())) {
+                    $command = 'nohup '.$phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipt '.$previousReceipt->getId().' --force --env='.$this->kernel->getEnvironment().' &';
+                    $process = new Process($command);
+                    $process->start();
+                }
             }
         }
 

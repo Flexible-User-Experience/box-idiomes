@@ -102,6 +102,7 @@ services:
     app.generate_receipt_form_manager:
         class: AppBundle\Manager\GenerateReceiptFormManager
         arguments:
+            - "@kernel"
             - "@doctrine.orm.entity_manager"
             - "@translator.default"
             - "@app.student_repository"
@@ -110,6 +111,7 @@ services:
     app.generate_invoice_form_manager:
         class: AppBundle\Manager\GenerateInvoiceFormManager
         arguments:
+            - "@kernel"
             - "@doctrine.orm.entity_manager"
             - "@translator.default"
             - "@app.student_repository"

@@ -4,6 +4,7 @@ namespace AppBundle\Manager;
 
 use AppBundle\Repository\StudentRepository;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -13,6 +14,11 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 abstract class AbstractGenerateReceiptInvoiceFormManager
 {
+    /**
+     * @var KernelInterface
+     */
+    protected $kernel;
+
     /**
      * @var EntityManager
      */
@@ -35,12 +41,14 @@ abstract class AbstractGenerateReceiptInvoiceFormManager
     /**
      * AbstractGenerateReceiptInvoiceFormManager constructor.
      *
+     * @param KernelInterface     $kernel
      * @param EntityManager       $em
      * @param TranslatorInterface $ts
      * @param StudentRepository   $sr
      */
-    public function __construct(EntityManager $em, TranslatorInterface $ts, StudentRepository $sr)
+    public function __construct(KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr)
     {
+        $this->kernel = $kernel;
         $this->em = $em;
         $this->ts = $ts;
         $this->sr = $sr;
