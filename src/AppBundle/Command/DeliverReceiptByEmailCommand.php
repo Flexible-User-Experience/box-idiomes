@@ -60,23 +60,24 @@ class DeliverReceiptByEmailCommand extends ContainerAwareCommand
         $receipt = $this->getContainer()->get('doctrine')->getRepository('AppBundle:Receipt')->find(intval($input->getArgument('receipt')));
         if ($receipt) {
             $output->write('building PDF receipt number '.$receipt->getReceiptNumber().'... ');
+            /** @var Logger $logger */
+            $logger = $this->getContainer()->get('monolog.logger.email');
             /** @var ReceiptPdfBuilderService $rps */
             $rps = $this->getContainer()->get('app.receipt_pdf_builder');
             $pdf = $rps->build($receipt, true);
             $output->writeln('<info>OK</info>');
+            $logger->info('[DRBEC] PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully build.');
             if ($input->getOption('force')) {
-                /** @var Logger $logger */
-                $logger = $this->getContainer()->get('monolog.logger.email');
                 $output->write('delivering PDF receipt number '.$receipt->getReceiptNumber().'... ');
                 /** @var NotificationService $messenger */
                 $messenger = $this->getContainer()->get('app.notification');
                 $result = $messenger->sendReceiptPdfNotification($receipt, $pdf);
                 if (0 === $result) {
                     $output->writeln('<error>KO</error>');
-                    $logger->error('delivering PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' failed.');
+                    $logger->error('[DRBEC] delivering PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' failed.');
                 } else {
                     $output->writeln('<info>OK</info>');
-                    $logger->info('PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully delivered.');
+                    $logger->info('[DRBEC] PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully delivered.');
                 }
             }
         } else {
