@@ -5,6 +5,7 @@ namespace AppBundle\Command;
 use AppBundle\Entity\Receipt;
 use AppBundle\Service\NotificationService;
 use AppBundle\Service\ReceiptPdfBuilderService;
+use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -64,14 +65,18 @@ class DeliverReceiptByEmailCommand extends ContainerAwareCommand
             $pdf = $rps->build($receipt, true);
             $output->writeln('<info>OK</info>');
             if ($input->getOption('force')) {
+                /** @var Logger $logger */
+                $logger = $this->getContainer()->get('monolog.handler.email');
                 $output->write('delivering PDF receipt number '.$receipt->getReceiptNumber().'... ');
                 /** @var NotificationService $messenger */
                 $messenger = $this->getContainer()->get('app.notification');
                 $result = $messenger->sendReceiptPdfNotification($receipt, $pdf);
                 if (0 === $result) {
                     $output->writeln('<error>KO</error>');
+                    $logger->error('delivering PDF receipt number '.$receipt->getReceiptNumber().' failed.');
                 } else {
                     $output->writeln('<info>OK</info>');
+                    $logger->info('PDF receipt number '.$receipt->getReceiptNumber().' succesfully delivered.');
                 }
             }
         } else {

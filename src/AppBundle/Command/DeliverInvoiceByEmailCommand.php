@@ -5,6 +5,7 @@ namespace AppBundle\Command;
 use AppBundle\Entity\Invoice;
 use AppBundle\Service\NotificationService;
 use AppBundle\Service\InvoicePdfBuilderService;
+use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -64,14 +65,18 @@ class DeliverInvoiceByEmailCommand extends ContainerAwareCommand
             $pdf = $ips->build($invoice, true);
             $output->writeln('<info>OK</info>');
             if ($input->getOption('force')) {
+                /** @var Logger $logger */
+                $logger = $this->getContainer()->get('monolog.handler.email');
                 $output->write('delivering PDF invoice number '.$invoice->getInvoiceNumber().'... ');
                 /** @var NotificationService $messenger */
                 $messenger = $this->getContainer()->get('app.notification');
                 $result = $messenger->sendInvoicePdfNotification($invoice, $pdf);
                 if (0 === $result) {
                     $output->writeln('<error>KO</error>');
+                    $logger->error('delivering PDF invoice number '.$invoice->getInvoiceNumber().' failed.');
                 } else {
                     $output->writeln('<info>OK</info>');
+                    $logger->info('PDF receipt number '.$invoice->getInvoiceNumber().' succesfully delivered.');
                 }
             }
         } else {

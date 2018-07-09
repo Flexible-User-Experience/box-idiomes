@@ -13,6 +13,9 @@ web_profiler:
 
 monolog:
     handlers:
+        email:
+            type:     stream
+            path:     "%kernel.logs_dir%/emails.log"
         main:
             type:     stream
             path:     "%kernel.logs_dir%/%kernel.environment%.log"
