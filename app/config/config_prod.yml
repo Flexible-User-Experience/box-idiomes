@@ -2,7 +2,13 @@ imports:
     - { resource: config.yml }
 
 monolog:
+    channels: [ 'email' ]
     handlers:
+        email:
+            type:     stream
+            path:     "%kernel.logs_dir%/%kernel.environment%_emails.log"
+            level:    info
+            channels: [ 'email' ]
         main:
             type:         fingers_crossed
             action_level: error
