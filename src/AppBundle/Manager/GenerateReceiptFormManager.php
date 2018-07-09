@@ -223,9 +223,9 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
      */
     public function persistAndDeliverFullModelForm(GenerateReceiptModel $generateReceiptModel)
     {
-        $this->logger->info('persistAndDeliverFullModelForm call');
+        $this->logger->info('[GRFM] persistAndDeliverFullModelForm call');
         $recordsParsed = $this->persistFullModelForm($generateReceiptModel);
-        $this->logger->info($recordsParsed.' records managed');
+        $this->logger->info('[GRFM] '.$recordsParsed.' records managed');
 
         if (0 < $recordsParsed) {
             $phpBinaryFinder = new PhpExecutableFinder();
@@ -235,8 +235,8 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 /** @var Receipt $previousReceipt */
                 $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
                 if ($previousReceipt && 1 === count($previousReceipt->getLines())) {
-                    $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipt '.$previousReceipt->getId().' --force --env='.$this->kernel->getEnvironment().' &';
-                    $this->logger->info($command);
+                    $command = 'nohup '.$phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipt '.$previousReceipt->getId().' --force --env='.$this->kernel->getEnvironment().' &';
+                    $this->logger->info('[GRFM] '.$command);
                     $process = new Process($command);
                     $process
                         ->disableOutput()
@@ -245,7 +245,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 }
             }
         }
-        $this->logger->info('persistAndDeliverFullModelForm EOF');
+        $this->logger->info('[GRFM] persistAndDeliverFullModelForm EOF');
 
         return $recordsParsed;
     }
