@@ -66,7 +66,7 @@ class DeliverReceiptByEmailCommand extends ContainerAwareCommand
             $output->writeln('<info>OK</info>');
             if ($input->getOption('force')) {
                 /** @var Logger $logger */
-                $logger = $this->getContainer()->get('monolog.handler.email');
+                $logger = $this->getContainer()->get('monolog.logger.email');
                 $output->write('delivering PDF receipt number '.$receipt->getReceiptNumber().'... ');
                 /** @var NotificationService $messenger */
                 $messenger = $this->getContainer()->get('app.notification');

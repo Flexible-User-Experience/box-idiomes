@@ -66,7 +66,7 @@ class DeliverInvoiceByEmailCommand extends ContainerAwareCommand
             $output->writeln('<info>OK</info>');
             if ($input->getOption('force')) {
                 /** @var Logger $logger */
-                $logger = $this->getContainer()->get('monolog.handler.email');
+                $logger = $this->getContainer()->get('monolog.logger.email');
                 $output->write('delivering PDF invoice number '.$invoice->getInvoiceNumber().'... ');
                 /** @var NotificationService $messenger */
                 $messenger = $this->getContainer()->get('app.notification');
