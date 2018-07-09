@@ -102,6 +102,7 @@ services:
     app.generate_receipt_form_manager:
         class: AppBundle\Manager\GenerateReceiptFormManager
         arguments:
+            - "@kernel"
             - "@doctrine.orm.entity_manager"
             - "@translator.default"
             - "@app.student_repository"
@@ -110,6 +111,7 @@ services:
     app.generate_invoice_form_manager:
         class: AppBundle\Manager\GenerateInvoiceFormManager
         arguments:
+            - "@kernel"
             - "@doctrine.orm.entity_manager"
             - "@translator.default"
             - "@app.student_repository"
@@ -121,6 +123,7 @@ services:
         arguments:
             - "@templating.helper.assets"
             - "@translator.default"
+            - "%mailer_url_base%"
 
     app.student_image_rights_pdf_builder:
         class: AppBundle\Service\StudentImageRightsPdfService
@@ -129,6 +132,7 @@ services:
             - "@templating.helper.assets"
             - "@translator.default"
             - "%project_web_title%"
+            - "%mailer_url_base%"
 
     app.sepa_agreement_pdf_builder:
         class: AppBundle\Service\SepaAgreementPdfService
@@ -138,6 +142,7 @@ services:
             - "@translator.default"
             - "%project_web_title%"
             - "%boss_name%"
+            - "%mailer_url_base%"
 
     app.receipt_pdf_builder:
         class: AppBundle\Service\ReceiptPdfBuilderService
@@ -151,6 +156,8 @@ services:
             - "%boss_address%"
             - "%boss_city%"
             - "%iban_business%"
+            - "%locale%"
+            - "%mailer_url_base%"
 
     app.invoice_pdf_builder:
         class: AppBundle\Service\InvoicePdfBuilderService
@@ -164,6 +171,8 @@ services:
             - "%boss_address%"
             - "%boss_city%"
             - "%iban_business%"
+            - "%locale%"
+            - "%mailer_url_base%"
 
 # Forms
     app.form.type.generate_receipt:
