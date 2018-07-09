@@ -238,10 +238,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipt '.$previousReceipt->getId().' --force --env='.$this->kernel->getEnvironment().' 2>&1 > /dev/null &';
                     $this->logger->info('[GRFM] '.$command);
                     $process = new Process($command);
-                    $process
-                        ->disableOutput()
-                        ->start()
-                    ;
+                    $process->run();
                 }
             }
         }
