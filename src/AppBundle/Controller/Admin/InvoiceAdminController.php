@@ -86,13 +86,13 @@ class InvoiceAdminController extends BaseAdminController
      */
     public function creatorAction(Request $request = null)
     {
+        /** @var Translator $translator */
+        $translator = $this->container->get('translator.default');
         /** @var GenerateInvoiceFormManager $gifm */
         $gifm = $this->container->get('app.generate_invoice_form_manager');
         $generateInvoice = $gifm->transformRequestArrayToModel($request->get('generate_invoice'));
-        $recordsParsed = $gifm->persistFullModelForm($generateInvoice);
 
-        /** @var Translator $translator */
-        $translator = $this->container->get('translator.default');
+        $recordsParsed = $gifm->persistFullModelForm($generateInvoice);
         if (0 === $recordsParsed) {
             $this->addFlash('warning', $translator->trans('backend.admin.invoice.generator.no_records_presisted'));
         } else {

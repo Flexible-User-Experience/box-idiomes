@@ -13,7 +13,9 @@ use AppBundle\Repository\InvoiceRepository;
 use AppBundle\Repository\StudentRepository;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Process\Process;
 
 /**
  * Class GenerateInvoiceFormManager.
@@ -210,6 +212,36 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
             }
         }
         $this->em->flush();
+
+        return $recordsParsed;
+    }
+
+    /**
+     * @param GenerateInvoiceModel $generateInvoiceModel
+     *
+     * @return int
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function persistAndDeliverFullModelForm(GenerateInvoiceModel $generateInvoiceModel)
+    {
+        $recordsParsed = $this->persistFullModelForm($generateInvoiceModel);
+
+        if (0 < $recordsParsed) {
+            $phpBinaryFinder = new PhpExecutableFinder();
+            $phpBinaryPath = $phpBinaryFinder->find();
+            /** @var GenerateInvoiceItemModel $generateInvoiceItemModel */
+            foreach ($generateInvoiceItemModel->getItems() as $generateInvoiceItemModel) {
+                /** @var Invoice $previousInvoice */
+                $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentYearAndMonthOrNull($generateInvoiceItemModel->getStudent(), $generateInvoiceItemModel->getYear(), $generateInvoiceItemModel->getMonth());
+                if ($previousInvoice && 1 === count($previousInvoice->getLines())) {
+                    $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:invoice '.$previousInvoice->getId().' --force --env='.$this->kernel->getEnvironment().' &';
+                    $process = new Process($command);
+                    $process->start();
+                }
+            }
+        }
 
         return $recordsParsed;
     }

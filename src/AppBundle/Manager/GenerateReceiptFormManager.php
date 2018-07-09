@@ -231,7 +231,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 /** @var Receipt $previousReceipt */
                 $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
                 if ($previousReceipt && 1 === count($previousReceipt->getLines())) {
-                    $command = 'nohup '.$phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipt '.$previousReceipt->getId().' --force --env='.$this->kernel->getEnvironment().' &';
+                    $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipt '.$previousReceipt->getId().' --force --env='.$this->kernel->getEnvironment().' &';
                     $process = new Process($command);
                     $process->start();
                 }
