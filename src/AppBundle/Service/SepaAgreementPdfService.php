@@ -41,6 +41,11 @@ class SepaAgreementPdfService
     private $bn;
 
     /**
+     * @var string mailer URL base
+     */
+    private $mub;
+
+    /**
      * Methods.
      */
 
@@ -52,14 +57,16 @@ class SepaAgreementPdfService
      * @param Translator      $ts
      * @param string          $pwt
      * @param string          $bn
+     * @param string          $mub
      */
-    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn)
+    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn, $mub)
     {
         $this->tcpdf = $tcpdf;
         $this->tha = $tha;
         $this->ts = $ts;
         $this->pwt = $pwt;
         $this->bn = $bn;
+        $this->mub = $mub;
     }
 
     /**
@@ -70,7 +77,7 @@ class SepaAgreementPdfService
     public function build(Student $student)
     {
         /** @var BaseTcpdf $pdf */
-        $pdf = $this->tcpdf->create($this->tha, $this->ts);
+        $pdf = $this->tcpdf->create($this->tha, $this->ts, $this->mub);
 
         $maxCellWidth = BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT;
 

@@ -12,30 +12,18 @@ use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Repository\ReceiptRepository;
 use AppBundle\Repository\StudentRepository;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Process\Process;
 
 /**
  * Class GenerateReceiptFormManager.
  *
  * @category Manager
  */
-class GenerateReceiptFormManager
+class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManager
 {
-    /**
-     * @var EntityManager
-     */
-    private $em;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $ts;
-
-    /**
-     * @var StudentRepository
-     */
-    private $sr;
-
     /**
      * @var ReceiptRepository
      */
@@ -48,16 +36,15 @@ class GenerateReceiptFormManager
     /**
      * GenerateReceiptFormManager constructor.
      *
+     * @param KernelInterface     $kernel
      * @param EntityManager       $em
      * @param TranslatorInterface $ts
      * @param StudentRepository   $sr
      * @param ReceiptRepository   $rr
      */
-    public function __construct(EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, ReceiptRepository $rr)
+    public function __construct(KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, ReceiptRepository $rr)
     {
-        $this->em = $em;
-        $this->ts = $ts;
-        $this->sr = $sr;
+        parent::__construct($kernel, $em, $ts, $sr);
         $this->rr = $rr;
     }
 
@@ -178,8 +165,8 @@ class GenerateReceiptFormManager
                     // update existing receipt
                     /** @var Receipt $previousReceipt */
                     $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
-                    $previousReceipt->setDate(new \DateTime());
-                    if (1 === count($previousReceipt->getLines())) {
+                    if ($previousReceipt && 1 === count($previousReceipt->getLines())) {
+                        $previousReceipt->setDate(new \DateTime());
                         /** @var ReceiptLine $receiptLine */
                         $receiptLine = $previousReceipt->getLines()[0];
                         $receiptLine
@@ -225,15 +212,32 @@ class GenerateReceiptFormManager
     }
 
     /**
-     * @param string $value
+     * @param GenerateReceiptModel $generateReceiptModel
      *
-     * @return float
+     * @return int
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    private function parseStringToFloat($value)
+    public function persistAndDeliverFullModelForm(GenerateReceiptModel $generateReceiptModel)
     {
-        $stringParsedValue = str_replace('.', '', $value);
-        $stringParsedValue = str_replace(',', '.', $stringParsedValue);
+        $recordsParsed = $this->persistFullModelForm($generateReceiptModel);
 
-        return floatval($stringParsedValue);
+        if (0 < $recordsParsed) {
+            $phpBinaryFinder = new PhpExecutableFinder();
+            $phpBinaryPath = $phpBinaryFinder->find();
+            /** @var GenerateReceiptItemModel $generateReceiptItemModel */
+            foreach ($generateReceiptModel->getItems() as $generateReceiptItemModel) {
+                /** @var Receipt $previousReceipt */
+                $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
+                if ($previousReceipt && 1 === count($previousReceipt->getLines())) {
+                    $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipt '.$previousReceipt->getId().' --force --env='.$this->kernel->getEnvironment().' &';
+                    $process = new Process($command);
+                    $process->start();
+                }
+            }
+        }
+
+        return $recordsParsed;
     }
 }

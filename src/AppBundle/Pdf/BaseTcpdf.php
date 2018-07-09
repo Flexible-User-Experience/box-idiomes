@@ -4,6 +4,8 @@ namespace AppBundle\Pdf;
 
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Asset\UrlPackage;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
 /**
  * Class BaseTcpdf.
@@ -12,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
  */
 class BaseTcpdf extends \TCPDF
 {
+    const PHP_CLI_API = 'cli';
     const PDF_WIDTH = 210;
     const PDF_MARGIN_LEFT = 30;
     const PDF_MARGIN_RIGHT = 30;
@@ -31,16 +34,23 @@ class BaseTcpdf extends \TCPDF
     private $ts;
 
     /**
+     * @var string mailer URL base
+     */
+    private $mub;
+
+    /**
      * BaseTcpdf constructor.
      *
      * @param AssetsHelper $ahs
      * @param Translator   $ts
+     * @param string       $mub
      */
-    public function __construct(AssetsHelper $ahs, Translator $ts)
+    public function __construct(AssetsHelper $ahs, Translator $ts, $mub)
     {
         parent::__construct();
         $this->ahs = $ahs;
         $this->ts = $ts;
+        $this->mub = $mub;
     }
 
     /**
@@ -49,7 +59,12 @@ class BaseTcpdf extends \TCPDF
     public function header()
     {
         // logo
-        $this->Image($this->ahs->getUrl('/bundles/app/img/logo-pdf.png'), 75, 20, 60);
+        if (self::PHP_CLI_API === php_sapi_name()) {
+            $package = new UrlPackage('https://'.$this->mub.'/', new EmptyVersionStrategy());
+            $this->Image($package->getUrl('/bundles/app/img/logo-pdf.png'), 75, 20, 60);
+        } else {
+            $this->Image($this->ahs->getUrl('/bundles/app/img/logo-pdf.png'), 75, 20, 60);
+        }
         $this->SetXY(self::PDF_MARGIN_LEFT, 11);
         $this->setFontStyle(null, 'I', 8);
     }

@@ -12,30 +12,18 @@ use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Repository\InvoiceRepository;
 use AppBundle\Repository\StudentRepository;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Process\Process;
 
 /**
  * Class GenerateInvoiceFormManager.
  *
  * @category Manager
  */
-class GenerateInvoiceFormManager
+class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManager
 {
-    /**
-     * @var EntityManager
-     */
-    private $em;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $ts;
-
-    /**
-     * @var StudentRepository
-     */
-    private $sr;
-
     /**
      * @var InvoiceRepository
      */
@@ -48,16 +36,15 @@ class GenerateInvoiceFormManager
     /**
      * GenerateInvoiceFormManager constructor.
      *
+     * @param KernelInterface     $kernel
      * @param EntityManager       $em
      * @param TranslatorInterface $ts
      * @param StudentRepository   $sr
      * @param InvoiceRepository   $ir
      */
-    public function __construct(EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, InvoiceRepository $ir)
+    public function __construct(KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, InvoiceRepository $ir)
     {
-        $this->em = $em;
-        $this->ts = $ts;
-        $this->sr = $sr;
+        parent::__construct($kernel, $em, $ts, $sr);
         $this->ir = $ir;
     }
 
@@ -230,15 +217,32 @@ class GenerateInvoiceFormManager
     }
 
     /**
-     * @param string $value
+     * @param GenerateInvoiceModel $generateInvoiceModel
      *
-     * @return float
+     * @return int
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    private function parseStringToFloat($value)
+    public function persistAndDeliverFullModelForm(GenerateInvoiceModel $generateInvoiceModel)
     {
-        $stringParsedValue = str_replace('.', '', $value);
-        $stringParsedValue = str_replace(',', '.', $stringParsedValue);
+        $recordsParsed = $this->persistFullModelForm($generateInvoiceModel);
 
-        return floatval($stringParsedValue);
+        if (0 < $recordsParsed) {
+            $phpBinaryFinder = new PhpExecutableFinder();
+            $phpBinaryPath = $phpBinaryFinder->find();
+            /** @var GenerateInvoiceItemModel $generateInvoiceItemModel */
+            foreach ($generateInvoiceItemModel->getItems() as $generateInvoiceItemModel) {
+                /** @var Invoice $previousInvoice */
+                $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentYearAndMonthOrNull($generateInvoiceItemModel->getStudent(), $generateInvoiceItemModel->getYear(), $generateInvoiceItemModel->getMonth());
+                if ($previousInvoice && 1 === count($previousInvoice->getLines())) {
+                    $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:invoice '.$previousInvoice->getId().' --force --env='.$this->kernel->getEnvironment().' &';
+                    $process = new Process($command);
+                    $process->start();
+                }
+            }
+        }
+
+        return $recordsParsed;
     }
 }

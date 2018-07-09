@@ -15,53 +15,8 @@ use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
  *
  * @category Service
  */
-class InvoicePdfBuilderService
+class InvoicePdfBuilderService extends AbstractReceiptInvoicePdfBuilderService
 {
-    /**
-     * @var TCPDFController
-     */
-    private $tcpdf;
-
-    /**
-     * @var AssetsHelper
-     */
-    private $tha;
-
-    /**
-     * @var Translator
-     */
-    private $ts;
-
-    /**
-     * @var string project web title
-     */
-    private $pwt;
-
-    /**
-     * @var string boss name
-     */
-    private $bn;
-
-    /**
-     * @var string boss DNI
-     */
-    private $bd;
-
-    /**
-     * @var string boss address
-     */
-    private $ba;
-
-    /**
-     * @var string boss city
-     */
-    private $bc;
-
-    /**
-     * @var string IBAN bussines
-     */
-    private $ib;
-
     /**
      * InvoicePdfBuilderService constructor.
      *
@@ -74,31 +29,28 @@ class InvoicePdfBuilderService
      * @param string          $ba
      * @param string          $bc
      * @param string          $ib
+     * @param string          $locale
+     * @param string          $mub
      */
-    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn, $bd, $ba, $bc, $ib)
+    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn, $bd, $ba, $bc, $ib, $locale, $mub)
     {
-        $this->tcpdf = $tcpdf;
-        $this->tha = $tha;
-        $this->ts = $ts;
-        $this->pwt = $pwt;
-        $this->bn = $bn;
-        $this->bd = $bd;
-        $this->ba = $ba;
-        $this->bc = $bc;
-        $this->ib = $ib;
+        parent::__construct($tcpdf, $tha, $ts, $pwt, $bn, $bd, $ba, $bc, $ib, $locale, $mub);
     }
 
     /**
      * @param Invoice $invoice
+     * @param bool    $isCliContext
      *
      * @return \TCPDF
      */
-    public function build(Invoice $invoice)
+    public function build(Invoice $invoice, $isCliContext = false)
     {
-        /** @var BaseTcpdf $pdf */
-        $pdf = $this->tcpdf->create($this->tha, $this->ts);
+        if ($isCliContext) {
+            $this->ts->setLocale($this->locale);
+        }
 
-        // $maxCellWidth = BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT;
+        /** @var BaseTcpdf $pdf */
+        $pdf = $this->tcpdf->create($this->tha, $this->ts, $this->mub);
 
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
@@ -218,25 +170,5 @@ class InvoicePdfBuilderService
         }
 
         return $pdf;
-    }
-
-    /**
-     * @param float $val
-     *
-     * @return string
-     */
-    private function floatStringFormat($val)
-    {
-        return number_format($val, 2, ',', '.');
-    }
-
-    /**
-     * @param float $val
-     *
-     * @return string
-     */
-    private function floatMoneyFormat($val)
-    {
-        return $this->floatStringFormat($val).' €';
     }
 }
