@@ -178,7 +178,7 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
                         $previousInvoice
                             ->setTaxPercentage(0)
                             ->setBaseAmount($invoiceLine->getTotal())
-                            ->setIrpfPercentage($previousInvoice->calculateIrpf())
+                            ->setIrpfPercentage($previousInvoice->calculateIrpfPercentatge())
                             ->setTotalAmount($invoiceLine->getTotal() - $previousInvoice->getIrpfPercentage())
                         ;
                         $this->em->flush();
@@ -203,7 +203,7 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
                         ->setYear($generateInvoiceModel->getYear())
                         ->setMonth($generateInvoiceModel->getMonth())
                         ->addLine($invoiceLine)
-                        ->setIrpfPercentage($invoice->calculateIrpf())
+                        ->setIrpfPercentage($invoice->calculateIrpfPercentatge())
                         ->setTaxPercentage(0)
                         ->setTotalAmount($invoiceLine->getTotal() - $invoice->getIrpfPercentage())
                     ;
@@ -232,9 +232,9 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
             $phpBinaryFinder = new PhpExecutableFinder();
             $phpBinaryPath = $phpBinaryFinder->find();
             /** @var GenerateInvoiceItemModel $generateInvoiceItemModel */
-            foreach ($generateInvoiceItemModel->getItems() as $generateInvoiceItemModel) {
+            foreach ($generateInvoiceModel->getItems() as $generateInvoiceItemModel) {
                 /** @var Invoice $previousInvoice */
-                $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentYearAndMonthOrNull($generateInvoiceItemModel->getStudent(), $generateInvoiceItemModel->getYear(), $generateInvoiceItemModel->getMonth());
+                $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentYearAndMonthOrNull($generateInvoiceItemModel->getStudent(), $generateInvoiceModel->getYear(), $generateInvoiceModel->getMonth());
                 if ($previousInvoice && 1 === count($previousInvoice->getLines())) {
                     $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:invoice '.$previousInvoice->getId().' --force --env='.$this->kernel->getEnvironment().' &';
                     $process = new Process($command);

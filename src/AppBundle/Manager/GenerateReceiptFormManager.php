@@ -161,11 +161,11 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
         foreach ($generateReceiptModel->getItems() as $generateReceiptItemModel) {
             if ($generateReceiptItemModel->isReadyToGenerate()) {
                 ++$recordsParsed;
-                if ($generateReceiptItemModel->isPreviouslyGenerated()) {
+                /** @var Receipt $previousReceipt */
+                $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
+                if (!is_null($previousReceipt)) {
                     // update existing receipt
-                    /** @var Receipt $previousReceipt */
-                    $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
-                    if ($previousReceipt && 1 === count($previousReceipt->getLines())) {
+                    if (1 === count($previousReceipt->getLines())) {
                         $previousReceipt->setDate(new \DateTime());
                         /** @var ReceiptLine $receiptLine */
                         $receiptLine = $previousReceipt->getLines()[0];
