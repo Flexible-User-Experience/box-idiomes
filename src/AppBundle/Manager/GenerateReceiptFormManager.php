@@ -12,6 +12,7 @@ use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Repository\ReceiptRepository;
 use AppBundle\Repository\StudentRepository;
 use Doctrine\ORM\EntityManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -36,15 +37,16 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
     /**
      * GenerateReceiptFormManager constructor.
      *
+     * @param LoggerInterface     $logger
      * @param KernelInterface     $kernel
      * @param EntityManager       $em
      * @param TranslatorInterface $ts
      * @param StudentRepository   $sr
      * @param ReceiptRepository   $rr
      */
-    public function __construct(KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, ReceiptRepository $rr)
+    public function __construct(LoggerInterface $logger, KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, ReceiptRepository $rr)
     {
-        parent::__construct($kernel, $em, $ts, $sr);
+        parent::__construct($logger, $kernel, $em, $ts, $sr);
         $this->rr = $rr;
     }
 
@@ -221,7 +223,9 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
      */
     public function persistAndDeliverFullModelForm(GenerateReceiptModel $generateReceiptModel)
     {
+        $this->logger->info('persistAndDeliverFullModelForm call');
         $recordsParsed = $this->persistFullModelForm($generateReceiptModel);
+        $this->logger->info($recordsParsed.' records managed');
 
         if (0 < $recordsParsed) {
             $phpBinaryFinder = new PhpExecutableFinder();
@@ -232,11 +236,16 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
                 if ($previousReceipt && 1 === count($previousReceipt->getLines())) {
                     $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipt '.$previousReceipt->getId().' --force --env='.$this->kernel->getEnvironment().' &';
+                    $this->logger->info($command);
                     $process = new Process($command);
-                    $process->start();
+                    $process
+                        ->disableOutput()
+                        ->start()
+                    ;
                 }
             }
         }
+        $this->logger->info('persistAndDeliverFullModelForm EOF');
 
         return $recordsParsed;
     }
