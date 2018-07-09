@@ -76,7 +76,7 @@ class DeliverInvoiceByEmailCommand extends ContainerAwareCommand
                     $logger->error('delivering PDF invoice number '.$invoice->getInvoiceNumber().' failed.');
                 } else {
                     $output->writeln('<info>OK</info>');
-                    $logger->info('PDF receipt number '.$invoice->getInvoiceNumber().' succesfully delivered.');
+                    $logger->info('PDF invoice number '.$invoice->getInvoiceNumber().' succesfully delivered.');
                 }
             }
         } else {
