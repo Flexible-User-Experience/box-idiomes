@@ -6,7 +6,6 @@ use AppBundle\Entity\Receipt;
 use AppBundle\Entity\ReceiptLine;
 use AppBundle\Enum\StudentPaymentEnum;
 use AppBundle\Pdf\BaseTcpdf;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 
@@ -20,37 +19,35 @@ class ReceiptPdfBuilderService extends AbstractReceiptInvoicePdfBuilderService
     /**
      * ReceiptPdfBuilderService constructor.
      *
-     * @param TCPDFController $tcpdf
-     * @param AssetsHelper    $tha
-     * @param Translator      $ts
-     * @param string          $pwt    project web title
-     * @param string          $bn     boss name
-     * @param string          $bd     boss DNI
-     * @param string          $ba     boss address
-     * @param string          $bc     boss city
-     * @param string          $ib     IBAN bussines
-     * @param string          $locale default locale useful in CLI
-     * @param string          $mub    mailer URL base
+     * @param TCPDFController          $tcpdf
+     * @param SmartAssetsHelperService $sahs
+     * @param Translator               $ts
+     * @param string                   $pwt    project web title
+     * @param string                   $bn     boss name
+     * @param string                   $bd     boss DNI
+     * @param string                   $ba     boss address
+     * @param string                   $bc     boss city
+     * @param string                   $ib     IBAN bussines
+     * @param string                   $locale default locale useful in CLI
      */
-    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn, $bd, $ba, $bc, $ib, $locale, $mub)
+    public function __construct(TCPDFController $tcpdf, SmartAssetsHelperService $sahs, Translator $ts, $pwt, $bn, $bd, $ba, $bc, $ib, $locale)
     {
-        parent::__construct($tcpdf, $tha, $ts, $pwt, $bn, $bd, $ba, $bc, $ib, $locale, $mub);
+        parent::__construct($tcpdf, $sahs, $ts, $pwt, $bn, $bd, $ba, $bc, $ib, $locale);
     }
 
     /**
      * @param Receipt $receipt
-     * @param bool    $isCliContext
      *
      * @return \TCPDF
      */
-    public function build(Receipt $receipt, $isCliContext = false)
+    public function build(Receipt $receipt)
     {
-        if ($isCliContext) {
+        if ($this->sahs->isCliContext()) {
             $this->ts->setLocale($this->locale);
         }
 
         /** @var BaseTcpdf $pdf */
-        $pdf = $this->tcpdf->create($this->tha, $this->ts, $this->mub);
+        $pdf = $this->tcpdf->create($this->sahs);
 
         // set document information
         $pdf->SetCreator(PDF_CREATOR);

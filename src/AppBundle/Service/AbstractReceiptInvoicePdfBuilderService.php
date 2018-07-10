@@ -2,7 +2,6 @@
 
 namespace AppBundle\Service;
 
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 
@@ -19,9 +18,9 @@ abstract class AbstractReceiptInvoicePdfBuilderService
     protected $tcpdf;
 
     /**
-     * @var AssetsHelper
+     * @var SmartAssetsHelperService
      */
-    protected $tha;
+    protected $sahs;
 
     /**
      * @var Translator
@@ -64,29 +63,23 @@ abstract class AbstractReceiptInvoicePdfBuilderService
     protected $locale;
 
     /**
-     * @var string mailer URL base
-     */
-    protected $mub;
-
-    /**
      * AbstractReceiptInvoicePdfBuilderService constructor.
      *
-     * @param TCPDFController $tcpdf
-     * @param AssetsHelper    $tha
-     * @param Translator      $ts
-     * @param string          $pwt
-     * @param string          $bn
-     * @param string          $bd
-     * @param string          $ba
-     * @param string          $bc
-     * @param string          $ib
-     * @param string          $locale
-     * @param string          $mub
+     * @param TCPDFController          $tcpdf
+     * @param SmartAssetsHelperService $sahs
+     * @param Translator               $ts
+     * @param string                   $pwt
+     * @param string                   $bn
+     * @param string                   $bd
+     * @param string                   $ba
+     * @param string                   $bc
+     * @param string                   $ib
+     * @param string                   $locale
      */
-    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn, $bd, $ba, $bc, $ib, $locale, $mub)
+    public function __construct(TCPDFController $tcpdf, SmartAssetsHelperService $sahs, Translator $ts, $pwt, $bn, $bd, $ba, $bc, $ib, $locale)
     {
         $this->tcpdf = $tcpdf;
-        $this->tha = $tha;
+        $this->sahs = $sahs;
         $this->ts = $ts;
         $this->pwt = $pwt;
         $this->bn = $bn;
@@ -95,7 +88,6 @@ abstract class AbstractReceiptInvoicePdfBuilderService
         $this->bc = $bc;
         $this->ib = $ib;
         $this->locale = $locale;
-        $this->mub = $mub;
     }
 
     /**

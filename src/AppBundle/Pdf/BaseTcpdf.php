@@ -2,10 +2,7 @@
 
 namespace AppBundle\Pdf;
 
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
-use Symfony\Component\Asset\UrlPackage;
-use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
+use AppBundle\Service\SmartAssetsHelperService;
 
 /**
  * Class BaseTcpdf.
@@ -14,7 +11,6 @@ use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
  */
 class BaseTcpdf extends \TCPDF
 {
-    const PHP_CLI_API = 'cli';
     const PDF_WIDTH = 210;
     const PDF_MARGIN_LEFT = 30;
     const PDF_MARGIN_RIGHT = 30;
@@ -24,33 +20,23 @@ class BaseTcpdf extends \TCPDF
     const MARGIN_VERTICAL_BIG = 8;
 
     /**
-     * @var AssetsHelper
+     * @var SmartAssetsHelperService
      */
-    private $ahs;
+    private $sahs;
 
     /**
-     * @var Translator
+     * Methods.
      */
-    private $ts;
-
-    /**
-     * @var string mailer URL base
-     */
-    private $mub;
 
     /**
      * BaseTcpdf constructor.
      *
-     * @param AssetsHelper $ahs
-     * @param Translator   $ts
-     * @param string       $mub
+     * @param SmartAssetsHelperService $sahs
      */
-    public function __construct(AssetsHelper $ahs, Translator $ts, $mub)
+    public function __construct(SmartAssetsHelperService $sahs)
     {
         parent::__construct();
-        $this->ahs = $ahs;
-        $this->ts = $ts;
-        $this->mub = $mub;
+        $this->sahs = $sahs;
     }
 
     /**
@@ -59,12 +45,7 @@ class BaseTcpdf extends \TCPDF
     public function header()
     {
         // logo
-        if (self::PHP_CLI_API === php_sapi_name()) {
-            $package = new UrlPackage('https://'.$this->mub.'/', new EmptyVersionStrategy());
-            $this->Image($package->getUrl('/bundles/app/img/logo-pdf.png'), 75, 20, 60);
-        } else {
-            $this->Image($this->ahs->getUrl('/bundles/app/img/logo-pdf.png'), 75, 20, 60);
-        }
+        $this->Image($this->sahs->getAbsoluteAssetPathByContext('/bundles/app/img/logo-pdf.png'), 75, 20, 60);
         $this->SetXY(self::PDF_MARGIN_LEFT, 11);
         $this->setFontStyle(null, 'I', 8);
     }
@@ -110,6 +91,6 @@ class BaseTcpdf extends \TCPDF
      */
     public function drawSvg($x, $y, $w, $h)
     {
-        $this->ImageSVG($this->ahs->getUrl('/bundles/app/svg/compass.svg'), $x, $y, $w, $h, '', '', '', 0, false);
+        $this->ImageSVG($this->sahs->getAbsoluteAssetPathByContext('/bundles/app/svg/compass.svg'), $x, $y, $w, $h, '', '', '', 0, false);
     }
 }
