@@ -15,7 +15,7 @@ class TariffTypeEnum
     const TARIFF_TWO_HOUR_PER_WEEK = 1;
     const TARIFF_THREE_HOUR_PER_WEEK = 2;
     const TARIFF_HALF_HOUR_PER_WEEK = 3;
-    const TARIFF_SIGLE_HOUR = 4;
+    const TARIFF_PRIVATE_LESSON_PER_HOUR = 4;
 
     /**
      * @return array
@@ -27,7 +27,7 @@ class TariffTypeEnum
             self::TARIFF_TWO_HOUR_PER_WEEK => 'backend.admin.tariff.tariff_2',
             self::TARIFF_THREE_HOUR_PER_WEEK => 'backend.admin.tariff.tariff_3',
             self::TARIFF_HALF_HOUR_PER_WEEK => 'backend.admin.tariff.tariff_4',
-            self::TARIFF_SIGLE_HOUR => 'backend.admin.tariff.tariff_5',
+            self::TARIFF_PRIVATE_LESSON_PER_HOUR => 'backend.admin.tariff.tariff_5',
         );
     }
 
@@ -41,7 +41,7 @@ class TariffTypeEnum
             self::TARIFF_TWO_HOUR_PER_WEEK => '2h / setmana',
             self::TARIFF_THREE_HOUR_PER_WEEK => '3h / setmana',
             self::TARIFF_HALF_HOUR_PER_WEEK => '1,5h / setmana',
-            self::TARIFF_SIGLE_HOUR => 'hora particular',
+            self::TARIFF_PRIVATE_LESSON_PER_HOUR => 'hora particular',
         );
     }
 }

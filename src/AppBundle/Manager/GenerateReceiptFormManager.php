@@ -6,7 +6,6 @@ use AppBundle\Entity\Receipt;
 use AppBundle\Entity\ReceiptLine;
 use AppBundle\Entity\Student;
 use AppBundle\Enum\ReceiptYearMonthEnum;
-use AppBundle\Enum\TariffTypeEnum;
 use AppBundle\Form\Model\GenerateReceiptItemModel;
 use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Repository\ReceiptRepository;
@@ -65,9 +64,9 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
             ->setYear($year)
             ->setMonth($month)
         ;
-        $students = $this->sr->getStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month);
+        $studentsInGroupLessons = $this->sr->getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month);
         /** @var Student $student */
-        foreach ($students as $student) {
+        foreach ($studentsInGroupLessons as $student) {
             /** @var Receipt $previousReceipt */
             $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($student, $year, $month);
             if (!is_null($previousReceipt)) {
@@ -88,9 +87,6 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 }
             } else {
                 // new
-                if (TariffTypeEnum::TARIFF_SIGLE_HOUR == $student->getTariff()->getType()) {
-                    // TODO set units acording to assisted classes in selected year & month before
-                }
                 $generateReceiptItem = new GenerateReceiptItemModel();
                 $generateReceiptItem
                     ->setStudent($student)

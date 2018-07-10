@@ -6,7 +6,6 @@ use AppBundle\Entity\Invoice;
 use AppBundle\Entity\InvoiceLine;
 use AppBundle\Entity\Student;
 use AppBundle\Enum\InvoiceYearMonthEnum;
-use AppBundle\Enum\TariffTypeEnum;
 use AppBundle\Form\Model\GenerateInvoiceItemModel;
 use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Repository\InvoiceRepository;
@@ -65,9 +64,9 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
             ->setYear($year)
             ->setMonth($month)
         ;
-        $students = $this->sr->getStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month);
+        $studentsInGroupLessons = $this->sr->getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month);
         /** @var Student $student */
-        foreach ($students as $student) {
+        foreach ($studentsInGroupLessons as $student) {
             /** @var Invoice $previousInvoice */
             $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentYearAndMonthOrNull($student, $year, $month);
             if (!is_null($previousInvoice)) {
@@ -88,9 +87,6 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 }
             } else {
                 // new
-                if (TariffTypeEnum::TARIFF_SIGLE_HOUR == $student->getTariff()->getType()) {
-                    // TODO set units acording to assisted classes in selected year & month before
-                }
                 $generateInvoiceItem = new GenerateInvoiceItemModel();
                 $generateInvoiceItem
                     ->setStudent($student)
@@ -228,7 +224,9 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
      */
     public function persistAndDeliverFullModelForm(GenerateInvoiceModel $generateInvoiceModel)
     {
+        $this->logger->info('[GIFM] persistAndDeliverFullModelForm call');
         $recordsParsed = $this->persistFullModelForm($generateInvoiceModel);
+        $this->logger->info('[GIFM] '.$recordsParsed.' records managed');
 
         if (0 < $recordsParsed) {
             $phpBinaryFinder = new PhpExecutableFinder();
@@ -238,12 +236,14 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 /** @var Invoice $previousInvoice */
                 $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentYearAndMonthOrNull($generateInvoiceItemModel->getStudent(), $generateInvoiceModel->getYear(), $generateInvoiceModel->getMonth());
                 if ($previousInvoice && 1 === count($previousInvoice->getLines())) {
-                    $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:invoice '.$previousInvoice->getId().' --force --env='.$this->kernel->getEnvironment().' &';
+                    $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:invoice '.$previousInvoice->getId().' --force --env='.$this->kernel->getEnvironment().' 2>&1 > /dev/null &';
+                    $this->logger->info('[GIFM] '.$command);
                     $process = new Process($command);
-                    $process->start();
+                    $process->run();
                 }
             }
         }
+        $this->logger->info('[GIFM] persistAndDeliverFullModelForm EOF');
 
         return $recordsParsed;
     }
