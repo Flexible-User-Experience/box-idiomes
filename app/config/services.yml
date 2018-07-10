@@ -83,6 +83,7 @@ services:
         class: AppBundle\Twig\AppExtension
         public: false
         arguments:
+            - "@app.smart_assets_helper"
             - "@app.receipt_manager"
         tags:
             - { name: twig.extension }
@@ -92,7 +93,6 @@ services:
         class: AppBundle\Service\SmartAssetsHelperService
         arguments:
             - "@kernel"
-            - "@templating.helper.assets"
             - "%mailer_url_base%"
 
     app.mailchimp_manager:
