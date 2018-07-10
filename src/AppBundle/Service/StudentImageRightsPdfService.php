@@ -7,7 +7,6 @@ use AppBundle\Pdf\BaseTcpdf;
 use IntlDateFormatter;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
  * Class StudentImageRightsPdfService.
@@ -22,9 +21,9 @@ class StudentImageRightsPdfService
     private $tcpdf;
 
     /**
-     * @var AssetsHelper
+     * @var SmartAssetsHelperService
      */
-    private $tha;
+    private $sahs;
 
     /**
      * @var Translator
@@ -32,14 +31,9 @@ class StudentImageRightsPdfService
     private $ts;
 
     /**
-     * @var string
+     * @var string project web title
      */
     private $pwt;
-
-    /**
-     * @var string mailer URL base
-     */
-    private $mub;
 
     /**
      * Methods.
@@ -48,19 +42,17 @@ class StudentImageRightsPdfService
     /**
      * StudentImageRightsPdfService constructor.
      *
-     * @param TCPDFController $tcpdf
-     * @param AssetsHelper    $tha
-     * @param Translator      $ts
-     * @param string          $pwt
-     * @param string          $mub
+     * @param TCPDFController          $tcpdf
+     * @param SmartAssetsHelperService $sahs
+     * @param Translator               $ts
+     * @param string                   $pwt
      */
-    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $mub)
+    public function __construct(TCPDFController $tcpdf, SmartAssetsHelperService $sahs, Translator $ts, $pwt)
     {
         $this->tcpdf = $tcpdf;
-        $this->tha = $tha;
+        $this->sahs = $sahs;
         $this->ts = $ts;
         $this->pwt = $pwt;
-        $this->mub = $mub;
     }
 
     /**
@@ -71,7 +63,7 @@ class StudentImageRightsPdfService
     public function build(Student $student)
     {
         /** @var BaseTcpdf $pdf */
-        $pdf = $this->tcpdf->create($this->tha, $this->ts, $this->mub);
+        $pdf = $this->tcpdf->create($this->sahs);
 
         // set document information
         $pdf->SetCreator(PDF_CREATOR);

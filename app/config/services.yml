@@ -88,6 +88,13 @@ services:
             - { name: twig.extension }
 
 # Managers
+    app.smart_assets_helper:
+        class: AppBundle\Service\SmartAssetsHelperService
+        arguments:
+            - "@kernel"
+            - "@templating.helper.assets"
+            - "%mailer_url_base%"
+
     app.mailchimp_manager:
         class: AppBundle\Manager\MailchimpManager
         arguments:
@@ -123,34 +130,30 @@ services:
     app.base_tcpdf:
         class: AppBundle\Pdf\BaseTcpdf
         arguments:
-            - "@templating.helper.assets"
-            - "@translator.default"
-            - "%mailer_url_base%"
+            - "@app.smart_assets_helper"
 
     app.student_image_rights_pdf_builder:
         class: AppBundle\Service\StudentImageRightsPdfService
         arguments:
             - "@white_october.tcpdf"
-            - "@templating.helper.assets"
+            - "@app.smart_assets_helper"
             - "@translator.default"
             - "%project_web_title%"
-            - "%mailer_url_base%"
 
     app.sepa_agreement_pdf_builder:
         class: AppBundle\Service\SepaAgreementPdfService
         arguments:
             - "@white_october.tcpdf"
-            - "@templating.helper.assets"
+            - "@app.smart_assets_helper"
             - "@translator.default"
             - "%project_web_title%"
             - "%boss_name%"
-            - "%mailer_url_base%"
 
     app.receipt_pdf_builder:
         class: AppBundle\Service\ReceiptPdfBuilderService
         arguments:
             - "@white_october.tcpdf"
-            - "@templating.helper.assets"
+            - "@app.smart_assets_helper"
             - "@translator.default"
             - "%project_web_title%"
             - "%boss_name%"
@@ -159,13 +162,12 @@ services:
             - "%boss_city%"
             - "%iban_business%"
             - "%locale%"
-            - "%mailer_url_base%"
 
     app.invoice_pdf_builder:
         class: AppBundle\Service\InvoicePdfBuilderService
         arguments:
             - "@white_october.tcpdf"
-            - "@templating.helper.assets"
+            - "@app.smart_assets_helper"
             - "@translator.default"
             - "%project_web_title%"
             - "%boss_name%"
@@ -174,7 +176,6 @@ services:
             - "%boss_city%"
             - "%iban_business%"
             - "%locale%"
-            - "%mailer_url_base%"
 
 # Forms
     app.form.type.generate_receipt:
