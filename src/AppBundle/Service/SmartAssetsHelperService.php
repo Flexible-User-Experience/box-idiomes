@@ -73,7 +73,7 @@ class SmartAssetsHelperService
         $result = $package->getUrl($assetPath);
 
         if ($this->isCliContext()) {
-            $result = $this->kernel->getRootDir().DIRECTORY_SEPARATOR.$assetPath;
+            $result = $this->kernel->getRootDir().DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.$assetPath;
         }
 
         return $result;
@@ -91,7 +91,7 @@ class SmartAssetsHelperService
         $result = $this->ah->getUrl($assetPath);
 
         if ($this->isCliContext()) {
-            $result = $this->kernel->getRootDir().DIRECTORY_SEPARATOR.$assetPath;
+            $result = $this->kernel->getRootDir().DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.$assetPath;
         }
 
         return $result;
