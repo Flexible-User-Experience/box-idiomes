@@ -107,6 +107,7 @@ class StudentRepository extends EntityRepository
     {
         return $this->createQueryBuilder('s')
             ->join('s.events', 'e')
+            ->join('e.group', 'cg')
             ->where('YEAR(e.begin) = :year')
             ->andWhere('MONTH(e.begin) = :month')
             ->setParameter('year', $year)
@@ -178,7 +179,7 @@ class StudentRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
-    public function getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)
+    public function getStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)
     {
         return $this->getStudentsInEventsByYearAndMonthSortedBySurnameQB($year, $month)
             ->andWhere('s.tariff IS NOT NULL')
@@ -191,9 +192,9 @@ class StudentRepository extends EntityRepository
      *
      * @return Query
      */
-    public function getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariffQ($year, $month)
+    public function getStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQ($year, $month)
     {
-        return $this->getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)->getQuery();
+        return $this->getStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)->getQuery();
     }
 
     /**
@@ -202,8 +203,78 @@ class StudentRepository extends EntityRepository
      *
      * @return array
      */
-    public function getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariff($year, $month)
+    public function getStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month)
     {
-        return $this->getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariffQ($year, $month)->getResult();
+        return $this->getStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQ($year, $month)->getResult();
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     *
+     * @return QueryBuilder
+     */
+    public function getPrivateLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)
+    {
+        return $this->getStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)
+            ->andWhere('cg.isForPrivateLessons = 1')
+        ;
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     *
+     * @return Query
+     */
+    public function getPrivateLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQ($year, $month)
+    {
+        return $this->getPrivateLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)->getQuery();
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     *
+     * @return array
+     */
+    public function getPrivateLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month)
+    {
+        return $this->getPrivateLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQ($year, $month)->getResult();
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     *
+     * @return QueryBuilder
+     */
+    public function getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)
+    {
+        return $this->getStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)
+            ->andWhere('cg.isForPrivateLessons = 0')
+        ;
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     *
+     * @return Query
+     */
+    public function getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQ($year, $month)
+    {
+        return $this->getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)->getQuery();
+    }
+
+    /**
+     * @param int $year
+     * @param int $month
+     *
+     * @return array
+     */
+    public function getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month)
+    {
+        return $this->getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQ($year, $month)->getResult();
     }
 }

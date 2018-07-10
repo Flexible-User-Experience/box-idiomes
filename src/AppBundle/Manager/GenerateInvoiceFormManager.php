@@ -65,7 +65,7 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
             ->setYear($year)
             ->setMonth($month)
         ;
-        $students = $this->sr->getStudentsInEventsByYearAndMonthSortedBySurnameWithValidTariff($year, $month);
+        $students = $this->sr->getStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month);
         /** @var Student $student */
         foreach ($students as $student) {
             /** @var Invoice $previousInvoice */
