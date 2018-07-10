@@ -106,16 +106,16 @@
         },
         {
             "name": "beberlei/DoctrineExtensions",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/DoctrineExtensions.git",
-                "reference": "db49fc61f85578da1f7fd576388b755d4167eda2"
+                "reference": "5b1d5e4d97cf908baa353755533f2f3174185769"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/db49fc61f85578da1f7fd576388b755d4167eda2",
-                "reference": "db49fc61f85578da1f7fd576388b755d4167eda2",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/5b1d5e4d97cf908baa353755533f2f3174185769",
+                "reference": "5b1d5e4d97cf908baa353755533f2f3174185769",
                 "shasum": ""
             },
             "require": {
@@ -130,16 +130,7 @@
                 "zf1/zend-date": "^1.12",
                 "zf1/zend-registry": "^1.12"
             },
-            "suggest": {
-                "nesbot/carbon": "Alternative to DateTime",
-                "zf1/zend-date": "Alternative to DateTime"
-            },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "DoctrineExtensions\\": "src/"
@@ -165,7 +156,7 @@
                 "doctrine",
                 "orm"
             ],
-            "time": "2018-07-05T17:51:28+00:00"
+            "time": "2018-07-06T10:33:58+00:00"
         },
         {
             "name": "behat/transliterator",
@@ -3924,16 +3915,16 @@
         },
         {
             "name": "sonata-project/core-bundle",
-            "version": "3.10.0",
+            "version": "3.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "352275323c28f921c57312d5fb609b693a8bc8e0"
+                "reference": "08148e007c92fefc4315483eece38acade01614f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/352275323c28f921c57312d5fb609b693a8bc8e0",
-                "reference": "352275323c28f921c57312d5fb609b693a8bc8e0",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/08148e007c92fefc4315483eece38acade01614f",
+                "reference": "08148e007c92fefc4315483eece38acade01614f",
                 "shasum": ""
             },
             "require": {
@@ -3997,7 +3988,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2018-06-13T04:16:25+00:00"
+            "time": "2018-07-07T22:27:10+00:00"
         },
         {
             "name": "sonata-project/datagrid-bundle",
