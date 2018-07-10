@@ -78,6 +78,7 @@ backend:
         date: Data creació
         dates: Dates
         enabled: Actiu
+        is_for_private_lessons: Classe particular
         submit: Enviar
         published_date: Data de publicació
         image: Imatge
