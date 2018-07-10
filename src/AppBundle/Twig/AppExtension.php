@@ -17,16 +17,20 @@ use AppBundle\Enum\TeacherAbsenceTypeEnum;
 use AppBundle\Enum\TeacherColorEnum;
 use AppBundle\Enum\UserRolesEnum;
 use AppBundle\Manager\ReceiptManager;
+use AppBundle\Service\SmartAssetsHelperService;
 
 /**
  * Class AppExtension.
  *
  * @category Twig
- *
- * @author   David Romaní <david@flux.cat>
  */
 class AppExtension extends \Twig_Extension
 {
+    /**
+     * @var SmartAssetsHelperService
+     */
+    private $sahs;
+
     /**
      * @var ReceiptManager
      */
@@ -39,10 +43,12 @@ class AppExtension extends \Twig_Extension
     /**
      * AppExtension constructor.
      *
-     * @param ReceiptManager $rm
+     * @param SmartAssetsHelperService $sahs
+     * @param ReceiptManager           $rm
      */
-    public function __construct(ReceiptManager $rm)
+    public function __construct(SmartAssetsHelperService $sahs, ReceiptManager $rm)
     {
+        $this->sahs = $sahs;
         $this->rm = $rm;
     }
 
@@ -56,8 +62,9 @@ class AppExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('randomErrorText', array($this, 'randomErrorTextFunction')),
+            new \Twig_SimpleFunction('generate_random_error_text', array($this, 'generateRandomErrorText')),
             new \Twig_SimpleFunction('is_receipt_invoiced', array($this, 'isReceiptInvoicedFunction')),
+            new \Twig_SimpleFunction('get_absolute_asset_path_context_independent', array($this, 'getAbsoluteAssetPathContextIndependent')),
         );
     }
 
@@ -66,7 +73,7 @@ class AppExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function randomErrorTextFunction($length = 1024)
+    public function generateRandomErrorText($length = 1024)
     {
         // Character List to Pick from
         $chrList = '012 3456 789 abcdef ghij klmno pqrs tuvwxyz ABCD EFGHIJK LMN OPQ RSTU VWXYZ';
@@ -85,6 +92,16 @@ class AppExtension extends \Twig_Extension
     public function isReceiptInvoicedFunction(Receipt $receipt)
     {
         return $this->rm->isReceiptInvoiced($receipt);
+    }
+
+    /**
+     * @param string $assetPath
+     *
+     * @return string
+     */
+    public function getAbsoluteAssetPathContextIndependent($assetPath)
+    {
+        return $this->sahs->getAbsoluteAssetPathContextIndependent($assetPath);
     }
 
     /**
