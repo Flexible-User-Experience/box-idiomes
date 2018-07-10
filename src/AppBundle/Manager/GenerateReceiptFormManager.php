@@ -64,6 +64,8 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
             ->setYear($year)
             ->setMonth($month)
         ;
+
+        // group lessons
         $studentsInGroupLessons = $this->sr->getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month);
         /** @var Student $student */
         foreach ($studentsInGroupLessons as $student) {
@@ -73,7 +75,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 // old
                 if (count($previousReceipt->getLines()) > 0) {
                     /** @var ReceiptLine $previousItem */
-                    $previousItem = $previousReceipt->getLines()[0];
+                    $previousItem = $previousReceipt->getLines()[0]; // TODO be carefull with multiple lines (group & private lessons at same time)
                     $generateReceiptItem = new GenerateReceiptItemModel();
                     $generateReceiptItem
                         ->setStudent($student)
@@ -82,6 +84,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                         ->setDiscount($previousItem->getDiscount())
                         ->setIsReadyToGenerate(false)
                         ->setIsPreviouslyGenerated(true)
+                        ->setIsPrivateLessonType(false)
                     ;
                     $generateReceipt->addItem($generateReceiptItem);
                 }
@@ -95,6 +98,51 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     ->setDiscount($student->calculateMonthlyDiscount())
                     ->setIsReadyToGenerate(true)
                     ->setIsPreviouslyGenerated(false)
+                    ->setIsPrivateLessonType(false)
+                ;
+                $generateReceipt->addItem($generateReceiptItem);
+            }
+        }
+
+        // private lessons (in previous month period)
+        $month = $month - 1;
+        if (0 == $month) {
+            $month = 12;
+            $year = $year - 1;
+        }
+        $studentsInPrivateLessons = $this->sr->getPrivateLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month);
+        /** @var Student $student */
+        foreach ($studentsInPrivateLessons as $student) {
+            /** @var Receipt $previousReceipt */
+            $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($student, $year, $month);
+            if (!is_null($previousReceipt)) {
+                // old
+                if (count($previousReceipt->getLines()) > 0) {
+                    /** @var ReceiptLine $previousItem */
+                    $previousItem = $previousReceipt->getLines()[0]; // TODO be carefull with multiple lines (group & private lessons at same time)
+                    $generateReceiptItem = new GenerateReceiptItemModel();
+                    $generateReceiptItem
+                        ->setStudent($student)
+                        ->setUnits($previousItem->getUnits())
+                        ->setUnitPrice($previousItem->getPriceUnit())
+                        ->setDiscount($previousItem->getDiscount())
+                        ->setIsReadyToGenerate(false)
+                        ->setIsPreviouslyGenerated(true)
+                        ->setIsPrivateLessonType(false)
+                    ;
+                    $generateReceipt->addItem($generateReceiptItem);
+                }
+            } else {
+                // new
+                $generateReceiptItem = new GenerateReceiptItemModel();
+                $generateReceiptItem
+                    ->setStudent($student)
+                    ->setUnits(1)
+                    ->setUnitPrice($student->getTariff()->getPrice())
+                    ->setDiscount($student->calculateMonthlyDiscount())
+                    ->setIsReadyToGenerate(true)
+                    ->setIsPreviouslyGenerated(false)
+                    ->setIsPrivateLessonType(false)
                 ;
                 $generateReceipt->addItem($generateReceiptItem);
             }
