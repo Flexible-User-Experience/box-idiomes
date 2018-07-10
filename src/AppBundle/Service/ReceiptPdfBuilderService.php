@@ -23,14 +23,14 @@ class ReceiptPdfBuilderService extends AbstractReceiptInvoicePdfBuilderService
      * @param TCPDFController $tcpdf
      * @param AssetsHelper    $tha
      * @param Translator      $ts
-     * @param string          $pwt
-     * @param string          $bn
-     * @param string          $bd
-     * @param string          $ba
-     * @param string          $bc
-     * @param string          $ib
-     * @param string          $locale
-     * @param string          $mub
+     * @param string          $pwt    project web title
+     * @param string          $bn     boss name
+     * @param string          $bd     boss DNI
+     * @param string          $ba     boss address
+     * @param string          $bc     boss city
+     * @param string          $ib     IBAN bussines
+     * @param string          $locale default locale useful in CLI
+     * @param string          $mub    mailer URL base
      */
     public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn, $bd, $ba, $bc, $ib, $locale, $mub)
     {

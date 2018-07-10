@@ -88,6 +88,13 @@ services:
             - { name: twig.extension }
 
 # Managers
+    app.smart_assets_helper:
+        class: AppBundle\Service\SmartAssetsHelperService
+        arguments:
+            - "@kernel"
+            - "@templating.helper.assets"
+            - "%mailer_url_base%"
+
     app.mailchimp_manager:
         class: AppBundle\Manager\MailchimpManager
         arguments:
