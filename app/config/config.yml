@@ -92,9 +92,9 @@ doctrine_migrations:
 
 # FOS User
 fos_user:
-    db_driver:      orm
-    firewall_name:  admin
-    user_class:     AppBundle\Entity\User
+    db_driver:     orm
+    firewall_name: admin
+    user_class:    AppBundle\Entity\User
     group:
         group_class:   AppBundle\Entity\Group
         group_manager: sonata.user.orm.group_manager

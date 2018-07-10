@@ -64,7 +64,7 @@ class DeliverReceiptByEmailCommand extends ContainerAwareCommand
             $logger = $this->getContainer()->get('monolog.logger.email');
             /** @var ReceiptPdfBuilderService $rps */
             $rps = $this->getContainer()->get('app.receipt_pdf_builder');
-            $pdf = $rps->build($receipt, true);
+            $pdf = $rps->build($receipt);
             $output->writeln('<info>OK</info>');
             $logger->info('[DRBEC] PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully build.');
             if ($input->getOption('force')) {

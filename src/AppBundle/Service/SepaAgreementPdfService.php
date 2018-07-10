@@ -6,7 +6,6 @@ use AppBundle\Entity\Student;
 use AppBundle\Pdf\BaseTcpdf;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 
 /**
  * Class SepaAgreementPdfService.
@@ -21,9 +20,9 @@ class SepaAgreementPdfService
     private $tcpdf;
 
     /**
-     * @var AssetsHelper
+     * @var SmartAssetsHelperService
      */
-    private $tha;
+    private $sahs;
 
     /**
      * @var Translator
@@ -31,7 +30,7 @@ class SepaAgreementPdfService
     private $ts;
 
     /**
-     * @var string public web title
+     * @var string project web title
      */
     private $pwt;
 
@@ -41,32 +40,25 @@ class SepaAgreementPdfService
     private $bn;
 
     /**
-     * @var string mailer URL base
-     */
-    private $mub;
-
-    /**
      * Methods.
      */
 
     /**
      * SepaAgreementPdfService constructor.
      *
-     * @param TCPDFController $tcpdf
-     * @param AssetsHelper    $tha
-     * @param Translator      $ts
-     * @param string          $pwt
-     * @param string          $bn
-     * @param string          $mub
+     * @param TCPDFController          $tcpdf
+     * @param SmartAssetsHelperService $sahs
+     * @param Translator               $ts
+     * @param string                   $pwt
+     * @param string                   $bn
      */
-    public function __construct(TCPDFController $tcpdf, AssetsHelper $tha, Translator $ts, $pwt, $bn, $mub)
+    public function __construct(TCPDFController $tcpdf, SmartAssetsHelperService $sahs, Translator $ts, $pwt, $bn)
     {
         $this->tcpdf = $tcpdf;
-        $this->tha = $tha;
+        $this->sahs = $sahs;
         $this->ts = $ts;
         $this->pwt = $pwt;
         $this->bn = $bn;
-        $this->mub = $mub;
     }
 
     /**
@@ -77,7 +69,7 @@ class SepaAgreementPdfService
     public function build(Student $student)
     {
         /** @var BaseTcpdf $pdf */
-        $pdf = $this->tcpdf->create($this->tha, $this->ts, $this->mub);
+        $pdf = $this->tcpdf->create($this->sahs);
 
         $maxCellWidth = BaseTcpdf::PDF_WIDTH - BaseTcpdf::PDF_MARGIN_LEFT - BaseTcpdf::PDF_MARGIN_RIGHT;
 
