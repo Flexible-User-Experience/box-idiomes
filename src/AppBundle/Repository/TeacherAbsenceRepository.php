@@ -11,8 +11,6 @@ use Doctrine\ORM\Query;
  * Class TeacherAbsenceRepository.
  *
  * @category Repository
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class TeacherAbsenceRepository extends EntityRepository
 {

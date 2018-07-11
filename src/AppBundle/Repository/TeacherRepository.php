@@ -10,12 +10,13 @@ use Doctrine\ORM\Query;
  * Class TeacherRepository.
  *
  * @category Repository
- *
- * @author   Anton Serra <aserratorta@gmail.com>
  */
 class TeacherRepository extends EntityRepository
 {
-    public function findAllEnabledSortedByPosition()
+    /**
+     * @return QueryBuilder
+     */
+    public function findAllEnabledSortedByPositionQB()
     {
         $query = $this
             ->createQueryBuilder('t')
@@ -25,7 +26,23 @@ class TeacherRepository extends EntityRepository
             ->setParameter('showInHomepage', true)
             ->orderBy('t.position', 'ASC');
 
-        return $query->getQuery()->getResult();
+        return $query;
+    }
+
+    /**
+     * @return Query
+     */
+    public function findAllEnabledSortedByPositionQ()
+    {
+        return $this->findAllEnabledSortedByPositionQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function findAllEnabledSortedByPosition()
+    {
+        return $this->findAllEnabledSortedByPositionQ()->getResult();
     }
 
     /**

@@ -3,17 +3,20 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
 
 /**
- * Class ServiceRepository
+ * Class ServiceRepository.
  *
  * @category Repository
- * @package  AppBundle\Repository
- * @author   Anton Serra <aserratorta@gmail.com>
  */
 class ServiceRepository extends EntityRepository
 {
-    public function findAllEnabledSortedByPosition()
+    /**
+     * @return QueryBuilder
+     */
+    public function findAllEnabledSortedByPositionQB()
     {
         $query = $this
             ->createQueryBuilder('s')
@@ -21,6 +24,22 @@ class ServiceRepository extends EntityRepository
             ->setParameter('enabled', true)
             ->orderBy('s.position', 'ASC');
 
-        return $query->getQuery()->getResult();
+        return $query;
+    }
+
+    /**
+     * @return Query
+     */
+    public function findAllEnabledSortedByPositionQ()
+    {
+        return $this->findAllEnabledSortedByPositionQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function findAllEnabledSortedByPosition()
+    {
+        return $this->findAllEnabledSortedByPositionQ()->getResult();
     }
 }

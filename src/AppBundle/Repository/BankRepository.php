@@ -11,8 +11,6 @@ use Doctrine\ORM\Query;
  * Class BankRepository.
  *
  * @category Repository
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class BankRepository extends EntityRepository
 {

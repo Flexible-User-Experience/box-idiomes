@@ -10,8 +10,6 @@ use Doctrine\ORM\Query;
  * Class CityRepository.
  *
  * @category Repository
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class CityRepository extends EntityRepository
 {

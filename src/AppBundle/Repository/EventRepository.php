@@ -11,8 +11,6 @@ use Doctrine\ORM\Query;
  * Class EventRepository.
  *
  * @category Repository
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class EventRepository extends EntityRepository
 {
