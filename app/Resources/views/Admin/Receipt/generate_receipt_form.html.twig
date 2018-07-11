@@ -48,6 +48,7 @@
                                     </thead>
                                     <tbody>
                                     {% set total = 0 %}
+                                    {% set groupLessonsTypeLoop = 0 %}
                                     {% set bothLessonsTypeLoop = 0 %}
                                     {% for item in form.items if not item.vars.value.isPrivateLessonType %}
                                         <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
@@ -81,6 +82,7 @@
                                                 <strong>{{ generate_receipt.items[bothLessonsTypeLoop].total | draw_money | raw }}</strong>
                                             </td>
                                             {% set total = total + generate_receipt.items[bothLessonsTypeLoop].total %}
+                                            {% set groupLessonsTypeLoop = groupLessonsTypeLoop + 1 %}
                                             {% set bothLessonsTypeLoop = bothLessonsTypeLoop + 1 %}
                                         </tr>
                                     {% endfor %}
@@ -88,7 +90,7 @@
                                     <tfoot>
                                     <tr class="active">
                                         <td>
-                                            {{ generate_receipt.items | length }} {{ 'backend.admin.receipt.generator.ready' | transchoice(generate_receipt.items | length) }}
+                                            {{ groupLessonsTypeLoop }} {{ 'backend.admin.receipt.generator.ready' | transchoice(groupLessonsTypeLoop) }}
                                         </td>
                                         <th colspan="5" class="text-right">
                                             {{ 'backend.admin.student.total' | trans | upper }}
@@ -157,7 +159,7 @@
                                     <tfoot>
                                     <tr class="active">
                                         <td>
-                                            {{ generate_receipt.items | length }} {{ 'backend.admin.receipt.generator.ready' | transchoice(generate_receipt.items | length) }}
+                                            {{ bothLessonsTypeLoop - groupLessonsTypeLoop }} {{ 'backend.admin.receipt.generator.ready' | transchoice(bothLessonsTypeLoop - groupLessonsTypeLoop) }}
                                         </td>
                                         <th colspan="4" class="text-right">
                                             {{ 'backend.admin.student.total' | trans | upper }}
