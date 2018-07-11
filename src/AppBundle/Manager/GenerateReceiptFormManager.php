@@ -218,6 +218,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     /** @var Receipt $previousReceipt */
                     $previousReceipt = $this->rr->findOnePreviousGroupLessonsReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
                     $description = $this->ts->trans('backend.admin.invoiceLine.generator.group_lessons_line', array('%month%' => ReceiptYearMonthEnum::getTranslatedMonthEnumArray()[$generateReceiptModel->getMonth()], '%year%' => $generateReceiptModel->getYear()), 'messages');
+                    $isForPrivateLessons = false;
                 } else {
                     // private lessons
                     $month = $generateReceiptModel->getMonth() - 1;
@@ -229,6 +230,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     /** @var Receipt $previousReceipt */
                     $previousReceipt = $this->rr->findOnePreviousPrivateLessonsReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
                     $description = $this->ts->trans('backend.admin.invoiceLine.generator.private_lessons_line', array('%month%' => ReceiptYearMonthEnum::getTranslatedMonthEnumArray()[$month], '%year%' => $year), 'messages');
+                    $isForPrivateLessons = true;
                 }
                 ++$recordsParsed;
                 if (!is_null($previousReceipt)) {
@@ -245,7 +247,10 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                             ->setDiscount($generateReceiptItemModel->getDiscount())
                             ->setTotal($generateReceiptItemModel->getUnits() * $generateReceiptItemModel->getUnitPrice() - $generateReceiptItemModel->getDiscount())
                         ;
-                        $previousReceipt->setBaseAmount($receiptLine->getTotal());
+                        $previousReceipt
+                            ->setBaseAmount($receiptLine->getTotal())
+                            ->setIsForPrivateLessons($isForPrivateLessons)
+                        ;
                         $this->em->flush();
                     }
                 } else {
@@ -269,6 +274,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                         ->setYear($generateReceiptModel->getYear())
                         ->setMonth($generateReceiptModel->getMonth())
                         ->addLine($receiptLine)
+                        ->setIsForPrivateLessons($isForPrivateLessons)
                     ;
                     $this->em->persist($receipt);
                 }
