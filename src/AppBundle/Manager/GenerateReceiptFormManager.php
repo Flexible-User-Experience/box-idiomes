@@ -318,8 +318,15 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
             $phpBinaryPath = $phpBinaryFinder->find();
             /** @var GenerateReceiptItemModel $generateReceiptItemModel */
             foreach ($generateReceiptModel->getItems() as $generateReceiptItemModel) {
-                /** @var Receipt $previousReceipt */
-                $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
+                if (!$generateReceiptItemModel->isPrivateLessonType()) {
+                    // group lessons
+                    /** @var Receipt $previousReceipt */
+                    $previousReceipt = $this->rr->findOnePreviousGroupLessonsReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
+                } else {
+                    // private lessons
+                    /** @var Receipt $previousReceipt */
+                    $previousReceipt = $this->rr->findOnePreviousPrivateLessonsReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
+                }
                 if ($previousReceipt && 1 === count($previousReceipt->getLines()) && $generateReceiptItemModel->isReadyToGenerate()) {
                     $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipt '.$previousReceipt->getId().' --force --env='.$this->kernel->getEnvironment().' 2>&1 > /dev/null &';
                     $this->logger->info('[GRFM] '.$command);
