@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Student;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
@@ -50,5 +51,52 @@ class EventRepository extends EntityRepository
     public function getFilteredByBeginAndEnd(\DateTime $startDate, \DateTime $endDate)
     {
         return $this->getFilteredByBeginAndEndQ($startDate, $endDate)->getResult();
+    }
+
+    /**
+     * @param Student $student
+     * @param int     $year
+     * @param int     $month
+     *
+     * @return QueryBuilder
+     */
+    public function getPrivateLessonsAmountByStudentYearAndMonthQB(Student $student, $year, $month)
+    {
+        return $this->createQueryBuilder('e')
+            ->join('e.students', 's')
+            ->join('e.group', 'cg')
+            ->where('YEAR(e.begin) = :year')
+            ->andWhere('MONTH(e.begin) = :month')
+            ->andWhere('s.id = :sid')
+            ->andWhere('cg.isForPrivateLessons = :isForPrivateLessons')
+            ->setParameter('sid', $student->getId())
+            ->setParameter('year', $year)
+            ->setParameter('month', $month)
+            ->setParameter('isForPrivateLessons', true)
+        ;
+    }
+
+    /**
+     * @param Student $student
+     * @param int     $year
+     * @param int     $month
+     *
+     * @return Query
+     */
+    public function getPrivateLessonsAmountByStudentYearAndMonthQ(Student $student, $year, $month)
+    {
+        return $this->getPrivateLessonsAmountByStudentYearAndMonthQB($student, $year, $month)->getQuery();
+    }
+
+    /**
+     * @param Student $student
+     * @param int     $year
+     * @param int     $month
+     *
+     * @return float
+     */
+    public function getPrivateLessonsAmountByStudentYearAndMonth(Student $student, $year, $month)
+    {
+        return floatval(count($this->getPrivateLessonsAmountByStudentYearAndMonthQ($student, $year, $month)->getResult()));
     }
 }

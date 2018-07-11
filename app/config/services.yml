@@ -114,6 +114,7 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@translator.default"
             - "@app.student_repository"
+            - "@app.event_repository"
             - "@app.tariff_repository"
             - "@app.receipt_repository"
 
@@ -125,6 +126,7 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@translator.default"
             - "@app.student_repository"
+            - "@app.event_repository"
             - "@app.tariff_repository"
             - "@app.invoice_repository"
 

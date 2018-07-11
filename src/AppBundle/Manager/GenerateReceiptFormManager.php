@@ -8,6 +8,7 @@ use AppBundle\Entity\Student;
 use AppBundle\Enum\ReceiptYearMonthEnum;
 use AppBundle\Form\Model\GenerateReceiptItemModel;
 use AppBundle\Form\Model\GenerateReceiptModel;
+use AppBundle\Repository\EventRepository;
 use AppBundle\Repository\ReceiptRepository;
 use AppBundle\Repository\StudentRepository;
 use AppBundle\Repository\TariffRepository;
@@ -42,12 +43,13 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
      * @param EntityManager       $em
      * @param TranslatorInterface $ts
      * @param StudentRepository   $sr
+     * @param EventRepository     $er
      * @param TariffRepository    $tr
      * @param ReceiptRepository   $rr
      */
-    public function __construct(LoggerInterface $logger, KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, TariffRepository $tr, ReceiptRepository $rr)
+    public function __construct(LoggerInterface $logger, KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, EventRepository $er, TariffRepository $tr, ReceiptRepository $rr)
     {
-        parent::__construct($logger, $kernel, $em, $ts, $sr, $tr);
+        parent::__construct($logger, $kernel, $em, $ts, $sr, $er, $tr);
         $this->rr = $rr;
     }
 
@@ -137,7 +139,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 }
             } else {
                 // new
-                $privateLessonsAmount = 1;
+                $privateLessonsAmount = $this->er->getPrivateLessonsAmountByStudentYearAndMonth($student, $year, $month);
                 $generateReceiptItem = new GenerateReceiptItemModel();
                 $generateReceiptItem
                     ->setStudent($student)

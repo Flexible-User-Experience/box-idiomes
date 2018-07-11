@@ -8,6 +8,7 @@ use AppBundle\Entity\Student;
 use AppBundle\Enum\InvoiceYearMonthEnum;
 use AppBundle\Form\Model\GenerateInvoiceItemModel;
 use AppBundle\Form\Model\GenerateInvoiceModel;
+use AppBundle\Repository\EventRepository;
 use AppBundle\Repository\InvoiceRepository;
 use AppBundle\Repository\StudentRepository;
 use AppBundle\Repository\TariffRepository;
@@ -42,12 +43,13 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
      * @param EntityManager       $em
      * @param TranslatorInterface $ts
      * @param StudentRepository   $sr
+     * @param EventRepository     $er
      * @param TariffRepository    $tr
      * @param InvoiceRepository   $ir
      */
-    public function __construct(LoggerInterface $logger, KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, TariffRepository $tr, InvoiceRepository $ir)
+    public function __construct(LoggerInterface $logger, KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, EventRepository $er, TariffRepository $tr, InvoiceRepository $ir)
     {
-        parent::__construct($logger, $kernel, $em, $ts, $sr, $tr);
+        parent::__construct($logger, $kernel, $em, $ts, $sr, $er, $tr);
         $this->ir = $ir;
     }
 
