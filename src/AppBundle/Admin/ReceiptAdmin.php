@@ -151,6 +151,15 @@ class ReceiptAdmin extends AbstractBaseAdmin
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
+                'isForPrivateLessons',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.is_for_private_lessons',
+                    'required' => false,
+                    'disabled' => false,
+                )
+            )
+            ->add(
                 'isSended',
                 CheckboxType::class,
                 array(
@@ -280,6 +289,13 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'isForPrivateLessons',
+                null,
+                array(
+                    'label' => 'backend.admin.is_for_private_lessons',
+                )
+            )
+            ->add(
                 'sendDate',
                 'doctrine_orm_date',
                 array(
@@ -366,6 +382,14 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.baseAmount',
                     'template' => '::Admin/Cells/list__cell_receipt_amount.html.twig',
+                    'editable' => false,
+                )
+            )
+            ->add(
+                'isForPrivateLessons',
+                null,
+                array(
+                    'label' => 'backend.admin.is_for_private_lessons',
                     'editable' => false,
                 )
             )
