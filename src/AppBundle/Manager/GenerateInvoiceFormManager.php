@@ -10,6 +10,7 @@ use AppBundle\Form\Model\GenerateInvoiceItemModel;
 use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Repository\InvoiceRepository;
 use AppBundle\Repository\StudentRepository;
+use AppBundle\Repository\TariffRepository;
 use Doctrine\ORM\EntityManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -41,11 +42,12 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
      * @param EntityManager       $em
      * @param TranslatorInterface $ts
      * @param StudentRepository   $sr
+     * @param TariffRepository    $tr
      * @param InvoiceRepository   $ir
      */
-    public function __construct(LoggerInterface $logger, KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, InvoiceRepository $ir)
+    public function __construct(LoggerInterface $logger, KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, TariffRepository $tr, InvoiceRepository $ir)
     {
-        parent::__construct($logger, $kernel, $em, $ts, $sr);
+        parent::__construct($logger, $kernel, $em, $ts, $sr, $tr);
         $this->ir = $ir;
     }
 

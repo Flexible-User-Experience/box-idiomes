@@ -10,6 +10,7 @@ use AppBundle\Form\Model\GenerateReceiptItemModel;
 use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Repository\ReceiptRepository;
 use AppBundle\Repository\StudentRepository;
+use AppBundle\Repository\TariffRepository;
 use Doctrine\ORM\EntityManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -41,11 +42,12 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
      * @param EntityManager       $em
      * @param TranslatorInterface $ts
      * @param StudentRepository   $sr
+     * @param TariffRepository    $tr
      * @param ReceiptRepository   $rr
      */
-    public function __construct(LoggerInterface $logger, KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, ReceiptRepository $rr)
+    public function __construct(LoggerInterface $logger, KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, TariffRepository $tr, ReceiptRepository $rr)
     {
-        parent::__construct($logger, $kernel, $em, $ts, $sr);
+        parent::__construct($logger, $kernel, $em, $ts, $sr, $tr);
         $this->rr = $rr;
     }
 
@@ -110,6 +112,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
             $month = 12;
             $year = $year - 1;
         }
+        $currentPrivateLessonTariff = $this->tr->findCurrentPrivateLessonTariff();
         $studentsInPrivateLessons = $this->sr->getPrivateLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month);
         /** @var Student $student */
         foreach ($studentsInPrivateLessons as $student) {
