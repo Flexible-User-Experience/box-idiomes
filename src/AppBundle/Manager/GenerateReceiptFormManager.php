@@ -128,7 +128,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                         ->setDiscount($previousItem->getDiscount())
                         ->setIsReadyToGenerate(false)
                         ->setIsPreviouslyGenerated(true)
-                        ->setIsPrivateLessonType(false)
+                        ->setIsPrivateLessonType(true)
                     ;
                     $generateReceipt->addItem($generateReceiptItem);
                 }
@@ -142,7 +142,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     ->setDiscount($student->calculateMonthlyDiscount())
                     ->setIsReadyToGenerate(true)
                     ->setIsPreviouslyGenerated(false)
-                    ->setIsPrivateLessonType(false)
+                    ->setIsPrivateLessonType(true)
                 ;
                 $generateReceipt->addItem($generateReceiptItem);
             }

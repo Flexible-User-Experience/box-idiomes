@@ -217,7 +217,8 @@ class StudentRepository extends EntityRepository
     public function getPrivateLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)
     {
         return $this->getStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)
-            ->andWhere('cg.isForPrivateLessons = 1')
+            ->andWhere('cg.isForPrivateLessons = :isForPrivateLessons')
+            ->setParameter('isForPrivateLessons', true)
         ;
     }
 
@@ -252,7 +253,8 @@ class StudentRepository extends EntityRepository
     public function getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)
     {
         return $this->getStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQB($year, $month)
-            ->andWhere('cg.isForPrivateLessons = 0')
+            ->andWhere('cg.isForPrivateLessons = :isForPrivateLessons')
+            ->setParameter('isForPrivateLessons', false)
         ;
     }
 
