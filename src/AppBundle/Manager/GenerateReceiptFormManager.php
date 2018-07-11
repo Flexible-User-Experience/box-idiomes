@@ -109,6 +109,8 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
         }
 
         // private lessons (in previous month period)
+        $oldYear = $year;
+        $oldMonth = $month;
         $month = $month - 1;
         if (0 == $month) {
             $month = 12;
@@ -119,7 +121,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
         /** @var Student $student */
         foreach ($studentsInPrivateLessons as $student) {
             /** @var Receipt $previousReceipt */
-            $previousReceipt = $this->rr->findOnePreviousPrivateLessonsReceiptByStudentYearAndMonthOrNull($student, $year, $month);
+            $previousReceipt = $this->rr->findOnePreviousPrivateLessonsReceiptByStudentYearAndMonthOrNull($student, $oldYear, $oldMonth);
             if (!is_null($previousReceipt)) {
                 // old
                 if (count($previousReceipt->getLines()) > 0) {
