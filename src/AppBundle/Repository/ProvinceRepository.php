@@ -10,8 +10,6 @@ use Doctrine\ORM\Query;
  * Class ProvinceRepository.
  *
  * @category Repository
- *
- * @author Wils Iglesias <wiglesias83@gmail.com>
  */
 class ProvinceRepository extends EntityRepository
 {

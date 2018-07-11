@@ -93,6 +93,13 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     protected $year;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
+     */
+    protected $isForPrivateLessons;
+
+    /**
      * Methods.
      */
 
@@ -344,6 +351,34 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     public function setYear($year)
     {
         $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForPrivateLessons()
+    {
+        return $this->isForPrivateLessons;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsForPrivateLessons()
+    {
+        return $this->isForPrivateLessons();
+    }
+
+    /**
+     * @param bool $isForPrivateLessons
+     *
+     * @return $this
+     */
+    public function setIsForPrivateLessons($isForPrivateLessons)
+    {
+        $this->isForPrivateLessons = $isForPrivateLessons;
 
         return $this;
     }

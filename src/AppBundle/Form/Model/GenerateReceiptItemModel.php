@@ -42,6 +42,11 @@ class GenerateReceiptItemModel
     protected $isPreviouslyGenerated;
 
     /**
+     * @var bool
+     */
+    protected $isPrivateLessonType;
+
+    /**
      * Methods.
      */
 
@@ -177,6 +182,34 @@ class GenerateReceiptItemModel
     public function setIsPreviouslyGenerated($isPreviouslyGenerated)
     {
         $this->isPreviouslyGenerated = $isPreviouslyGenerated;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrivateLessonType()
+    {
+        return $this->isPrivateLessonType;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getPrivateLessonType()
+    {
+        return $this->isPrivateLessonType();
+    }
+
+    /**
+     * @param bool $isPrivateLessonType
+     *
+     * @return $this
+     */
+    public function setIsPrivateLessonType($isPrivateLessonType)
+    {
+        $this->isPrivateLessonType = $isPrivateLessonType;
 
         return $this;
     }

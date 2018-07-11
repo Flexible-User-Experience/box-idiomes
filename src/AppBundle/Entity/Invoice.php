@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InvoiceRepository")
  * @ORM\Table(name="invoice")
- * @UniqueEntity(fields={"month", "year", "student", "person"})
+ * @UniqueEntity(fields={"month", "year", "student", "person", "isForPrivateLessons"})
  */
 class Invoice extends AbstractReceiptInvoice
 {

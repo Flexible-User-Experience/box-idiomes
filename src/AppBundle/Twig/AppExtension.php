@@ -95,6 +95,8 @@ class AppExtension extends \Twig_Extension
     }
 
     /**
+     * Always return absolute URL path, even in CLI contexts useful for background shell processes.
+     *
      * @param string $assetPath
      *
      * @return string

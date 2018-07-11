@@ -80,6 +80,14 @@ class GenerateReceiptItemType extends AbstractType
                     'required' => false,
                 )
             )
+            ->add(
+                'isPrivateLessonType',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.invoiceLine.isPrivateLessonType',
+                    'required' => false,
+                )
+            )
         ;
     }
 

@@ -28,11 +28,15 @@
                                 <h4 class="box-title">{{ 'backend.admin.receipt.list' | trans }}</h4>
                             </div>
                             <div class="box-body">
+                                {# group lessons #}
                                 <table class="table table-bordered table-condensed" style="margin-bottom:20px">
                                     <thead>
+                                        <tr class="info">
+                                            <th colspan="7" class="text-center"><strong>{{ 'backend.admin.receipt.group_lessons_list' | trans }}</strong></th>
+                                        </tr>
                                         <tr>
                                             <th>
-                                                <input id="mark-all-helper" type="checkbox" name="mark-all-helper">
+                                                <input id="mark-all-group-helper" type="checkbox" name="mark-all-group-helper">
                                             </th>
                                             <th>{{ 'backend.admin.receiptLine.isPreviouslyGenerated' | trans }}</th>
                                             <th>{{ 'backend.admin.student.student' | trans }}</th>
@@ -43,21 +47,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {% for item in form.items %}
+                                    {% set total = 0 %}
+                                    {% set bothLessonsTypeLoop = 0 %}
+                                    {% for item in form.items if not item.vars.value.isPrivateLessonType %}
                                         <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
-                                            <td>
+                                            <td class="td-mark-group-helper">
                                                 {{ form_widget(item.isReadyToGenerate) }}
                                                 {{ form_errors(item.isReadyToGenerate) }}
                                             </td>
                                             <td style="vertical-align:middle">
                                                 {% if not item.vars.value.isPreviouslyGenerated %}
-                                                    <span class="label label-warning">{{ 'backend.admin.yes' | trans }}</span>
+                                                    <span class="label label-success">{{ 'backend.admin.yes' | trans }}</span>
                                                 {% else %}
                                                     <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
                                                 {% endif %}
                                             </td>
                                             <td style="vertical-align:middle">
-                                                {{ generate_receipt.items[loop.index0].student.fullCanonicalName }}
+                                                {{ generate_receipt.items[bothLessonsTypeLoop].student.fullCanonicalName }}
                                             </td>
                                             <td style="vertical-align:middle">
                                                 {{ form_widget(item.units) }}
@@ -72,8 +78,10 @@
                                                 {{ form_errors(item.discount) }}
                                             </td>
                                             <td class="text-right" style="vertical-align:middle">
-                                                <strong>{{ generate_receipt.items[loop.index0].total | draw_money | raw }}</strong>
+                                                <strong>{{ generate_receipt.items[bothLessonsTypeLoop].total | draw_money | raw }}</strong>
                                             </td>
+                                            {% set total = total + generate_receipt.items[bothLessonsTypeLoop].total %}
+                                            {% set bothLessonsTypeLoop = bothLessonsTypeLoop + 1 %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -86,7 +94,76 @@
                                             {{ 'backend.admin.student.total' | trans | upper }}
                                         </th>
                                         <th class="text-right">
-                                            <strong>{{ generate_receipt.totalAmount | draw_money | raw }}</strong>
+                                            <strong>{{ total | draw_money | raw }}</strong>
+                                        </th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                {# private lessons #}
+                                <table class="table table-bordered table-condensed" style="margin-bottom:20px">
+                                    <thead>
+                                        <tr class="info">
+                                            <th colspan="6" class="text-center"><strong>{{ 'backend.admin.receipt.private_lessons_list' | trans }}</strong></th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <input id="mark-all-private-helper" type="checkbox" name="mark-all-private-helper">
+                                            </th>
+                                            <th>{{ 'backend.admin.receiptLine.isPreviouslyGenerated' | trans }}</th>
+                                            <th>{{ 'backend.admin.student.student' | trans }}</th>
+                                            <th>{{ 'backend.admin.invoiceLine.units' | trans }}</th>
+                                            <th>{{ 'backend.admin.invoiceLine.priceUnit' | trans }}</th>
+                                            <th class="text-right">{{ 'backend.admin.student.total' | trans }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% set total = 0 %}
+                                    {% for item in form.items if item.vars.value.isPrivateLessonType %}
+                                        <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
+                                            <td class="td-mark-private-helper">
+                                                {{ form_widget(item.isReadyToGenerate) }}
+                                                {{ form_errors(item.isReadyToGenerate) }}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {% if not item.vars.value.isPreviouslyGenerated %}
+                                                    <span class="label label-success">{{ 'backend.admin.yes' | trans }}</span>
+                                                {% else %}
+                                                    <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {{ generate_receipt.items[bothLessonsTypeLoop].student.fullCanonicalName }}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {{ form_widget(item.units) }}
+                                                {{ form_errors(item.units) }}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {{ form_widget(item.unitPrice) }}
+                                                {{ form_errors(item.unitPrice) }}
+                                            </td>
+                                            <td class="hidden" style="vertical-align:middle">
+                                                {{ form_widget(item.discount) }}
+                                                {{ form_errors(item.discount) }}
+                                            </td>
+                                            <td class="text-right" style="vertical-align:middle">
+                                                <strong>{{ generate_receipt.items[bothLessonsTypeLoop].total | draw_money | raw }}</strong>
+                                            </td>
+                                            {% set total = total + generate_receipt.items[bothLessonsTypeLoop].total %}
+                                            {% set bothLessonsTypeLoop = bothLessonsTypeLoop + 1 %}
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                    <tr class="active">
+                                        <td>
+                                            {{ generate_receipt.items | length }} {{ 'backend.admin.receipt.generator.ready' | transchoice(generate_receipt.items | length) }}
+                                        </td>
+                                        <th colspan="4" class="text-right">
+                                            {{ 'backend.admin.student.total' | trans | upper }}
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>{{ total | draw_money | raw }}</strong>
                                         </th>
                                     </tr>
                                     </tfoot>
@@ -127,12 +204,19 @@
     {{ parent() }}
     <script type="text/javascript">
         jQuery(document).ready(function() {
-            var markAllHelperNode = jQuery('#mark-all-helper');
-            markAllHelperNode.on('ifChecked', function() {
-                jQuery('input').iCheck('check');
+            var markAllGroupHelperNode = jQuery('#mark-all-group-helper');
+            markAllGroupHelperNode.on('ifChecked', function() {
+                jQuery('td.td-mark-group-helper input').iCheck('check');
             });
-            markAllHelperNode.on('ifUnchecked', function() {
-                jQuery('input').iCheck('uncheck');
+            markAllGroupHelperNode.on('ifUnchecked', function() {
+                jQuery('td.td-mark-group-helper input').iCheck('uncheck');
+            });
+            var markAllPrivateHelperNode = jQuery('#mark-all-private-helper');
+            markAllPrivateHelperNode.on('ifChecked', function() {
+                jQuery('td.td-mark-private-helper input').iCheck('check');
+            });
+            markAllPrivateHelperNode.on('ifUnchecked', function() {
+                jQuery('td.td-mark-private-helper input').iCheck('uncheck');
             });
         });
     </script>
