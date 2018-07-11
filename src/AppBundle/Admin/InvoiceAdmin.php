@@ -186,6 +186,15 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'isForPrivateLessons',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.is_for_private_lessons',
+                    'required' => false,
+                    'disabled' => false,
+                )
+            )
+            ->add(
                 'isSended',
                 CheckboxType::class,
                 array(
@@ -319,6 +328,13 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'isForPrivateLessons',
+                null,
+                array(
+                    'label' => 'backend.admin.is_for_private_lessons',
+                )
+            )
+            ->add(
                 'isSended',
                 null,
                 array(
@@ -417,6 +433,14 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.totalAmount',
                     'template' => '::Admin/Cells/list__cell_invoice_total_amount.html.twig',
+                    'editable' => false,
+                )
+            )
+            ->add(
+                'isForPrivateLessons',
+                null,
+                array(
+                    'label' => 'backend.admin.is_for_private_lessons',
                     'editable' => false,
                 )
             )

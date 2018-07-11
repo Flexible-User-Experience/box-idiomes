@@ -2,7 +2,9 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\Repository\EventRepository;
 use AppBundle\Repository\StudentRepository;
+use AppBundle\Repository\TariffRepository;
 use Doctrine\ORM\EntityManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -41,6 +43,16 @@ abstract class AbstractGenerateReceiptInvoiceFormManager
     protected $sr;
 
     /**
+     * @var EventRepository
+     */
+    protected $er;
+
+    /**
+     * @var TariffRepository
+     */
+    protected $tr;
+
+    /**
      * Methods.
      */
 
@@ -52,14 +64,18 @@ abstract class AbstractGenerateReceiptInvoiceFormManager
      * @param EntityManager       $em
      * @param TranslatorInterface $ts
      * @param StudentRepository   $sr
+     * @param EventRepository     $er
+     * @param TariffRepository    $tr
      */
-    public function __construct(LoggerInterface $logger, KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr)
+    public function __construct(LoggerInterface $logger, KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, EventRepository $er, TariffRepository $tr)
     {
         $this->logger = $logger;
         $this->kernel = $kernel;
         $this->em = $em;
         $this->ts = $ts;
         $this->sr = $sr;
+        $this->er = $er;
+        $this->tr = $tr;
     }
 
     /**

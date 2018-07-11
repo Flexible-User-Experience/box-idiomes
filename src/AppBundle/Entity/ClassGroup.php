@@ -47,6 +47,13 @@ class ClassGroup extends AbstractBase
     private $color;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
+     */
+    private $isForPrivateLessons;
+
+    /**
      * Method.
      */
 
@@ -126,6 +133,34 @@ class ClassGroup extends AbstractBase
     public function setColor($color)
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForPrivateLessons()
+    {
+        return $this->isForPrivateLessons;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsForPrivateLessons()
+    {
+        return $this->isForPrivateLessons();
+    }
+
+    /**
+     * @param bool $isForPrivateLessons
+     *
+     * @return $this
+     */
+    public function setIsForPrivateLessons($isForPrivateLessons)
+    {
+        $this->isForPrivateLessons = $isForPrivateLessons;
 
         return $this;
     }

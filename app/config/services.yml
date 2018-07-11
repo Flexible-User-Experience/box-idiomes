@@ -114,6 +114,8 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@translator.default"
             - "@app.student_repository"
+            - "@app.event_repository"
+            - "@app.tariff_repository"
             - "@app.receipt_repository"
 
     app.generate_invoice_form_manager:
@@ -124,6 +126,8 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@translator.default"
             - "@app.student_repository"
+            - "@app.event_repository"
+            - "@app.tariff_repository"
             - "@app.invoice_repository"
 
 # PDF Builders

@@ -92,6 +92,14 @@ class ClassGroupAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'isForPrivateLessons',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.is_for_private_lessons',
+                    'required' => false,
+                )
+            )
+            ->add(
                 'enabled',
                 CheckboxType::class,
                 array(
@@ -127,6 +135,13 @@ class ClassGroupAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.class_group.book',
+                )
+            )
+            ->add(
+                'isForPrivateLessons',
+                null,
+                array(
+                    'label' => 'backend.admin.is_for_private_lessons',
                 )
             )
             ->add(
@@ -176,6 +191,14 @@ class ClassGroupAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.class_group.color',
                     'template' => '::Admin/Cells/list__cell_class_group_color.html.twig',
+                )
+            )
+            ->add(
+                'isForPrivateLessons',
+                null,
+                array(
+                    'label' => 'backend.admin.is_for_private_lessons',
+                    'editable' => true,
                 )
             )
             ->add(

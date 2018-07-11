@@ -78,6 +78,7 @@ backend:
         date: Data creació
         dates: Dates
         enabled: Actiu
+        is_for_private_lessons: Classe particular
         submit: Enviar
         published_date: Data de publicació
         image: Imatge
@@ -235,6 +236,8 @@ backend:
             generate_batch: Generar rebuts mensuals
             preview_invoice: Mostrar rebuts a generar
             list: Llistat de rebuts disponibles a generar
+            group_lessons_list: Classes en grup
+            private_lessons_list: Classes particulars
             lines: Línies de rebut
             id: Núm. Rebut
             isPayed: Pagat
@@ -299,10 +302,12 @@ backend:
             priceUnit: Preu Unitat
             isReadyToGenerate: Facturar
             isPreviouslyGenerated: Nova
+            isPrivateLessonType: Particular
             discount: Descompte
             total: Total
             generator:
-                line: "Formació idiomes impartida durant el mes de %month% de %year%"
+                group_lessons_line: "Classes en grup realitzades durant el mes de %month% de %year%"
+                private_lessons_line: "Classes particulars realitzades durant el mes de %month% de %year%"
 
 month:
     january: gener

@@ -50,7 +50,7 @@ class GenerateReceiptYearMonthChooserType extends AbstractType
                 array(
                     'label' => 'backend.admin.receipt.preview_invoice',
                     'attr' => array(
-                        'class' => 'btn btn-success',
+                        'class' => 'btn btn-warning',
                     ),
                 )
             )
