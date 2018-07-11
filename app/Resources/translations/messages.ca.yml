@@ -245,7 +245,7 @@ backend:
             createInvoice: Crear factura
             generator:
                 flash_success: "S'han generat %amount% rebuts correctament."
-                ready: "{1}rebut|]1,Inf]rebuts"
+                ready: "{0}rebuts|{1}rebut|]1,Inf]rebuts"
                 no_records_presisted: "Atenció: no s'ha creat cap rebut nou, recorda que has de marcar la casella de la primera columna."
             pdf:
                 receipt_data: "Dades rebut:"
