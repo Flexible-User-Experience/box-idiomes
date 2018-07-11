@@ -48,6 +48,7 @@
                                     </thead>
                                     <tbody>
                                     {% set total = 0 %}
+                                    {% set bothLessonsTypeLoop = 0 %}
                                     {% for item in form.items if not item.vars.value.isPrivateLessonType %}
                                         <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
                                             <td class="td-mark-group-helper">
@@ -62,7 +63,7 @@
                                                 {% endif %}
                                             </td>
                                             <td style="vertical-align:middle">
-                                                {{ generate_receipt.items[loop.index0].student.fullCanonicalName }}
+                                                {{ generate_receipt.items[bothLessonsTypeLoop].student.fullCanonicalName }}
                                             </td>
                                             <td style="vertical-align:middle">
                                                 {{ form_widget(item.units) }}
@@ -77,9 +78,10 @@
                                                 {{ form_errors(item.discount) }}
                                             </td>
                                             <td class="text-right" style="vertical-align:middle">
-                                                <strong>{{ generate_receipt.items[loop.index0].total | draw_money | raw }}</strong>
+                                                <strong>{{ generate_receipt.items[bothLessonsTypeLoop].total | draw_money | raw }}</strong>
                                             </td>
-                                            {% set total = total + generate_receipt.items[loop.index0].total %}
+                                            {% set total = total + generate_receipt.items[bothLessonsTypeLoop].total %}
+                                            {% set bothLessonsTypeLoop = bothLessonsTypeLoop + 1 %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -131,7 +133,7 @@
                                                 {% endif %}
                                             </td>
                                             <td style="vertical-align:middle">
-                                                {{ generate_receipt.items[loop.index0].student.fullCanonicalName }}
+                                                {{ generate_receipt.items[bothLessonsTypeLoop].student.fullCanonicalName }}
                                             </td>
                                             <td style="vertical-align:middle">
                                                 {{ form_widget(item.units) }}
@@ -146,9 +148,10 @@
                                                 {{ form_errors(item.discount) }}
                                             </td>
                                             <td class="text-right" style="vertical-align:middle">
-                                                <strong>{{ generate_receipt.items[loop.index0].total | draw_money | raw }}</strong>
+                                                <strong>{{ generate_receipt.items[bothLessonsTypeLoop].total | draw_money | raw }}</strong>
                                             </td>
-                                            {% set total = total + generate_receipt.items[loop.index0].total %}
+                                            {% set total = total + generate_receipt.items[bothLessonsTypeLoop].total %}
+                                            {% set bothLessonsTypeLoop = bothLessonsTypeLoop + 1 %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>

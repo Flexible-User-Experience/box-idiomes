@@ -137,12 +137,13 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 }
             } else {
                 // new
+                $privateLessonsAmount = 1;
                 $generateReceiptItem = new GenerateReceiptItemModel();
                 $generateReceiptItem
                     ->setStudent($student)
-                    ->setUnits(1)
-                    ->setUnitPrice($student->getTariff()->getPrice())
-                    ->setDiscount($student->calculateMonthlyDiscount())
+                    ->setUnits($privateLessonsAmount)
+                    ->setUnitPrice($currentPrivateLessonTariff->getPrice())
+                    ->setDiscount(0)
                     ->setIsReadyToGenerate(true)
                     ->setIsPreviouslyGenerated(false)
                     ->setIsPrivateLessonType(true)
