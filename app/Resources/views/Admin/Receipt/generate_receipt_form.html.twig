@@ -47,6 +47,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    {% set total = 0 %}
                                     {% for item in form.items if not item.vars.value.isPrivateLessonType %}
                                         <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
                                             <td class="td-mark-group-helper">
@@ -78,6 +79,7 @@
                                             <td class="text-right" style="vertical-align:middle">
                                                 <strong>{{ generate_receipt.items[loop.index0].total | draw_money | raw }}</strong>
                                             </td>
+                                            {% set total = total + generate_receipt.items[loop.index0].total %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -90,7 +92,7 @@
                                             {{ 'backend.admin.student.total' | trans | upper }}
                                         </th>
                                         <th class="text-right">
-                                            <strong>{{ generate_receipt.totalAmount | draw_money | raw }}</strong>
+                                            <strong>{{ total | draw_money | raw }}</strong>
                                         </th>
                                     </tr>
                                     </tfoot>
@@ -114,6 +116,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    {% set total = 0 %}
                                     {% for item in form.items if item.vars.value.isPrivateLessonType %}
                                         <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
                                             <td class="td-mark-private-helper">
@@ -145,6 +148,7 @@
                                             <td class="text-right" style="vertical-align:middle">
                                                 <strong>{{ generate_receipt.items[loop.index0].total | draw_money | raw }}</strong>
                                             </td>
+                                            {% set total = total + generate_receipt.items[loop.index0].total %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -157,7 +161,7 @@
                                             {{ 'backend.admin.student.total' | trans | upper }}
                                         </th>
                                         <th class="text-right">
-                                            <strong>{{ generate_receipt.totalAmount | draw_money | raw }}</strong>
+                                            <strong>{{ total | draw_money | raw }}</strong>
                                         </th>
                                     </tr>
                                     </tfoot>
