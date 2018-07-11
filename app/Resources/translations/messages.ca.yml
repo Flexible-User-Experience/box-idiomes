@@ -302,6 +302,7 @@ backend:
             priceUnit: Preu Unitat
             isReadyToGenerate: Facturar
             isPreviouslyGenerated: Nova
+            isPrivateLessonType: Particular
             discount: Descompte
             total: Total
             generator:

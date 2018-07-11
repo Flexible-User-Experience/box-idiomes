@@ -103,7 +103,7 @@
                                 <table class="table table-bordered table-condensed" style="margin-bottom:20px">
                                     <thead>
                                         <tr class="info">
-                                            <th colspan="7" class="text-center"><strong>{{ 'backend.admin.receipt.private_lessons_list' | trans }}</strong></th>
+                                            <th colspan="6" class="text-center"><strong>{{ 'backend.admin.receipt.private_lessons_list' | trans }}</strong></th>
                                         </tr>
                                         <tr>
                                             <th>
@@ -113,7 +113,6 @@
                                             <th>{{ 'backend.admin.student.student' | trans }}</th>
                                             <th>{{ 'backend.admin.invoiceLine.units' | trans }}</th>
                                             <th>{{ 'backend.admin.invoiceLine.priceUnit' | trans }}</th>
-                                            <th>{{ 'backend.admin.student.discountApplied' | trans }}</th>
                                             <th class="text-right">{{ 'backend.admin.student.total' | trans }}</th>
                                         </tr>
                                     </thead>
@@ -143,7 +142,7 @@
                                                 {{ form_widget(item.unitPrice) }}
                                                 {{ form_errors(item.unitPrice) }}
                                             </td>
-                                            <td style="vertical-align:middle">
+                                            <td class="hidden" style="vertical-align:middle">
                                                 {{ form_widget(item.discount) }}
                                                 {{ form_errors(item.discount) }}
                                             </td>
@@ -160,7 +159,7 @@
                                         <td>
                                             {{ generate_receipt.items | length }} {{ 'backend.admin.receipt.generator.ready' | transchoice(generate_receipt.items | length) }}
                                         </td>
-                                        <th colspan="5" class="text-right">
+                                        <th colspan="4" class="text-right">
                                             {{ 'backend.admin.student.total' | trans | upper }}
                                         </th>
                                         <th class="text-right">

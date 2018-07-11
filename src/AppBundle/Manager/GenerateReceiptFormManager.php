@@ -188,6 +188,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                             ->setDiscount($this->parseStringToFloat($item['discount']))
                             ->setIsReadyToGenerate(array_key_exists('isReadyToGenerate', $item))
                             ->setIsPreviouslyGenerated(array_key_exists('isPreviouslyGenerated', $item))
+                            ->setIsPrivateLessonType(array_key_exists('isPrivateLessonType', $item))
                         ;
                         $generateReceipt->addItem($generateReceiptItem);
                     }
