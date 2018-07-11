@@ -245,7 +245,7 @@ backend:
             createInvoice: Crear factura
             generator:
                 flash_success: "S'han generat %amount% rebuts correctament."
-                ready: "{1}rebut|]1,Inf]rebuts"
+                ready: "{0}rebuts|{1}rebut|]1,Inf]rebuts"
                 no_records_presisted: "Atenció: no s'ha creat cap rebut nou, recorda que has de marcar la casella de la primera columna."
             pdf:
                 receipt_data: "Dades rebut:"
@@ -286,7 +286,7 @@ backend:
             generator:
                 flash_success: "S'han generat %amount% factures correctament."
                 no_records_found: "No s'ha trobat cap alumne a les classes realitzades durant el període seleccionat."
-                ready: "{1}factura|]1,Inf]factures"
+                ready: "{0}factures|{1}factura|]1,Inf]factures"
                 no_records_presisted: "Atenció: no s'ha creat cap factura nova, recorda que has de marcar la casella 'Facturar'."
             pdf:
                 invoice_data: "Dades factura:"
