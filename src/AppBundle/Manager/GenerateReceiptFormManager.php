@@ -201,13 +201,14 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
 
     /**
      * @param GenerateReceiptModel $generateReceiptModel
+     * @param bool                 $markReceiptAsSended
      *
      * @return int
      *
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function persistFullModelForm(GenerateReceiptModel $generateReceiptModel)
+    public function persistFullModelForm(GenerateReceiptModel $generateReceiptModel, $markReceiptAsSended = false)
     {
         $recordsParsed = 0;
         /** @var GenerateReceiptItemModel $generateReceiptItemModel */
@@ -251,6 +252,12 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                             ->setBaseAmount($receiptLine->getTotal())
                             ->setIsForPrivateLessons($isForPrivateLessons)
                         ;
+                        if ($markReceiptAsSended) {
+                            $previousReceipt
+                                ->setIsSended(true)
+                                ->setSendDate(new \DateTime())
+                            ;
+                        }
                         $this->em->flush();
                     }
                 } else {
@@ -269,13 +276,18 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                         ->setDate(new \DateTime())
                         ->setStudent($generateReceiptItemModel->getStudent())
                         ->setPerson($generateReceiptItemModel->getStudent()->getParent() ? $generateReceiptItemModel->getStudent()->getParent() : null)
-                        ->setDate(new \DateTime())
                         ->setIsPayed(false)
                         ->setYear($generateReceiptModel->getYear())
                         ->setMonth($generateReceiptModel->getMonth())
                         ->addLine($receiptLine)
                         ->setIsForPrivateLessons($isForPrivateLessons)
                     ;
+                    if ($markReceiptAsSended) {
+                        $receipt
+                            ->setIsSended(true)
+                            ->setSendDate(new \DateTime())
+                        ;
+                    }
                     $this->em->persist($receipt);
                 }
             }
@@ -296,7 +308,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
     public function persistAndDeliverFullModelForm(GenerateReceiptModel $generateReceiptModel)
     {
         $this->logger->info('[GRFM] persistAndDeliverFullModelForm call');
-        $recordsParsed = $this->persistFullModelForm($generateReceiptModel);
+        $recordsParsed = $this->persistFullModelForm($generateReceiptModel, true);
         $this->logger->info('[GRFM] '.$recordsParsed.' records managed');
 
         if (0 < $recordsParsed) {
