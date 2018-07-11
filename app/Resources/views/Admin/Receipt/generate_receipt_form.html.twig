@@ -30,6 +30,9 @@
                             <div class="box-body">
                                 <table class="table table-bordered table-condensed" style="margin-bottom:20px">
                                     <thead>
+                                        <tr class="info">
+                                            <th colspan="7" class="text-center"><strong>{{ 'backend.admin.receipt.group_lessons_list' | trans }}</strong></th>
+                                        </tr>
                                         <tr>
                                             <th>
                                                 <input id="mark-all-helper" type="checkbox" name="mark-all-helper">
@@ -43,7 +46,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {% for item in form.items %}
+                                    {% for item in form.items if not item.vars.value.isPrivateLessonType %}
                                         <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
                                             <td>
                                                 {{ form_widget(item.isReadyToGenerate) }}

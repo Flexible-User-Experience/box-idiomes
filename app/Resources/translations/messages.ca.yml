@@ -236,6 +236,8 @@ backend:
             generate_batch: Generar rebuts mensuals
             preview_invoice: Mostrar rebuts a generar
             list: Llistat de rebuts disponibles a generar
+            group_lessons_list: Classes en grup
+            private_lessons_list: Classes particulars
             lines: Línies de rebut
             id: Núm. Rebut
             isPayed: Pagat
