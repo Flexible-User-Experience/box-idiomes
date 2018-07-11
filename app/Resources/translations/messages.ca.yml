@@ -306,7 +306,8 @@ backend:
             discount: Descompte
             total: Total
             generator:
-                line: "Formació idiomes impartida durant el mes de %month% de %year%"
+                group_lessons_line: "Classes en grup realitzades durant el mes de %month% de %year%"
+                private_lessons_line: "Classes particulars realitzades durant el mes de %month% de %year%"
 
 month:
     january: gener
