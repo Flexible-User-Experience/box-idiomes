@@ -70,12 +70,12 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
         /** @var Student $student */
         foreach ($studentsInGroupLessons as $student) {
             /** @var Receipt $previousReceipt */
-            $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($student, $year, $month);
+            $previousReceipt = $this->rr->findOnePreviousGroupLessonsReceiptByStudentYearAndMonthOrNull($student, $year, $month);
             if (!is_null($previousReceipt)) {
                 // old
                 if (count($previousReceipt->getLines()) > 0) {
                     /** @var ReceiptLine $previousItem */
-                    $previousItem = $previousReceipt->getLines()[0]; // TODO be carefull with multiple lines (group & private lessons at same time)
+                    $previousItem = $previousReceipt->getLines()[0];
                     $generateReceiptItem = new GenerateReceiptItemModel();
                     $generateReceiptItem
                         ->setStudent($student)
@@ -114,12 +114,12 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
         /** @var Student $student */
         foreach ($studentsInPrivateLessons as $student) {
             /** @var Receipt $previousReceipt */
-            $previousReceipt = $this->rr->findOnePreviousReceiptByStudentYearAndMonthOrNull($student, $year, $month);
+            $previousReceipt = $this->rr->findOnePreviousPrivateLessonsReceiptByStudentYearAndMonthOrNull($student, $year, $month);
             if (!is_null($previousReceipt)) {
                 // old
                 if (count($previousReceipt->getLines()) > 0) {
                     /** @var ReceiptLine $previousItem */
-                    $previousItem = $previousReceipt->getLines()[0]; // TODO be carefull with multiple lines (group & private lessons at same time)
+                    $previousItem = $previousReceipt->getLines()[0];
                     $generateReceiptItem = new GenerateReceiptItemModel();
                     $generateReceiptItem
                         ->setStudent($student)
