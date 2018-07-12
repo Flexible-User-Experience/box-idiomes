@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c9e6776a389e46ca897024af85ecd8be",
+    "content-hash": "77496b92e263f9968d5fca0d69e02f19",
     "packages": [
         {
             "name": "ancarebeca/full-calendar-bundle",
@@ -3915,16 +3915,16 @@
         },
         {
             "name": "sonata-project/core-bundle",
-            "version": "3.10.0",
+            "version": "3.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "352275323c28f921c57312d5fb609b693a8bc8e0"
+                "reference": "fbd8c7842aad2326ac31657508fc9a2527e13275"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/352275323c28f921c57312d5fb609b693a8bc8e0",
-                "reference": "352275323c28f921c57312d5fb609b693a8bc8e0",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/fbd8c7842aad2326ac31657508fc9a2527e13275",
+                "reference": "fbd8c7842aad2326ac31657508fc9a2527e13275",
                 "shasum": ""
             },
             "require": {
@@ -3988,7 +3988,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2018-06-13T04:16:25+00:00"
+            "time": "2018-07-12T06:08:25+00:00"
         },
         {
             "name": "sonata-project/datagrid-bundle",
