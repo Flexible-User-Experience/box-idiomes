@@ -18,6 +18,8 @@ use AppBundle\Enum\TeacherColorEnum;
 use AppBundle\Enum\UserRolesEnum;
 use AppBundle\Manager\ReceiptManager;
 use AppBundle\Service\SmartAssetsHelperService;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class AppExtension.
@@ -37,6 +39,11 @@ class AppExtension extends \Twig_Extension
     private $rm;
 
     /**
+     * @var Translator
+     */
+    private $ts;
+
+    /**
      * Methods.
      */
 
@@ -45,11 +52,13 @@ class AppExtension extends \Twig_Extension
      *
      * @param SmartAssetsHelperService $sahs
      * @param ReceiptManager           $rm
+     * @param TranslatorInterface      $ts
      */
-    public function __construct(SmartAssetsHelperService $sahs, ReceiptManager $rm)
+    public function __construct(SmartAssetsHelperService $sahs, ReceiptManager $rm, TranslatorInterface $ts)
     {
         $this->sahs = $sahs;
         $this->rm = $rm;
+        $this->ts = $ts;
     }
 
     /**
@@ -136,14 +145,17 @@ class AppExtension extends \Twig_Extension
     {
         $span = '';
         if ($object instanceof User && count($object->getRoles()) > 0) {
+            $ea = UserRolesEnum::getEnumArray();
             /** @var string $role */
             foreach ($object->getRoles() as $role) {
                 if (UserRolesEnum::ROLE_CMS == $role) {
-                    $span .= '<span class="label label-warning" style="margin-right:10px">editor</span>';
+                    $span .= '<span class="label label-warning" style="margin-right:10px">'.strtolower($this->ts->trans($ea[UserRolesEnum::ROLE_CMS])).'</span>';
+                } elseif (UserRolesEnum::ROLE_MANAGER == $role) {
+                    $span .= '<span class="label label-info" style="margin-right:10px">'.strtolower($this->ts->trans($ea[UserRolesEnum::ROLE_MANAGER])).'</span>';
                 } elseif (UserRolesEnum::ROLE_ADMIN == $role) {
-                    $span .= '<span class="label label-primary" style="margin-right:10px">administrador</span>';
+                    $span .= '<span class="label label-primary" style="margin-right:10px">'.strtolower($this->ts->trans($ea[UserRolesEnum::ROLE_ADMIN])).'</span>';
                 } elseif (UserRolesEnum::ROLE_SUPER_ADMIN == $role) {
-                    $span .= '<span class="label label-danger" style="margin-right:10px">superadministrador</span>';
+                    $span .= '<span class="label label-danger" style="margin-right:10px">'.strtolower($this->ts->trans($ea[UserRolesEnum::ROLE_SUPER_ADMIN])).'</span>';
                 }
             }
         } else {
