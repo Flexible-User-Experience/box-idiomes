@@ -40,7 +40,9 @@ class EventAdmin extends AbstractBaseAdmin
     {
         parent::configureRoutes($collection);
         $collection
-            ->remove('delete');
+            ->add('batchedit', $this->getRouterIdParameter().'/batch-edit')
+            ->remove('delete')
+        ;
     }
 
     /**
