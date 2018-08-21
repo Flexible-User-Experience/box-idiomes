@@ -2,11 +2,9 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\Event;
 use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Form\Type\GenerateReceiptType;
-use AppBundle\Form\Type\GenerateReceiptYearMonthChooserType;
-use AppBundle\Manager\GenerateReceiptFormManager;
-use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,26 +19,27 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class EventAdminController extends BaseAdminController
 {
     /**
-     * Generate receipt action.
+     * Edit event and all the next related events action.
      *
-     * @param Request $request
+     * @param int|string|null $id
+     * @param Request         $request
      *
      * @return Response
      *
-     * @throws NotFoundHttpException    If the object does not exist
-     * @throws AccessDeniedException    If access is not granted
-     * @throws NonUniqueResultException If problem with unique entities
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
      */
-    public function batcheditAction(Request $request = null)
+    public function batcheditAction($id = null, Request $request)
     {
-        /** @var GenerateReceiptFormManager $grfm */
-        $grfm = $this->container->get('app.generate_receipt_form_manager');
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
 
-        // year & month chooser form
-        $generateReceiptYearMonthChooser = new GenerateReceiptModel();
-        /** @var Controller $this */
-        $yearMonthForm = $this->createForm(GenerateReceiptYearMonthChooserType::class, $generateReceiptYearMonthChooser);
-        $yearMonthForm->handleRequest($request);
+        /** @var Event $object */
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        }
 
         // build items form
         $generateReceipt = new GenerateReceiptModel();
@@ -48,22 +47,21 @@ class EventAdminController extends BaseAdminController
         $form = $this->createForm(GenerateReceiptType::class, $generateReceipt);
         $form->handleRequest($request);
 
-        if ($yearMonthForm->isSubmitted() && $yearMonthForm->isValid()) {
-            $year = $generateReceiptYearMonthChooser->getYear();
-            $month = $generateReceiptYearMonthChooser->getMonth();
-            // fill full items form
-            $generateReceipt = $grfm->buildFullModelForm($year, $month);
-            /** @var Controller $this */
-            $form = $this->createForm(GenerateReceiptType::class, $generateReceipt);
-        }
+//        if ($yearMonthForm->isSubmitted() && $yearMonthForm->isValid()) {
+//            $year = $generateReceiptYearMonthChooser->getYear();
+//            $month = $generateReceiptYearMonthChooser->getMonth();
+//            // fill full items form
+//            $generateReceipt = $grfm->buildFullModelForm($year, $month);
+//            /** @var Controller $this */
+//            $form = $this->createForm(GenerateReceiptType::class, $generateReceipt);
+//        }
 
         return $this->renderWithExtraParams(
-            '::Admin/Receipt/generate_receipt_form.html.twig',
+            '::Admin/Event/batch_edit_form.html.twig',
             array(
-                'action' => 'generate',
-                'year_month_form' => $yearMonthForm->createView(),
+                'action' => 'batchedit',
+                'object' => $object,
                 'form' => $form->createView(),
-                'generate_receipt' => $generateReceipt,
             )
         );
     }
