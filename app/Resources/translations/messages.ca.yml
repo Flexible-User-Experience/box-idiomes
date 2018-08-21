@@ -163,6 +163,8 @@ backend:
             button:
                 previous: Esdeveniment anterior
                 next: Següent esdeveniment
+                special_timelapse_update: Mode actualització amb lot
+                special_timelapse_update_helper: L'actualització amb lot aplicarà els canvis a tots els esdeveniments futurs
         service:
             title: Nom
         contact:
