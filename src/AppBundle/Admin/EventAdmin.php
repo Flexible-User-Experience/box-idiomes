@@ -51,7 +51,7 @@ class EventAdmin extends AbstractBaseAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->with('backend.admin.dates', $this->getFormMdSuccessBoxArray(2))
+            ->with('backend.admin.dates', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'begin',
                 DateTimePickerType::class,
@@ -127,7 +127,7 @@ class EventAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
-            ->with('backend.admin.event.students', $this->getFormMdSuccessBoxArray(7))
+            ->with('backend.admin.event.students', $this->getFormMdSuccessBoxArray(6))
             ->add(
                 'students',
                 EntityType::class,
