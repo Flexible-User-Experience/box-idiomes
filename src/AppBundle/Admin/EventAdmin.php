@@ -116,7 +116,6 @@ class EventAdmin extends AbstractBaseAdmin
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.teacher_repository')->getEnabledSortedByNameQB(),
                 )
             )
-
             ->add(
                 'group',
                 EntityType::class,
@@ -274,6 +273,7 @@ class EventAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'batchedit' => array('template' => '::Admin/Buttons/list__action_event_batch_edit_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )
@@ -281,6 +281,8 @@ class EventAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * Create event and all of his sibilings if there is a repeat frequency.
+     *
      * @param Event $object
      *
      * @throws \Exception

@@ -5,3 +5,18 @@
 {% endblock %}
 
 {% block show %}
+    <div class="sonata-ba-view">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <h3 class="box-title">{{ 'backend.admin.dates' | trans }}</h3>
+                    </div>
+                    <div class="box-body">
+                        {{ form(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
