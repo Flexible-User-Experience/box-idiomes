@@ -105,22 +105,22 @@ services:
         class: AppBundle\Admin\ProvinceAdmin
         arguments: [ ~, AppBundle\Entity\Province, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Província", group: "Administració" }
+            - { name: sonata.admin, manager_type: orm, label: "Província", group: "Configuració" }
 
     admin.city:
         class: AppBundle\Admin\CityAdmin
         arguments: [ ~, AppBundle\Entity\City, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Ciutat", group: "Administració" }
+            - { name: sonata.admin, manager_type: orm, label: "Ciutat", group: "Configuració" }
 
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Administració" }
+            - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Configuració" }
 
     admin.bank:
         class: AppBundle\Admin\BankAdmin
         arguments: [ ~, AppBundle\Entity\Bank, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: "Bank", group: "Administració", show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, label: "Bank", group: "Configuració", show_in_dashboard: false }

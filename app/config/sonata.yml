@@ -39,11 +39,12 @@ sonata_admin:
             Facturació:
                 icon: "<i class='fa fa-eur'></i>"
                 provider: "backend_invoice_menu"
+                roles: [ "ROLE_ADMIN" ]
             Serveis:
                 icon: "<i class='fa fa-list-ul'></i>"
             Contactes:
                 icon: "<i class='fa fa-envelope'></i>"
-            Administració:
+            Configuració:
                 icon: "<i class='fa fa-cogs'></i>"
         blocks:
             -
