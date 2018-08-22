@@ -166,6 +166,7 @@ backend:
                 special_timelapse_update: Mode edició amb lot
                 special_timelapse_update_helper: L'edició amb lot aplicarà els canvis a tots els esdeveniments futurs
                 special_timelapse_update_action: Editar amb lot
+                switch_to_normal_edit: Mode edició normal
         service:
             title: Nom
         contact:

@@ -48,8 +48,11 @@
                 <div class="col-xs-12">
                     <div class="sonata-ba-form-actions well well-small form-actions">
                         <button type="submit" class="btn btn-info" name="btn_update_and_edit"><i class="fa fa-clock-o" aria-hidden="true"></i> Actualitzar</button>
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-success" href="{{ admin.generateObjectUrl('edit', object) }}" title="{{ 'backend.admin.event.button.switch_to_normal_edit' | trans({}, 'messages') }}"><i class="fa fa-save" aria-hidden="true"></i> {{ 'backend.admin.event.button.switch_to_normal_edit' | trans({}, 'messages') }}</a>
+                        </div>
                         {# timelapse buttons section #}
-                        {% include ":Admin/Event:timelapse_buttons_section.html.twig" %}
+                        {% include ":Admin/Event:timelapse_buttons_section.html.twig" with {mode: 'batchedit'} %}
                     </div>
                 </div>
             </div>

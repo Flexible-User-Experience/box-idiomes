@@ -10,5 +10,5 @@
         </div>
     {% endif %}
     {# timelapse buttons section #}
-    {% include ":Admin/Event:timelapse_buttons_section.html.twig" %}
+    {% include ":Admin/Event:timelapse_buttons_section.html.twig" with {mode: 'edit'} %}
 {% endblock %}
