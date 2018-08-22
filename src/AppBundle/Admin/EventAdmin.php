@@ -116,7 +116,6 @@ class EventAdmin extends AbstractBaseAdmin
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.teacher_repository')->getEnabledSortedByNameQB(),
                 )
             )
-
             ->add(
                 'group',
                 EntityType::class,

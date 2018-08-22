@@ -3,8 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Event;
-use AppBundle\Form\Model\GenerateReceiptModel;
-use AppBundle\Form\Type\GenerateReceiptType;
+use AppBundle\Form\Type\EventType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,15 +20,14 @@ class EventAdminController extends BaseAdminController
     /**
      * Edit event and all the next related events action.
      *
-     * @param int|string|null $id
-     * @param Request         $request
+     * @param Request $request
      *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
-    public function batcheditAction($id = null, Request $request)
+    public function batcheditAction(Request $request)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
@@ -38,13 +36,12 @@ class EventAdminController extends BaseAdminController
         $object = $this->admin->getObject($id);
 
         if (!$object) {
+            /* @var Controller $this */
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        // build items form
-        $generateReceipt = new GenerateReceiptModel();
         /** @var Controller $this */
-        $form = $this->createForm(GenerateReceiptType::class, $generateReceipt);
+        $form = $this->createForm(EventType::class, $object);
         $form->handleRequest($request);
 
 //        if ($yearMonthForm->isSubmitted() && $yearMonthForm->isValid()) {
