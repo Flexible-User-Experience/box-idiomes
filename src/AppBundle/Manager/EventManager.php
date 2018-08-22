@@ -85,4 +85,18 @@ class EventManager
 
         return $amount;
     }
+
+    /**
+     * @param Event $event
+     *
+     * @return array
+     */
+    public function getProgressBarPercentilesOf(Event $event)
+    {
+        $progressBarPercentiles = array();
+        $total = $this->getTotalRelatedEventsAmountOf($event);
+        $involved = $this->getRelatedEventsAmountOf($event);
+
+        return $progressBarPercentiles;
+    }
 }

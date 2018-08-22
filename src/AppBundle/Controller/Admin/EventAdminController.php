@@ -89,6 +89,7 @@ class EventAdminController extends BaseAdminController
                 'object' => $object,
                 'firstEvent' => $firstEvent,
                 'lastEvent' => $lastEvent,
+                'progressBarPercentiles' => $eventsManager->getProgressBarPercentilesOf($object),
                 'form' => $form->createView(),
             )
         );
