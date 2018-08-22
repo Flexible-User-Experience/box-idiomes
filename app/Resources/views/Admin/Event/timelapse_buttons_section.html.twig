@@ -1,0 +1,10 @@
+<div class="btn-group pull-right" role="group">
+    {% if object.previous is not null %}
+        <a class="btn btn-warning" href="{{ admin.generateObjectUrl(mode, object.previous) }}" title="{{ 'backend.admin.event.button.previous' | trans({}, 'messages') }}"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ object.previous.begin | date('d/m/Y H:i') }}</a>
+    {% endif %}
+    {% if object.next is not null %}
+        {% if mode == 'edit' or lastEvent is defined and object.next.id != lastEvent.id %}
+            <a class="btn btn-warning" href="{{ admin.generateObjectUrl(mode, object.next) }}" title="{{ 'backend.admin.event.button.next' | trans({}, 'messages') }}">{{ object.next.begin | date('d/m/Y H:i') }} <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+        {% endif %}
+    {% endif %}
+</div>

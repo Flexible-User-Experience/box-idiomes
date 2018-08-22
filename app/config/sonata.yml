@@ -2,9 +2,9 @@
 sonata_block:
     default_contexts: [ cms ]
     blocks:
-        sonata.admin.block.admin_list:  ~
-        sonata.block.service.text:      ~
-        app.block.event_calendar:
+        sonata.admin.block.admin_list: ~
+        sonata.block.service.text:     ~
+        app.block.event_calendar:      ~
 
 # Sonata User
 sonata_user:
@@ -39,11 +39,12 @@ sonata_admin:
             Facturació:
                 icon: "<i class='fa fa-eur'></i>"
                 provider: "backend_invoice_menu"
+                roles: [ "ROLE_ADMIN" ]
             Serveis:
                 icon: "<i class='fa fa-list-ul'></i>"
             Contactes:
                 icon: "<i class='fa fa-envelope'></i>"
-            Administració:
+            Configuració:
                 icon: "<i class='fa fa-cogs'></i>"
         blocks:
             -
@@ -57,7 +58,7 @@ sonata_admin:
                 position: top
                 type: app.block.event_calendar
                 class: "col-xs-12"
-                roles: [ "ROLE_ADMIN" ]
+                roles: [ "ROLE_MANAGER" ]
 #            -
 #                position: top
 #                type: sonata.admin.block.admin_list

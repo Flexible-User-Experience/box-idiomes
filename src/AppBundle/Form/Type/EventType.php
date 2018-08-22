@@ -7,6 +7,7 @@ use AppBundle\Entity\Event;
 use AppBundle\Entity\Student;
 use AppBundle\Entity\Teacher;
 use AppBundle\Enum\EventClassroomTypeEnum;
+use AppBundle\Manager\EventManager;
 use AppBundle\Repository\ClassGroupRepository;
 use AppBundle\Repository\StudentRepository;
 use AppBundle\Repository\TeacherRepository;
@@ -14,9 +15,7 @@ use Sonata\CoreBundle\Form\Type\DateTimePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -42,6 +41,11 @@ class EventType extends AbstractType
     private $sr;
 
     /**
+     * @var EventManager
+     */
+    private $em;
+
+    /**
      * Methods.
      */
 
@@ -51,12 +55,14 @@ class EventType extends AbstractType
      * @param TeacherRepository    $tr
      * @param ClassGroupRepository $cgr
      * @param StudentRepository    $sr
+     * @param EventManager         $em
      */
-    public function __construct(TeacherRepository $tr, ClassGroupRepository $cgr, StudentRepository $sr)
+    public function __construct(TeacherRepository $tr, ClassGroupRepository $cgr, StudentRepository $sr, EventManager $em)
     {
         $this->tr = $tr;
         $this->cgr = $cgr;
         $this->sr = $sr;
+        $this->em = $em;
     }
 
     /**
@@ -65,6 +71,8 @@ class EventType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var Event $event */
+        $event = $options['event'];
         $builder
             ->add(
                 'begin',
@@ -82,25 +90,6 @@ class EventType extends AbstractType
                     'label' => 'backend.admin.event.end',
                     'format' => 'd/M/y H:mm',
                     'required' => true,
-                )
-            )
-            ->add(
-                'dayFrequencyRepeat',
-                IntegerType::class,
-                array(
-                    'label' => 'backend.admin.event.dayFrequencyRepeat',
-                    'required' => false,
-                    'disabled' => true,
-                )
-            )
-            ->add(
-                'until',
-                DateTimePickerType::class,
-                array(
-                    'label' => 'backend.admin.event.until',
-                    'format' => 'd/M/y H:mm',
-                    'disabled' => true,
-                    'required' => false,
                 )
             )
             ->add(
@@ -148,13 +137,14 @@ class EventType extends AbstractType
                 )
             )
             ->add(
-                'send',
-                SubmitType::class,
+                'range',
+                ChoiceType::class,
                 array(
-                    'label' => 'backend.admin.submit',
-                    'attr' => array(
-                        'class' => 'btn-primary',
-                    ),
+                    'mapped' => false,
+                    'label' => 'backend.admin.event.range',
+                    'required' => true,
+                    'choices' => $this->em->getRangeChoices($event),
+                    'data' => $this->em->getLastEventOf($event)->getId(),
                 )
             )
         ;
@@ -168,6 +158,7 @@ class EventType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => Event::class,
+                'event' => null,
             )
         );
     }

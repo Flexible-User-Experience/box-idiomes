@@ -175,11 +175,19 @@ class Event extends AbstractBase
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getClassroomString()
     {
         return EventClassroomTypeEnum::getTranslatedEnumArray()[$this->classroom];
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortClassroomString()
+    {
+        return EventClassroomTypeEnum::getShortTranslatedEnumArray()[$this->classroom];
     }
 
     /**
@@ -370,6 +378,14 @@ class Event extends AbstractBase
                 ->atPath('until')
                 ->addViolation();
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getCalendarTitle()
+    {
+        return '['.$this->getShortClassroomString().'] '.$this->getGroup()->getCode().' '.$this->getTeacher()->getName();
     }
 
     /**

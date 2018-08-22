@@ -93,6 +93,8 @@ services:
         class: AppBundle\Manager\ReceiptManager
         arguments:
             - "@app.invoice_repository"
+    app.event_manager:
+        class: AppBundle\Manager\EventManager
     app.generate_receipt_form_manager:
         class: AppBundle\Manager\GenerateReceiptFormManager
         arguments:
@@ -180,5 +182,6 @@ services:
             - "@app.teacher_repository"
             - "@app.class_group_repository"
             - "@app.student_repository"
+            - "@app.event_manager"
         tags:
             - { name: form.type }

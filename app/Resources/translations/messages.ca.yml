@@ -145,6 +145,7 @@ backend:
             tariff_4: 1'5h / setmana
             tariff_5: hora particular
         event:
+            range: Limitar l'abast dels canvis a la data
             begin: Inici
             end: Fi
             teacher: Professor
@@ -166,6 +167,8 @@ backend:
                 special_timelapse_update: Mode edició amb lot
                 special_timelapse_update_helper: L'edició amb lot aplicarà els canvis a tots els esdeveniments futurs
                 special_timelapse_update_action: Editar amb lot
+                switch_to_normal_edit: Mode edició normal
+            timelapse: Lot de dates afectades amb l'edició
         service:
             title: Nom
         contact:
