@@ -2,7 +2,6 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\Event;
 use AppBundle\Entity\Student;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -97,41 +96,5 @@ class EventRepository extends EntityRepository
     public function getPrivateLessonsAmountByStudentYearAndMonth(Student $student, $year, $month)
     {
         return floatval(count($this->getPrivateLessonsAmountByStudentYearAndMonthQ($student, $year, $month)->getResult()));
-    }
-
-    /**
-     * @param Event $event
-     *
-     * @return Event|null
-     */
-    public function getFirstEventOf(Event $event)
-    {
-        $iteratedEvent = null;
-        if (!is_null($event->getPrevious())) {
-            $iteratedEvent = $event;
-            while (!is_null($iteratedEvent->getPrevious())) {
-                $iteratedEvent = $iteratedEvent->getPrevious();
-            }
-        }
-
-        return $iteratedEvent;
-    }
-
-    /**
-     * @param Event $event
-     *
-     * @return Event|null
-     */
-    public function getLastEventOf(Event $event)
-    {
-        $iteratedEvent = null;
-        if (!is_null($event->getNext())) {
-            $iteratedEvent = $event;
-            while (!is_null($iteratedEvent->getNext())) {
-                $iteratedEvent = $iteratedEvent->getNext();
-            }
-        }
-
-        return $iteratedEvent;
     }
 }

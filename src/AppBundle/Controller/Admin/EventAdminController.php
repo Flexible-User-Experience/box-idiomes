@@ -4,8 +4,8 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Event;
 use AppBundle\Form\Type\EventType;
-use AppBundle\Repository\EventRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Manager\EventManager;
+use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +27,7 @@ class EventAdminController extends BaseAdminController
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
+     * @throws \Exception
      */
     public function batcheditAction(Request $request)
     {
@@ -41,20 +42,42 @@ class EventAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
-        /** @var EventRepository $er */
-        $er = $this->container->get('app.event_repository');
-        $firstEvent = $er->getFirstEventOf($object);
-        $lastEvent = $er->getLastEventOf($object);
+        /** @var EventManager $eventsManager */
+        $eventsManager = $this->container->get('app.event_manager');
+        $firstEvent = $eventsManager->getFirstEventOf($object);
+        $lastEvent = $eventsManager->getLastEventOf($object);
 
         /** @var Controller $this */
         $form = $this->createForm(EventType::class, $object);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // TODO edit events batch
-
+            /** @var Controller $this */
+            $em = $this->get('doctrine')->getManager();
+            $em->flush();
+            $iteratorCounter = 1;
+            if (!is_null($object->getNext())) {
+                $iteratedEvent = $object;
+                while (!is_null($iteratedEvent->getNext())) {
+                    $currentBegin = $iteratedEvent->getBegin();
+                    $currentEnd = $iteratedEvent->getEnd();
+                    $currentBegin->add(new \DateInterval('P'.$firstEvent->getDayFrequencyRepeat().'D'));
+                    $currentEnd->add(new \DateInterval('P'.$firstEvent->getDayFrequencyRepeat().'D'));
+                    $iteratedEvent = $iteratedEvent->getNext();
+                    $iteratedEvent
+                        ->setBegin($currentBegin)
+                        ->setEnd($currentEnd)
+                        ->setTeacher($object->getTeacher())
+                        ->setClassroom($object->getClassroom())
+                        ->setGroup($object->getGroup())
+                        ->setStudents($object->getStudents())
+                    ;
+                    $em->flush();
+                    ++$iteratorCounter;
+                }
+            }
             /* @var Controller $this */
-            $this->addFlash('success', 'S\'han modificat X esdeveniments');
+            $this->addFlash('success', 'S\'han modificat '.$iteratorCounter.' esdeveniments del calendari d\'horaris correctament.');
 
             return $this->redirectToList();
         }
