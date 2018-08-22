@@ -16,7 +16,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -145,16 +144,6 @@ class EventType extends AbstractType
                     'class' => Student::class,
                     'choice_label' => 'fullCanonicalName',
                     'query_builder' => $this->sr->getEnabledSortedBySurnameQB(),
-                )
-            )
-            ->add(
-                'send',
-                SubmitType::class,
-                array(
-                    'label' => 'backend.admin.submit',
-                    'attr' => array(
-                        'class' => 'btn-primary',
-                    ),
                 )
             )
         ;

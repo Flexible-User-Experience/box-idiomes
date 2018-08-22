@@ -6,17 +6,54 @@
 
 {% block show %}
     <div class="sonata-ba-view">
-        <div class="row">
-            <div class="col-md-2">
-                <div class="box box-success">
-                    <div class="box-header">
-                        <h3 class="box-title">{{ 'backend.admin.dates' | trans }}</h3>
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="box box-info">
+                        <div class="box-header">
+                            <h3 class="box-title">{{ 'backend.admin.dates' | trans }}</h3>
+                        </div>
+                        <div class="box-body">
+                            {{ form_row(form.begin) }}
+                            {{ form_row(form.end) }}
+                            {{ form_row(form.dayFrequencyRepeat) }}
+                            {{ form_row(form.until) }}
+                        </div>
                     </div>
-                    <div class="box-body">
-                        {{ form(form) }}
+                </div>
+                <div class="col-md-3">
+                    <div class="box box-info">
+                        <div class="box-header">
+                            <h3 class="box-title">{{ 'backend.admin.general' | trans }}</h3>
+                        </div>
+                        <div class="box-body">
+                            {{ form_row(form.classroom) }}
+                            {{ form_row(form.teacher) }}
+                            {{ form_row(form.group) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="box box-info">
+                        <div class="box-header">
+                            <h3 class="box-title">{{ 'backend.admin.event.students' | trans }}</h3>
+                        </div>
+                        <div class="box-body">
+                            {{ form_row(form.students) }}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="sonata-ba-form-actions well well-small form-actions">
+                        <button type="submit" class="btn btn-info" name="btn_update_and_edit"><i class="fa fa-clock-o" aria-hidden="true"></i> Actualitzar</button>
+                        {# timelapse buttons section #}
+                        {% include ":Admin/Event:timelapse_buttons_section.html.twig" %}
+                    </div>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+        {{ form_end(form) }}
     </div>
 {% endblock %}

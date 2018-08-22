@@ -6,16 +6,9 @@
     {# special update button section #}
     {% if object.next is not null %}
         <div class="btn-group" role="group">
-            <a class="btn btn-info" href="{{ path('admin_app_event_batchedit', {id: object.id}) }}" title="{{ 'backend.admin.event.button.special_timelapse_update_helper' | trans({}, 'messages') }}"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ 'backend.admin.event.button.special_timelapse_update' | trans({}, 'messages') }}</a>
+            <a class="btn btn-info" href="{{ admin.generateObjectUrl('batchedit', object) }}" title="{{ 'backend.admin.event.button.special_timelapse_update_helper' | trans({}, 'messages') }}"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ 'backend.admin.event.button.special_timelapse_update' | trans({}, 'messages') }}</a>
         </div>
     {% endif %}
     {# timelapse buttons section #}
-    <div class="btn-group pull-right" role="group">
-        {% if object.previous is not null %}
-            <a class="btn btn-warning" href="{{ path('admin_app_event_edit', {id: object.previous.id}) }}" title="{{ 'backend.admin.event.button.previous' | trans({}, 'messages') }}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
-        {% endif %}
-        {% if object.next is not null %}
-            <a class="btn btn-warning" href="{{ path('admin_app_event_edit', {id: object.next.id}) }}" title="{{ 'backend.admin.event.button.next' | trans({}, 'messages') }}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-        {% endif %}
-    </div>
+    {% include ":Admin/Event:timelapse_buttons_section.html.twig" %}
 {% endblock %}
