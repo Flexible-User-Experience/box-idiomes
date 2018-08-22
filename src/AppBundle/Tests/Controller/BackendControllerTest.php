@@ -87,6 +87,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/classrooms/timetable/list'),
             array('/admin/classrooms/timetable/create'),
             array('/admin/classrooms/timetable/1/edit'),
+            array('/admin/classrooms/timetable/1/edit-batch'),
             array('/admin/billings/tariff/list'),
             array('/admin/billings/tariff/create'),
             array('/admin/billings/tariff/1/edit'),

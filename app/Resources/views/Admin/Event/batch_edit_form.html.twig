@@ -16,8 +16,14 @@
                         <div class="box-body">
                             {{ form_row(form.begin) }}
                             {{ form_row(form.end) }}
-                            {{ form_row(form.dayFrequencyRepeat) }}
-                            {{ form_row(form.until) }}
+                            <div class="form-group">
+                                <label class="control-label">{{ 'backend.admin.event.dayFrequencyRepeat' | trans }}</label>
+                                <p class="form-control-static">{{ firstEvent.dayFrequencyRepeat }} {{ 'backend.admin.event.dayFrequencyRepeat_help' | trans }}</p>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">{{ 'backend.admin.event.until' | trans }}</label>
+                                <p class="form-control-static">{{ firstEvent.until | date('d/m/Y H:i') }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

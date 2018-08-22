@@ -14,7 +14,6 @@ use Sonata\CoreBundle\Form\Type\DateTimePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -81,25 +80,6 @@ class EventType extends AbstractType
                     'label' => 'backend.admin.event.end',
                     'format' => 'd/M/y H:mm',
                     'required' => true,
-                )
-            )
-            ->add(
-                'dayFrequencyRepeat',
-                IntegerType::class,
-                array(
-                    'label' => 'backend.admin.event.dayFrequencyRepeat',
-                    'required' => false,
-                    'disabled' => true,
-                )
-            )
-            ->add(
-                'until',
-                DateTimePickerType::class,
-                array(
-                    'label' => 'backend.admin.event.until',
-                    'format' => 'd/M/y H:mm',
-                    'disabled' => true,
-                    'required' => false,
                 )
             )
             ->add(
