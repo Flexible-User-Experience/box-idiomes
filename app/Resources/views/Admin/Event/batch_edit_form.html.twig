@@ -57,25 +57,32 @@
                             <h3 class="box-title">{{ 'backend.admin.event.timelapse' | trans }}</h3>
                         </div>
                         <div class="box-body">
-                            <div class="progress">
-                                {% if firstEvent is not null %}
-                                    <div class="progress-bar progress-bar-danger progress-bar-striped" style="width:{{ progressBarPercentiles.first }}%">
-                                        <span class="pull-left" style="margin-left:5px">{{ firstEvent.begin | date('d/m/Y H:i') }}</span>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="progress">
+                                        {% if firstEvent is not null %}
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped" style="width:{{ progressBarPercentiles.first }}%">
+                                                <span class="pull-left" style="margin-left:5px">{{ firstEvent.begin | date('d/m/Y H:i') }}</span>
+                                            </div>
+                                            <div class="progress-bar progress-bar-success" style="width:15%">
+                                                <span class="pull-left" style="margin-left:5px">{{ object.begin | date('d/m/Y H:i') }}</span>
+                                            </div>
+                                            <div class="progress-bar progress-bar-success" style="width:{{ progressBarPercentiles.last }}%">
+                                                <span class="pull-right" style="margin-right:5px">{{ lastEvent.begin | date('d/m/Y H:i') }}</span>
+                                            </div>
+                                        {% else %}
+                                            <div class="progress-bar progress-bar-success" style="width:20%">
+                                                <span class="pull-left" style="margin-left:5px">{{ object.begin | date('d/m/Y H:i') }}</span>
+                                            </div>
+                                            <div class="progress-bar progress-bar-success" style="width:80%">
+                                                <span class="pull-right" style="margin-right:5px">{{ lastEvent.begin | date('d/m/Y H:i') }}</span>
+                                            </div>
+                                        {% endif %}
                                     </div>
-                                    <div class="progress-bar progress-bar-success" style="width:15%">
-                                        <span class="pull-left" style="margin-left:5px">{{ object.begin | date('d/m/Y H:i') }}</span>
-                                    </div>
-                                    <div class="progress-bar progress-bar-success" style="width:{{ progressBarPercentiles.last }}%">
-                                        <span class="pull-right" style="margin-right:5px">{{ lastEvent.begin | date('d/m/Y H:i') }}</span>
-                                    </div>
-                                {% else %}
-                                    <div class="progress-bar progress-bar-success" style="width:20%">
-                                        <span class="pull-left" style="margin-left:5px">{{ object.begin | date('d/m/Y H:i') }}</span>
-                                    </div>
-                                    <div class="progress-bar progress-bar-success" style="width:80%">
-                                        <span class="pull-right" style="margin-right:5px">{{ lastEvent.begin | date('d/m/Y H:i') }}</span>
-                                    </div>
-                                {% endif %}
+                                </div>
+                                <div class="col-xs-4 col-xs-offset-8">
+                                    {{ form_row(form.range) }}
+                                </div>
                             </div>
                         </div>
                     </div>

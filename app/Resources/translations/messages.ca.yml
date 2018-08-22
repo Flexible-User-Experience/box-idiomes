@@ -145,6 +145,7 @@ backend:
             tariff_4: 1'5h / setmana
             tariff_5: hora particular
         event:
+            range: Limitar l'abast dels canvis a la data
             begin: Inici
             end: Fi
             teacher: Professor

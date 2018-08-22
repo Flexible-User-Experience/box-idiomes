@@ -126,6 +126,22 @@ class EventType extends AbstractType
                     'query_builder' => $this->sr->getEnabledSortedBySurnameQB(),
                 )
             )
+            ->add(
+                'range',
+                ChoiceType::class,
+                array(
+                    'mapped' => false,
+                    'label' => 'backend.admin.event.range',
+                    'required' => true,
+                    'choices' => array(
+                        1 => '21/08/2018',
+                        3 => '22/08/2018',
+                        5 => '23/08/2018',
+                        6 => '24/08/2018',
+                        2 => '25/08/2018',
+                    ),
+                )
+            )
         ;
     }
 
