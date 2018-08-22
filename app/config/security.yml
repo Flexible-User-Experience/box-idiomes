@@ -10,16 +10,17 @@ security:
         ROLE_SONATA_MANAGER:
             - ROLE_ADMIN_TEACHER_ABSENCE_ALL
             - ROLE_ADMIN_CLASS_GROUP_ALL
-            - ROLE_ADMIN_RECEIPT_ALL
-            - ROLE_ADMIN_RECEIPT_LINE_ALL
-            - ROLE_ADMIN_INVOICE_ALL
-            - ROLE_ADMIN_INVOICE_LINE_ALL
-            - ROLE_ADMIN_TARIFF_ALL
             - ROLE_ADMIN_EVENT_ALL
             - ROLE_ADMIN_STUDENT_ALL
             - ROLE_ADMIN_PARENT_ALL
             - ROLE_ADMIN_PROVINCE_ALL
             - ROLE_ADMIN_CITY_ALL
+        ROLE_SONATA_ADMIN:
+            - ROLE_ADMIN_RECEIPT_ALL
+            - ROLE_ADMIN_RECEIPT_LINE_ALL
+            - ROLE_ADMIN_INVOICE_ALL
+            - ROLE_ADMIN_INVOICE_LINE_ALL
+            - ROLE_ADMIN_TARIFF_ALL
             - ROLE_ADMIN_USER_ALL
         ROLE_CMS:
             - ROLE_USER
@@ -30,6 +31,7 @@ security:
             - ROLE_SONATA_MANAGER
         ROLE_ADMIN:
             - ROLE_MANAGER
+            - ROLE_SONATA_ADMIN
         ROLE_SUPER_ADMIN:
             - ROLE_ADMIN
             - ROLE_ALLOWED_TO_SWITCH

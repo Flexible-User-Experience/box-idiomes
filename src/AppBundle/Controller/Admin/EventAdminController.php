@@ -44,14 +44,14 @@ class EventAdminController extends BaseAdminController
         $form = $this->createForm(EventType::class, $object);
         $form->handleRequest($request);
 
-//        if ($yearMonthForm->isSubmitted() && $yearMonthForm->isValid()) {
-//            $year = $generateReceiptYearMonthChooser->getYear();
-//            $month = $generateReceiptYearMonthChooser->getMonth();
-//            // fill full items form
-//            $generateReceipt = $grfm->buildFullModelForm($year, $month);
-//            /** @var Controller $this */
-//            $form = $this->createForm(GenerateReceiptType::class, $generateReceipt);
-//        }
+        if ($form->isSubmitted() && $form->isValid()) {
+            // TODO edit events batch
+
+            /* @var Controller $this */
+            $this->addFlash('success', 'S\'han modificat X esdeveniments');
+
+            return $this->redirectToList();
+        }
 
         return $this->renderWithExtraParams(
             '::Admin/Event/batch_edit_form.html.twig',
