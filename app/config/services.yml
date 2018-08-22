@@ -182,5 +182,6 @@ services:
             - "@app.teacher_repository"
             - "@app.class_group_repository"
             - "@app.student_repository"
+            - "@app.event_manager"
         tags:
             - { name: form.type }

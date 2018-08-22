@@ -7,6 +7,7 @@ use AppBundle\Entity\Event;
 use AppBundle\Entity\Student;
 use AppBundle\Entity\Teacher;
 use AppBundle\Enum\EventClassroomTypeEnum;
+use AppBundle\Manager\EventManager;
 use AppBundle\Repository\ClassGroupRepository;
 use AppBundle\Repository\StudentRepository;
 use AppBundle\Repository\TeacherRepository;
@@ -40,6 +41,11 @@ class EventType extends AbstractType
     private $sr;
 
     /**
+     * @var EventManager
+     */
+    private $em;
+
+    /**
      * Methods.
      */
 
@@ -49,12 +55,14 @@ class EventType extends AbstractType
      * @param TeacherRepository    $tr
      * @param ClassGroupRepository $cgr
      * @param StudentRepository    $sr
+     * @param EventManager         $em
      */
-    public function __construct(TeacherRepository $tr, ClassGroupRepository $cgr, StudentRepository $sr)
+    public function __construct(TeacherRepository $tr, ClassGroupRepository $cgr, StudentRepository $sr, EventManager $em)
     {
         $this->tr = $tr;
         $this->cgr = $cgr;
         $this->sr = $sr;
+        $this->em = $em;
     }
 
     /**
@@ -63,6 +71,8 @@ class EventType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var Event $event */
+        $event = $options['event'];
         $builder
             ->add(
                 'begin',
@@ -133,13 +143,8 @@ class EventType extends AbstractType
                     'mapped' => false,
                     'label' => 'backend.admin.event.range',
                     'required' => true,
-                    'choices' => array(
-                        1 => '21/08/2018',
-                        3 => '22/08/2018',
-                        5 => '23/08/2018',
-                        6 => '24/08/2018',
-                        2 => '25/08/2018',
-                    ),
+                    'choices' => $this->em->getRangeChoices($event),
+                    'data' => $this->em->getLastEventOf($event)->getId(),
                 )
             )
         ;
@@ -153,6 +158,7 @@ class EventType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => Event::class,
+                'event' => null,
             )
         );
     }

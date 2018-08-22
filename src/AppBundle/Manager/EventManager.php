@@ -105,4 +105,25 @@ class EventManager
 
         return $progressBarPercentiles;
     }
+
+    /**
+     * @param Event $event
+     *
+     * @return array
+     */
+    public function getRangeChoices(Event $event)
+    {
+        $result = array();
+        // uncomment line below if you want an inclusive range choices
+        // $result[$event->getId()] = $event->getBegin()->format('d/m/Y H:i');
+        if (!is_null($event->getNext())) {
+            $iteratedEvent = $event;
+            while (!is_null($iteratedEvent->getNext())) {
+                $iteratedEvent = $iteratedEvent->getNext();
+                $result[$iteratedEvent->getId()] = $iteratedEvent->getBegin()->format('d/m/Y H:i');
+            }
+        }
+
+        return $result;
+    }
 }

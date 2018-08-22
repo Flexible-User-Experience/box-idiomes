@@ -48,7 +48,7 @@ class EventAdminController extends BaseAdminController
         $lastEvent = $eventsManager->getLastEventOf($object);
 
         /** @var Controller $this */
-        $form = $this->createForm(EventType::class, $object);
+        $form = $this->createForm(EventType::class, $object, array('event' => $object));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
