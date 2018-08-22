@@ -75,7 +75,11 @@ class EventManager
     public function getTotalRelatedEventsAmountOf(Event $event)
     {
         $amount = 0;
-        $iteratedEvent = $this->getFirstEventOf($event);
+        if (!is_null($event->getPrevious())) {
+            $iteratedEvent = $this->getFirstEventOf($event);
+        } else {
+            $iteratedEvent = $event;
+        }
         if (!is_null($event->getNext())) {
             while (!is_null($iteratedEvent->getNext())) {
                 $iteratedEvent = $iteratedEvent->getNext();
