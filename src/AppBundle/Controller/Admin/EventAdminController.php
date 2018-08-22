@@ -52,6 +52,7 @@ class EventAdminController extends BaseAdminController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $eventIdStopRangeIterator = $form->get('range')->getData();
             /** @var Controller $this */
             $em = $this->get('doctrine')->getManager();
             $em->flush();
@@ -64,20 +65,24 @@ class EventAdminController extends BaseAdminController
                     $currentBegin->add(new \DateInterval('P'.$firstEvent->getDayFrequencyRepeat().'D'));
                     $currentEnd->add(new \DateInterval('P'.$firstEvent->getDayFrequencyRepeat().'D'));
                     $iteratedEvent = $iteratedEvent->getNext();
-                    $iteratedEvent
-                        ->setBegin($currentBegin)
-                        ->setEnd($currentEnd)
-                        ->setTeacher($object->getTeacher())
-                        ->setClassroom($object->getClassroom())
-                        ->setGroup($object->getGroup())
-                        ->setStudents($object->getStudents())
-                    ;
-                    $em->flush();
-                    ++$iteratorCounter;
+                    if ($iteratedEvent->getId() <= $eventIdStopRangeIterator) {
+                        $iteratedEvent
+                            ->setBegin($currentBegin)
+                            ->setEnd($currentEnd)
+                            ->setTeacher($object->getTeacher())
+                            ->setClassroom($object->getClassroom())
+                            ->setGroup($object->getGroup())
+                            ->setStudents($object->getStudents());
+                        $em->flush();
+                        ++$iteratorCounter;
+                    }
                 }
             }
             /* @var Controller $this */
-            $this->addFlash('success', 'S\'han modificat '.$iteratorCounter.' esdeveniments del calendari d\'horaris correctament.');
+            $this->addFlash(
+                'success',
+                'S\'han modificat '.$iteratorCounter.' esdeveniments del calendari d\'horaris correctament.'
+            );
 
             return $this->redirectToList();
         }
@@ -93,5 +98,23 @@ class EventAdminController extends BaseAdminController
                 'form' => $form->createView(),
             )
         );
+    }
+
+    /**
+     * Delete event and all the next related events action.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
+     * @throws \Exception
+     */
+    public function batchdeleteAction(Request $request)
+    {
+        // TODO
+
+        return $this->redirectToList();
     }
 }
