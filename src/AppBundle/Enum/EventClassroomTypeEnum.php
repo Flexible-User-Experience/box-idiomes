@@ -41,4 +41,17 @@ class EventClassroomTypeEnum
             self::CLASSROOM_4 => 'Aula 4',
         );
     }
+
+    /**
+     * @return array
+     */
+    public static function getShortTranslatedEnumArray()
+    {
+        return array(
+            self::CLASSROOM_1 => '1',
+            self::CLASSROOM_2 => '2',
+            self::CLASSROOM_3 => '3',
+            self::CLASSROOM_4 => '4',
+        );
+    }
 }
