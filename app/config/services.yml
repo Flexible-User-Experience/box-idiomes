@@ -11,13 +11,11 @@ services:
             - "@templating"
         tags:
             - { name: sonata.block }
-
 # Messaging
     app.courier:
         class: AppBundle\Service\CourierService
         arguments:
             - "@swiftmailer.mailer"
-
     app.notification:
         class: AppBundle\Service\NotificationService
         arguments:
@@ -25,26 +23,22 @@ services:
             - "@twig"
             - "%mailer_destination%"
             - "%mailer_url_base%"
-
 # Factories
     app.event_transformer_factory:
         class: AppBundle\Service\EventTrasnformerFactoryService
         arguments:
             - "@router"
-
 # Menus
     app.backend_invoice_menu_builder:
         class: AppBundle\Menu\BackendInvoiceMenuBuilder
         arguments:
             - "@knp_menu.factory"
-
     app.frontend_menu_builder:
         class: AppBundle\Menu\FrontendMenuBuilder
         arguments:
             - "@knp_menu.factory"
             - "@security.authorization_checker"
             - "@security.token_storage"
-
     app.backend_invoice_menu:
         class: Knp\Menu\MenuItem
         factory: [ "@app.backend_invoice_menu_builder", createSideMenu ]
@@ -52,7 +46,6 @@ services:
             - "@request_stack"
         tags:
             - { name: knp_menu.menu, alias: backend_invoice_menu }
-
     app.frontend_top_menu:
         class: Knp\Menu\MenuItem
         factory: [ "@app.frontend_menu_builder", createTopMenu ]
@@ -60,7 +53,6 @@ services:
             - "@request_stack"
         tags:
             - { name: knp_menu.menu, alias: top }
-
 # Listeners
     app.sitemap:
         class: AppBundle\Listener\SitemapListener
@@ -69,7 +61,6 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - { name: "presta.sitemap.listener" }
-
     app.event_fullcalendar:
         class: AppBundle\Listener\FullCalendarListener
         arguments:
@@ -77,7 +68,6 @@ services:
             - "@app.event_transformer_factory"
         tags:
             - { name: "kernel.event_listener", event: "fullcalendar.set_data", method: "loadData" }
-
 # Twig Extensions
     app.twig_extension:
         class: AppBundle\Twig\AppExtension
@@ -88,25 +78,21 @@ services:
             - "@translator"
         tags:
             - { name: twig.extension }
-
 # Managers
     app.smart_assets_helper:
         class: AppBundle\Service\SmartAssetsHelperService
         arguments:
             - "@kernel"
             - "%mailer_url_base%"
-
     app.mailchimp_manager:
         class: AppBundle\Manager\MailchimpManager
         arguments:
             - "@app.notification"
             - "%mailchimp_api_key%"
-
     app.receipt_manager:
         class: AppBundle\Manager\ReceiptManager
         arguments:
             - "@app.invoice_repository"
-
     app.generate_receipt_form_manager:
         class: AppBundle\Manager\GenerateReceiptFormManager
         arguments:
@@ -118,7 +104,6 @@ services:
             - "@app.event_repository"
             - "@app.tariff_repository"
             - "@app.receipt_repository"
-
     app.generate_invoice_form_manager:
         class: AppBundle\Manager\GenerateInvoiceFormManager
         arguments:
@@ -130,13 +115,11 @@ services:
             - "@app.event_repository"
             - "@app.tariff_repository"
             - "@app.invoice_repository"
-
 # PDF Builders
     app.base_tcpdf:
         class: AppBundle\Pdf\BaseTcpdf
         arguments:
             - "@app.smart_assets_helper"
-
     app.student_image_rights_pdf_builder:
         class: AppBundle\Service\StudentImageRightsPdfService
         arguments:
@@ -144,7 +127,6 @@ services:
             - "@app.smart_assets_helper"
             - "@translator.default"
             - "%project_web_title%"
-
     app.sepa_agreement_pdf_builder:
         class: AppBundle\Service\SepaAgreementPdfService
         arguments:
@@ -153,7 +135,6 @@ services:
             - "@translator.default"
             - "%project_web_title%"
             - "%boss_name%"
-
     app.receipt_pdf_builder:
         class: AppBundle\Service\ReceiptPdfBuilderService
         arguments:
@@ -167,7 +148,6 @@ services:
             - "%boss_city%"
             - "%iban_business%"
             - "%locale%"
-
     app.invoice_pdf_builder:
         class: AppBundle\Service\InvoicePdfBuilderService
         arguments:
@@ -181,7 +161,6 @@ services:
             - "%boss_city%"
             - "%iban_business%"
             - "%locale%"
-
 # Forms
     app.form.type.generate_receipt:
         class: AppBundle\Form\Type\GenerateReceiptType
@@ -189,10 +168,17 @@ services:
             - "@router.default"
         tags:
             - { name: form.type }
-
     app.form.type.generate_invoice:
         class: AppBundle\Form\Type\GenerateInvoiceType
         arguments:
             - "@router.default"
+        tags:
+            - { name: form.type }
+    app.form.type.event:
+        class: AppBundle\Form\Type\EventType
+        arguments:
+            - "@app.teacher_repository"
+            - "@app.class_group_repository"
+            - "@app.student_repository"
         tags:
             - { name: form.type }

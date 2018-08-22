@@ -7,6 +7,9 @@ use AppBundle\Entity\Event;
 use AppBundle\Entity\Student;
 use AppBundle\Entity\Teacher;
 use AppBundle\Enum\EventClassroomTypeEnum;
+use AppBundle\Repository\ClassGroupRepository;
+use AppBundle\Repository\StudentRepository;
+use AppBundle\Repository\TeacherRepository;
 use Sonata\CoreBundle\Form\Type\DateTimePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -23,6 +26,39 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class EventType extends AbstractType
 {
+    /**
+     * @var TeacherRepository
+     */
+    private $tr;
+
+    /**
+     * @var ClassGroupRepository
+     */
+    private $cgr;
+
+    /**
+     * @var StudentRepository
+     */
+    private $sr;
+
+    /**
+     * Methods.
+     */
+
+    /**
+     * EventType constructor.
+     *
+     * @param TeacherRepository    $tr
+     * @param ClassGroupRepository $cgr
+     * @param StudentRepository    $sr
+     */
+    public function __construct(TeacherRepository $tr, ClassGroupRepository $cgr, StudentRepository $sr)
+    {
+        $this->tr = $tr;
+        $this->cgr = $cgr;
+        $this->sr = $sr;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -86,7 +122,7 @@ class EventType extends AbstractType
                     'required' => true,
                     'class' => Teacher::class,
                     'choice_label' => 'name',
-                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.teacher_repository')->getEnabledSortedByNameQB(),
+                    'query_builder' => $this->tr->getEnabledSortedByNameQB(),
                 )
             )
             ->add(
@@ -96,7 +132,7 @@ class EventType extends AbstractType
                     'label' => 'backend.admin.event.group',
                     'required' => true,
                     'class' => ClassGroup::class,
-                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.class_group_repository')->getEnabledSortedByCodeQB(),
+                    'query_builder' => $this->cgr->getEnabledSortedByCodeQB(),
                 )
             )
             ->add(
@@ -108,7 +144,7 @@ class EventType extends AbstractType
                     'multiple' => true,
                     'class' => Student::class,
                     'choice_label' => 'fullCanonicalName',
-                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedBySurnameQB(),
+                    'query_builder' => $this->sr->getEnabledSortedBySurnameQB(),
                 )
             )
             ->add(
