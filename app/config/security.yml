@@ -15,7 +15,7 @@ security:
             - ROLE_ADMIN_PARENT_ALL
             - ROLE_ADMIN_PROVINCE_ALL
             - ROLE_ADMIN_CITY_ALL
-        ROLE_SONATA_ADMIN:
+        ROLE_SONATA_CUSTOM_ADMIN:
             - ROLE_ADMIN_RECEIPT_ALL
             - ROLE_ADMIN_RECEIPT_LINE_ALL
             - ROLE_ADMIN_INVOICE_ALL
@@ -31,7 +31,7 @@ security:
             - ROLE_SONATA_MANAGER
         ROLE_ADMIN:
             - ROLE_MANAGER
-            - ROLE_SONATA_ADMIN
+            - ROLE_SONATA_CUSTOM_ADMIN
         ROLE_SUPER_ADMIN:
             - ROLE_ADMIN
             - ROLE_ALLOWED_TO_SWITCH
