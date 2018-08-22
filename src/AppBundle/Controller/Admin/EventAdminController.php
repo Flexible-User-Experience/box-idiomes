@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Event;
 use AppBundle\Form\Type\EventType;
+use AppBundle\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,6 +41,11 @@ class EventAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
+        /** @var EventRepository $er */
+        $er = $this->container->get('app.event_repository');
+        $firstEvent = $er->getFirstEventOf($object);
+        $lastEvent = $er->getLastEventOf($object);
+
         /** @var Controller $this */
         $form = $this->createForm(EventType::class, $object);
         $form->handleRequest($request);
@@ -58,6 +64,8 @@ class EventAdminController extends BaseAdminController
             array(
                 'action' => 'batchedit',
                 'object' => $object,
+                'firstEvent' => $firstEvent,
+                'lastEvent' => $lastEvent,
                 'form' => $form->createView(),
             )
         );
