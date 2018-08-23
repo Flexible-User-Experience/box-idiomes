@@ -25,8 +25,7 @@ class EventRepository extends EntityRepository
         return $this->createQueryBuilder('e')
             ->where('e.begin BETWEEN :startDate AND :endDate')
             ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
-            ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
-        ;
+            ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'));
     }
 
     /**
@@ -70,8 +69,7 @@ class EventRepository extends EntityRepository
             ->setParameter('sid', $student->getId())
             ->setParameter('year', $year)
             ->setParameter('month', $month)
-            ->setParameter('isForPrivateLessons', true)
-        ;
+            ->setParameter('isForPrivateLessons', true);
     }
 
     /**

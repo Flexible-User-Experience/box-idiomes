@@ -126,6 +126,26 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
+                'image',
+                null,
+                array(
+                    'label' => 'backend.admin.image',
+                    'template' => '::Admin/Cells/list__cell_absence_image_field.html.twig',
+                )
+            )
+            ->add(
+                'teacher',
+                null,
+                array(
+                    'label' => 'backend.admin.teacher_absence.teacher',
+                    'editable' => false,
+                    'associated_property' => 'name',
+                    'sortable' => true,
+                    'sort_field_mapping' => array('fieldName' => 'name'),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'teacher')),
+                )
+            )
+            ->add(
                 'day',
                 'date',
                 array(
@@ -140,18 +160,6 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.teacher_absence.type',
                     'template' => '::Admin/Cells/list__cell_teacher_absence_type.html.twig',
-                )
-            )
-            ->add(
-                'teacher',
-                null,
-                array(
-                    'label' => 'backend.admin.teacher_absence.teacher',
-                    'editable' => false,
-                    'associated_property' => 'name',
-                    'sortable' => true,
-                    'sort_field_mapping' => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'teacher')),
                 )
             )
             ->add(
