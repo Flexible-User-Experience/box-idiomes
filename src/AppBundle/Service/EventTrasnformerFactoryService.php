@@ -65,9 +65,9 @@ class EventTrasnformerFactoryService
     {
         $eventFullCalendar = new EventFullCalendar($teacherAbsence->getCalendarTitle(), $teacherAbsence->getDay());
         $eventFullCalendar->setEndDate($teacherAbsence->getDay());
-        $eventFullCalendar->setBackgroundColor('#FCD3D7');
-        $eventFullCalendar->setTextColor('#FA141B');
-        $eventFullCalendar->setColor('#FCD3D7');
+        $eventFullCalendar->setBackgroundColor('#FA141B');
+        $eventFullCalendar->setTextColor('#FFFFFF');
+        $eventFullCalendar->setColor('#FA141B');
         $eventFullCalendar->setAllDay(true);
         $eventFullCalendar->setUrl($this->router->generate('admin_app_teacherabsence_edit', array('id' => $teacherAbsence->getId()), UrlGeneratorInterface::ABSOLUTE_PATH));
 

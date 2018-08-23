@@ -93,10 +93,24 @@ class ServiceAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'position',
+                null,
+                array(
+                    'label' => 'backend.admin.position',
+                )
+            )
+            ->add(
                 'title',
                 null,
                 array(
                     'label' => 'backend.admin.service.title',
+                )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'backend.admin.description',
                 )
             )
             ->add(
