@@ -127,6 +127,13 @@ class TeacherAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'description',
+                null,
+                array(
+                    'label' => 'backend.admin.description',
+                )
+            )
+            ->add(
                 'showInHomepage',
                 null,
                 array(

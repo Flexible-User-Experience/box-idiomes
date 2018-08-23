@@ -49,9 +49,9 @@ class StudentAdmin extends AbstractBaseAdmin
     {
         parent::configureRoutes($collection);
         $collection
-            ->remove('delete')
             ->add('imagerights', $this->getRouterIdParameter().'/image-rights')
             ->add('sepaagreement', $this->getRouterIdParameter().'/sepa-agreement')
+            ->remove('delete')
         ;
     }
 
@@ -293,6 +293,20 @@ class StudentAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.student.city',
+                )
+            )
+            ->add(
+                'comments',
+                null,
+                array(
+                    'label' => 'backend.admin.student.comments',
+                )
+            )
+            ->add(
+                'tariff',
+                null,
+                array(
+                    'label' => 'backend.admin.student.tariff',
                 )
             )
             ->add(
