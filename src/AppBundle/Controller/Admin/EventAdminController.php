@@ -135,8 +135,25 @@ class EventAdminController extends BaseAdminController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $iteratorCounter = 0;
             // TODO
-            $iteratorCounter = 'XXX';
+//            $eventIdStopRangeIterator = $form->get('range')->getData();
+//            /** @var Controller $this */
+//            $em = $this->get('doctrine')->getManager();
+//            $em->remove($object);
+//            $iteratorCounter = 1;
+//            if (!is_null($object->getNext())) {
+//                $iteratedEvent = $object;
+//                while (!is_null($iteratedEvent->getNext())) {
+//                    $iteratedEvent = $iteratedEvent->getNext();
+//                    if ($iteratedEvent->getId() <= $eventIdStopRangeIterator) {
+//                        $em->remove($iteratedEvent);
+//                        ++$iteratorCounter;
+//                    }
+//                }
+//            }
+//            $em->flush();
+
             /* @var Controller $this */
             $this->addFlash(
                 'success',

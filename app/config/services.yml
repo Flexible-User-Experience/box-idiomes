@@ -184,7 +184,9 @@ services:
             - "@app.class_group_repository"
             - "@app.student_repository"
             - "@app.event_manager"
-    app.form.type.batch_remove_event:
+        tags:
+            - { name: form.type }
+    app.form.type.event_batch_remove:
         class: AppBundle\Form\Type\EventBatchRemoveType
         arguments:
             - "@app.event_manager"
