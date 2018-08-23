@@ -113,8 +113,33 @@ class EventAdminController extends BaseAdminController
      */
     public function batchdeleteAction(Request $request)
     {
-        // TODO
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
 
-        return $this->redirectToList();
+        /** @var Event $object */
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            /* @var Controller $this */
+            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        /** @var EventManager $eventsManager */
+        $eventsManager = $this->container->get('app.event_manager');
+        $firstEvent = $eventsManager->getFirstEventOf($object);
+        $lastEvent = $eventsManager->getLastEventOf($object);
+
+        return $this->renderWithExtraParams(
+            '::Admin/Event/batch_delete_form.html.twig',
+            array(
+                'action' => 'batchdelete',
+                'object' => $object,
+                'firstEvent' => $firstEvent,
+                'lastEvent' => $lastEvent,
+                'progressBarPercentiles' => $eventsManager->getProgressBarPercentilesOf($object),
+//                'form' => $form->createView(),
+            )
+        );
+//        return $this->redirectToList();
     }
 }

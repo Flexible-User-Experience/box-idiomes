@@ -169,6 +169,9 @@ backend:
                 special_timelapse_update_action: Editar amb lot
                 switch_to_normal_edit: Mode edició normal
             timelapse: Lot de dates afectades amb l'edició
+            batch_delete:
+                title: Lot de dates afectades amb l'esborrat
+                helper: (marcat amb color verd)
         service:
             title: Nom
         contact:
