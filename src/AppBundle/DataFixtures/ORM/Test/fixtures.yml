@@ -154,18 +154,38 @@ AppBundle\Entity\Tariff:
 
 # Event
 AppBundle\Entity\Event:
-  event{1..2}:
+  event1:
     begin: <dateTimeThisMonth()>
     end: <dateTimeThisMonth()>
-    teacher: @teacher<current()>
+    teacher: @teacher1
     classroom: <numberBetween(0, 3)>
-    group: @classgroup*
+    group: @classgroup1
     students:
-        - @student*
-    previous: @event<current()>
-    next: @event<current()>
+        - @student1
+        - @student2
+    next: @event2
     dayFrequencyRepeat: <randomDigit()>
     until: <dateTimeThisMonth()>
+  event2:
+    begin: <dateTimeThisMonth()>
+    end: <dateTimeThisMonth()>
+    teacher: @teacher1
+    classroom: <numberBetween(0, 3)>
+    group: @classgroup1
+    students:
+        - @student1
+        - @student2
+    previous: @event1
+    dayFrequencyRepeat: <randomDigit()>
+    until: <dateTimeThisMonth()>
+  event3:
+    begin: <dateTimeThisMonth()>
+    end: <dateTimeThisMonth()>
+    teacher: @teacher1
+    classroom: <numberBetween(0, 3)>
+    group: @classgroup2
+    students:
+        - @student1
 
 # Receipt
 AppBundle\Entity\Receipt:

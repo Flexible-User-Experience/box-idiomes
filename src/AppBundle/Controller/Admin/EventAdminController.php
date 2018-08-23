@@ -7,7 +7,6 @@ use AppBundle\Form\Type\EventBatchRemoveType;
 use AppBundle\Form\Type\EventType;
 use AppBundle\Manager\EventManager;
 use Doctrine\ORM\EntityManager;
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +20,30 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class EventAdminController extends BaseAdminController
 {
+    /**
+     * @param null|int|string $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function editAction($id = null)
+    {
+        $request = $this->getRequest();
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Event $object */
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
+        }
+
+        if (!$object->getEnabled()) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        return parent::editAction($id);
+    }
+
     /**
      * Edit event and all the next related events action.
      *
@@ -41,6 +64,10 @@ class EventAdminController extends BaseAdminController
         $object = $this->admin->getObject($id);
 
         if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        if (!$object->getEnabled()) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
@@ -124,6 +151,10 @@ class EventAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
+        if (!$object->getEnabled()) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        }
+
         /** @var EventManager $eventsManager */
         $eventsManager = $this->container->get('app.event_manager');
         $firstEvent = $eventsManager->getFirstEventOf($object);
@@ -178,20 +209,11 @@ class EventAdminController extends BaseAdminController
                 while (!is_null($iteratedEvent->getNext())) {
                     $iteratedEvent = $iteratedEvent->getNext();
                     if ($iteratedEvent->getId() <= $eventIdStopRange) {
-                        $iteratedEvent
-                            ->setPrevious(null)
-                            ->setNext(null)
-                            ->setEnabled(false)
-                        ;
-                        $em->flush();
+                        $iteratedEvent->setEnabled(false);
                         ++$iteratorCounter;
                     }
                 }
-                $object
-                    ->setPrevious(null)
-                    ->setNext(null)
-                    ->setEnabled(false)
-                ;
+                $object->setEnabled(false);
                 $em->flush();
             }
 
