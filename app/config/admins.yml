@@ -62,7 +62,7 @@ services:
             - [ setTemplate, [ edit, "::Admin/Receipt/edit.html.twig" ] ]
             - [ setTemplate, [ list, "::Admin/Receipt/list.html.twig" ] ]
 
-    admin.billing.receipt_line:
+    admin.receipt_line:
         class: AppBundle\Admin\ReceiptLineAdmin
         arguments: [ ~, AppBundle\Entity\ReceiptLine, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
@@ -74,7 +74,7 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Factura", group: "Facturació" }
 
-    admin.billing.invoice_line:
+    admin.invoice_line:
         class: AppBundle\Admin\InvoiceLineAdmin
         arguments: [ ~, AppBundle\Entity\InvoiceLine, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:

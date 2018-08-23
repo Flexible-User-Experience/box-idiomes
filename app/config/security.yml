@@ -15,6 +15,7 @@ security:
             - ROLE_ADMIN_PARENT_ALL
             - ROLE_ADMIN_PROVINCE_ALL
             - ROLE_ADMIN_CITY_ALL
+            - ROLE_ADMIN_BANK_ALL
         ROLE_SONATA_CUSTOM_ADMIN:
             - ROLE_ADMIN_RECEIPT_ALL
             - ROLE_ADMIN_RECEIPT_LINE_ALL
