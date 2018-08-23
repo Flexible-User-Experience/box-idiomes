@@ -51,7 +51,7 @@ class EventBatchRemoveType extends AbstractType
                     'mapped' => false,
                     'label' => 'backend.admin.event.batch_delete.range',
                     'required' => true,
-                    'choices' => $this->em->getRangeChoices($event),
+                    'choices' => $this->em->getInclusiveRangeChoices($event),
                     'data' => $this->em->getLastEventOf($event)->getId(),
                 )
             )
