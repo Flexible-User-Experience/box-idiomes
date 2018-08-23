@@ -6,7 +6,9 @@ use AppBundle\Entity\Event;
 use AppBundle\Form\Type\EventBatchRemoveType;
 use AppBundle\Form\Type\EventType;
 use AppBundle\Manager\EventManager;
+use Doctrine\ORM\EntityManager;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,7 +41,6 @@ class EventAdminController extends BaseAdminController
         $object = $this->admin->getObject($id);
 
         if (!$object) {
-            /* @var Controller $this */
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
@@ -48,13 +49,13 @@ class EventAdminController extends BaseAdminController
         $firstEvent = $eventsManager->getFirstEventOf($object);
         $lastEvent = $eventsManager->getLastEventOf($object);
 
-        /** @var Controller $this */
+        /** @var Form $form */
         $form = $this->createForm(EventType::class, $object, array('event' => $object));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $eventIdStopRangeIterator = $form->get('range')->getData();
-            /** @var Controller $this */
+            /** @var EntityManager $em */
             $em = $this->get('doctrine')->getManager();
             $em->flush();
             $iteratorCounter = 1;
@@ -79,7 +80,6 @@ class EventAdminController extends BaseAdminController
                     }
                 }
             }
-            /* @var Controller $this */
             $this->addFlash(
                 'success',
                 'S\'han modificat '.$iteratorCounter.' esdeveniments del calendari d\'horaris correctament.'
@@ -121,7 +121,6 @@ class EventAdminController extends BaseAdminController
         $object = $this->admin->getObject($id);
 
         if (!$object) {
-            /* @var Controller $this */
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
@@ -130,31 +129,72 @@ class EventAdminController extends BaseAdminController
         $firstEvent = $eventsManager->getFirstEventOf($object);
         $lastEvent = $eventsManager->getLastEventOf($object);
 
-        /** @var Controller $this */
+        /** @var Form $form */
         $form = $this->createForm(EventBatchRemoveType::class, $object, array('event' => $object));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $iteratorCounter = 0;
-            // TODO
-//            $eventIdStopRangeIterator = $form->get('range')->getData();
-//            /** @var Controller $this */
-//            $em = $this->get('doctrine')->getManager();
-//            $em->remove($object);
-//            $iteratorCounter = 1;
-//            if (!is_null($object->getNext())) {
-//                $iteratedEvent = $object;
-//                while (!is_null($iteratedEvent->getNext())) {
-//                    $iteratedEvent = $iteratedEvent->getNext();
-//                    if ($iteratedEvent->getId() <= $eventIdStopRangeIterator) {
-//                        $em->remove($iteratedEvent);
-//                        ++$iteratorCounter;
-//                    }
-//                }
-//            }
-//            $em->flush();
+            /** @var EntityManager $em */
+            $em = $this->get('doctrine')->getManager();
+            $eventIdStopRange = $form->get('range')->getData();
+            /** @var Event|null $eventStopRange */
+            $eventStopRange = $em->getRepository('AppBundle:Event')->find($eventIdStopRange);
+            /** @var Event|null $eventBeforeStopRange */
+            $eventBeforeStopRange = null;
+            if (!is_null($eventStopRange->getPrevious())) {
+                $eventBeforeStopRange = $em->getRepository('AppBundle:Event')->find($eventStopRange->getPrevious()->getId());
+            }
+            /** @var Event|null $eventAfterStopRange */
+            $eventAfterStopRange = null;
+            if (!is_null($eventStopRange->getNext())) {
+                $eventAfterStopRange = $em->getRepository('AppBundle:Event')->find($eventStopRange->getNext()->getId());
+            }
+            /** @var Event|null $eventBeforeStartRange */
+            $eventBeforeStartRange = null;
+            if (!is_null($object->getPrevious())) {
+                $eventBeforeStartRange = $em->getRepository('AppBundle:Event')->find($object->getPrevious()->getId());
+            }
+            /** @var Event|null $eventAfterStartRange */
+            $eventAfterStartRange = null;
+            if (!is_null($object->getNext())) {
+                $eventAfterStartRange = $em->getRepository('AppBundle:Event')->find($object->getNext()->getId());
+            }
 
-            /* @var Controller $this */
+            if (is_null($eventBeforeStartRange)) {
+                $eventBeforeStartRange = $firstEvent;
+            }
+            if (is_null($eventAfterStopRange)) {
+                $eventAfterStopRange = $lastEvent;
+            }
+
+            $eventBeforeStartRange->setNext($eventAfterStopRange);
+            $eventAfterStopRange->setPrevious($eventBeforeStartRange);
+            $em->flush();
+
+            $iteratorCounter = 1;
+
+            if (!is_null($object->getNext())) {
+                $iteratedEvent = $object;
+                while (!is_null($iteratedEvent->getNext())) {
+                    $iteratedEvent = $iteratedEvent->getNext();
+                    if ($iteratedEvent->getId() <= $eventIdStopRange) {
+                        $iteratedEvent
+                            ->setPrevious(null)
+                            ->setNext(null)
+                            ->setEnabled(false)
+                        ;
+                        $em->flush();
+                        ++$iteratorCounter;
+                    }
+                }
+                $object
+                    ->setPrevious(null)
+                    ->setNext(null)
+                    ->setEnabled(false)
+                ;
+                $em->flush();
+            }
+
             $this->addFlash(
                 'success',
                 'S\'han esborrat '.$iteratorCounter.' esdeveniments del calendari d\'horaris correctament.'

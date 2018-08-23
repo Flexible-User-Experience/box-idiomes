@@ -58,7 +58,7 @@ class FullCalendarListener
         $endDate = $calendarEvent->getEnd();
 
         // Classroom events
-        $events = $this->ers->getFilteredByBeginAndEnd($startDate, $endDate);
+        $events = $this->ers->getEnabledFilteredByBeginAndEnd($startDate, $endDate);
         /** @var AppEvent $event */
         foreach ($events as $event) {
             $calendarEvent->addEvent($this->etfs->build($event));

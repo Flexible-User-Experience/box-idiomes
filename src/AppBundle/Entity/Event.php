@@ -13,8 +13,6 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @category Entity
  *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
- *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\EventRepository")
  * @ORM\Table(name="event")
  */
@@ -66,16 +64,16 @@ class Event extends AbstractBase
     /**
      * @var Event
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Event", cascade={"persist"})
-     * @ORM\JoinColumn(name="previous_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Event")
+     * @ORM\JoinColumn(name="previous_id", referencedColumnName="id", nullable=true)
      */
     private $previous;
 
     /**
      * @var Event
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Event", cascade={"persist"})
-     * @ORM\JoinColumn(name="next_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Event")
+     * @ORM\JoinColumn(name="next_id", referencedColumnName="id", nullable=true)
      */
     private $next;
 

@@ -7,6 +7,7 @@ use AppBundle\Entity\Event;
 use AppBundle\Entity\Student;
 use AppBundle\Entity\Teacher;
 use AppBundle\Enum\EventClassroomTypeEnum;
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -202,6 +203,23 @@ class EventAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param string $context
+     *
+     * @return QueryBuilder
+     */
+    public function createQuery($context = 'list')
+    {
+        /** @var QueryBuilder $queryBuilder */
+        $queryBuilder = parent::createQuery($context);
+        $queryBuilder
+            ->andWhere($queryBuilder->getRootAliases()[0].'.enabled = :enabled')
+            ->setParameter('enabled', true)
+        ;
+
+        return $queryBuilder;
     }
 
     /**

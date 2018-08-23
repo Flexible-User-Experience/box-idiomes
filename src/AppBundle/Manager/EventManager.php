@@ -100,8 +100,13 @@ class EventManager
         $progressBarPercentiles = array();
         $total = $this->getTotalRelatedEventsAmountOf($event);
         $involved = $this->getRelatedEventsAmountOf($event);
-        $progressBarPercentiles['last'] = round(($involved * 55) / $total, 0) + 15;
-        $progressBarPercentiles['first'] = 85 - $progressBarPercentiles['last'];
+        if (0 != $total) {
+            $progressBarPercentiles['last'] = round(($involved * 55) / $total, 0) + 15;
+            $progressBarPercentiles['first'] = 85 - $progressBarPercentiles['last'];
+        } else {
+            $progressBarPercentiles['last'] = 15;
+            $progressBarPercentiles['first'] = 85;
+        }
 
         return $progressBarPercentiles;
     }
@@ -114,8 +119,26 @@ class EventManager
     public function getRangeChoices(Event $event)
     {
         $result = array();
-        // uncomment line below if you want an inclusive range choices
-        // $result[$event->getId()] = $event->getBegin()->format('d/m/Y H:i');
+        if (!is_null($event->getNext())) {
+            $iteratedEvent = $event;
+            while (!is_null($iteratedEvent->getNext())) {
+                $iteratedEvent = $iteratedEvent->getNext();
+                $result[$iteratedEvent->getId()] = $iteratedEvent->getBegin()->format('d/m/Y H:i');
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param Event $event
+     *
+     * @return array
+     */
+    public function getInclusiveRangeChoices(Event $event)
+    {
+        $result = array();
+        $result[$event->getId()] = $event->getBegin()->format('d/m/Y H:i');
         if (!is_null($event->getNext())) {
             $iteratedEvent = $event;
             while (!is_null($iteratedEvent->getNext())) {
