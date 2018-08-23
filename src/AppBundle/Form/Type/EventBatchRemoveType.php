@@ -43,6 +43,8 @@ class EventBatchRemoveType extends AbstractType
     {
         /** @var Event $event */
         $event = $options['event'];
+        /** @var Event $lastEvent */
+        $lastEvent = $this->em->getLastEventOf($event);
         $builder
             ->add(
                 'range',
@@ -52,7 +54,7 @@ class EventBatchRemoveType extends AbstractType
                     'label' => 'backend.admin.event.batch_delete.range',
                     'required' => true,
                     'choices' => $this->em->getInclusiveRangeChoices($event),
-                    'data' => $this->em->getLastEventOf($event)->getId(),
+                    'data' => is_null($lastEvent) ? $event->getId() : $this->em->getLastEventOf($event)->getId(),
                 )
             )
         ;

@@ -100,8 +100,13 @@ class EventManager
         $progressBarPercentiles = array();
         $total = $this->getTotalRelatedEventsAmountOf($event);
         $involved = $this->getRelatedEventsAmountOf($event);
-        $progressBarPercentiles['last'] = round(($involved * 55) / $total, 0) + 15;
-        $progressBarPercentiles['first'] = 85 - $progressBarPercentiles['last'];
+        if (0 != $total) {
+            $progressBarPercentiles['last'] = round(($involved * 55) / $total, 0) + 15;
+            $progressBarPercentiles['first'] = 85 - $progressBarPercentiles['last'];
+        } else {
+            $progressBarPercentiles['last'] = 15;
+            $progressBarPercentiles['first'] = 85;
+        }
 
         return $progressBarPercentiles;
     }
