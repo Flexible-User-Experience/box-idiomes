@@ -172,6 +172,7 @@ backend:
             batch_delete:
                 title: Lot de dates afectades amb l'esborrat
                 helper: (marcat amb color verd)
+                range: Limitar l'abast dels esborraments consecutius fins a la data
         service:
             title: Nom
         contact:

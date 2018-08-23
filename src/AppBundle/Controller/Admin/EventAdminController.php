@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Event;
+use AppBundle\Form\Type\EventBatchRemoveType;
 use AppBundle\Form\Type\EventType;
 use AppBundle\Manager\EventManager;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
@@ -129,6 +130,22 @@ class EventAdminController extends BaseAdminController
         $firstEvent = $eventsManager->getFirstEventOf($object);
         $lastEvent = $eventsManager->getLastEventOf($object);
 
+        /** @var Controller $this */
+        $form = $this->createForm(EventBatchRemoveType::class, $object, array('event' => $object));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // TODO
+            $iteratorCounter = 'XXX';
+            /* @var Controller $this */
+            $this->addFlash(
+                'success',
+                'S\'han esborrat '.$iteratorCounter.' esdeveniments del calendari d\'horaris correctament.'
+            );
+
+            return $this->redirectToList();
+        }
+
         return $this->renderWithExtraParams(
             '::Admin/Event/batch_delete_form.html.twig',
             array(
@@ -137,9 +154,8 @@ class EventAdminController extends BaseAdminController
                 'firstEvent' => $firstEvent,
                 'lastEvent' => $lastEvent,
                 'progressBarPercentiles' => $eventsManager->getProgressBarPercentilesOf($object),
-//                'form' => $form->createView(),
+                'form' => $form->createView(),
             )
         );
-//        return $this->redirectToList();
     }
 }
