@@ -115,6 +115,14 @@ class TeacherAbsence extends AbstractBase
     /**
      * @return string
      */
+    public function getCalendarTitle()
+    {
+        return '['.$this->getTypeString().'] '.$this->getTeacher()->getName();
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->id ? $this->getDay()->format('d/m/Y').' · '.$this->getTypeString().' · '.$this->getTeacher() : '---';

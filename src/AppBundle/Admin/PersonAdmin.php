@@ -192,6 +192,13 @@ class PersonAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'email',
+                null,
+                array(
+                    'label' => 'backend.admin.parent.email',
+                )
+            )
+            ->add(
                 'address',
                 null,
                 array(
@@ -206,10 +213,10 @@ class PersonAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'email',
+                'payment',
                 null,
                 array(
-                    'label' => 'backend.admin.parent.email',
+                    'label' => 'backend.admin.parent.payment',
                 )
             )
             ->add(

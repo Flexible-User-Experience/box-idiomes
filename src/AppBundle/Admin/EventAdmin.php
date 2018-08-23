@@ -275,7 +275,7 @@ class EventAdmin extends AbstractBaseAdmin
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'batchedit' => array('template' => '::Admin/Buttons/list__action_event_batch_edit_button.html.twig'),
-                        // TODO 'batchdelete' => array('template' => '::Admin/Buttons/list__action_batch_delete_button.html.twig'),
+                        'batchdelete' => array('template' => '::Admin/Buttons/list__action_batch_delete_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )

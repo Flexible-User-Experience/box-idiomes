@@ -1,0 +1,73 @@
+{% extends "::Admin/show.html.twig" %}
+
+{% block title %}
+    {{ 'title_delete' | trans({'%name%': admin.toString(object) }, 'SonataAdminBundle') }}
+{% endblock %}
+
+{% block show %}
+    <div class="sonata-ba-view">
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-danger">
+                        <div class="box-header">
+                            <h3 class="box-title">{{ 'backend.admin.event.batch_delete.title' | trans }}</h3>
+                            <h5 class="box-title"><small>{{ 'backend.admin.event.batch_delete.helper' | trans }}</small></h5>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="progress">
+                                        {% if firstEvent is not null %}
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped" style="width:{{ progressBarPercentiles.first }}%">
+                                                <span class="pull-left" style="margin-left:5px">{{ firstEvent.begin | date('d/m/Y H:i') }}</span>
+                                            </div>
+                                            <div class="progress-bar progress-bar-success" style="width:15%">
+                                                <span class="pull-left" style="margin-left:5px">{{ object.begin | date('d/m/Y H:i') }}</span>
+                                            </div>
+                                            <div class="progress-bar progress-bar-success" style="width:{{ progressBarPercentiles.last }}%">
+                                                <span class="pull-right" style="margin-right:5px">{{ lastEvent.begin | date('d/m/Y H:i') }}</span>
+                                            </div>
+                                        {% else %}
+                                            <div class="progress-bar progress-bar-success" style="width:20%">
+                                                <span class="pull-left" style="margin-left:5px">{{ object.begin | date('d/m/Y H:i') }}</span>
+                                            </div>
+                                            <div class="progress-bar progress-bar-success" style="width:80%">
+                                                <span class="pull-right" style="margin-right:5px">{{ lastEvent.begin | date('d/m/Y H:i') }}</span>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-xs-offset-6">
+                                    {{ form_row(form.range) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="sonata-ba-form-actions well well-small form-actions">
+                        <button type="submit" class="btn btn-success" name="btn_remove"><i class="fa fa-check" aria-hidden="true"></i> {{ 'backend.admin.event.button.special_timelapse_remove_action' | trans }}</button>
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-danger" href="{{ path('admin_app_event_list') }}" title="{{ 'backend.admin.event.button.cancel' | trans({}, 'messages') }}"><i class="fa fa-times" aria-hidden="true"></i> {{ 'backend.admin.event.button.cancel' | trans({}, 'messages') }}</a>
+                        </div>
+                        {# timelapse buttons section #}
+                        <div class="btn-group pull-right" role="group">
+                            {% if object.previous is not null %}
+                                <a class="btn btn-warning" href="{{ admin.generateObjectUrl('batchdelete', object.previous) }}" title="{{ 'backend.admin.event.button.previous' | trans({}, 'messages') }}"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ object.previous.begin | date('d/m/Y H:i') }}</a>
+                            {% endif %}
+                            {% if object.next is not null %}
+                                {% if lastEvent is defined and object.next.id != lastEvent.id %}
+                                    <a class="btn btn-warning" href="{{ admin.generateObjectUrl('batchdelete', object.next) }}" title="{{ 'backend.admin.event.button.next' | trans({}, 'messages') }}">{{ object.next.begin | date('d/m/Y H:i') }} <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

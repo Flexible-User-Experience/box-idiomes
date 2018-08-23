@@ -100,6 +100,13 @@ class ProvinceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'country',
+                null,
+                array(
+                    'label' => 'backend.admin.province.country',
+                )
+            )
+            ->add(
                 'enabled',
                 null,
                 array(

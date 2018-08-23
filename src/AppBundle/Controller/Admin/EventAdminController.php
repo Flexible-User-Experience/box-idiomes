@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Event;
+use AppBundle\Form\Type\EventBatchRemoveType;
 use AppBundle\Form\Type\EventType;
 use AppBundle\Manager\EventManager;
 use Sonata\AdminBundle\Controller\CRUDController as Controller;
@@ -113,8 +114,65 @@ class EventAdminController extends BaseAdminController
      */
     public function batchdeleteAction(Request $request)
     {
-        // TODO
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
 
-        return $this->redirectToList();
+        /** @var Event $object */
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            /* @var Controller $this */
+            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        /** @var EventManager $eventsManager */
+        $eventsManager = $this->container->get('app.event_manager');
+        $firstEvent = $eventsManager->getFirstEventOf($object);
+        $lastEvent = $eventsManager->getLastEventOf($object);
+
+        /** @var Controller $this */
+        $form = $this->createForm(EventBatchRemoveType::class, $object, array('event' => $object));
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $iteratorCounter = 0;
+            // TODO
+//            $eventIdStopRangeIterator = $form->get('range')->getData();
+//            /** @var Controller $this */
+//            $em = $this->get('doctrine')->getManager();
+//            $em->remove($object);
+//            $iteratorCounter = 1;
+//            if (!is_null($object->getNext())) {
+//                $iteratedEvent = $object;
+//                while (!is_null($iteratedEvent->getNext())) {
+//                    $iteratedEvent = $iteratedEvent->getNext();
+//                    if ($iteratedEvent->getId() <= $eventIdStopRangeIterator) {
+//                        $em->remove($iteratedEvent);
+//                        ++$iteratorCounter;
+//                    }
+//                }
+//            }
+//            $em->flush();
+
+            /* @var Controller $this */
+            $this->addFlash(
+                'success',
+                'S\'han esborrat '.$iteratorCounter.' esdeveniments del calendari d\'horaris correctament.'
+            );
+
+            return $this->redirectToList();
+        }
+
+        return $this->renderWithExtraParams(
+            '::Admin/Event/batch_delete_form.html.twig',
+            array(
+                'action' => 'batchdelete',
+                'object' => $object,
+                'firstEvent' => $firstEvent,
+                'lastEvent' => $lastEvent,
+                'progressBarPercentiles' => $eventsManager->getProgressBarPercentilesOf($object),
+                'form' => $form->createView(),
+            )
+        );
     }
 }
