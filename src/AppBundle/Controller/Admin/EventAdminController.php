@@ -168,43 +168,44 @@ class EventAdminController extends BaseAdminController
             /** @var EntityManager $em */
             $em = $this->get('doctrine')->getManager();
             $eventIdStopRange = $form->get('range')->getData();
+
             /** @var Event|null $eventStopRange */
             $eventStopRange = $em->getRepository('AppBundle:Event')->find($eventIdStopRange);
-            /** @var Event|null $eventBeforeStopRange */
-            $eventBeforeStopRange = null;
-            if (!is_null($eventStopRange->getPrevious())) {
-                $eventBeforeStopRange = $em->getRepository('AppBundle:Event')->find($eventStopRange->getPrevious()->getId());
-            }
+
             /** @var Event|null $eventAfterStopRange */
             $eventAfterStopRange = null;
             if (!is_null($eventStopRange->getNext())) {
                 $eventAfterStopRange = $em->getRepository('AppBundle:Event')->find($eventStopRange->getNext()->getId());
             }
+
             /** @var Event|null $eventBeforeStartRange */
             $eventBeforeStartRange = null;
             if (!is_null($object->getPrevious())) {
                 $eventBeforeStartRange = $em->getRepository('AppBundle:Event')->find($object->getPrevious()->getId());
             }
-            /** @var Event|null $eventAfterStartRange */
-            $eventAfterStartRange = null;
-            if (!is_null($object->getNext())) {
-                $eventAfterStartRange = $em->getRepository('AppBundle:Event')->find($object->getNext()->getId());
-            }
 
-            if (is_null($eventBeforeStartRange)) {
-                $eventBeforeStartRange = $firstEvent;
-            }
-            if (is_null($eventAfterStopRange)) {
-                $eventAfterStopRange = $lastEvent;
-            }
+            // begin range
+            if (is_null($firstEvent)) {
+                $iteratorCounter = 1;
+                if (!is_null($object->getNext())) {
+                    $iteratedEvent = $object;
+                    while (!is_null($iteratedEvent->getNext())) {
+                        $iteratedEvent = $iteratedEvent->getNext();
+                        if ($iteratedEvent->getId() <= $eventIdStopRange) {
+                            $iteratedEvent->setEnabled(false);
+                            ++$iteratorCounter;
+                        }
+                    }
+                    $object->setEnabled(false);
+                    if (!is_null($eventAfterStopRange)) {
+                        $eventAfterStopRange->setPrevious(null);
+                    }
+                    $em->flush();
+                }
 
-            $eventBeforeStartRange->setNext($eventAfterStopRange);
-            $eventAfterStopRange->setPrevious($eventBeforeStartRange);
-            $em->flush();
-
-            $iteratorCounter = 1;
-
-            if (!is_null($object->getNext())) {
+                // end range
+            } elseif (is_null($eventAfterStopRange)) {
+                $iteratorCounter = 1;
                 $iteratedEvent = $object;
                 while (!is_null($iteratedEvent->getNext())) {
                     $iteratedEvent = $iteratedEvent->getNext();
@@ -214,7 +215,38 @@ class EventAdminController extends BaseAdminController
                     }
                 }
                 $object->setEnabled(false);
+                if (!is_null($eventBeforeStartRange)) {
+                    $eventBeforeStartRange->setNext(null);
+                }
                 $em->flush();
+
+            // middle range
+            } else {
+                if (is_null($eventBeforeStartRange)) {
+                    $eventBeforeStartRange = $firstEvent;
+                }
+                if (is_null($eventAfterStopRange)) {
+                    $eventAfterStopRange = $lastEvent;
+                }
+
+                $eventBeforeStartRange->setNext($eventAfterStopRange);
+                $eventAfterStopRange->setPrevious($eventBeforeStartRange);
+                $em->flush();
+
+                $iteratorCounter = 1;
+
+                if (!is_null($object->getNext())) {
+                    $iteratedEvent = $object;
+                    while (!is_null($iteratedEvent->getNext())) {
+                        $iteratedEvent = $iteratedEvent->getNext();
+                        if ($iteratedEvent->getId() <= $eventIdStopRange) {
+                            $iteratedEvent->setEnabled(false);
+                            ++$iteratorCounter;
+                        }
+                    }
+                    $object->setEnabled(false);
+                    $em->flush();
+                }
             }
 
             $this->addFlash(
