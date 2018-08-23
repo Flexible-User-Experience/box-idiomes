@@ -50,6 +50,11 @@ Grup: Grup
 Horari: Horari
 Servei: Servei
 Ciutat: Ciutat
+"Pare, mare o tutor": Pare, mare o tutor
+Absència: Absència
+"Missatge de contacte": Missatge de contacte
+"Butlletí de contacte": Butlletí de contacte
+Província: Província
 
 frontend:
     menu:
