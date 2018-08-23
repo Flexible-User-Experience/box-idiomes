@@ -7,7 +7,6 @@ use AppBundle\Form\Type\EventBatchRemoveType;
 use AppBundle\Form\Type\EventType;
 use AppBundle\Manager\EventManager;
 use Doctrine\ORM\EntityManager;
-use Sonata\AdminBundle\Controller\CRUDController as Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +20,30 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class EventAdminController extends BaseAdminController
 {
+    /**
+     * @param null|int|string $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function editAction($id = null)
+    {
+        $request = $this->getRequest();
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Event $object */
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
+        }
+
+        if (!$object->getEnabled()) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        return parent::editAction($id);
+    }
+
     /**
      * Edit event and all the next related events action.
      *
@@ -41,6 +64,10 @@ class EventAdminController extends BaseAdminController
         $object = $this->admin->getObject($id);
 
         if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        if (!$object->getEnabled()) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
@@ -124,6 +151,10 @@ class EventAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
+        if (!$object->getEnabled()) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        }
+
         /** @var EventManager $eventsManager */
         $eventsManager = $this->container->get('app.event_manager');
         $firstEvent = $eventsManager->getFirstEventOf($object);
@@ -137,62 +168,85 @@ class EventAdminController extends BaseAdminController
             /** @var EntityManager $em */
             $em = $this->get('doctrine')->getManager();
             $eventIdStopRange = $form->get('range')->getData();
+
             /** @var Event|null $eventStopRange */
             $eventStopRange = $em->getRepository('AppBundle:Event')->find($eventIdStopRange);
-            /** @var Event|null $eventBeforeStopRange */
-            $eventBeforeStopRange = null;
-            if (!is_null($eventStopRange->getPrevious())) {
-                $eventBeforeStopRange = $em->getRepository('AppBundle:Event')->find($eventStopRange->getPrevious()->getId());
-            }
+
             /** @var Event|null $eventAfterStopRange */
             $eventAfterStopRange = null;
             if (!is_null($eventStopRange->getNext())) {
                 $eventAfterStopRange = $em->getRepository('AppBundle:Event')->find($eventStopRange->getNext()->getId());
             }
+
             /** @var Event|null $eventBeforeStartRange */
             $eventBeforeStartRange = null;
             if (!is_null($object->getPrevious())) {
                 $eventBeforeStartRange = $em->getRepository('AppBundle:Event')->find($object->getPrevious()->getId());
             }
-            /** @var Event|null $eventAfterStartRange */
-            $eventAfterStartRange = null;
-            if (!is_null($object->getNext())) {
-                $eventAfterStartRange = $em->getRepository('AppBundle:Event')->find($object->getNext()->getId());
-            }
 
-            if (is_null($eventBeforeStartRange)) {
-                $eventBeforeStartRange = $firstEvent;
-            }
-            if (is_null($eventAfterStopRange)) {
-                $eventAfterStopRange = $lastEvent;
-            }
+            // begin range
+            if (is_null($firstEvent)) {
+                $iteratorCounter = 1;
+                if (!is_null($object->getNext())) {
+                    $iteratedEvent = $object;
+                    while (!is_null($iteratedEvent->getNext())) {
+                        $iteratedEvent = $iteratedEvent->getNext();
+                        if ($iteratedEvent->getId() <= $eventIdStopRange) {
+                            $iteratedEvent->setEnabled(false);
+                            ++$iteratorCounter;
+                        }
+                    }
+                    $object->setEnabled(false);
+                    if (!is_null($eventAfterStopRange)) {
+                        $eventAfterStopRange->setPrevious(null);
+                    }
+                    $em->flush();
+                }
 
-            $eventBeforeStartRange->setNext($eventAfterStopRange);
-            $eventAfterStopRange->setPrevious($eventBeforeStartRange);
-            $em->flush();
-
-            $iteratorCounter = 1;
-
-            if (!is_null($object->getNext())) {
+                // end range
+            } elseif (is_null($eventAfterStopRange)) {
+                $iteratorCounter = 1;
                 $iteratedEvent = $object;
                 while (!is_null($iteratedEvent->getNext())) {
                     $iteratedEvent = $iteratedEvent->getNext();
                     if ($iteratedEvent->getId() <= $eventIdStopRange) {
-                        $iteratedEvent
-                            ->setPrevious(null)
-                            ->setNext(null)
-                            ->setEnabled(false)
-                        ;
-                        $em->flush();
+                        $iteratedEvent->setEnabled(false);
                         ++$iteratorCounter;
                     }
                 }
-                $object
-                    ->setPrevious(null)
-                    ->setNext(null)
-                    ->setEnabled(false)
-                ;
+                $object->setEnabled(false);
+                if (!is_null($eventBeforeStartRange)) {
+                    $eventBeforeStartRange->setNext(null);
+                }
                 $em->flush();
+
+            // middle range
+            } else {
+                if (is_null($eventBeforeStartRange)) {
+                    $eventBeforeStartRange = $firstEvent;
+                }
+                if (is_null($eventAfterStopRange)) {
+                    $eventAfterStopRange = $lastEvent;
+                }
+
+                $eventBeforeStartRange->setNext($eventAfterStopRange);
+                $eventAfterStopRange->setPrevious($eventBeforeStartRange);
+                $em->flush();
+
+                $iteratorCounter = 1;
+
+                if (!is_null($object->getNext())) {
+                    $iteratedEvent = $object;
+                    while (!is_null($iteratedEvent->getNext())) {
+                        $iteratedEvent = $iteratedEvent->getNext();
+                        if ($iteratedEvent->getId() <= $eventIdStopRange) {
+                            $iteratedEvent->setEnabled(false);
+                            ++$iteratorCounter;
+                        }
+                    }
+                    $object->setEnabled(false);
+                    $em->flush();
+                }
             }
 
             $this->addFlash(
