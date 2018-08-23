@@ -10,21 +10,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Class ContactMessageAdminController
+ * Class ContactMessageAdminController.
  *
  * @category Controller
- * @package  AppBundle\Controller\Admin
+ *
  * @author   David Romaní <david@flux.cat>
  */
 class ContactMessageAdminController extends BaseAdminController
 {
     /**
-     * Show action
+     * Show action.
      *
      * @param int|string|null $id
      * @param Request         $request
      *
      * @return Response
+     *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
@@ -44,7 +45,7 @@ class ContactMessageAdminController extends BaseAdminController
         $this->admin->checkAccess('show', $object);
 
         $preResponse = $this->preShow($request, $object);
-        if ($preResponse !== null) {
+        if (null !== $preResponse) {
             return $preResponse;
         }
 
@@ -57,8 +58,8 @@ class ContactMessageAdminController extends BaseAdminController
         return $this->render(
             $this->admin->getTemplate('show'),
             array(
-                'action'   => 'show',
-                'object'   => $object,
+                'action' => 'show',
+                'object' => $object,
                 'elements' => $this->admin->getShow(),
             ),
             null,
@@ -73,6 +74,7 @@ class ContactMessageAdminController extends BaseAdminController
      * @param Request         $request
      *
      * @return Response
+     *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
@@ -99,7 +101,7 @@ class ContactMessageAdminController extends BaseAdminController
             $em->flush();
             // send notifications
             $messenger = $this->get('app.notification');
-            $messenger->senddUserBackendNotification($object);
+            $messenger->sendUserBackendNotification($object);
             // build flash message
             $this->addFlash('success', 'Your answer has been sent.');
 
@@ -109,9 +111,9 @@ class ContactMessageAdminController extends BaseAdminController
         return $this->render(
             '::Admin/ContactMessage/answer_form.html.twig',
             array(
-                'action'   => 'answer',
-                'object'   => $object,
-                'form'     => $form->createView(),
+                'action' => 'answer',
+                'object' => $object,
+                'form' => $form->createView(),
                 'elements' => $this->admin->getShow(),
             ),
             null,
