@@ -45,6 +45,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
             ->add('createInvoice', $this->getRouterIdParameter().'/create-invoice')
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
             ->add('send', $this->getRouterIdParameter().'/send')
+            ->add('generateDirectDebit', $this->getRouterIdParameter().'/generate-direct-debit-xml')
             ->remove('delete');
     }
 
@@ -418,6 +419,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                         'pdf' => array('template' => '::Admin/Buttons/list__action_receipt_pdf_button.html.twig'),
                         'send' => array('template' => '::Admin/Buttons/list__action_receipt_send_button.html.twig'),
                         'createInvoice' => array('template' => '::Admin/Buttons/list__action_receipt_create_invoice_button.html.twig'),
+                        'generateDirectDebit' => array('template' => '::Admin/Buttons/list__action_generate_direct_debit_xml_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )
