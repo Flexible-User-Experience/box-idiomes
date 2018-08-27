@@ -72,11 +72,21 @@ class XmlSepaBuilderService
      */
     public function buildDirectDebitReceiptXml($paymentId, \DateTime $dueDate, Receipt $receipt)
     {
-        $directDebit = $this->buildDirectDebit();
-        $this->addPaymentInfo($directDebit, $paymentId, $dueDate);
-        $this->addTransfer($directDebit, $paymentId, $receipt);
+        return $this->buildDirectDebitXml($paymentId, $dueDate, $receipt);
+    }
 
-        return $directDebit->asXML();
+    /**
+     * @param string    $paymentId
+     * @param \DateTime $dueDate
+     * @param Invoice   $invoice
+     *
+     * @return string
+     *
+     * @throws \Digitick\Sepa\Exception\InvalidArgumentException
+     */
+    public function buildDirectDebitInvoiceXml($paymentId, \DateTime $dueDate, Invoice $invoice)
+    {
+        return $this->buildDirectDebitXml($paymentId, $dueDate, $invoice);
     }
 
     /**
@@ -147,6 +157,24 @@ class XmlSepaBuilderService
             'remittanceInformation' => $remitanceInformation,
             'endToEndId' => $endToEndId, // optional, if you want to provide additional structured info
         ));
+    }
+
+    /**
+     * @param string          $paymentId
+     * @param \DateTime       $dueDate
+     * @param Receipt|Invoice $ari
+     *
+     * @return string
+     *
+     * @throws \Digitick\Sepa\Exception\InvalidArgumentException
+     */
+    private function buildDirectDebitXml($paymentId, \DateTime $dueDate, $ari)
+    {
+        $directDebit = $this->buildDirectDebit();
+        $this->addPaymentInfo($directDebit, $paymentId, $dueDate);
+        $this->addTransfer($directDebit, $paymentId, $ari);
+
+        return $directDebit->asXML();
     }
 
     /**
