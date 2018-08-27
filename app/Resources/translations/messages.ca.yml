@@ -277,6 +277,7 @@ backend:
         invoice:
             receipt: Rebut
             download: Descarregar PDF
+            generate_direct_debit_xml: Gir bancari XML
             generate: Generar factures
             items: Ítems
             preview_invoice: Mostrar factures a generar
