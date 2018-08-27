@@ -427,4 +427,34 @@ abstract class AbstractReceiptInvoice extends AbstractBase
 
         return $bank;
     }
+
+    /**
+     * Get parent's debtor mandates, or student's one if it's not set.
+     *
+     * @return string
+     */
+    public function getDebtorMandate()
+    {
+        $dm = $this->getStudent()->getDebtorMandate();
+        if (!is_null($this->getPerson()) && $this->getPerson()->getDebtorMandate()) {
+            $dm = $this->getPerson()->getDebtorMandate();
+        }
+
+        return $dm;
+    }
+
+    /**
+     * Get parent's debtor mandate sign date, or student's one if it's not set.
+     *
+     * @return string
+     */
+    public function getDebtorMandateSignDate()
+    {
+        $dmsd = $this->getStudent()->getDebtorMandateSignDate();
+        if (!is_null($this->getPerson()) && $this->getPerson()->getDebtorMandateSignDate()) {
+            $dmsd = $this->getPerson()->getDebtorMandateSignDate();
+        }
+
+        return $dmsd;
+    }
 }

@@ -9,6 +9,7 @@ use AppBundle\Form\Type\GenerateReceiptYearMonthChooserType;
 use AppBundle\Manager\GenerateReceiptFormManager;
 use AppBundle\Service\NotificationService;
 use AppBundle\Service\ReceiptPdfBuilderService;
+use AppBundle\Service\XmlSepaBuilderService;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
@@ -224,5 +225,36 @@ class ReceiptAdminController extends BaseAdminController
         }
 
         return $this->redirectToList();
+    }
+
+    /**
+     * Generate SEPA direct debit XML action.
+     *
+     * @param int|string|null $id
+     * @param Request         $request
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException                             If the object does not exist
+     * @throws AccessDeniedException                             If access is not granted
+     * @throws \Digitick\Sepa\Exception\InvalidArgumentException
+     */
+    public function generateDirectDebitAction($id = null, Request $request)
+    {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Receipt $object */
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+        }
+
+        /** @var XmlSepaBuilderService $xsbs */
+        $xsbs = $this->container->get('app.xml_sepa_builder');
+        $xml = $xsbs->buildDirectDebitReceiptXml('paymentID', new \DateTime(), $object);
+
+        return new Response($xml, 200, array('Content-type' => 'application/xml'));
     }
 }

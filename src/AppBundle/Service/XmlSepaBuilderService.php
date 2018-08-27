@@ -2,8 +2,11 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\InvoiceLine;
 use AppBundle\Entity\Receipt;
+use AppBundle\Entity\Invoice;
 use AppBundle\Entity\ReceiptLine;
+use Digitick\Sepa\TransferFile\Facade\CustomerDirectDebitFacade;
 use Digitick\Sepa\TransferFile\Factory\TransferFileFacadeFactory;
 use Digitick\Sepa\PaymentInformation;
 use Digitick\Sepa\GroupHeader;
@@ -69,43 +72,90 @@ class XmlSepaBuilderService
      */
     public function buildDirectDebitReceiptXml($paymentId, \DateTime $dueDate, Receipt $receipt)
     {
+        $directDebit = $this->buildDirectDebit();
+        $this->addPaymentInfo($directDebit, $paymentId, $dueDate);
+        $this->addTransfer($directDebit, $paymentId, $receipt);
+
+        return $directDebit->asXML();
+    }
+
+    /**
+     * @return CustomerDirectDebitFacade
+     */
+    private function buildDirectDebit()
+    {
         $today = new \DateTime();
-        $remitanceInformation = self::DEFAULT_REMITANCE_INFORMATION;
-        if (count($receipt->getLines()) > 0) {
-            /** @var ReceiptLine $firstLine */
-            $firstLine = $receipt->getLines()[0];
-            $remitanceInformation = $firstLine->getDescription();
-        }
-
         $header = new GroupHeader($today->format('Y-m-d-H-i-s'), $this->bn);
-        $header->setInitiatingPartyId('DE21WVM1234567890');
+        $header->setInitiatingPartyId($this->bd);
 
-        $directDebit = TransferFileFacadeFactory::createDirectDebitWithGroupHeader($header, self::DIRECT_DEBIT_PAIN_CODE);
+        return TransferFileFacadeFactory::createDirectDebitWithGroupHeader($header, self::DIRECT_DEBIT_PAIN_CODE);
+    }
 
+    /**
+     * @param CustomerDirectDebitFacade $directDebit
+     * @param string                    $paymentId
+     * @param \DateTime                 $dueDate
+     *
+     * @throws \Digitick\Sepa\Exception\InvalidArgumentException
+     */
+    private function addPaymentInfo(CustomerDirectDebitFacade &$directDebit, $paymentId, \DateTime $dueDate)
+    {
         // creates a payment, it's possible to create multiple payments, "$paymentId" is the identifier for the transactions
         $directDebit->addPaymentInfo($paymentId, array(
             'id' => $paymentId,
             'dueDate' => $dueDate, // optional. Otherwise default period is used
             'creditorName' => $this->bn,
-            'creditorAccountIBAN' => $this->ib,
-            'creditorAgentBIC' => $this->bic,
+            'creditorAccountIBAN' => $this->removeSpacesFrom($this->ib),
+            'creditorAgentBIC' => $this->removeSpacesFrom($this->bic),
             'seqType' => PaymentInformation::S_ONEOFF,
             'creditorId' => $this->bd,
             'localInstrumentCode' => 'CORE', // default. optional.
         ));
+    }
+
+    /**
+     * @param CustomerDirectDebitFacade $directDebit
+     * @param string                    $paymentId
+     * @param Receipt|Invoice           $ari
+     *
+     * @throws \Digitick\Sepa\Exception\InvalidArgumentException
+     */
+    private function addTransfer(CustomerDirectDebitFacade &$directDebit, $paymentId, $ari)
+    {
+        $remitanceInformation = self::DEFAULT_REMITANCE_INFORMATION;
+        if (count($ari->getLines()) > 0) {
+            /** @var ReceiptLine|InvoiceLine $firstLine */
+            $firstLine = $ari->getLines()[0];
+            $remitanceInformation = $firstLine->getDescription();
+        }
+
+        $endToEndId = '';
+        if ($ari instanceof Receipt) {
+            $endToEndId = 'Rebut num. '.$ari->getSluggedReceiptNumber();
+        } elseif ($ari instanceof Invoice) {
+            $endToEndId = 'Factura num. '.$ari->getSluggedInvoiceNumber();
+        }
 
         // add a Single Transaction to the named payment
         $directDebit->addTransfer($paymentId, array(
-            'amount' => $receipt->getBaseAmount(),
-            'debtorIban' => $receipt->getMainBank()->getAccountNumber(),
-            'debtorBic' => $receipt->getMainBank()->getSwiftCode(),
-            'debtorName' => $receipt->getMainEmailName(),
-            'debtorMandate' => 'AB12345',     // TODO
-            'debtorMandateSignDate' => '13.10.2012',  // TODO
+            'amount' => $ari->getBaseAmount(),
+            'debtorIban' => $this->removeSpacesFrom($ari->getMainBank()->getAccountNumber()),
+            'debtorBic' => $this->removeSpacesFrom($ari->getMainBank()->getSwiftCode()),
+            'debtorName' => $ari->getMainEmailName(),
+            'debtorMandate' => $ari->getDebtorMandate(),
+            'debtorMandateSignDate' => $ari->getDebtorMandateSignDate(),
             'remittanceInformation' => $remitanceInformation,
-            'endToEndId' => 'Rebut num. '.$receipt->getSluggedReceiptNumber(), // optional, if you want to provide additional structured info
+            'endToEndId' => $endToEndId, // optional, if you want to provide additional structured info
         ));
+    }
 
-        return $directDebit->asXML();
+    /**
+     * @param string $value
+     *
+     * @return string
+     */
+    private function removeSpacesFrom($value)
+    {
+        return str_replace(' ', '', $value);
     }
 }
