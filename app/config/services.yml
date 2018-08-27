@@ -118,7 +118,7 @@ services:
             - "@app.event_repository"
             - "@app.tariff_repository"
             - "@app.invoice_repository"
-# PDF Builders
+# Builders
     app.base_tcpdf:
         class: AppBundle\Pdf\BaseTcpdf
         arguments:
@@ -164,6 +164,13 @@ services:
             - "%boss_city%"
             - "%iban_business%"
             - "%locale%"
+    app.xml_sepa_builder:
+        class: AppBundle\Service\XmlSepaBuilderService
+        arguments:
+            - "%boss_name%"
+            - "%boss_dni%"
+            - "%iban_business%"
+            - "%bic_number%"
 # Forms
     app.form.type.generate_receipt:
         class: AppBundle\Form\Type\GenerateReceiptType

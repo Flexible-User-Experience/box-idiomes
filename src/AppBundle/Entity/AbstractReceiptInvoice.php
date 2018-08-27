@@ -412,4 +412,19 @@ abstract class AbstractReceiptInvoice extends AbstractBase
 
         return $email;
     }
+
+    /**
+     * Get parent's bank, or student's one if it's not set.
+     *
+     * @return Bank
+     */
+    public function getMainBank()
+    {
+        $bank = $this->getStudent()->getBank();
+        if (!is_null($this->getPerson()) && $this->getPerson()->getBank()) {
+            $bank = $this->getPerson()->getBank();
+        }
+
+        return $bank;
+    }
 }

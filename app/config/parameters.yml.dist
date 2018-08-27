@@ -40,6 +40,7 @@ parameters:
     boss_address: boss address
     boss_city: boss city
     iban_business: "ES00..."
+    bic_number: "....ES.."
 
     facebook_pixel_enabled: false
     facebook_pixel_id: XXXXXX
