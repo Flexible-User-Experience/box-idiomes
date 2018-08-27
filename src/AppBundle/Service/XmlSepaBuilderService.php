@@ -19,7 +19,7 @@ use Digitick\Sepa\GroupHeader;
 class XmlSepaBuilderService
 {
     const DIRECT_DEBIT_PAIN_CODE = 'pain.008.001.02';
-    const DEFAULT_REMITANCE_INFORMATION = 'Rebut mensual';
+    const DEFAULT_REMITANCE_INFORMATION = 'Import mensual';
 
     /**
      * @var string boss name
