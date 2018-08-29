@@ -117,6 +117,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                     'class' => Person::class,
                     'choice_label' => 'fullCanonicalName',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.parent_repository')->getEnabledSortedBySurnameQB(),
+                    'disabled' => true,
                 )
             )
             ->end()
@@ -447,6 +448,9 @@ class ReceiptAdmin extends AbstractBaseAdmin
      */
     private function commonPreActions($object)
     {
+        if ($object->getStudent()->getParent()) {
+            $object->setPerson($object->getStudent()->getParent());
+        }
         $object->setBaseAmount($object->calculateTotalBaseAmount());
     }
 }
