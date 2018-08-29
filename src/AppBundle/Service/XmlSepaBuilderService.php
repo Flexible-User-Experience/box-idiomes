@@ -250,10 +250,10 @@ class XmlSepaBuilderService
         }
 
         if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER != $subject->getPayment()) {
-            throw new InvalidPaymentMethodException('Invalid payment method found in ID# '.$ari->getId());
+            throw new InvalidPaymentMethodException('Forma de pagament invàlida al '.($subject instanceof Student ? 'alumne' : 'pare/mare').' '.$subject->getFullName());
         }
         if (!$subject->getBank()->getAccountNumber()) {
-            throw new InvalidPaymentMethodException('No IBAN found in ID# '.$ari->getId());
+            throw new InvalidPaymentMethodException('No s\'ha trobat cap IBAN al '.($subject instanceof Student ? 'alumne' : 'pare/mare').' '.$subject->getFullName());
         }
     }
 }
