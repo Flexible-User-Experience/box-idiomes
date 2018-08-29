@@ -279,6 +279,7 @@ backend:
             download: Descarregar PDF
             generate_direct_debit_xml: Gir bancari XML
             generate: Generar factures
+            batch_action: Generar gir bancari SEPA del elements seleccionats
             items: Ítems
             preview_invoice: Mostrar factures a generar
             list: Llistat de factures disponibles a generar

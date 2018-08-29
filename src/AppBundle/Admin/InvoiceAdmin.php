@@ -39,11 +39,29 @@ class InvoiceAdmin extends AbstractBaseAdmin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        parent::configureRoutes($collection);
         $collection
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
             ->add('send', $this->getRouterIdParameter().'/send')
+            ->remove('show')
             ->remove('delete');
+    }
+
+    /**
+     * @param array $actions
+     *
+     * @return array
+     */
+    public function configureBatchActions($actions)
+    {
+        if ($this->hasRoute('edit') && $this->hasAccess('edit')) {
+            $actions['generatesepaxmls'] = array(
+                'label' => 'backend.admin.invoice.batch_action',
+                'translation_domain' => 'messages',
+                'ask_confirmation' => false,
+            );
+        }
+
+        return $actions;
     }
 
     /**
@@ -124,6 +142,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'class' => Person::class,
                     'choice_label' => 'fullCanonicalName',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.parent_repository')->getEnabledSortedBySurnameQB(),
+                    'disabled' => true,
                 )
             )
             ->end()
@@ -487,6 +506,9 @@ class InvoiceAdmin extends AbstractBaseAdmin
      */
     private function commonPreActions($object)
     {
+        if ($object->getStudent()->getParent()) {
+            $object->setPerson($object->getStudent()->getParent());
+        }
         $object
             ->setBaseAmount($object->calculateBaseAmount())
             ->setTotalAmount($object->calculateTotalAmount())

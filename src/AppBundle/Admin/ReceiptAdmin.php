@@ -38,15 +38,33 @@ class ReceiptAdmin extends AbstractBaseAdmin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        parent::configureRoutes($collection);
         $collection
             ->add('generate')
             ->add('creator')
             ->add('createInvoice', $this->getRouterIdParameter().'/create-invoice')
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
             ->add('send', $this->getRouterIdParameter().'/send')
-            ->add('generateDirectDebit', $this->getRouterIdParameter().'/generate-direct-debit-xml')
+//            ->add('generateDirectDebit', $this->getRouterIdParameter().'/generate-direct-debit-xml')
+            ->remove('show')
             ->remove('delete');
+    }
+
+    /**
+     * @param array $actions
+     *
+     * @return array
+     */
+    public function configureBatchActions($actions)
+    {
+        if ($this->hasRoute('edit') && $this->hasAccess('edit')) {
+            $actions['generatesepaxmls'] = array(
+                'label' => 'backend.admin.invoice.batch_action',
+                'translation_domain' => 'messages',
+                'ask_confirmation' => false,
+            );
+        }
+
+        return $actions;
     }
 
     /**
@@ -117,6 +135,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                     'class' => Person::class,
                     'choice_label' => 'fullCanonicalName',
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.parent_repository')->getEnabledSortedBySurnameQB(),
+                    'disabled' => true,
                 )
             )
             ->end()
@@ -419,7 +438,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
                         'pdf' => array('template' => '::Admin/Buttons/list__action_receipt_pdf_button.html.twig'),
                         'send' => array('template' => '::Admin/Buttons/list__action_receipt_send_button.html.twig'),
                         'createInvoice' => array('template' => '::Admin/Buttons/list__action_receipt_create_invoice_button.html.twig'),
-                        'generateDirectDebit' => array('template' => '::Admin/Buttons/list__action_generate_direct_debit_xml_button.html.twig'),
+//                        'generateDirectDebit' => array('template' => '::Admin/Buttons/list__action_generate_direct_debit_xml_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )
@@ -447,6 +466,9 @@ class ReceiptAdmin extends AbstractBaseAdmin
      */
     private function commonPreActions($object)
     {
+        if ($object->getStudent()->getParent()) {
+            $object->setPerson($object->getStudent()->getParent());
+        }
         $object->setBaseAmount($object->calculateTotalBaseAmount());
     }
 }
