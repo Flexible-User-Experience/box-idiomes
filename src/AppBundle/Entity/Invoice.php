@@ -245,6 +245,19 @@ class Invoice extends AbstractReceiptInvoice
             $date = $this->getDate();
         }
 
+        return $date->format('Y').'-'.$this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getUnderscoredInvoiceNumber()
+    {
+        $date = new \DateTime();
+        if ($this->getDate()) {
+            $date = $this->getDate();
+        }
+
         return $date->format('Y').'_'.$this->getId();
     }
 
