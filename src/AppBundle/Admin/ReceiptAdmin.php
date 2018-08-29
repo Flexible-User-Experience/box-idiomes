@@ -38,7 +38,6 @@ class ReceiptAdmin extends AbstractBaseAdmin
      */
     protected function configureRoutes(RouteCollection $collection)
     {
-        parent::configureRoutes($collection);
         $collection
             ->add('generate')
             ->add('creator')
@@ -46,7 +45,26 @@ class ReceiptAdmin extends AbstractBaseAdmin
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
             ->add('send', $this->getRouterIdParameter().'/send')
 //            ->add('generateDirectDebit', $this->getRouterIdParameter().'/generate-direct-debit-xml')
+            ->remove('show')
             ->remove('delete');
+    }
+
+    /**
+     * @param array $actions
+     *
+     * @return array
+     */
+    public function configureBatchActions($actions)
+    {
+        if ($this->hasRoute('edit') && $this->hasAccess('edit')) {
+            $actions['generatesepaxmls'] = array(
+                'label' => 'backend.admin.invoice.batch_action',
+                'translation_domain' => 'messages',
+                'ask_confirmation' => false,
+            );
+        }
+
+        return $actions;
     }
 
     /**

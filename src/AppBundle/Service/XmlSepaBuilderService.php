@@ -77,7 +77,7 @@ class XmlSepaBuilderService
      * @throws InvalidArgumentException
      * @throws InvalidPaymentMethodException
      */
-    public function buildDirectDebitSingleReceiptInvoiceXml($paymentId, \DateTime $dueDate, Receipt $recepit)
+    public function buildDirectDebitSingleReceiptXml($paymentId, \DateTime $dueDate, Receipt $recepit)
     {
         $this->validate($recepit);
         $directDebit = $this->buildDirectDebit($paymentId);

@@ -9,12 +9,18 @@ use AppBundle\Form\Type\GenerateInvoiceYearMonthChooserType;
 use AppBundle\Manager\GenerateInvoiceFormManager;
 use AppBundle\Service\InvoicePdfBuilderService;
 use AppBundle\Service\NotificationService;
+use AppBundle\Service\XmlSepaBuilderService;
 use Doctrine\ORM\NonUniqueResultException;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -35,7 +41,7 @@ class InvoiceAdminController extends BaseAdminController
      * @throws AccessDeniedException    If access is not granted
      * @throws NonUniqueResultException If problem with unique entities
      */
-    public function generateAction(Request $request = null)
+    public function generateAction(Request $request)
     {
         /** @var GenerateInvoiceFormManager $gifm */
         $gifm = $this->container->get('app.generate_invoice_form_manager');
@@ -77,14 +83,14 @@ class InvoiceAdminController extends BaseAdminController
      *
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @throws NotFoundHttpException                 If the object does not exist
      * @throws AccessDeniedException                 If access is not granted
      * @throws NonUniqueResultException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function creatorAction(Request $request = null)
+    public function creatorAction(Request $request)
     {
         /** @var Translator $translator */
         $translator = $this->container->get('translator.default');
@@ -105,24 +111,22 @@ class InvoiceAdminController extends BaseAdminController
     /**
      * Generate PDF invoice action.
      *
-     * @param int|string|null $id
-     * @param Request         $request
+     * @param Request $request
      *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
-    public function pdfAction($id = null, Request $request)
+    public function pdfAction(Request $request)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
 
         /** @var Invoice $object */
         $object = $this->admin->getObject($id);
-
         if (!$object) {
-            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
 
         /** @var InvoicePdfBuilderService $ips */
@@ -135,33 +139,30 @@ class InvoiceAdminController extends BaseAdminController
     /**
      * Send PDF invoice action.
      *
-     * @param int|string|null $id
-     * @param Request         $request
+     * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function sendAction($id = null, Request $request)
+    public function sendAction(Request $request)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
 
         /** @var Invoice $object */
         $object = $this->admin->getObject($id);
-
         if (!$object) {
-            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
 
         $object
             ->setIsSended(true)
             ->setSendDate(new \DateTime())
         ;
-
         $em = $this->container->get('doctrine')->getManager();
         $em->flush();
 
@@ -182,5 +183,87 @@ class InvoiceAdminController extends BaseAdminController
         }
 
         return $this->redirectToList();
+    }
+
+    /**
+     * Generate SEPA direct debit XML action.
+     *
+     * @param Request $request
+     *
+     * @return Response|BinaryFileResponse
+     *
+     * @throws \Digitick\Sepa\Exception\InvalidArgumentException
+     * @throws \Digitick\Sepa\Exception\InvalidPaymentMethodException
+     */
+    public function generateDirectDebitAction(Request $request)
+    {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Invoice $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
+        }
+
+        /** @var XmlSepaBuilderService $xsbs */
+        $xsbs = $this->container->get('app.xml_sepa_builder');
+        $paymentUniqueId = uniqid();
+        $xml = $xsbs->buildDirectDebitSingleInvoiceXml($paymentUniqueId, new \DateTime('now + 3 days'), $object);
+
+        if ('dev' == $this->getParameter('kernel.environment')) {
+            return new Response($xml, 200, array('Content-type' => 'application/xml'));
+        }
+
+        $fileSystem = new Filesystem();
+        $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.$paymentUniqueId.'_I_'.$object->getSluggedInvoiceNumber().'.xml';
+        $fileSystem->touch($fileNamePath);
+        $fileSystem->dumpFile($fileNamePath, $xml);
+
+        $response = new BinaryFileResponse($fileNamePath, 200, array('Content-type' => 'application/xml'));
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+
+        return $response;
+    }
+
+    /**
+     * @param ProxyQueryInterface $selectedModelQuery
+     *
+     * @return Response|RedirectResponse
+     */
+    public function batchActionGeneratesepaxmls(ProxyQueryInterface $selectedModelQuery)
+    {
+        $this->admin->checkAccess('edit');
+
+        $selectedModels = $selectedModelQuery->execute();
+        try {
+            /** @var XmlSepaBuilderService $xsbs */
+            $xsbs = $this->container->get('app.xml_sepa_builder');
+            $paymentUniqueId = uniqid();
+            $xmls = $xsbs->buildDirectDebitInvoicesXml($paymentUniqueId, new \DateTime('now + 3 days'), $selectedModels);
+
+            if ('dev' == $this->getParameter('kernel.environment')) {
+                return new Response($xmls, 200, array('Content-type' => 'application/xml'));
+            }
+
+            $fileSystem = new Filesystem();
+            $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.$paymentUniqueId.'_I.xml';
+            $fileSystem->touch($fileNamePath);
+            $fileSystem->dumpFile($fileNamePath, $xmls);
+
+            $response = new BinaryFileResponse($fileNamePath, 200, array('Content-type' => 'application/xml'));
+            $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+
+            return $response;
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'S\'ha produït un error al generar l\'arxiu SEPA amb format XML. Revisa les factures seleccionades.');
+            $this->addFlash('error', $e->getMessage());
+
+            return new RedirectResponse(
+                $this->admin->generateUrl('list', [
+                    'filter' => $this->admin->getFilterParameters(),
+                ])
+            );
+        }
     }
 }

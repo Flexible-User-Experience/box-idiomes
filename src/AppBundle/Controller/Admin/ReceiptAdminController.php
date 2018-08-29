@@ -11,11 +11,13 @@ use AppBundle\Service\NotificationService;
 use AppBundle\Service\ReceiptPdfBuilderService;
 use AppBundle\Service\XmlSepaBuilderService;
 use Doctrine\ORM\NonUniqueResultException;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -81,7 +83,7 @@ class ReceiptAdminController extends BaseAdminController
      *
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @throws NotFoundHttpException                 If the object does not exist
      * @throws AccessDeniedException                 If access is not granted
@@ -178,7 +180,7 @@ class ReceiptAdminController extends BaseAdminController
      *
      * @param Request $request
      *
-     * @return Response
+     * @return RedirectResponse
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws \Twig_Error_Loader
@@ -246,7 +248,7 @@ class ReceiptAdminController extends BaseAdminController
         /** @var XmlSepaBuilderService $xsbs */
         $xsbs = $this->container->get('app.xml_sepa_builder');
         $paymentUniqueId = uniqid();
-        $xml = $xsbs->buildDirectDebitSingleReceiptInvoiceXml($paymentUniqueId, new \DateTime('now + 3 days'), $object);
+        $xml = $xsbs->buildDirectDebitSingleReceiptXml($paymentUniqueId, new \DateTime('now + 3 days'), $object);
 
         if ('dev' == $this->getParameter('kernel.environment')) {
             return new Response($xml, 200, array('Content-type' => 'application/xml'));
@@ -261,5 +263,46 @@ class ReceiptAdminController extends BaseAdminController
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);
 
         return $response;
+    }
+
+    /**
+     * @param ProxyQueryInterface $selectedModelQuery
+     *
+     * @return Response|RedirectResponse
+     */
+    public function batchActionGeneratesepaxmls(ProxyQueryInterface $selectedModelQuery)
+    {
+        $this->admin->checkAccess('edit');
+
+        $selectedModels = $selectedModelQuery->execute();
+        try {
+            /** @var XmlSepaBuilderService $xsbs */
+            $xsbs = $this->container->get('app.xml_sepa_builder');
+            $paymentUniqueId = uniqid();
+            $xmls = $xsbs->buildDirectDebitReceiptsXml($paymentUniqueId, new \DateTime('now + 3 days'), $selectedModels);
+
+            if ('dev' == $this->getParameter('kernel.environment')) {
+                return new Response($xmls, 200, array('Content-type' => 'application/xml'));
+            }
+
+            $fileSystem = new Filesystem();
+            $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.$paymentUniqueId.'_R.xml';
+            $fileSystem->touch($fileNamePath);
+            $fileSystem->dumpFile($fileNamePath, $xmls);
+
+            $response = new BinaryFileResponse($fileNamePath, 200, array('Content-type' => 'application/xml'));
+            $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+
+            return $response;
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'S\'ha produït un error al generar l\'arxiu SEPA amb format XML. Revisa els rebuts seleccionats.');
+            $this->addFlash('error', $e->getMessage());
+
+            return new RedirectResponse(
+                $this->admin->generateUrl('list', [
+                    'filter' => $this->admin->getFilterParameters(),
+                ])
+            );
+        }
     }
 }
