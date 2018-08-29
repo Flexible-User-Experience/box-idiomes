@@ -13,9 +13,12 @@ use AppBundle\Service\XmlSepaBuilderService;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -36,7 +39,7 @@ class ReceiptAdminController extends BaseAdminController
      * @throws AccessDeniedException    If access is not granted
      * @throws NonUniqueResultException If problem with unique entities
      */
-    public function generateAction(Request $request = null)
+    public function generateAction(Request $request)
     {
         /** @var GenerateReceiptFormManager $grfm */
         $grfm = $this->container->get('app.generate_receipt_form_manager');
@@ -85,7 +88,7 @@ class ReceiptAdminController extends BaseAdminController
      * @throws NonUniqueResultException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function creatorAction(Request $request = null)
+    public function creatorAction(Request $request)
     {
         /** @var Translator $translator */
         $translator = $this->container->get('translator.default');
@@ -113,24 +116,22 @@ class ReceiptAdminController extends BaseAdminController
     /**
      * Create an Invoice from a Receipt action.
      *
-     * @param int|string|null $id
-     * @param Request         $request
+     * @param Request $request
      *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
-    public function createInvoiceAction($id = null, Request $request)
+    public function createInvoiceAction(Request $request)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
 
         /** @var Receipt $object */
         $object = $this->admin->getObject($id);
-
         if (!$object) {
-            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
 
         $invoice = $this->container->get('app.receipt_manager')->createInvoiceFromReceipt($object);
@@ -139,7 +140,6 @@ class ReceiptAdminController extends BaseAdminController
         $em->persist($invoice);
         $em->flush();
 
-        /* @var Controller $this */
         $this->addFlash('success', 'S\'ha generat la factura núm. '.$invoice->getInvoiceNumber());
 
         return $this->redirectToList();
@@ -148,24 +148,22 @@ class ReceiptAdminController extends BaseAdminController
     /**
      * Generate PDF receipt action.
      *
-     * @param int|string|null $id
-     * @param Request         $request
+     * @param Request $request
      *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
-    public function pdfAction($id = null, Request $request)
+    public function pdfAction(Request $request)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
 
         /** @var Receipt $object */
         $object = $this->admin->getObject($id);
-
         if (!$object) {
-            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
 
         /** @var ReceiptPdfBuilderService $rps */
@@ -178,8 +176,7 @@ class ReceiptAdminController extends BaseAdminController
     /**
      * Send PDF receipt action.
      *
-     * @param int|string|null $id
-     * @param Request         $request
+     * @param Request $request
      *
      * @return Response
      *
@@ -188,23 +185,21 @@ class ReceiptAdminController extends BaseAdminController
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function sendAction($id = null, Request $request)
+    public function sendAction(Request $request)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
 
         /** @var Receipt $object */
         $object = $this->admin->getObject($id);
-
         if (!$object) {
-            throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
 
         $object
             ->setIsSended(true)
             ->setSendDate(new \DateTime())
         ;
-
         $em = $this->container->get('doctrine')->getManager();
         $em->flush();
 
@@ -230,31 +225,41 @@ class ReceiptAdminController extends BaseAdminController
     /**
      * Generate SEPA direct debit XML action.
      *
-     * @param int|string|null $id
-     * @param Request         $request
+     * @param Request $request
      *
-     * @return Response
+     * @return Response|BinaryFileResponse
      *
-     * @throws NotFoundHttpException                             If the object does not exist
-     * @throws AccessDeniedException                             If access is not granted
      * @throws \Digitick\Sepa\Exception\InvalidArgumentException
+     * @throws \Digitick\Sepa\Exception\InvalidPaymentMethodException
      */
-    public function generateDirectDebitAction($id = null, Request $request)
+    public function generateDirectDebitAction(Request $request)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
 
         /** @var Receipt $object */
         $object = $this->admin->getObject($id);
-
         if (!$object) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id : %s', $id));
         }
 
         /** @var XmlSepaBuilderService $xsbs */
         $xsbs = $this->container->get('app.xml_sepa_builder');
-        $xml = $xsbs->buildDirectDebitReceiptXml('paymentID', new \DateTime(), $object);
+        $paymentUniqueId = uniqid();
+        $xml = $xsbs->buildDirectDebitSingleReceiptInvoiceXml($paymentUniqueId, new \DateTime('now + 3 days'), $object);
 
-        return new Response($xml, 200, array('Content-type' => 'application/xml'));
+        if ('dev' == $this->getParameter('kernel.environment')) {
+            return new Response($xml, 200, array('Content-type' => 'application/xml'));
+        }
+
+        $fileSystem = new Filesystem();
+        $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.$paymentUniqueId.'_R_'.$object->getSluggedReceiptNumber().'.xml';
+        $fileSystem->touch($fileNamePath);
+        $fileSystem->dumpFile($fileNamePath, $xml);
+
+        $response = new BinaryFileResponse($fileNamePath, 200, array('Content-type' => 'application/xml'));
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+
+        return $response;
     }
 }

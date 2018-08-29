@@ -3,9 +3,11 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\InvoiceLine;
+use AppBundle\Entity\Person;
 use AppBundle\Entity\Receipt;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\ReceiptLine;
+use AppBundle\Entity\Student;
 use AppBundle\Enum\StudentPaymentEnum;
 use Digitick\Sepa\Exception\InvalidArgumentException;
 use Digitick\Sepa\Exception\InvalidPaymentMethodException;
@@ -241,11 +243,17 @@ class XmlSepaBuilderService
      */
     private function validate($ari)
     {
-        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER != $ari->getStudent()->getPayment()) {
+        /** @var Student|Person $subject */
+        $subject = $ari->getStudent();
+        if ($subject->getParent()) {
+            $subject = $subject->getParent();
+        }
+
+        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER != $subject->getPayment()) {
             throw new InvalidPaymentMethodException('Invalid payment method found in ID# '.$ari->getId());
         }
-        if (!$ari->getCustomer()->getIbanForBankDraftPayment()) {
-            throw new InvalidPaymentMethodException('No IBAN found in customer ID# '.$ari->getCustomer()->getId());
+        if (!$subject->getBank()->getAccountNumber()) {
+            throw new InvalidPaymentMethodException('No IBAN found in ID# '.$ari->getId());
         }
     }
 }
