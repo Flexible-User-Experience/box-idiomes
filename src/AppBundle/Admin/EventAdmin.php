@@ -20,8 +20,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  * Class EventAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class EventAdmin extends AbstractBaseAdmin
 {
@@ -154,18 +152,30 @@ class EventAdmin extends AbstractBaseAdmin
         $datagridMapper
             ->add(
                 'begin',
-                'doctrine_orm_date',
+                'doctrine_orm_datetime',
                 array(
                     'label' => 'backend.admin.event.begin',
                     'field_type' => 'sonata_type_datetime_picker',
+                    'format' => 'd-m-Y H:i',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy HH:mm',
                 )
             )
             ->add(
                 'end',
-                'doctrine_orm_date',
+                'doctrine_orm_datetime',
                 array(
                     'label' => 'backend.admin.event.end',
                     'field_type' => 'sonata_type_datetime_picker',
+                    'format' => 'd-m-Y H:i',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy HH:mm',
                 )
             )
             ->add(

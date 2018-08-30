@@ -11,8 +11,6 @@ use Sonata\AdminBundle\Route\RouteCollection;
  * Class BankAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class BankAdmin extends AbstractBaseAdmin
 {

@@ -17,8 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
  * Class PersonAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class PersonAdmin extends AbstractBaseAdmin
 {

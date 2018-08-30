@@ -11,8 +11,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
  * Class ContactMessageAdmin.
  *
  * @category Admin
- *
- * @author   Anton Serra <aserratorta@gmail.com>
  */
 class ContactMessageAdmin extends AbstractBaseAdmin
 {
@@ -56,6 +54,12 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.date',
                     'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
                 )
             )
             ->add(

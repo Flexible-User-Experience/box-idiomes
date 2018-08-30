@@ -14,8 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
  * Class CityAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class CityAdmin extends AbstractBaseAdmin
 {

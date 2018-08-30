@@ -15,8 +15,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  * Class TeacherAdmin.
  *
  * @category Admin
- *
- * @author   Anton Serra <aserratorta@gmail.com>
  */
 class TeacherAdmin extends AbstractBaseAdmin
 {

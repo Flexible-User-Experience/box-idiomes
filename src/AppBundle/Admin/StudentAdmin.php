@@ -21,8 +21,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
  * Class StudentAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class StudentAdmin extends AbstractBaseAdmin
 {
@@ -251,6 +249,12 @@ class StudentAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.student.birthDate',
                     'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
                 )
             )
             ->add(
