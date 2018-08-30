@@ -215,8 +215,9 @@ class InvoiceAdminController extends BaseAdminController
             return new Response($xml, 200, array('Content-type' => 'application/xml'));
         }
 
+        $now = new \DateTime();
         $fileSystem = new Filesystem();
-        $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.$paymentUniqueId.'_I_'.$object->getSluggedInvoiceNumber().'.xml';
+        $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.'SEPA_invoice_'.$now->format('Y-m-d').'___'.$paymentUniqueId.'.xml';
         $fileSystem->touch($fileNamePath);
         $fileSystem->dumpFile($fileNamePath, $xml);
 
@@ -246,8 +247,9 @@ class InvoiceAdminController extends BaseAdminController
                 return new Response($xmls, 200, array('Content-type' => 'application/xml'));
             }
 
+            $now = new \DateTime();
             $fileSystem = new Filesystem();
-            $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.$paymentUniqueId.'_I.xml';
+            $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.'SEPA_invoices_'.$now->format('Y-m-d').'___'.$paymentUniqueId.'.xml';
             $fileSystem->touch($fileNamePath);
             $fileSystem->dumpFile($fileNamePath, $xmls);
 
