@@ -397,7 +397,11 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.invoice.sendDate',
                     'field_type' => 'sonata_type_date_picker',
                     'format' => 'd-m-Y',
-                    'input_type' => 'string',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
                 )
             )
             ->add(
@@ -414,6 +418,11 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.invoice.paymentDate',
                     'field_type' => 'sonata_type_date_picker',
                     'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
                 )
             )
         ;
