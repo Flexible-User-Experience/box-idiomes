@@ -152,18 +152,30 @@ class EventAdmin extends AbstractBaseAdmin
         $datagridMapper
             ->add(
                 'begin',
-                'doctrine_orm_date',
+                'doctrine_orm_datetime',
                 array(
                     'label' => 'backend.admin.event.begin',
                     'field_type' => 'sonata_type_datetime_picker',
+                    'format' => 'd-m-Y H:i',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy HH:mm',
                 )
             )
             ->add(
                 'end',
-                'doctrine_orm_date',
+                'doctrine_orm_datetime',
                 array(
                     'label' => 'backend.admin.event.end',
                     'field_type' => 'sonata_type_datetime_picker',
+                    'format' => 'd-m-Y H:i',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy HH:mm',
                 )
             )
             ->add(
