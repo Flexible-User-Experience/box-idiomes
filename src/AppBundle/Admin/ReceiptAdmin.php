@@ -19,8 +19,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  * Class ReceiptAdmin.
  *
  * @category Admin
- *
- * @author   David Romaní <david@flux.cat>
  */
 class ReceiptAdmin extends AbstractBaseAdmin
 {

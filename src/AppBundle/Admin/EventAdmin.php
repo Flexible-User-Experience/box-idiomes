@@ -20,8 +20,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  * Class EventAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class EventAdmin extends AbstractBaseAdmin
 {

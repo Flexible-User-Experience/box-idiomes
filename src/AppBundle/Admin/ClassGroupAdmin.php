@@ -13,8 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
  * Class ClassGroupAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class ClassGroupAdmin extends AbstractBaseAdmin
 {

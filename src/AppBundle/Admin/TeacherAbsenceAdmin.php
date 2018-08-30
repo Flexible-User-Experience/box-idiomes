@@ -16,8 +16,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  * Class TeacherAbsenceAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class TeacherAbsenceAdmin extends AbstractBaseAdmin
 {
@@ -93,6 +91,12 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.teacher_absence.day',
                     'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
                 )
             )
             ->add(

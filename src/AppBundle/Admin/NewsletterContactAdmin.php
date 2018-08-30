@@ -7,23 +7,21 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 /**
- * Class NewsletterContactAdmin
+ * Class NewsletterContactAdmin.
  *
  * @category Admin
- * @package  AppBundle\Admin
- * @author   Anton Serra <aserratorta@gmail.com>
  */
 class NewsletterContactAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Newsletter Contact';
     protected $baseRoutePattern = 'contacts/newsletter';
     protected $datagridValues = array(
-        '_sort_by'    => 'createdAt',
+        '_sort_by' => 'createdAt',
         '_sort_order' => 'desc',
     );
 
     /**
-     * Configure route collection
+     * Configure route collection.
      *
      * @param RouteCollection $collection
      */
@@ -34,7 +32,7 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
             ->remove('edit')
             ->remove('delete')
             ->remove('batch')
-            ->add('answer', $this->getRouterIdParameter() . '/answer')
+            ->add('answer', $this->getRouterIdParameter().'/answer')
             ->remove('batch');
     }
 
@@ -48,7 +46,7 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
                 'createdAt',
                 'doctrine_orm_date',
                 array(
-                    'label'      => 'backend.admin.date',
+                    'label' => 'backend.admin.date',
                     'field_type' => 'sonata_type_date_picker',
                 )
             )
@@ -73,8 +71,8 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
                 'createdAt',
                 'date',
                 array(
-                    'label'  => 'backend.admin.contact.date',
-                    'format' => 'd/m/Y H:i'
+                    'label' => 'backend.admin.contact.date',
+                    'format' => 'd/m/Y H:i',
                 )
             )
             ->add(

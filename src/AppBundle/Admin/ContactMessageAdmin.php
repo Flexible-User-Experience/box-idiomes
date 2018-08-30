@@ -11,8 +11,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
  * Class ContactMessageAdmin.
  *
  * @category Admin
- *
- * @author   Anton Serra <aserratorta@gmail.com>
  */
 class ContactMessageAdmin extends AbstractBaseAdmin
 {
