@@ -219,7 +219,7 @@ backend:
         sepaagreement:
             checkbox_label: SEPA Acceptat
             first_text: Autorització de domiciliació bancària per al pagament de rebuts
-            text1: "D’acord amb el que estableixen els articles 25,26 i 31 de la llei 16/2009 de serveis de pagament:"
+            text1: "D’acord amb el que estableixen els articles 25, 26 i 31 de la llei 16/2009 de serveis de pagament:"
             text2: "Autoritzo i consenteixo la present ordre de domiciliació bancària per què, a càrrec del compte del qual s’indica el titular i número, i fins nou avís, Ester Escrihuela Simó procedeixi al cobrament de rebuts bancaris que s’originin mensualment amb relació a les classes impartides."
             text3: "Tanmateix, autoritzo a Ester Escrihuela Simó perquè traslladi aquesta ordre a l’entitat bancària corresponent per tal que en prenguin coneixement i constància."
             contact_name: Nom complet del titular del compte
