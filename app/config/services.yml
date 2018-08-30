@@ -167,10 +167,13 @@ services:
     app.xml_sepa_builder:
         class: AppBundle\Service\XmlSepaBuilderService
         arguments:
+            - "@app.spanish_sepa_helper"
             - "%boss_name%"
             - "%boss_dni%"
             - "%iban_business%"
             - "%bic_number%"
+    app.spanish_sepa_helper:
+        class: AppBundle\Service\SpanishSepaHelperService
 # Forms
     app.form.type.generate_receipt:
         class: AppBundle\Form\Type\GenerateReceiptType
