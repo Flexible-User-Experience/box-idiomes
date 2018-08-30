@@ -28,12 +28,17 @@ class XmlSepaBuilderService
     const DEFAULT_REMITANCE_INFORMATION = 'Import mensual';
 
     /**
+     * @var SpanishSepaHelperService
+     */
+    private $sshs;
+
+    /**
      * @var string fiscal name
      */
     private $bn;
 
     /**
-     * @var string fiscal identification code (CIF/DNI)
+     * @var string fiscal identification code (NIF/CIF/DNI)
      */
     private $bd;
 
@@ -54,13 +59,15 @@ class XmlSepaBuilderService
     /**
      * XmlSepaBuilderService constructor.
      *
-     * @param string $bn
-     * @param string $bd
-     * @param string $ib
-     * @param string $bic
+     * @param SpanishSepaHelperService $sshs
+     * @param string                   $bn
+     * @param string                   $bd
+     * @param string                   $ib
+     * @param string                   $bic
      */
-    public function __construct($bn, $bd, $ib, $bic)
+    public function __construct(SpanishSepaHelperService $sshs, $bn, $bd, $ib, $bic)
     {
+        $this->sshs = $sshs;
         $this->bn = $bn;
         $this->bd = $bd;
         $this->ib = $this->removeSpacesFrom($ib);
@@ -185,7 +192,7 @@ class XmlSepaBuilderService
             'creditorAccountIBAN' => $this->ib,
             'creditorAgentBIC' => $this->bic,
             'seqType' => PaymentInformation::S_ONEOFF,
-            'creditorId' => StringHelper::sanitizeString($this->bd),
+            'creditorId' => $this->sshs->getSpanishCreditorIdFromNif($this->bd),
             'localInstrumentCode' => 'CORE', // default. optional.
         ));
     }
@@ -213,17 +220,22 @@ class XmlSepaBuilderService
             $endToEndId = $ari->getSluggedInvoiceNumber();
         }
 
-        // add a Single Transaction to the named payment
-        $directDebit->addTransfer($paymentId, array(
+        $transferInformation = array(
             'amount' => $ari->getTotalAmount(),
             'debtorIban' => $this->removeSpacesFrom($ari->getMainBank()->getAccountNumber()),
-            'debtorBic' => $this->removeSpacesFrom($ari->getMainBank()->getSwiftCode()),
             'debtorName' => $ari->getMainEmailName(),
             'debtorMandate' => $ari->getDebtorMandate(),
             'debtorMandateSignDate' => $ari->getDebtorMandateSignDate(),
             'remittanceInformation' => $remitanceInformation,
             'endToEndId' => StringHelper::sanitizeString($endToEndId), // optional, if you want to provide additional structured info
-        ));
+        );
+
+        if ($ari->getMainBank()->getSwiftCode()) {
+            $transferInformation['debtorBic'] = $this->removeSpacesFrom($ari->getMainBank()->getSwiftCode());
+        }
+
+        // add a Single Transaction to the named payment
+        $directDebit->addTransfer($paymentId, $transferInformation);
     }
 
     /**

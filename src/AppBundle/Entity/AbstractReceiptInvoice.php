@@ -390,12 +390,9 @@ abstract class AbstractReceiptInvoice extends AbstractBase
      */
     public function getMainEmail()
     {
-        $email = $this->getStudent()->getEmail();
-        if (!is_null($this->getPerson()) && $this->getPerson()->getEmail()) {
-            $email = $this->getPerson()->getEmail();
-        }
+        $subject = $this->getMainSubject();
 
-        return $email;
+        return $subject->getEmail();
     }
 
     /**
@@ -405,12 +402,9 @@ abstract class AbstractReceiptInvoice extends AbstractBase
      */
     public function getMainEmailName()
     {
-        $email = $this->getStudent()->getFullName();
-        if (!is_null($this->getPerson()) && $this->getPerson()->getFullName()) {
-            $email = $this->getPerson()->getFullName();
-        }
+        $subject = $this->getMainSubject();
 
-        return $email;
+        return $subject->getFullName();
     }
 
     /**
@@ -420,12 +414,9 @@ abstract class AbstractReceiptInvoice extends AbstractBase
      */
     public function getMainBank()
     {
-        $bank = $this->getStudent()->getBank();
-        if (!is_null($this->getPerson()) && $this->getPerson()->getBank()) {
-            $bank = $this->getPerson()->getBank();
-        }
+        $subject = $this->getMainSubject();
 
-        return $bank;
+        return $subject->getBank();
     }
 
     /**
@@ -435,12 +426,9 @@ abstract class AbstractReceiptInvoice extends AbstractBase
      */
     public function getDebtorMandate()
     {
-        $dm = $this->getStudent()->getDebtorMandate();
-        if (!is_null($this->getPerson()) && $this->getPerson()->getDebtorMandate()) {
-            $dm = $this->getPerson()->getDebtorMandate();
-        }
+        $subject = $this->getMainSubject();
 
-        return $dm;
+        return $subject->getDebtorMandate();
     }
 
     /**
@@ -450,11 +438,24 @@ abstract class AbstractReceiptInvoice extends AbstractBase
      */
     public function getDebtorMandateSignDate()
     {
-        $dmsd = $this->getStudent()->getDebtorMandateSignDate();
-        if (!is_null($this->getPerson()) && $this->getPerson()->getDebtorMandateSignDate()) {
-            $dmsd = $this->getPerson()->getDebtorMandateSignDate();
+        $subject = $this->getMainSubject();
+
+        return $subject->getDebtorMandateSignDate();
+    }
+
+    /**
+     * Get main subject, obtains who is most important actor (student or parent).
+     *
+     * @return Person|Student
+     */
+    private function getMainSubject()
+    {
+        /** @var Student|Person $subject */
+        $subject = $this->getStudent();
+        if (!is_null($subject->getParent())) {
+            $subject = $subject->getParent();
         }
 
-        return $dmsd;
+        return $subject;
     }
 }
