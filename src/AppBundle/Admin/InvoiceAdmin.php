@@ -289,9 +289,16 @@ class InvoiceAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'date',
-                null,
+                'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.receipt.date',
+                    'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
                 )
             )
             ->add(
@@ -306,6 +313,13 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.month',
+                ),
+                ChoiceType::class,
+                array(
+                    'choices' => InvoiceYearMonthEnum::getMonthEnumArray(),
+                    'choices_as_values' => false,
+                    'expanded' => false,
+                    'multiple' => false,
                 )
             )
             ->add(
@@ -385,6 +399,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.invoice.sendDate',
                     'field_type' => 'sonata_type_date_picker',
                     'format' => 'd-m-Y',
+                    'input_type' => 'string',
                 )
             )
             ->add(
