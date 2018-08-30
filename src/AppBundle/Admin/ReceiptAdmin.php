@@ -302,17 +302,17 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'isSended',
-                null,
-                array(
-                    'label' => 'backend.admin.receipt.isSended',
-                )
-            )
-            ->add(
                 'isForPrivateLessons',
                 null,
                 array(
                     'label' => 'backend.admin.is_for_private_lessons',
+                )
+            )
+            ->add(
+                'isSended',
+                null,
+                array(
+                    'label' => 'backend.admin.receipt.isSended',
                 )
             )
             ->add(
