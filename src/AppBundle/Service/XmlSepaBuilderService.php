@@ -189,7 +189,7 @@ class XmlSepaBuilderService
         $directDebit->addPaymentInfo($paymentId, array(
             'id' => StringHelper::sanitizeString($paymentId),
             'dueDate' => $dueDate, // optional. Otherwise default period is used
-            'creditorName' => $this->bn,
+            'creditorName' => strtoupper(StringHelper::sanitizeString($this->bn)),
             'creditorAccountIBAN' => $this->ib,
             'creditorAgentBIC' => $this->bic,
             'seqType' => PaymentInformation::S_ONEOFF,
