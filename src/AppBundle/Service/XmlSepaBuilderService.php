@@ -220,17 +220,22 @@ class XmlSepaBuilderService
             $endToEndId = $ari->getSluggedInvoiceNumber();
         }
 
-        // add a Single Transaction to the named payment
-        $directDebit->addTransfer($paymentId, array(
+        $transferInformation = array(
             'amount' => $ari->getTotalAmount(),
             'debtorIban' => $this->removeSpacesFrom($ari->getMainBank()->getAccountNumber()),
-            'debtorBic' => $this->removeSpacesFrom($ari->getMainBank()->getSwiftCode()),
             'debtorName' => $ari->getMainEmailName(),
             'debtorMandate' => $ari->getDebtorMandate(),
             'debtorMandateSignDate' => $ari->getDebtorMandateSignDate(),
             'remittanceInformation' => $remitanceInformation,
             'endToEndId' => StringHelper::sanitizeString($endToEndId), // optional, if you want to provide additional structured info
-        ));
+        );
+
+        if ($ari->getMainBank()->getSwiftCode()) {
+            $transferInformation['debtorBic'] = $this->removeSpacesFrom($ari->getMainBank()->getSwiftCode());
+        }
+
+        // add a Single Transaction to the named payment
+        $directDebit->addTransfer($paymentId, $transferInformation);
     }
 
     /**

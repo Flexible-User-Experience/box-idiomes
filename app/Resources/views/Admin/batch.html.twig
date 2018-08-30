@@ -1,0 +1,11 @@
+{% extends get_admin_template('base_list_field', admin.code) %}
+
+{% block field %}
+    {% set subject = object.student %}
+    {% if subject.parent is not null %}
+        {% set subject = subject.parent %}
+    {% endif %}
+    {% if subject.payment == constant('AppBundle\\Enum\\StudentPaymentEnum::BANK_ACCOUNT_NUMBER') and subject.bank.accountNumber | length > 0 %}
+        <input type="checkbox" name="idx[]" value="{{ admin.id(object) }}" />
+    {% endif %}
+{% endblock %}
