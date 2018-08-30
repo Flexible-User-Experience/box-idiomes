@@ -448,7 +448,7 @@ abstract class AbstractReceiptInvoice extends AbstractBase
      *
      * @return Person|Student
      */
-    private function getMainSubject()
+    public function getMainSubject()
     {
         /** @var Student|Person $subject */
         $subject = $this->getStudent();
