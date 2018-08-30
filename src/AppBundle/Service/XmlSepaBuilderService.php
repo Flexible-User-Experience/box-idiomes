@@ -169,8 +169,9 @@ class XmlSepaBuilderService
     private function buildDirectDebit($paymentId, $isTest = false)
     {
         $msgId = 'MID'.StringHelper::sanitizeString($paymentId);
-        $header = new GroupHeader($msgId, $this->bn, $isTest);
-        $header->setInitiatingPartyId(StringHelper::sanitizeString('NIF-'.$this->bd));
+        $header = new GroupHeader($msgId, strtoupper(StringHelper::sanitizeString($this->bn)), $isTest);
+        $header->setCreationDateTimeFormat('Y-m-d\TH:i:s');
+        $header->setInitiatingPartyId($this->sshs->getSpanishCreditorIdFromNif($this->bd));
 
         return TransferFileFacadeFactory::createDirectDebitWithGroupHeader($header, self::DIRECT_DEBIT_PAIN_CODE);
     }
@@ -188,7 +189,7 @@ class XmlSepaBuilderService
         $directDebit->addPaymentInfo($paymentId, array(
             'id' => StringHelper::sanitizeString($paymentId),
             'dueDate' => $dueDate, // optional. Otherwise default period is used
-            'creditorName' => $this->bn,
+            'creditorName' => strtoupper(StringHelper::sanitizeString($this->bn)),
             'creditorAccountIBAN' => $this->ib,
             'creditorAgentBIC' => $this->bic,
             'seqType' => PaymentInformation::S_ONEOFF,
