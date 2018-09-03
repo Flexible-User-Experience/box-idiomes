@@ -19,8 +19,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  * Class ReceiptAdmin.
  *
  * @category Admin
- *
- * @author   David Romaní <david@flux.cat>
  */
 class ReceiptAdmin extends AbstractBaseAdmin
 {
@@ -44,9 +42,9 @@ class ReceiptAdmin extends AbstractBaseAdmin
             ->add('createInvoice', $this->getRouterIdParameter().'/create-invoice')
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
             ->add('send', $this->getRouterIdParameter().'/send')
-//            ->add('generateDirectDebit', $this->getRouterIdParameter().'/generate-direct-debit-xml')
+            ->add('generateDirectDebit', $this->getRouterIdParameter().'/generate-direct-debit-xml')
             ->remove('show')
-            ->remove('delete');
+        ;
     }
 
     /**
@@ -254,9 +252,16 @@ class ReceiptAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'date',
-                null,
+                'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.receipt.date',
+                    'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
                 )
             )
             ->add(
@@ -271,6 +276,13 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.month',
+                ),
+                ChoiceType::class,
+                array(
+                    'choices' => InvoiceYearMonthEnum::getMonthEnumArray(),
+                    'choices_as_values' => false,
+                    'expanded' => false,
+                    'multiple' => false,
                 )
             )
             ->add(
@@ -302,17 +314,17 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'isSended',
-                null,
-                array(
-                    'label' => 'backend.admin.receipt.isSended',
-                )
-            )
-            ->add(
                 'isForPrivateLessons',
                 null,
                 array(
                     'label' => 'backend.admin.is_for_private_lessons',
+                )
+            )
+            ->add(
+                'isSended',
+                null,
+                array(
+                    'label' => 'backend.admin.receipt.isSended',
                 )
             )
             ->add(
@@ -322,6 +334,11 @@ class ReceiptAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.invoice.sendDate',
                     'field_type' => 'sonata_type_date_picker',
                     'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
                 )
             )
             ->add(
@@ -338,6 +355,11 @@ class ReceiptAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.invoice.paymentDate',
                     'field_type' => 'sonata_type_date_picker',
                     'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
                 )
             )
         ;
@@ -438,7 +460,8 @@ class ReceiptAdmin extends AbstractBaseAdmin
                         'pdf' => array('template' => '::Admin/Buttons/list__action_receipt_pdf_button.html.twig'),
                         'send' => array('template' => '::Admin/Buttons/list__action_receipt_send_button.html.twig'),
                         'createInvoice' => array('template' => '::Admin/Buttons/list__action_receipt_create_invoice_button.html.twig'),
-//                        'generateDirectDebit' => array('template' => '::Admin/Buttons/list__action_generate_direct_debit_xml_button.html.twig'),
+                        'generateDirectDebit' => array('template' => '::Admin/Buttons/list__action_generate_direct_debit_xml_button.html.twig'),
+                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_superadmin_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )

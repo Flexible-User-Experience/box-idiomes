@@ -2,11 +2,11 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\InvoiceLine;
+use AppBundle\Entity\AbstractReceiptInvoice;
+use AppBundle\Entity\AbstractReceiptInvoiceLine;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Receipt;
 use AppBundle\Entity\Invoice;
-use AppBundle\Entity\ReceiptLine;
 use AppBundle\Entity\Student;
 use AppBundle\Enum\StudentPaymentEnum;
 use Digitick\Sepa\Exception\InvalidArgumentException;
@@ -25,6 +25,7 @@ use Digitick\Sepa\Util\StringHelper;
 class XmlSepaBuilderService
 {
     const DIRECT_DEBIT_PAIN_CODE = 'pain.008.001.02';
+    const DIRECT_DEBIT_LI_CODE = 'CORE';
     const DEFAULT_REMITANCE_INFORMATION = 'Import mensual';
 
     /**
@@ -86,9 +87,9 @@ class XmlSepaBuilderService
      */
     public function buildDirectDebitSingleReceiptXml($paymentId, \DateTime $dueDate, Receipt $recepit)
     {
-        $this->validate($recepit);
         $directDebit = $this->buildDirectDebit($paymentId);
         $this->addPaymentInfo($directDebit, $paymentId, $dueDate);
+        $this->validate($recepit);
         $this->addTransfer($directDebit, $paymentId, $recepit);
 
         return $directDebit->asXML();
@@ -129,9 +130,9 @@ class XmlSepaBuilderService
      */
     public function buildDirectDebitSingleInvoiceXml($paymentId, \DateTime $dueDate, Invoice $invoice)
     {
-        $this->validate($invoice);
         $directDebit = $this->buildDirectDebit($paymentId);
         $this->addPaymentInfo($directDebit, $paymentId, $dueDate);
+        $this->validate($invoice);
         $this->addTransfer($directDebit, $paymentId, $invoice);
 
         return $directDebit->asXML();
@@ -169,8 +170,9 @@ class XmlSepaBuilderService
     private function buildDirectDebit($paymentId, $isTest = false)
     {
         $msgId = 'MID'.StringHelper::sanitizeString($paymentId);
-        $header = new GroupHeader($msgId, $this->bn, $isTest);
-        $header->setInitiatingPartyId(StringHelper::sanitizeString('NIF-'.$this->bd));
+        $header = new GroupHeader($msgId, strtoupper(StringHelper::sanitizeString($this->bn)), $isTest);
+        $header->setCreationDateTimeFormat('Y-m-d\TH:i:s');
+        $header->setInitiatingPartyId($this->sshs->getSpanishCreditorIdFromNif($this->bd));
 
         return TransferFileFacadeFactory::createDirectDebitWithGroupHeader($header, self::DIRECT_DEBIT_PAIN_CODE);
     }
@@ -184,16 +186,15 @@ class XmlSepaBuilderService
      */
     private function addPaymentInfo(CustomerDirectDebitFacade &$directDebit, $paymentId, \DateTime $dueDate)
     {
-        // creates a payment, it's possible to create multiple payments, "$paymentId" is the identifier for the transactions
         $directDebit->addPaymentInfo($paymentId, array(
             'id' => StringHelper::sanitizeString($paymentId),
-            'dueDate' => $dueDate, // optional. Otherwise default period is used
-            'creditorName' => $this->bn,
+            'dueDate' => $dueDate,
+            'creditorName' => strtoupper(StringHelper::sanitizeString($this->bn)),
             'creditorAccountIBAN' => $this->ib,
             'creditorAgentBIC' => $this->bic,
             'seqType' => PaymentInformation::S_ONEOFF,
             'creditorId' => $this->sshs->getSpanishCreditorIdFromNif($this->bd),
-            'localInstrumentCode' => 'CORE', // default. optional.
+            'localInstrumentCode' => self::DIRECT_DEBIT_LI_CODE,
         ));
     }
 
@@ -208,7 +209,7 @@ class XmlSepaBuilderService
     {
         $remitanceInformation = self::DEFAULT_REMITANCE_INFORMATION;
         if (count($ari->getLines()) > 0) {
-            /** @var ReceiptLine|InvoiceLine $firstLine */
+            /** @var AbstractReceiptInvoiceLine $firstLine */
             $firstLine = $ari->getLines()[0];
             $remitanceInformation = $firstLine->getDescription();
         }
@@ -227,14 +228,13 @@ class XmlSepaBuilderService
             'debtorMandate' => $ari->getDebtorMandate(),
             'debtorMandateSignDate' => $ari->getDebtorMandateSignDate(),
             'remittanceInformation' => $remitanceInformation,
-            'endToEndId' => StringHelper::sanitizeString($endToEndId), // optional, if you want to provide additional structured info
+            'endToEndId' => StringHelper::sanitizeString($endToEndId),
         );
 
         if ($ari->getMainBank()->getSwiftCode()) {
             $transferInformation['debtorBic'] = $this->removeSpacesFrom($ari->getMainBank()->getSwiftCode());
         }
 
-        // add a Single Transaction to the named payment
         $directDebit->addTransfer($paymentId, $transferInformation);
     }
 
@@ -249,18 +249,14 @@ class XmlSepaBuilderService
     }
 
     /**
-     * @param Receipt|Invoice $ari
+     * @param AbstractReceiptInvoice $ari
      *
      * @throws InvalidPaymentMethodException
      */
     private function validate($ari)
     {
         /** @var Student|Person $subject */
-        $subject = $ari->getStudent();
-        if ($subject->getParent()) {
-            $subject = $subject->getParent();
-        }
-
+        $subject = $ari->getMainSubject();
         if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER != $subject->getPayment()) {
             throw new InvalidPaymentMethodException('Forma de pagament invàlida al '.($subject instanceof Student ? 'alumne' : 'pare/mare').' '.$subject->getFullName());
         }

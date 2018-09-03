@@ -8,8 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
  * Abstract class AbstractReceiptInvoice.
  *
  * @category Entity
- *
- * @author   David Romaní <david@flux.cat>
  */
 abstract class AbstractReceiptInvoice extends AbstractBase
 {
@@ -448,7 +446,7 @@ abstract class AbstractReceiptInvoice extends AbstractBase
      *
      * @return Person|Student
      */
-    private function getMainSubject()
+    public function getMainSubject()
     {
         /** @var Student|Person $subject */
         $subject = $this->getStudent();

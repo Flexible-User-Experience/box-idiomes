@@ -11,8 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
  * Class ReceiptLineAdmin.
  *
  * @category Admin
- *
- * @author   David Romaní <david@flux.cat>
  */
 class ReceiptLineAdmin extends AbstractBaseAdmin
 {

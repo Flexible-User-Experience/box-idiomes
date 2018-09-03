@@ -20,8 +20,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  * Class InvoiceAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class InvoiceAdmin extends AbstractBaseAdmin
 {
@@ -42,8 +40,9 @@ class InvoiceAdmin extends AbstractBaseAdmin
         $collection
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
             ->add('send', $this->getRouterIdParameter().'/send')
+            ->add('generateDirectDebit', $this->getRouterIdParameter().'/generate-direct-debit-xml')
             ->remove('show')
-            ->remove('delete');
+        ;
     }
 
     /**
@@ -232,6 +231,23 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'disabled' => true,
                 )
             )
+            ->add(
+                'isPayed',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.invoice.isPayed',
+                    'required' => false,
+                )
+            )
+            ->add(
+                'paymentDate',
+                DatePickerType::class,
+                array(
+                    'label' => 'backend.admin.invoice.paymentDate',
+                    'format' => 'd/M/y',
+                    'required' => false,
+                )
+            )
             ->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
             $formMapper
@@ -271,9 +287,16 @@ class InvoiceAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'date',
-                null,
+                'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.receipt.date',
+                    'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
                 )
             )
             ->add(
@@ -288,6 +311,13 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.month',
+                ),
+                ChoiceType::class,
+                array(
+                    'choices' => InvoiceYearMonthEnum::getMonthEnumArray(),
+                    'choices_as_values' => false,
+                    'expanded' => false,
+                    'multiple' => false,
                 )
             )
             ->add(
@@ -367,6 +397,32 @@ class InvoiceAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.invoice.sendDate',
                     'field_type' => 'sonata_type_date_picker',
                     'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
+                )
+            )
+            ->add(
+                'isPayed',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.isPayed',
+                )
+            )
+            ->add(
+                'paymentDate',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'backend.admin.invoice.paymentDate',
+                    'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
                 )
             )
         ;
@@ -456,18 +512,18 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'isForPrivateLessons',
-                null,
-                array(
-                    'label' => 'backend.admin.is_for_private_lessons',
-                    'editable' => false,
-                )
-            )
-            ->add(
                 'isSended',
                 null,
                 array(
                     'label' => 'backend.admin.invoice.isSended',
+                    'editable' => false,
+                )
+            )
+            ->add(
+                'isPayed',
+                null,
+                array(
+                    'label' => 'backend.admin.invoice.isPayed',
                     'editable' => false,
                 )
             )
@@ -479,6 +535,8 @@ class InvoiceAdmin extends AbstractBaseAdmin
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                         'invoice' => array('template' => '::Admin/Buttons/list__action_invoice_pdf_button.html.twig'),
                         'send' => array('template' => '::Admin/Buttons/list__action_invoice_send_button.html.twig'),
+                        'generateDirectDebit' => array('template' => '::Admin/Buttons/list__action_generate_direct_debit_xml_button.html.twig'),
+                        'delete' => array('template' => '::Admin/Buttons/list__action_delete_superadmin_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )

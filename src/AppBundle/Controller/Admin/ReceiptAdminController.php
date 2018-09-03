@@ -254,8 +254,9 @@ class ReceiptAdminController extends BaseAdminController
             return new Response($xml, 200, array('Content-type' => 'application/xml'));
         }
 
+        $now = new \DateTime();
         $fileSystem = new Filesystem();
-        $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.$paymentUniqueId.'_R_'.$object->getSluggedReceiptNumber().'.xml';
+        $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.'SEPA_receipt_'.$now->format('Y-m-d_H-i').'.xml';
         $fileSystem->touch($fileNamePath);
         $fileSystem->dumpFile($fileNamePath, $xml);
 
@@ -285,8 +286,9 @@ class ReceiptAdminController extends BaseAdminController
                 return new Response($xmls, 200, array('Content-type' => 'application/xml'));
             }
 
+            $now = new \DateTime();
             $fileSystem = new Filesystem();
-            $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.$paymentUniqueId.'_R.xml';
+            $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.'SEPA_receipts_'.$now->format('Y-m-d_H-i').'.xml';
             $fileSystem->touch($fileNamePath);
             $fileSystem->dumpFile($fileNamePath, $xmls);
 

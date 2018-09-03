@@ -9,8 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @category Entity
  *
- * @author   David Romaní <david@flux.cat>
- *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ReceiptLineRepository")
  * @ORM\Table(name="receipt_line")
  */

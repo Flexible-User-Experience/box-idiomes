@@ -8,8 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
  * Abstract class AbstractReceiptInvoiceLine.
  *
  * @category Entity
- *
- * @author   David Romaní <david@flux.cat>
  */
 abstract class AbstractReceiptInvoiceLine extends AbstractBase
 {

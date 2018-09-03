@@ -13,8 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
  * Class ProvinceAdmin.
  *
  * @category Admin
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class ProvinceAdmin extends AbstractBaseAdmin
 {
