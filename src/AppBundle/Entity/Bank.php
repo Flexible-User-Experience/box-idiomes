@@ -36,6 +36,7 @@ class Bank extends AbstractBase
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Bic()
      */
     private $swiftCode;
 
