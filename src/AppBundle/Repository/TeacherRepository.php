@@ -21,8 +21,8 @@ class TeacherRepository extends EntityRepository
         $query = $this
             ->createQueryBuilder('t')
             ->where('t.enabled = :enabled')
-            ->andWhere('t.showInHomepage = :showInHomepage')
             ->setParameter('enabled', true)
+            ->andWhere('t.showInHomepage = :showInHomepage')
             ->setParameter('showInHomepage', true)
             ->orderBy('t.position', 'ASC');
 
@@ -50,10 +50,9 @@ class TeacherRepository extends EntityRepository
      */
     public function getEnabledSortedByNameQB()
     {
-        return $this->createQueryBuilder('t')
+        return $this
+            ->createQueryBuilder('t')
             ->where('t.enabled = :enabled')
-            ->andWhere('t.showInHomepage = :showInHomepage')
-            ->setParameter('showInHomepage', true)
             ->setParameter('enabled', true)
             ->orderBy('t.name', 'ASC')
         ;
