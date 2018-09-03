@@ -177,6 +177,7 @@ backend:
                 switch_to_normal_edit: Mode edició normal
                 special_timelapse_remove_action: Esborrar totes les dates seleccionades
                 cancel: Cancel·lar l'acció i tornar al llistat
+                add: Afegir horari
             timelapse: Lot de dates afectades amb l'edició
             batch_delete:
                 title: Lot de dates afectades amb l'esborrat
@@ -334,6 +335,11 @@ backend:
             generator:
                 group_lessons_line: "Classes en grup realitzades durant el mes de %month% de %year%"
                 private_lessons_line: "Classes particulars realitzades durant el mes de %month% de %year%"
+        layout:
+            top_nav_menu:
+                homepage: homepage
+                username: username
+                logout: logout
 
 month:
     january: gener

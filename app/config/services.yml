@@ -29,16 +29,21 @@ services:
         arguments:
             - "@router"
 # Menus
+    app.backend_top_nav_menu_builder:
+        class: AppBundle\Menu\BackendTopNavMenuBuilder
+        arguments:
+            - "@knp_menu.factory"
+            - "@security.token_storage"
+            - "@app.contact_message_repository"
+    app.backend_top_nav_menu:
+        class: Knp\Menu\MenuItem
+        factory: [ "@app.backend_top_nav_menu_builder", createTopNavMenu ]
+        tags:
+            - { name: knp_menu.menu, alias: backend_top_nav_menu }
     app.backend_invoice_menu_builder:
         class: AppBundle\Menu\BackendInvoiceMenuBuilder
         arguments:
             - "@knp_menu.factory"
-    app.frontend_menu_builder:
-        class: AppBundle\Menu\FrontendMenuBuilder
-        arguments:
-            - "@knp_menu.factory"
-            - "@security.authorization_checker"
-            - "@security.token_storage"
     app.backend_invoice_menu:
         class: Knp\Menu\MenuItem
         factory: [ "@app.backend_invoice_menu_builder", createSideMenu ]
@@ -46,6 +51,12 @@ services:
             - "@request_stack"
         tags:
             - { name: knp_menu.menu, alias: backend_invoice_menu }
+    app.frontend_menu_builder:
+        class: AppBundle\Menu\FrontendMenuBuilder
+        arguments:
+            - "@knp_menu.factory"
+            - "@security.authorization_checker"
+            - "@security.token_storage"
     app.frontend_top_menu:
         class: Knp\Menu\MenuItem
         factory: [ "@app.frontend_menu_builder", createTopMenu ]
