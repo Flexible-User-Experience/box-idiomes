@@ -21,11 +21,13 @@
 {# custom top menu#}
 {% block sonata_top_nav_menu %}
     <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ path('app_homepage') }}"><i class="fa fa-globe"></i></a></li>
-            <li><a>{{ app.user.fullname }}</a></li>
-            <li><a href="{{ path('sonata_user_admin_security_logout') }}"><i class="fa fa-power-off text-success"></i></a></li>
-        </ul>
+        {{ knp_menu_render('backend_top_nav_menu', {currentClass: 'active'}) }}
+        {#<ul class="nav navbar-nav navbar-right">#}
+            {#<li><a href="{{ path('app_homepage') }}"><i class="fa fa-globe"></i></a></li>#}
+            {#<li><a href="{{ path('admin_app_contactmessage_list') }}">Inbox <span class="badge">42</span></a></li>#}
+            {#<li><a>{{ app.user.fullname }}</a></li>#}
+            {#<li><a href="{{ path('sonata_user_admin_security_logout') }}"><i class="fa fa-power-off text-success"></i></a></li>#}
+        {#</ul>#}
     </div>
 {% endblock %}
 
