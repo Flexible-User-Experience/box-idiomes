@@ -264,6 +264,8 @@ backend:
             id: Núm. Rebut
             isPayed: Pagat
             isSended: Enviat
+            isSepaXmlGenerated: SEPA generat
+            sepaXmlGeneratedDate: Data creació SEPA
             createInvoice: Crear factura
             generator:
                 flash_success: "S'han generat %amount% rebuts correctament."

@@ -250,6 +250,13 @@ class ReceiptAdminController extends BaseAdminController
         $paymentUniqueId = uniqid();
         $xml = $xsbs->buildDirectDebitSingleReceiptXml($paymentUniqueId, new \DateTime('now + 3 days'), $object);
 
+        $object
+            ->setIsSepaXmlGenerated(true)
+            ->setSepaXmlGeneratedDate(new \DateTime())
+        ;
+        $em = $this->container->get('doctrine')->getManager();
+        $em->flush();
+
         if ('dev' == $this->getParameter('kernel.environment')) {
             return new Response($xml, 200, array('Content-type' => 'application/xml'));
         }
@@ -274,13 +281,23 @@ class ReceiptAdminController extends BaseAdminController
     public function batchActionGeneratesepaxmls(ProxyQueryInterface $selectedModelQuery)
     {
         $this->admin->checkAccess('edit');
-
+        $em = $this->container->get('doctrine')->getManager();
         $selectedModels = $selectedModelQuery->execute();
+
         try {
             /** @var XmlSepaBuilderService $xsbs */
             $xsbs = $this->container->get('app.xml_sepa_builder');
             $paymentUniqueId = uniqid();
             $xmls = $xsbs->buildDirectDebitReceiptsXml($paymentUniqueId, new \DateTime('now + 3 days'), $selectedModels);
+
+            /** @var Receipt $selectedModel */
+            foreach ($selectedModels as $selectedModel) {
+                $selectedModel
+                    ->setIsSepaXmlGenerated(true)
+                    ->setSepaXmlGeneratedDate(new \DateTime())
+                ;
+            }
+            $em->flush();
 
             if ('dev' == $this->getParameter('kernel.environment')) {
                 return new Response($xmls, 200, array('Content-type' => 'application/xml'));
