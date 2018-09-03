@@ -63,6 +63,20 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     protected $sendDate;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $isSepaXmlGenerated;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="date", nullable=true)
+     */
+    protected $sepaXmlGeneratedDate;
+
+    /**
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
@@ -261,6 +275,54 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     public function setSendDate($sendDate)
     {
         $this->sendDate = $sendDate;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSepaXmlGenerated()
+    {
+        return $this->isSepaXmlGenerated;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSepaXmlGenerated()
+    {
+        return $this->isSepaXmlGenerated();
+    }
+
+    /**
+     * @param bool $isSepaXmlGenerated
+     *
+     * @return $this
+     */
+    public function setIsSepaXmlGenerated($isSepaXmlGenerated)
+    {
+        $this->isSepaXmlGenerated = $isSepaXmlGenerated;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getSepaXmlGeneratedDate()
+    {
+        return $this->sepaXmlGeneratedDate;
+    }
+
+    /**
+     * @param \DateTime $sepaXmlGeneratedDate
+     *
+     * @return $this
+     */
+    public function setSepaXmlGeneratedDate($sepaXmlGeneratedDate)
+    {
+        $this->sepaXmlGeneratedDate = $sepaXmlGeneratedDate;
 
         return $this;
     }
