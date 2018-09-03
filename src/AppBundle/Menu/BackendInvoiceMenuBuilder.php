@@ -23,6 +23,8 @@ class BackendInvoiceMenuBuilder
      */
 
     /**
+     * Constructor.
+     *
      * @param FactoryInterface $factory
      */
     public function __construct(FactoryInterface $factory)
