@@ -74,6 +74,9 @@ class EventAdminController extends BaseAdminController
         /** @var EventManager $eventsManager */
         $eventsManager = $this->container->get('app.event_manager');
         $firstEvent = $eventsManager->getFirstEventOf($object);
+        if (is_null($firstEvent)) {
+            $firstEvent = $object;
+        }
         $lastEvent = $eventsManager->getLastEventOf($object);
 
         /** @var Form $form */
