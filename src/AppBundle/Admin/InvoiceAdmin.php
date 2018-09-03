@@ -213,6 +213,25 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'isSepaXmlGenerated',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.receipt.isSepaXmlGenerated',
+                    'required' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'sepaXmlGeneratedDate',
+                DatePickerType::class,
+                array(
+                    'label' => 'backend.admin.receipt.sepaXmlGeneratedDate',
+                    'format' => 'd/M/y',
+                    'required' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
                 'isSended',
                 CheckboxType::class,
                 array(
@@ -384,6 +403,20 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'isSepaXmlGenerated',
+                null,
+                array(
+                    'label' => 'backend.admin.receipt.isSepaXmlGenerated',
+                )
+            )
+            ->add(
+                'sepaXmlGeneratedDate',
+                null,
+                array(
+                    'label' => 'backend.admin.receipt.sepaXmlGeneratedDate',
+                )
+            )
+            ->add(
                 'isSended',
                 null,
                 array(
@@ -508,6 +541,14 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.invoice.totalAmount',
                     'template' => '::Admin/Cells/list__cell_invoice_total_amount.html.twig',
+                    'editable' => false,
+                )
+            )
+            ->add(
+                'isSepaXmlGenerated',
+                null,
+                array(
+                    'label' => 'backend.admin.receipt.isSepaXmlGenerated',
                     'editable' => false,
                 )
             )
