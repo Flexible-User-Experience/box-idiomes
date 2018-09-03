@@ -231,6 +231,13 @@ class StudentAdmin extends AbstractBaseAdmin
     {
         $datagridMapper
             ->add(
+                'dni',
+                null,
+                array(
+                    'label' => 'backend.admin.student.dni',
+                )
+            )
+            ->add(
                 'name',
                 null,
                 array(
@@ -245,17 +252,17 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'birthDate',
-                'doctrine_orm_date',
-                array(
-                    'label' => 'backend.admin.student.birthDate',
-                    'field_type' => 'sonata_type_date_picker',
-                    'format' => 'd-m-Y',
-                ),
+                'parent',
                 null,
                 array(
-                    'widget' => 'single_text',
-                    'format' => 'dd-MM-yyyy',
+                    'label' => 'backend.admin.student.parent',
+                )
+            )
+            ->add(
+                'comments',
+                null,
+                array(
+                    'label' => 'backend.admin.student.comments',
                 )
             )
             ->add(
@@ -273,20 +280,6 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'parent',
-                null,
-                array(
-                    'label' => 'backend.admin.student.parent',
-                )
-            )
-            ->add(
-                'dni',
-                null,
-                array(
-                    'label' => 'backend.admin.student.dni',
-                )
-            )
-            ->add(
                 'address',
                 null,
                 array(
@@ -301,17 +294,53 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'comments',
+                'payment',
                 null,
                 array(
-                    'label' => 'backend.admin.student.comments',
+                    'label' => 'backend.admin.parent.payment',
+                ),
+                ChoiceType::class,
+                array(
+                    'choices' => StudentPaymentEnum::getEnumArray(),
+                    'choices_as_values' => false,
+                    'expanded' => false,
+                    'multiple' => false,
                 )
             )
             ->add(
-                'tariff',
+                'bank.name',
                 null,
                 array(
-                    'label' => 'backend.admin.student.tariff',
+                    'label' => 'backend.admin.bank.name',
+                )
+            )
+            ->add(
+                'bank.swiftCode',
+                null,
+                array(
+                    'label' => 'backend.admin.bank.swiftCode',
+                )
+            )
+            ->add(
+                'bank.accountNumber',
+                null,
+                array(
+                    'label' => 'IBAN',
+                )
+            )
+
+            ->add(
+                'birthDate',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'backend.admin.student.birthDate',
+                    'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
                 )
             )
             ->add(
@@ -319,6 +348,13 @@ class StudentAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.student.schedule',
+                )
+            )
+            ->add(
+                'tariff',
+                null,
+                array(
+                    'label' => 'backend.admin.student.tariff',
                 )
             )
             ->add(

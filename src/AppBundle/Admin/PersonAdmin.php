@@ -243,7 +243,7 @@ class PersonAdmin extends AbstractBaseAdmin
                 'bank.accountNumber',
                 null,
                 array(
-                    'label' => 'backend.admin.bank.accountNumber',
+                    'label' => 'IBAN',
                 )
             )
             ->add(
