@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\City;
+use AppBundle\Entity\Person;
 use AppBundle\Enum\StudentPaymentEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -285,5 +286,34 @@ class PersonAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param Person $object
+     */
+    public function prePersist($object)
+    {
+        $this->commonPreActions($object);
+    }
+
+    /**
+     * @param Person $object
+     */
+    public function preUpdate($object)
+    {
+        $this->commonPreActions($object);
+    }
+
+    /**
+     * @param Person $object
+     */
+    private function commonPreActions($object)
+    {
+        if ($object->getBank()->getAccountNumber()) {
+            $object->getBank()->setAccountNumber(strtoupper($object->getBank()->getAccountNumber()));
+        }
+        if ($object->getBank()->getSwiftCode()) {
+            $object->getBank()->setSwiftCode(strtoupper($object->getBank()->getSwiftCode()));
+        }
     }
 }
