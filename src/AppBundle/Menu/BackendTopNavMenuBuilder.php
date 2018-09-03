@@ -58,13 +58,13 @@ class BackendTopNavMenuBuilder
             ->addChild(
                 'homepage',
                 array(
-                    'label' => 'backend.admin.layout.top_nav_menu.homepage',
+                    'label' => '<i class="fa fa-globe"></i>',
                     'route' => 'app_homepage',
                 )
             )
             ->setExtras(
                 array(
-                    'icon' => '<i class="fa fa-globe"></i>',
+                    'safe_label' => true,
                 )
             )
         ;
@@ -73,8 +73,13 @@ class BackendTopNavMenuBuilder
                 ->addChild(
                     'messages',
                     array(
-                        'label' => 'backend.admin.layout.top_nav_menu.logout',
+                        'label' => '<i class="fa fa-bell text-danger"></i> <span class="badge">'.$this->cmr->getNotReadMessagesAmount().'</span>',
                         'route' => 'admin_app_contactmessage_list',
+                    )
+                )
+                ->setExtras(
+                    array(
+                        'safe_label' => true,
                     )
                 )
             ;
@@ -92,13 +97,13 @@ class BackendTopNavMenuBuilder
             ->addChild(
                 'logout',
                 array(
-                    'label' => 'backend.admin.layout.top_nav_menu.logout',
+                    'label' => '<i class="fa fa-power-off text-success"></i>',
                     'route' => 'sonata_user_admin_security_logout',
                 )
             )
             ->setExtras(
                 array(
-                    'icon' => '<i class="fa fa-power-off text-success"></i>',
+                    'safe_label' => true,
                 )
             )
         ;

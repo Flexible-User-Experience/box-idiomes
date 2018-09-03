@@ -5,6 +5,7 @@ imports:
     - { resource: media.yml }
     - { resource: sonata.yml }
 
+# Symfony
 framework:
     translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
