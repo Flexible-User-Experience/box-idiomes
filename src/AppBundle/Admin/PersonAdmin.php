@@ -3,6 +3,7 @@
 namespace AppBundle\Admin;
 
 use AppBundle\Entity\City;
+use AppBundle\Entity\Person;
 use AppBundle\Enum\StudentPaymentEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -215,6 +216,34 @@ class PersonAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.parent.payment',
+                ),
+                ChoiceType::class,
+                array(
+                    'choices' => StudentPaymentEnum::getEnumArray(),
+                    'choices_as_values' => false,
+                    'expanded' => false,
+                    'multiple' => false,
+                )
+            )
+            ->add(
+                'bank.name',
+                null,
+                array(
+                    'label' => 'backend.admin.bank.name',
+                )
+            )
+            ->add(
+                'bank.swiftCode',
+                null,
+                array(
+                    'label' => 'backend.admin.bank.swiftCode',
+                )
+            )
+            ->add(
+                'bank.accountNumber',
+                null,
+                array(
+                    'label' => 'IBAN',
                 )
             )
             ->add(
@@ -285,5 +314,34 @@ class PersonAdmin extends AbstractBaseAdmin
                 )
             )
         ;
+    }
+
+    /**
+     * @param Person $object
+     */
+    public function prePersist($object)
+    {
+        $this->commonPreActions($object);
+    }
+
+    /**
+     * @param Person $object
+     */
+    public function preUpdate($object)
+    {
+        $this->commonPreActions($object);
+    }
+
+    /**
+     * @param Person $object
+     */
+    private function commonPreActions($object)
+    {
+        if ($object->getBank()->getAccountNumber()) {
+            $object->getBank()->setAccountNumber(strtoupper($object->getBank()->getAccountNumber()));
+        }
+        if ($object->getBank()->getSwiftCode()) {
+            $object->getBank()->setSwiftCode(strtoupper($object->getBank()->getSwiftCode()));
+        }
     }
 }

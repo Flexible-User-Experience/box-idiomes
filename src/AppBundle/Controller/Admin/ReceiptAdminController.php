@@ -256,7 +256,7 @@ class ReceiptAdminController extends BaseAdminController
 
         $now = new \DateTime();
         $fileSystem = new Filesystem();
-        $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.'SEPA_receipt_'.$now->format('Y-m-d').'___'.$paymentUniqueId.'.xml';
+        $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.'SEPA_receipt_'.$now->format('Y-m-d_H-i').'.xml';
         $fileSystem->touch($fileNamePath);
         $fileSystem->dumpFile($fileNamePath, $xml);
 
@@ -288,7 +288,7 @@ class ReceiptAdminController extends BaseAdminController
 
             $now = new \DateTime();
             $fileSystem = new Filesystem();
-            $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.'SEPA_receipts_'.$now->format('Y-m-d').'___'.$paymentUniqueId.'.xml';
+            $fileNamePath = sys_get_temp_dir().DIRECTORY_SEPARATOR.'SEPA_receipts_'.$now->format('Y-m-d_H-i').'.xml';
             $fileSystem->touch($fileNamePath);
             $fileSystem->dumpFile($fileNamePath, $xmls);
 

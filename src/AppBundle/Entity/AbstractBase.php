@@ -6,18 +6,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Abstract entities base class
+ * Abstract entities base class.
  *
  * @category Entity
- *
- * @author   David Romaní <david@flux.cat>
  *
  * @Gedmo\SoftDeleteable(fieldName="removedAt", timeAware=false)
  */
 abstract class AbstractBase
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -49,18 +47,18 @@ abstract class AbstractBase
     protected $removedAt;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(type="boolean")
      */
     protected $enabled = true;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -70,7 +68,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
      *
@@ -84,7 +82,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -94,7 +92,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
      *
@@ -108,7 +106,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return \DateTime
      */
@@ -118,7 +116,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Set removedAt
+     * Set removedAt.
      *
      * @param \DateTime $removedAt
      *
@@ -132,7 +130,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Get removedAt
+     * Get removedAt.
      *
      * @return \DateTime
      */
@@ -142,7 +140,7 @@ abstract class AbstractBase
     }
 
     /**
-     * Remove (soft delete)
+     * Remove (soft delete).
      *
      * @return $this
      */
@@ -160,13 +158,13 @@ abstract class AbstractBase
      */
     public function isDeleted()
     {
-        return $this->removedAt !== null;
+        return null !== $this->removedAt;
     }
 
     /**
-     * Set Enabled
+     * Set Enabled.
      *
-     * @param boolean $enabled
+     * @param bool $enabled
      *
      * @return $this
      */
@@ -178,9 +176,9 @@ abstract class AbstractBase
     }
 
     /**
-     * Get Enabled
+     * Get Enabled.
      *
-     * @return boolean
+     * @return bool
      */
     public function getEnabled()
     {
@@ -188,12 +186,12 @@ abstract class AbstractBase
     }
 
     /**
-     * To string
+     * To string.
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->id ? $this->getId() . ' · ' . $this->getCreatedAt()->format('d/m/Y') : '---';
+        return $this->id ? $this->getId().' · '.$this->getCreatedAt()->format('d/m/Y') : '---';
     }
 }

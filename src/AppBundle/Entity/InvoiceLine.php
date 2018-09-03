@@ -5,11 +5,9 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Invoice.
+ * Class InvoiceLine.
  *
  * @category Entity
- *
- * @author   David Romaní <david@flux.cat>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InvoiceLineRepository")
  * @ORM\Table(name="invoice_line")

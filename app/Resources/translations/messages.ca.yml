@@ -42,6 +42,7 @@ User List: Usuaris
 User Create: Crear
 User Delete: Esborrar
 
+IBAN: IBAN
 Client: Client
 Usuari: Usuari
 Alumne: Alumne
@@ -123,6 +124,7 @@ backend:
             birthDate: Data naixement
             bank: Rebut bancari
             cash: Efectiu
+            transfer: Transferència bancaria
             phone: Telèfon
             dni: "DNI/NIE"
             email: Email
@@ -232,7 +234,7 @@ backend:
         bank:
             name: Entitat bancària
             accountNumber: Núm. de compte
-            swiftCode: Codi SWIFT
+            swiftCode: BIC/Swift
             parent: Pare, mare o tutor
         parent:
             students: Fills

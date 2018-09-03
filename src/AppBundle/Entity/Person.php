@@ -10,8 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @category Entity
  *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
- *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonRepository")
  * @ORM\Table(name="person")
  */

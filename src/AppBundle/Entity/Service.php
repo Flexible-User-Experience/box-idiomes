@@ -14,9 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * Class Service.
  *
- * @category    Entity
- *
- * @author      Anton Serra <aserratorta@gmail.com>
+ * @category Entity
  *
  * @ORM\Table()
  * @Vich\Uploadable
