@@ -33,11 +33,11 @@ services:
         class: AppBundle\Menu\BackendTopNavMenuBuilder
         arguments:
             - "@knp_menu.factory"
+            - "@security.token_storage"
+            - "@app.contact_message_repository"
     app.backend_top_nav_menu:
         class: Knp\Menu\MenuItem
         factory: [ "@app.backend_top_nav_menu_builder", createTopNavMenu ]
-        arguments:
-            - "@request_stack"
         tags:
             - { name: knp_menu.menu, alias: backend_top_nav_menu }
     app.backend_invoice_menu_builder:

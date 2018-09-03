@@ -2,9 +2,10 @@
 
 namespace AppBundle\Menu;
 
+use AppBundle\Repository\ContactMessageRepository;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class BackendTopNavMenuBuilder.
@@ -19,23 +20,37 @@ class BackendTopNavMenuBuilder
     private $factory;
 
     /**
+     * @var TokenStorageInterface
+     */
+    private $ts;
+
+    /**
+     * @var ContactMessageRepository
+     */
+    private $cmr;
+
+    /**
      * Methods.
      */
 
     /**
-     * @param FactoryInterface $factory
+     * Constructor.
+     *
+     * @param FactoryInterface         $factory
+     * @param TokenStorageInterface    $ts
+     * @param ContactMessageRepository $cmr
      */
-    public function __construct(FactoryInterface $factory)
+    public function __construct(FactoryInterface $factory, TokenStorageInterface $ts, ContactMessageRepository $cmr)
     {
         $this->factory = $factory;
+        $this->ts = $ts;
+        $this->cmr = $cmr;
     }
 
     /**
-     * @param RequestStack $requestStack
-     *
      * @return ItemInterface
      */
-    public function createTopNavMenu(RequestStack $requestStack)
+    public function createTopNavMenu()
     {
         $menu = $this->factory->createItem('topnav');
         $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');
@@ -53,11 +68,22 @@ class BackendTopNavMenuBuilder
                 )
             )
         ;
+        if ($this->cmr->getNotReadMessagesAmount() > 0) {
+            $menu
+                ->addChild(
+                    'messages',
+                    array(
+                        'label' => 'backend.admin.layout.top_nav_menu.logout',
+                        'route' => 'admin_app_contactmessage_list',
+                    )
+                )
+            ;
+        }
         $menu
             ->addChild(
                 'username',
                 array(
-                    'label' => 'backend.admin.layout.top_nav_menu.username',
+                    'label' => $this->ts->getToken()->getUser()->getFullname(),
                     'uri' => '#',
                 )
             )
@@ -68,6 +94,11 @@ class BackendTopNavMenuBuilder
                 array(
                     'label' => 'backend.admin.layout.top_nav_menu.logout',
                     'route' => 'sonata_user_admin_security_logout',
+                )
+            )
+            ->setExtras(
+                array(
+                    'icon' => '<i class="fa fa-power-off text-success"></i>',
                 )
             )
         ;

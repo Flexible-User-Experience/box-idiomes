@@ -34,6 +34,8 @@ class FrontendMenuBuilder
      */
 
     /**
+     * Constructor.
+     *
      * @param FactoryInterface      $factory
      * @param AuthorizationChecker  $ac
      * @param TokenStorageInterface $ts
