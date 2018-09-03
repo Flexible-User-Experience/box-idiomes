@@ -282,7 +282,7 @@ abstract class AbstractPerson extends AbstractBase
      */
     public function getDebtorMandate()
     {
-        return $this->getDni().'_'.strtoupper(substr($this->getName(), 0, 1)).strtoupper(substr($this->getSurname(), 0, 1)).'_'.uniqid();
+        return $this->getDni().'-'.strtoupper(substr($this->getName(), 0, 1)).strtoupper(substr($this->getSurname(), 0, 1)).'-'.uniqid();
     }
 
     /**
