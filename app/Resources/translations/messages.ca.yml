@@ -177,6 +177,7 @@ backend:
                 switch_to_normal_edit: Mode edició normal
                 special_timelapse_remove_action: Esborrar totes les dates seleccionades
                 cancel: Cancel·lar l'acció i tornar al llistat
+                add: Afegir horari
             timelapse: Lot de dates afectades amb l'edició
             batch_delete:
                 title: Lot de dates afectades amb l'esborrat

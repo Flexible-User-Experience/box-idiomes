@@ -3,7 +3,14 @@
 {% block block %}
     <div class="box box-primary">
         <div class="box-body">
-            {% include "@FullCalendar/Calendar/calendar.html.twig" %}
+            <div class="row">
+                <div class="col-xs-12 margin-bottom">
+                    {% include "@FullCalendar/Calendar/calendar.html.twig" %}
+                </div>
+                <div class="col-xs-12">
+                    <a href="{{ path('admin_app_event_create') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ 'backend.admin.event.button.add' | trans }}</a>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
