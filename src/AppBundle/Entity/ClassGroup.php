@@ -10,8 +10,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @category Entity
  *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
- *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ClassGroupRepository")
  * @ORM\Table(name="class_group")
  * @UniqueEntity({"code"})

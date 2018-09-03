@@ -11,8 +11,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @category Entity
  *
- * @author   David Romaní <david@flux.cat>
- *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InvoiceRepository")
  * @ORM\Table(name="invoice")
  * @UniqueEntity(fields={"month", "year", "student", "person", "isForPrivateLessons"})

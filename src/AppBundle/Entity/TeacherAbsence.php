@@ -11,8 +11,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @category Entity
  *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
- *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TeacherAbsenceRepository")
  * @ORM\Table(name="teacher_absence")
  * @UniqueEntity({"teacher", "day"})

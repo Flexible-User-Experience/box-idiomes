@@ -6,11 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 
 /**
- * Class User
+ * Class User.
  *
  * @category Entity
- *
- * @author   David Romaní <david@flux.cat>
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="admin_user")
@@ -18,7 +16,7 @@ use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 class User extends BaseUser
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -27,13 +25,13 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * Methods
+     * Methods.
      */
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer $id
+     * @return int $id
      */
     public function getId()
     {
