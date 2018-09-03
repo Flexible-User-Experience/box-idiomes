@@ -37,50 +37,37 @@ class BackendTopNavMenuBuilder
      */
     public function createTopNavMenu(RequestStack $requestStack)
     {
-        $route = $requestStack->getCurrentRequest()->get('_route');
-        $menu = $this->factory->createItem('Facturació');
+        $menu = $this->factory->createItem('topnav');
+        $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');
         $menu
             ->addChild(
-                'tariffs',
+                'homepage',
                 array(
-                    'label' => 'backend.admin.student.tariff',
-                    'route' => 'admin_app_tariff_list',
-                    'current' => 'admin_app_tariff_list' == $route || 'admin_app_tariff_create' == $route || 'admin_app_tariff_edit' == $route,
-                )
-            )
-        ;
-        $menu
-            ->addChild(
-                'receipts',
-                array(
-                    'label' => 'backend.admin.receipt.receipt',
-                    'route' => 'admin_app_receipt_list',
-                    'current' => 'admin_app_receipt_list' == $route || 'admin_app_receipt_create' == $route || 'admin_app_receipt_edit' == $route,
-                )
-            )
-        ;
-        $menu
-            ->addChild(
-                'generator',
-                array(
-                    'label' => 'backend.admin.receipt.generate_batch',
-                    'route' => 'admin_app_receipt_generate',
-                    'current' => 'admin_app_receipt_generate' == $route,
+                    'label' => 'backend.admin.layout.top_nav_menu.homepage',
+                    'route' => 'app_homepage',
                 )
             )
             ->setExtras(
                 array(
-                    'icon' => '<i class="fa fa-inbox"></i>',
+                    'icon' => '<i class="fa fa-globe"></i>',
                 )
             )
         ;
         $menu
             ->addChild(
-                'invoices',
+                'username',
                 array(
-                    'label' => 'backend.admin.invoice.invoice',
-                    'route' => 'admin_app_invoice_list',
-                    'current' => 'admin_app_invoice_list' == $route || 'admin_app_invoice_create' == $route || 'admin_app_invoice_edit' == $route,
+                    'label' => 'backend.admin.layout.top_nav_menu.username',
+                    'uri' => '#',
+                )
+            )
+        ;
+        $menu
+            ->addChild(
+                'logout',
+                array(
+                    'label' => 'backend.admin.layout.top_nav_menu.logout',
+                    'route' => 'sonata_user_admin_security_logout',
                 )
             )
         ;

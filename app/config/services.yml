@@ -37,9 +37,9 @@ services:
         class: Knp\Menu\MenuItem
         factory: [ "@app.backend_top_nav_menu_builder", createTopNavMenu ]
         arguments:
-        - "@request_stack"
+            - "@request_stack"
         tags:
-        - { name: knp_menu.menu, alias: backend_top_nav_menu }
+            - { name: knp_menu.menu, alias: backend_top_nav_menu }
     app.backend_invoice_menu_builder:
         class: AppBundle\Menu\BackendInvoiceMenuBuilder
         arguments:
@@ -48,9 +48,9 @@ services:
         class: Knp\Menu\MenuItem
         factory: [ "@app.backend_invoice_menu_builder", createSideMenu ]
         arguments:
-        - "@request_stack"
+            - "@request_stack"
         tags:
-        - { name: knp_menu.menu, alias: backend_invoice_menu }
+            - { name: knp_menu.menu, alias: backend_invoice_menu }
     app.frontend_menu_builder:
         class: AppBundle\Menu\FrontendMenuBuilder
         arguments:
