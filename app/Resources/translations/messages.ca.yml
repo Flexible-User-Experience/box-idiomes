@@ -232,7 +232,7 @@ backend:
         bank:
             name: Entitat bancària
             accountNumber: Núm. de compte
-            swiftCode: Codi SWIFT
+            swiftCode: BIC/Swift
             parent: Pare, mare o tutor
         parent:
             students: Fills
