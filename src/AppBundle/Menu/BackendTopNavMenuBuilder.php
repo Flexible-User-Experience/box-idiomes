@@ -73,7 +73,7 @@ class BackendTopNavMenuBuilder
                 ->addChild(
                     'messages',
                     array(
-                        'label' => '<i class="fa fa-bell text-danger"></i> <span class="badge">'.$this->cmr->getNotReadMessagesAmount().'</span>',
+                        'label' => '<i class="fa fa-envelope text-danger"></i> <span class="text-danger">'.$this->cmr->getNotReadMessagesAmount().'</span>',
                         'route' => 'admin_app_contactmessage_list',
                     )
                 )
@@ -89,7 +89,10 @@ class BackendTopNavMenuBuilder
                 'username',
                 array(
                     'label' => $this->ts->getToken()->getUser()->getFullname(),
-                    'uri' => '#',
+                    'route' => 'admin_app_user_edit',
+                    'routeParameters' => array(
+                        'id' => $this->ts->getToken()->getUser()->getId(),
+                    ),
                 )
             )
         ;
