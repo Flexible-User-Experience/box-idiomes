@@ -123,6 +123,7 @@ backend:
             birthDate: Data naixement
             bank: Rebut bancari
             cash: Efectiu
+            transfer: Transferència bancaria
             phone: Telèfon
             dni: "DNI/NIE"
             email: Email

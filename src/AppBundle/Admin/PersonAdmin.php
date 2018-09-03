@@ -216,6 +216,34 @@ class PersonAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.parent.payment',
+                ),
+                ChoiceType::class,
+                array(
+                    'choices' => StudentPaymentEnum::getEnumArray(),
+                    'choices_as_values' => false,
+                    'expanded' => false,
+                    'multiple' => false,
+                )
+            )
+            ->add(
+                'bank.name',
+                null,
+                array(
+                    'label' => 'backend.admin.bank.name',
+                )
+            )
+            ->add(
+                'bank.swiftCode',
+                null,
+                array(
+                    'label' => 'backend.admin.bank.swiftCode',
+                )
+            )
+            ->add(
+                'bank.accountNumber',
+                null,
+                array(
+                    'label' => 'backend.admin.bank.accountNumber',
                 )
             )
             ->add(
