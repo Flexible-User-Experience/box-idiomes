@@ -45,9 +45,7 @@ class ImportInvoiceCommand extends BaseImportCommand
      *
      * @return int|null|void
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -65,6 +63,7 @@ class ImportInvoiceCommand extends BaseImportCommand
 
         // Main loop
         $output->writeln('Loading data, please wait...');
+        $spreadsheet = $this->getSpreadsheetManager()->loadXlsReadOnlySpreadsheet($filename);
 
         // Command logic
         $dtStart = new \DateTime();

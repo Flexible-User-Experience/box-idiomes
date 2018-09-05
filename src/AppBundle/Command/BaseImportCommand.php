@@ -2,6 +2,7 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Service\SpreadsheetService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Output\OutputInterface;
 use Doctrine\ORM\EntityManager;
@@ -91,6 +92,14 @@ abstract class BaseImportCommand extends ContainerAwareCommand
     public function getFilesystem()
     {
         return $this->getContainer()->get('filesystem');
+    }
+
+    /**
+     * @return SpreadsheetService
+     */
+    public function getSpreadsheetManager()
+    {
+        return $this->getContainer()->get('app.spreadsheet_factory');
     }
 
     /**
