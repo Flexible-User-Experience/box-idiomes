@@ -28,8 +28,6 @@ services:
         class: AppBundle\Service\EventTrasnformerFactoryService
         arguments:
             - "@router"
-    app.spreadsheet_factory:
-        class: AppBundle\Service\SpreadsheetService
 # Menus
     app.backend_top_nav_menu_builder:
         class: AppBundle\Menu\BackendTopNavMenuBuilder
