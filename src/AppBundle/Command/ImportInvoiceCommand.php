@@ -2,7 +2,8 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Entity\Invoice;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -44,8 +45,6 @@ class ImportInvoiceCommand extends BaseImportCommand
      * @param OutputInterface $output
      *
      * @return int|null|void
-     *
-     * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -63,14 +62,24 @@ class ImportInvoiceCommand extends BaseImportCommand
 
         // Main loop
         $output->writeln('Loading data, please wait...');
-        $spreadsheet = $this->getSpreadsheetManager()->loadXlsReadOnlySpreadsheet($filename);
-
-        // Command logic
-        $dtStart = new \DateTime();
-        $index = 0;
-        $created = 0;
-        $em = $this->getEntityManager();
-        ini_set('auto_detect_line_endings', true);
+        try {
+            // load file
+            $spreadsheet = $this->getSpreadsheetManager()->loadWorksheetsXlsSpreadsheetReadOnly($filename, array('Lineas_Facturas_Emitidas', 'Facturas_Emitidas'));
+            // intialize counters
+            $em = $this->getEntityManager();
+            $dtStart = new \DateTime();
+            $index = 0;
+            $created = 0;
+            $worksheetIterator = $spreadsheet->getWorksheetIterator();
+            /** @var Worksheet $worksheet */
+            foreach ($worksheetIterator as $worksheet) {
+                $output->writeln($worksheet->getTitle());
+            }
+        } catch (ReaderException $e) {
+            $output->writeln('<error>XLS Reader Excetion: '.$e->getMessage().'</error>');
+        } catch (\Exception $e) {
+            $output->writeln('<error>Excetion: '.$e->getMessage().'</error>');
+        }
 
         // EOF
         $output->writeln('<info>EOF.</info>');
