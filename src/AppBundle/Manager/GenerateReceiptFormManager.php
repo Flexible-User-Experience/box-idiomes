@@ -82,7 +82,8 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     $previousItem = $previousReceipt->getLines()[0];
                     $generateReceiptItem = new GenerateReceiptItemModel();
                     $generateReceiptItem
-                        ->setStudent($student)
+                        ->setStudentId($student->getId())
+                        ->setStudentName($student->getFullCanonicalName())
                         ->setUnits($previousItem->getUnits())
                         ->setUnitPrice($previousItem->getPriceUnit())
                         ->setDiscount($previousItem->getDiscount())
@@ -96,7 +97,8 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 // new
                 $generateReceiptItem = new GenerateReceiptItemModel();
                 $generateReceiptItem
-                    ->setStudent($student)
+                    ->setStudentId($student->getId())
+                    ->setStudentName($student->getFullCanonicalName())
                     ->setUnits(1)
                     ->setUnitPrice($student->getTariff()->getPrice())
                     ->setDiscount($student->calculateMonthlyDiscount())
@@ -129,7 +131,8 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     $previousItem = $previousReceipt->getLines()[0];
                     $generateReceiptItem = new GenerateReceiptItemModel();
                     $generateReceiptItem
-                        ->setStudent($student)
+                        ->setStudentId($student->getId())
+                        ->setStudentName($student->getFullCanonicalName())
                         ->setUnits($previousItem->getUnits())
                         ->setUnitPrice($previousItem->getPriceUnit())
                         ->setDiscount($previousItem->getDiscount())
@@ -144,7 +147,8 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 $privateLessonsAmount = $this->er->getPrivateLessonsAmountByStudentYearAndMonth($student, $year, $month);
                 $generateReceiptItem = new GenerateReceiptItemModel();
                 $generateReceiptItem
-                    ->setStudent($student)
+                    ->setStudentId($student->getId())
+                    ->setStudentName($student->getFullCanonicalName())
                     ->setUnits($privateLessonsAmount)
                     ->setUnitPrice($currentPrivateLessonTariff->getPrice())
                     ->setDiscount(0)
@@ -177,14 +181,15 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
             $items = $requestArray['items'];
             /** @var array $item */
             foreach ($items as $item) {
-                if (array_key_exists('units', $item) && array_key_exists('unitPrice', $item) && array_key_exists('discount', $item) && array_key_exists('student', $item)) {
-                    $studentId = intval($item['student']);
+                if (array_key_exists('units', $item) && array_key_exists('unitPrice', $item) && array_key_exists('discount', $item) && array_key_exists('studentId', $item)) {
+                    $studentId = intval($item['studentId']);
                     /** @var Student $student */
                     $student = $this->sr->find($studentId);
                     if ($student) {
                         $generateReceiptItem = new GenerateReceiptItemModel();
                         $generateReceiptItem
-                            ->setStudent($student)
+                            ->setStudentId($student->getId())
+                            ->setStudentName($student->getFullCanonicalName())
                             ->setUnits($this->parseStringToFloat($item['units']))
                             ->setUnitPrice($this->parseStringToFloat($item['unitPrice']))
                             ->setDiscount($this->parseStringToFloat($item['discount']))
@@ -219,7 +224,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 if (!$generateReceiptItemModel->isPrivateLessonType()) {
                     // group lessons
                     /** @var Receipt $previousReceipt */
-                    $previousReceipt = $this->rr->findOnePreviousGroupLessonsReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
+                    $previousReceipt = $this->rr->findOnePreviousGroupLessonsReceiptByStudentIdYearAndMonthOrNull($generateReceiptItemModel->getStudentId(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
                     $description = $this->ts->trans('backend.admin.invoiceLine.generator.group_lessons_line', array('%month%' => ReceiptYearMonthEnum::getTranslatedMonthEnumArray()[$generateReceiptModel->getMonth()], '%year%' => $generateReceiptModel->getYear()), 'messages');
                     $isForPrivateLessons = false;
                 } else {
@@ -231,11 +236,13 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                         $year = $year - 1;
                     }
                     /** @var Receipt $previousReceipt */
-                    $previousReceipt = $this->rr->findOnePreviousPrivateLessonsReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
+                    $previousReceipt = $this->rr->findOnePreviousPrivateLessonsReceiptByStudentIdYearAndMonthOrNull($generateReceiptItemModel->getStudentId(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
                     $description = $this->ts->trans('backend.admin.invoiceLine.generator.private_lessons_line', array('%month%' => ReceiptYearMonthEnum::getTranslatedMonthEnumArray()[$month], '%year%' => $year), 'messages');
                     $isForPrivateLessons = true;
                 }
                 ++$recordsParsed;
+                /** @var Student|null $student */
+                $student = $this->sr->find($generateReceiptItemModel->getStudentId());
                 if (!is_null($previousReceipt)) {
                     // update existing receipt
                     if (1 === count($previousReceipt->getLines())) {
@@ -243,7 +250,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                         /** @var ReceiptLine $receiptLine */
                         $receiptLine = $previousReceipt->getLines()[0];
                         $receiptLine
-                            ->setStudent($generateReceiptItemModel->getStudent())
+                            ->setStudent($student)
                             ->setDescription($description)
                             ->setUnits($generateReceiptItemModel->getUnits())
                             ->setPriceUnit($generateReceiptItemModel->getUnitPrice())
@@ -266,7 +273,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     // create new receipt
                     $receiptLine = new ReceiptLine();
                     $receiptLine
-                        ->setStudent($generateReceiptItemModel->getStudent())
+                        ->setStudent($student)
                         ->setDescription($description)
                         ->setUnits($generateReceiptItemModel->getUnits())
                         ->setPriceUnit($generateReceiptItemModel->getUnitPrice())
@@ -276,8 +283,8 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     $receipt = new Receipt();
                     $receipt
                         ->setDate(new \DateTime())
-                        ->setStudent($generateReceiptItemModel->getStudent())
-                        ->setPerson($generateReceiptItemModel->getStudent()->getParent() ? $generateReceiptItemModel->getStudent()->getParent() : null)
+                        ->setStudent($student)
+                        ->setPerson($student->getParent() ? $student->getParent() : null)
                         ->setIsPayed(false)
                         ->setYear($generateReceiptModel->getYear())
                         ->setMonth($generateReceiptModel->getMonth())
@@ -321,11 +328,11 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 if (!$generateReceiptItemModel->isPrivateLessonType()) {
                     // group lessons
                     /** @var Receipt $previousReceipt */
-                    $previousReceipt = $this->rr->findOnePreviousGroupLessonsReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
+                    $previousReceipt = $this->rr->findOnePreviousGroupLessonsReceiptByStudentIdYearAndMonthOrNull($generateReceiptItemModel->getStudentId(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
                 } else {
                     // private lessons
                     /** @var Receipt $previousReceipt */
-                    $previousReceipt = $this->rr->findOnePreviousPrivateLessonsReceiptByStudentYearAndMonthOrNull($generateReceiptItemModel->getStudent(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
+                    $previousReceipt = $this->rr->findOnePreviousPrivateLessonsReceiptByStudentIdYearAndMonthOrNull($generateReceiptItemModel->getStudentId(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
                 }
                 if ($previousReceipt && 1 === count($previousReceipt->getLines()) && $generateReceiptItemModel->isReadyToGenerate()) {
                     $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipt '.$previousReceipt->getId().' --force --env='.$this->kernel->getEnvironment().' 2>&1 > /dev/null &';
