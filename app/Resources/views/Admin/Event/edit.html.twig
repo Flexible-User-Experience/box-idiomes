@@ -10,9 +10,11 @@
         </div>
     {% endif %}
     {# batch delete button #}
-    <div class="btn-group" role="group">
-        <a href="{{ admin.generateObjectUrl('batchdelete', object) }}" class="btn btn-danger edit_link"><i class="fa fa-trash"></i> {{ 'backend.admin.event.batch_delete.button' | trans }}</a>
-    </div>
+    {% if object.id is not null %}
+        <div class="btn-group" role="group">
+            <a href="{{ admin.generateObjectUrl('batchdelete', object) }}" class="btn btn-danger edit_link"><i class="fa fa-trash"></i> {{ 'backend.admin.event.batch_delete.button' | trans }}</a>
+        </div>
+    {% endif %}
     {# timelapse buttons section #}
     {% include ":Admin/Event:timelapse_buttons_section.html.twig" with {mode: 'edit'} %}
 {% endblock %}
