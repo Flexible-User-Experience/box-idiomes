@@ -3,10 +3,16 @@
 {# override actions bottom bar #}
 {% block sonata_form_actions %}
     {{ parent() }}
-    {# special update button section #}
+    {# batch edit button #}
     {% if object.next is not null %}
         <div class="btn-group" role="group">
-            <a class="btn btn-info" href="{{ admin.generateObjectUrl('batchedit', object) }}" title="{{ 'backend.admin.event.button.special_timelapse_update_helper' | trans({}, 'messages') }}"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ 'backend.admin.event.button.special_timelapse_update' | trans({}, 'messages') }}</a>
+            <a class="btn btn-info" href="{{ admin.generateObjectUrl('batchedit', object) }}"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ 'backend.admin.event.button.special_timelapse_update' | trans }}</a>
+        </div>
+    {% endif %}
+    {# batch delete button #}
+    {% if object.id is not null %}
+        <div class="btn-group" role="group">
+            <a href="{{ admin.generateObjectUrl('batchdelete', object) }}" class="btn btn-danger edit_link"><i class="fa fa-trash"></i> {{ 'backend.admin.event.batch_delete.button' | trans }}</a>
         </div>
     {% endif %}
     {# timelapse buttons section #}

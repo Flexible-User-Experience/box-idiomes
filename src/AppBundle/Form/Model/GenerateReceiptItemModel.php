@@ -2,8 +2,6 @@
 
 namespace AppBundle\Form\Model;
 
-use AppBundle\Entity\Student;
-
 /**
  * Class GenerateReceiptItemModel.
  *
@@ -12,9 +10,14 @@ use AppBundle\Entity\Student;
 class GenerateReceiptItemModel
 {
     /**
-     * @var Student
+     * @var int
      */
-    protected $student;
+    protected $studentId;
+
+    /**
+     * @var string
+     */
+    protected $studentName;
 
     /**
      * @var float
@@ -51,21 +54,41 @@ class GenerateReceiptItemModel
      */
 
     /**
-     * @return Student
+     * @return int
      */
-    public function getStudent()
+    public function getStudentId()
     {
-        return $this->student;
+        return $this->studentId;
     }
 
     /**
-     * @param Student $student
+     * @param int $studentId
      *
      * @return $this
      */
-    public function setStudent($student)
+    public function setStudentId($studentId)
     {
-        $this->student = $student;
+        $this->studentId = $studentId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStudentName()
+    {
+        return $this->studentName;
+    }
+
+    /**
+     * @param string $studentName
+     *
+     * @return $this
+     */
+    public function setStudentName($studentName)
+    {
+        $this->studentName = $studentName;
 
         return $this;
     }

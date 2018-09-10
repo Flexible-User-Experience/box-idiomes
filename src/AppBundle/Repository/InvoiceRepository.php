@@ -63,4 +63,53 @@ class InvoiceRepository extends EntityRepository
     {
         return $this->findOnePreviousInvoiceByStudentYearAndMonthOrNullQ($student, $year, $month)->getOneOrNullResult();
     }
+
+    /**
+     * @param int $studentId
+     * @param int $year
+     * @param int $month
+     *
+     * @return QueryBuilder
+     */
+    public function findOnePreviousInvoiceByStudentIdYearAndMonthOrNullQB($studentId, $year, $month)
+    {
+        $qb = $this
+            ->createQueryBuilder('i')
+            ->where('i.student = :student')
+            ->andWhere('i.year = :year')
+            ->andWhere('i.month = :month')
+            ->setParameter('student', $studentId)
+            ->setParameter('year', $year)
+            ->setParameter('month', $month)
+            ->setMaxResults(1)
+        ;
+
+        return $qb;
+    }
+
+    /**
+     * @param int $studentId
+     * @param int $year
+     * @param int $month
+     *
+     * @return Query
+     */
+    public function findOnePreviousInvoiceByStudentIdYearAndMonthOrNullQ($studentId, $year, $month)
+    {
+        return $this->findOnePreviousInvoiceByStudentIdYearAndMonthOrNullQB($studentId, $year, $month)->getQuery();
+    }
+
+    /**
+     * @param int $studentId
+     * @param int $year
+     * @param int $month
+     *
+     * @return Invoice|null
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOnePreviousInvoiceByStudentIdYearAndMonthOrNull($studentId, $year, $month)
+    {
+        return $this->findOnePreviousInvoiceByStudentIdYearAndMonthOrNullQ($studentId, $year, $month)->getOneOrNullResult();
+    }
 }
