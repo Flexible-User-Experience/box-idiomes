@@ -80,7 +80,8 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     $previousItem = $previousInvoice->getLines()[0];
                     $generateInvoiceItem = new GenerateInvoiceItemModel();
                     $generateInvoiceItem
-                        ->setStudent($student)
+                        ->setStudentId($student->getId())
+                        ->setStudentName($student->getFullCanonicalName())
                         ->setUnits($previousItem->getUnits())
                         ->setUnitPrice($previousItem->getPriceUnit())
                         ->setDiscount($previousItem->getDiscount())
@@ -94,7 +95,8 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 // new
                 $generateInvoiceItem = new GenerateInvoiceItemModel();
                 $generateInvoiceItem
-                    ->setStudent($student)
+                    ->setStudentId($student->getId())
+                    ->setStudentName($student->getFullCanonicalName())
                     ->setUnits(1)
                     ->setUnitPrice($student->getTariff()->getPrice())
                     ->setDiscount($student->calculateMonthlyDiscount())
@@ -127,14 +129,15 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
             $items = $requestArray['items'];
             /** @var array $item */
             foreach ($items as $item) {
-                if (array_key_exists('units', $item) && array_key_exists('unitPrice', $item) && array_key_exists('discount', $item) && array_key_exists('student', $item)) {
-                    $studentId = intval($item['student']);
+                if (array_key_exists('units', $item) && array_key_exists('unitPrice', $item) && array_key_exists('discount', $item) && array_key_exists('studentId', $item)) {
+                    $studentId = intval($item['studentId']);
                     /** @var Student $student */
                     $student = $this->sr->find($studentId);
                     if ($student) {
                         $generateInvoiceItem = new GenerateInvoiceItemModel();
                         $generateInvoiceItem
-                            ->setStudent($student)
+                            ->setStudentId($student->getId())
+                            ->setStudentName($student->getFullCanonicalName())
                             ->setUnits($this->parseStringToFloat($item['units']))
                             ->setUnitPrice($this->parseStringToFloat($item['unitPrice']))
                             ->setDiscount($this->parseStringToFloat($item['discount']))
@@ -165,14 +168,16 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
         foreach ($generateInvoiceModel->getItems() as $generateInvoiceItemModel) {
             if ($generateInvoiceItemModel->isReadyToGenerate()) {
                 ++$recordsParsed;
+                /** @var Student|null $student */
+                $student = $this->sr->find($generateInvoiceItemModel->getStudentId());
                 if ($generateInvoiceItemModel->isPreviouslyGenerated()) {
                     /** @var Invoice $previousInvoice */
-                    $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentYearAndMonthOrNull($generateInvoiceItemModel->getStudent(), $generateInvoiceModel->getYear(), $generateInvoiceModel->getMonth());
+                    $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentIdYearAndMonthOrNull($generateInvoiceItemModel->getStudentId(), $generateInvoiceModel->getYear(), $generateInvoiceModel->getMonth());
                     if (1 === count($previousInvoice->getLines())) {
                         /** @var InvoiceLine $invoiceLine */
                         $invoiceLine = $previousInvoice->getLines()[0];
                         $invoiceLine
-                            ->setStudent($generateInvoiceItemModel->getStudent())
+                            ->setStudent($student)
                             ->setDescription($this->ts->trans('backend.admin.invoiceLine.generator.line', array('%month%' => InvoiceYearMonthEnum::getTranslatedMonthEnumArray()[$generateInvoiceModel->getMonth()], '%year%' => $generateInvoiceModel->getYear()), 'messages'))
                             ->setUnits($generateInvoiceItemModel->getUnits())
                             ->setPriceUnit($generateInvoiceItemModel->getUnitPrice())
@@ -191,7 +196,7 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     // create new invoice
                     $invoiceLine = new InvoiceLine();
                     $invoiceLine
-                        ->setStudent($generateInvoiceItemModel->getStudent())
+                        ->setStudent($student)
                         ->setDescription($this->ts->trans('backend.admin.invoiceLine.generator.line', array('%month%' => InvoiceYearMonthEnum::getTranslatedMonthEnumArray()[$generateInvoiceModel->getMonth()], '%year%' => $generateInvoiceModel->getYear()), 'messages'))
                         ->setUnits($generateInvoiceItemModel->getUnits())
                         ->setPriceUnit($generateInvoiceItemModel->getUnitPrice())
@@ -200,8 +205,8 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     ;
                     $invoice = new Invoice();
                     $invoice
-                        ->setStudent($generateInvoiceItemModel->getStudent())
-                        ->setPerson($generateInvoiceItemModel->getStudent()->getParent() ? $generateInvoiceItemModel->getStudent()->getParent() : null)
+                        ->setStudent($student)
+                        ->setPerson($student->getParent() ? $student->getParent() : null)
                         ->setDate(new \DateTime())
                         ->setIsPayed(false)
                         ->setYear($generateInvoiceModel->getYear())
@@ -240,7 +245,7 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
             /** @var GenerateInvoiceItemModel $generateInvoiceItemModel */
             foreach ($generateInvoiceModel->getItems() as $generateInvoiceItemModel) {
                 /** @var Invoice $previousInvoice */
-                $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentYearAndMonthOrNull($generateInvoiceItemModel->getStudent(), $generateInvoiceModel->getYear(), $generateInvoiceModel->getMonth());
+                $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentIdYearAndMonthOrNull($generateInvoiceItemModel->getStudentId(), $generateInvoiceModel->getYear(), $generateInvoiceModel->getMonth());
                 if ($previousInvoice && 1 === count($previousInvoice->getLines())) {
                     $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:invoice '.$previousInvoice->getId().' --force --env='.$this->kernel->getEnvironment().' 2>&1 > /dev/null &';
                     $this->logger->info('[GIFM] '.$command);
