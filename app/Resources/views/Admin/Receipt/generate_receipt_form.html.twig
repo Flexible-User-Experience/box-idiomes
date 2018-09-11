@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            {% if generate_receipt.items | length > 0 %}
+            {% if form.items | length > 0 %}
                 {% set carriedTotalAmount = 0 %}
                 {{ form_start(form) }}
                     <div class="col-md-10">
@@ -68,7 +68,7 @@
                                                     {% endif %}
                                                 </td>
                                                 <td style="vertical-align:middle">
-                                                    {{ generate_receipt.items[bothLessonsTypeLoop].studentName }}
+                                                    {{ item.vars.value.studentName }}
                                                 </td>
                                                 <td style="vertical-align:middle">
                                                     {{ form_widget(item.units) }}
@@ -83,9 +83,9 @@
                                                     {{ form_errors(item.discount) }}
                                                 </td>
                                                 <td class="text-right" style="vertical-align:middle">
-                                                    <strong>{{ generate_receipt.items[bothLessonsTypeLoop].total | draw_money | raw }}</strong>
+                                                    <strong>{{ item.vars.value.total | draw_money | raw }}</strong>
                                                 </td>
-                                                {% set total = total + generate_receipt.items[bothLessonsTypeLoop].total %}
+                                                {% set total = total + item.vars.value.total %}
                                                 {% set groupLessonsTypeLoop = groupLessonsTypeLoop + 1 %}
                                             </tr>
                                         {% endif %}
@@ -145,7 +145,7 @@
                                                     {% endif %}
                                                 </td>
                                                 <td style="vertical-align:middle">
-                                                    {{ generate_receipt.items[bothLessonsTypeLoop].studentName }}
+                                                    {{ item.vars.value.studentName }}
                                                 </td>
                                                 <td style="vertical-align:middle">
                                                     {{ form_widget(item.units) }}
@@ -160,9 +160,9 @@
                                                     {{ form_errors(item.discount) }}
                                                 </td>
                                                 <td class="text-right" style="vertical-align:middle">
-                                                    <strong>{{ generate_receipt.items[bothLessonsTypeLoop].total | draw_money | raw }}</strong>
+                                                    <strong>{{ item.vars.value.total | draw_money | raw }}</strong>
                                                 </td>
-                                                {% set total = total + generate_receipt.items[bothLessonsTypeLoop].total %}
+                                                {% set total = total + item.vars.value.total %}
                                                 {% set privateLessonsTypeLoop = privateLessonsTypeLoop + 1 %}
                                             </tr>
                                         {% endif %}
@@ -199,7 +199,7 @@
                     </div>
                 {{ form_end(form) }}
             {% endif %}
-            {% if generate_receipt.items | length == 0 and year_month_form.vars.submitted %}
+            {% if form.items | length == 0 and year_month_form.vars.submitted %}
                 <div class="col-md-10">
                     <div class="box box-primary">
                         <div class="box-header with-border">
