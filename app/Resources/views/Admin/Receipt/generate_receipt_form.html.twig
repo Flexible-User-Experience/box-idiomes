@@ -20,7 +20,6 @@
                 </div>
             </div>
             {% if form.items | length > 0 %}
-                {% set carriedTotalAmount = 0 %}
                 {{ form_start(form) }}
                     <div class="col-md-10">
                         <div class="box box-primary">
@@ -51,45 +50,41 @@
                                     </thead>
                                     <tbody>
                                     {% set total = 0 %}
-                                    {% set bothLessonsTypeLoop = 0 %}
                                     {% set groupLessonsTypeLoop = 0 %}
-                                    {% for item in form.items %}
-                                        {% if not item.vars.value.isPrivateLessonType %}
-                                            <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
-                                                <td class="td-mark-group-helper">
-                                                    {{ form_widget(item.isReadyToGenerate) }}
-                                                    {{ form_errors(item.isReadyToGenerate) }}
-                                                </td>
-                                                <td style="vertical-align:middle">
-                                                    {% if not item.vars.value.isPreviouslyGenerated %}
-                                                        <span class="label label-success">{{ 'backend.admin.yes' | trans }}</span>
-                                                    {% else %}
-                                                        <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
-                                                    {% endif %}
-                                                </td>
-                                                <td style="vertical-align:middle">
-                                                    {{ item.vars.value.studentName }}
-                                                </td>
-                                                <td style="vertical-align:middle">
-                                                    {{ form_widget(item.units) }}
-                                                    {{ form_errors(item.units) }}
-                                                </td>
-                                                <td style="vertical-align:middle">
-                                                    {{ form_widget(item.unitPrice) }}
-                                                    {{ form_errors(item.unitPrice) }}
-                                                </td>
-                                                <td style="vertical-align:middle">
-                                                    {{ form_widget(item.discount) }}
-                                                    {{ form_errors(item.discount) }}
-                                                </td>
-                                                <td class="text-right" style="vertical-align:middle">
-                                                    <strong>{{ item.vars.value.total | draw_money | raw }}</strong>
-                                                </td>
-                                                {% set total = total + item.vars.value.total %}
-                                                {% set groupLessonsTypeLoop = groupLessonsTypeLoop + 1 %}
-                                            </tr>
-                                        {% endif %}
-                                        {% set bothLessonsTypeLoop = bothLessonsTypeLoop + 1 %}
+                                    {% for item in form.items if not item.vars.value.isPrivateLessonType %}
+                                        <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
+                                            <td class="td-mark-group-helper">
+                                                {{ form_widget(item.isReadyToGenerate) }}
+                                                {{ form_errors(item.isReadyToGenerate) }}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {% if not item.vars.value.isPreviouslyGenerated %}
+                                                    <span class="label label-success">{{ 'backend.admin.yes' | trans }}</span>
+                                                {% else %}
+                                                    <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {{ item.vars.value.studentName }}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {{ form_widget(item.units) }}
+                                                {{ form_errors(item.units) }}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {{ form_widget(item.unitPrice) }}
+                                                {{ form_errors(item.unitPrice) }}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {{ form_widget(item.discount) }}
+                                                {{ form_errors(item.discount) }}
+                                            </td>
+                                            <td class="text-right" style="vertical-align:middle">
+                                                <strong>{{ item.vars.value.total | draw_money | raw }}</strong>
+                                            </td>
+                                            {% set total = total + item.vars.value.total %}
+                                            {% set groupLessonsTypeLoop = groupLessonsTypeLoop + 1 %}
+                                        </tr>
                                     {% endfor %}
                                     </tbody>
                                     <tfoot>
@@ -128,45 +123,41 @@
                                     </thead>
                                     <tbody>
                                     {% set total = 0 %}
-                                    {% set bothLessonsTypeLoop = 0 %}
                                     {% set privateLessonsTypeLoop = 0 %}
-                                    {% for item in form.items %}
-                                        {% if item.vars.value.isPrivateLessonType %}
-                                            <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
-                                                <td class="td-mark-private-helper">
-                                                    {{ form_widget(item.isReadyToGenerate) }}
-                                                    {{ form_errors(item.isReadyToGenerate) }}
-                                                </td>
-                                                <td style="vertical-align:middle">
-                                                    {% if not item.vars.value.isPreviouslyGenerated %}
-                                                        <span class="label label-success">{{ 'backend.admin.yes' | trans }}</span>
-                                                    {% else %}
-                                                        <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
-                                                    {% endif %}
-                                                </td>
-                                                <td style="vertical-align:middle">
-                                                    {{ item.vars.value.studentName }}
-                                                </td>
-                                                <td style="vertical-align:middle">
-                                                    {{ form_widget(item.units) }}
-                                                    {{ form_errors(item.units) }}
-                                                </td>
-                                                <td style="vertical-align:middle">
-                                                    {{ form_widget(item.unitPrice) }}
-                                                    {{ form_errors(item.unitPrice) }}
-                                                </td>
-                                                <td class="hidden" style="vertical-align:middle">
-                                                    {{ form_widget(item.discount) }}
-                                                    {{ form_errors(item.discount) }}
-                                                </td>
-                                                <td class="text-right" style="vertical-align:middle">
-                                                    <strong>{{ item.vars.value.total | draw_money | raw }}</strong>
-                                                </td>
-                                                {% set total = total + item.vars.value.total %}
-                                                {% set privateLessonsTypeLoop = privateLessonsTypeLoop + 1 %}
-                                            </tr>
-                                        {% endif %}
-                                        {% set bothLessonsTypeLoop = bothLessonsTypeLoop + 1 %}
+                                    {% for item in form.items if item.vars.value.isPrivateLessonType %}
+                                        <tr class="{% if item.vars.value.isReadyToGenerate %}success{% else %}warning{% endif %}">
+                                            <td class="td-mark-private-helper">
+                                                {{ form_widget(item.isReadyToGenerate) }}
+                                                {{ form_errors(item.isReadyToGenerate) }}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {% if not item.vars.value.isPreviouslyGenerated %}
+                                                    <span class="label label-success">{{ 'backend.admin.yes' | trans }}</span>
+                                                {% else %}
+                                                    <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
+                                                {% endif %}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {{ item.vars.value.studentName }}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {{ form_widget(item.units) }}
+                                                {{ form_errors(item.units) }}
+                                            </td>
+                                            <td style="vertical-align:middle">
+                                                {{ form_widget(item.unitPrice) }}
+                                                {{ form_errors(item.unitPrice) }}
+                                            </td>
+                                            <td class="hidden" style="vertical-align:middle">
+                                                {{ form_widget(item.discount) }}
+                                                {{ form_errors(item.discount) }}
+                                            </td>
+                                            <td class="text-right" style="vertical-align:middle">
+                                                <strong>{{ item.vars.value.total | draw_money | raw }}</strong>
+                                            </td>
+                                            {% set total = total + item.vars.value.total %}
+                                            {% set privateLessonsTypeLoop = privateLessonsTypeLoop + 1 %}
+                                        </tr>
                                     {% endfor %}
                                     </tbody>
                                     <tfoot>
