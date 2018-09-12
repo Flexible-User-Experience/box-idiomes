@@ -25,9 +25,11 @@ class InvoiceAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Invoice';
     protected $baseRoutePattern = 'billings/invoice';
+    protected $maxPerPage = 400;
     protected $datagridValues = array(
         '_sort_by' => 'id',
         '_sort_order' => 'desc',
+        '_per_page' => 400,
     );
 
     /**

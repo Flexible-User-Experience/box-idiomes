@@ -24,9 +24,11 @@ class ReceiptAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Receipt';
     protected $baseRoutePattern = 'billings/receipt';
+    protected $maxPerPage = 400;
     protected $datagridValues = array(
         '_sort_by' => 'id',
         '_sort_order' => 'desc',
+        '_per_page' => 400,
     );
 
     /**
