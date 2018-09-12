@@ -321,6 +321,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
         $this->logger->info('[GRFM] '.$recordsParsed.' records managed');
 
         if (0 < $recordsParsed) {
+            $ids = array();
             $phpBinaryFinder = new PhpExecutableFinder();
             $phpBinaryPath = $phpBinaryFinder->find();
             /** @var GenerateReceiptItemModel $generateReceiptItemModel */
@@ -335,11 +336,14 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     $previousReceipt = $this->rr->findOnePreviousPrivateLessonsReceiptByStudentIdYearAndMonthOrNull($generateReceiptItemModel->getStudentId(), $generateReceiptModel->getYear(), $generateReceiptModel->getMonth());
                 }
                 if ($previousReceipt && 1 === count($previousReceipt->getLines()) && $generateReceiptItemModel->isReadyToGenerate()) {
-                    $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipt '.$previousReceipt->getId().' --force --env='.$this->kernel->getEnvironment().' 2>&1 > /dev/null &';
-                    $this->logger->info('[GRFM] '.$command);
-                    $process = new Process($command);
-                    $process->run();
+                    $ids[] = $previousReceipt->getId();
                 }
+            }
+            if (count($ids) > 0) {
+                $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipts:batch '.implode(' ', $ids).' --force --env='.$this->kernel->getEnvironment().' 2>&1 > /dev/null &';
+                $this->logger->info('[GRFM] '.$command);
+                $process = new Process($command);
+                $process->run();
             }
         }
         $this->logger->info('[GRFM] persistAndDeliverFullModelForm EOF');
