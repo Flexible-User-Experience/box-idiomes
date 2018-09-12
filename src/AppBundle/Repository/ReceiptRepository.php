@@ -5,6 +5,7 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Receipt;
 use AppBundle\Entity\Student;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -317,5 +318,41 @@ class ReceiptRepository extends EntityRepository
     public function getAllSortedByNumberDesc()
     {
         return $this->getAllSortedByNumberDescQ()->getResult();
+    }
+
+    /**
+     * @param array $ids
+     *
+     * @return QueryBuilder
+     */
+    public function findByIdsArrayQB($ids)
+    {
+        $qb = $this
+            ->createQueryBuilder('r')
+            ->where('r.id IN (:ids)')
+            ->setParameter('ids', $ids, Connection::PARAM_INT_ARRAY)
+        ;
+
+        return $qb;
+    }
+
+    /**
+     * @param array $ids
+     *
+     * @return Query
+     */
+    public function findByIdsArrayQ($ids)
+    {
+        return $this->findByIdsArrayQB($ids)->getQuery();
+    }
+
+    /**
+     * @param array $ids
+     *
+     * @return Receipt[]|null
+     */
+    public function findByIdsArray($ids)
+    {
+        return $this->findByIdsArrayQ($ids)->getResult();
     }
 }

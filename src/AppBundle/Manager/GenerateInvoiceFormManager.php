@@ -15,9 +15,7 @@ use AppBundle\Repository\TariffRepository;
 use Doctrine\ORM\EntityManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Translation\TranslatorInterface;
-use Symfony\Component\Process\Process;
 
 /**
  * Class GenerateInvoiceFormManager.
@@ -221,40 +219,6 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
             }
         }
         $this->em->flush();
-
-        return $recordsParsed;
-    }
-
-    /**
-     * @param GenerateInvoiceModel $generateInvoiceModel
-     *
-     * @return int
-     *
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function persistAndDeliverFullModelForm(GenerateInvoiceModel $generateInvoiceModel)
-    {
-        $this->logger->info('[GIFM] persistAndDeliverFullModelForm call');
-        $recordsParsed = $this->persistFullModelForm($generateInvoiceModel);
-        $this->logger->info('[GIFM] '.$recordsParsed.' records managed');
-
-        if (0 < $recordsParsed) {
-            $phpBinaryFinder = new PhpExecutableFinder();
-            $phpBinaryPath = $phpBinaryFinder->find();
-            /** @var GenerateInvoiceItemModel $generateInvoiceItemModel */
-            foreach ($generateInvoiceModel->getItems() as $generateInvoiceItemModel) {
-                /** @var Invoice $previousInvoice */
-                $previousInvoice = $this->ir->findOnePreviousInvoiceByStudentIdYearAndMonthOrNull($generateInvoiceItemModel->getStudentId(), $generateInvoiceModel->getYear(), $generateInvoiceModel->getMonth());
-                if ($previousInvoice && 1 === count($previousInvoice->getLines())) {
-                    $command = $phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:invoice '.$previousInvoice->getId().' --force --env='.$this->kernel->getEnvironment().' 2>&1 > /dev/null &';
-                    $this->logger->info('[GIFM] '.$command);
-                    $process = new Process($command);
-                    $process->run();
-                }
-            }
-        }
-        $this->logger->info('[GIFM] persistAndDeliverFullModelForm EOF');
 
         return $recordsParsed;
     }
