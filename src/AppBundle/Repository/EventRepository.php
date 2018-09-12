@@ -101,10 +101,12 @@ class EventRepository extends EntityRepository
             ->andWhere('MONTH(e.begin) = :month')
             ->andWhere('s.id = :sid')
             ->andWhere('cg.isForPrivateLessons = :isForPrivateLessons')
+            ->andWhere('e.enabled = :enabled')
             ->setParameter('sid', $student->getId())
             ->setParameter('year', $year)
             ->setParameter('month', $month)
-            ->setParameter('isForPrivateLessons', true);
+            ->setParameter('isForPrivateLessons', true)
+            ->setParameter('enabled', true);
     }
 
     /**

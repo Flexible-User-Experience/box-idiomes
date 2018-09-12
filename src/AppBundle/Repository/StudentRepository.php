@@ -109,6 +109,7 @@ class StudentRepository extends EntityRepository
             ->where('YEAR(e.begin) = :year')
             ->andWhere('MONTH(e.begin) = :month')
             ->andWhere('s.enabled = :enabled')
+            ->andWhere('e.enabled = :enabled')
             ->setParameter('year', $year)
             ->setParameter('month', $month)
             ->setParameter('enabled', true)
