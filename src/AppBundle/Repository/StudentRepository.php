@@ -108,8 +108,10 @@ class StudentRepository extends EntityRepository
             ->join('e.group', 'cg')
             ->where('YEAR(e.begin) = :year')
             ->andWhere('MONTH(e.begin) = :month')
+            ->andWhere('s.enabled = :enabled')
             ->setParameter('year', $year)
             ->setParameter('month', $month)
+            ->setParameter('enabled', true)
         ;
     }
 

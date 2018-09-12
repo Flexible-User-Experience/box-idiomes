@@ -318,4 +318,40 @@ class ReceiptRepository extends EntityRepository
     {
         return $this->getAllSortedByNumberDescQ()->getResult();
     }
+
+    /**
+     * @param array $ids
+     *
+     * @return QueryBuilder
+     */
+    public function findByIdsArrayQB($ids)
+    {
+        $qb = $this
+            ->createQueryBuilder('r')
+            ->where('r.id IN (:ids)')
+            ->setParameter('ids', $ids)
+        ;
+
+        return $qb;
+    }
+
+    /**
+     * @param array $ids
+     *
+     * @return Query
+     */
+    public function findByIdsArrayQ($ids)
+    {
+        return $this->findByIdsArrayQB($ids)->getQuery();
+    }
+
+    /**
+     * @param array $ids
+     *
+     * @return Receipt[]|null
+     */
+    public function findByIdsArray($ids)
+    {
+        return $this->findByIdsArrayQ($ids)->getResult();
+    }
 }
