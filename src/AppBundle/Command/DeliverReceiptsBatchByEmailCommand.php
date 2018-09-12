@@ -63,23 +63,27 @@ class DeliverReceiptsBatchByEmailCommand extends ContainerAwareCommand
             $logger = $this->getContainer()->get('monolog.logger.email');
             /** @var ReceiptPdfBuilderService $rps */
             $rps = $this->getContainer()->get('app.receipt_pdf_builder');
+            /** @var NotificationService $messenger */
+            $messenger = $this->getContainer()->get('app.notification');
+
+            $output->writeln('building PDF receipts IDs# number '.implode(' ', $input->getArgument('receipts')));
+            $output->writeln('searched receipts found '.count($receipts));
+
             /** @var Receipt $receipt */
             foreach ($receipts as $receipt) {
                 $output->write('building PDF receipt number '.$receipt->getReceiptNumber().'... ');
                 $pdf = $rps->build($receipt);
                 $output->writeln('<info>OK</info>');
-                $logger->info('[DRBEC] PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully build.');
+                $logger->info('[DRBBEC] PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully build.');
                 if ($input->getOption('force')) {
                     $output->write('delivering PDF receipt number '.$receipt->getReceiptNumber().'... ');
-                    /** @var NotificationService $messenger */
-                    $messenger = $this->getContainer()->get('app.notification');
                     $result = $messenger->sendReceiptPdfNotification($receipt, $pdf);
                     if (0 === $result) {
                         $output->writeln('<error>KO</error>');
-                        $logger->error('[DRBEC] delivering PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' failed.');
+                        $logger->error('[DRBBEC] delivering PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' failed.');
                     } else {
                         $output->writeln('<info>OK</info>');
-                        $logger->info('[DRBEC] PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully delivered.');
+                        $logger->info('[DRBBEC] PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully delivered.');
                     }
                 }
             }

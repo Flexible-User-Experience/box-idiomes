@@ -5,7 +5,6 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Receipt;
 use AppBundle\Entity\Student;
-use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -330,7 +329,7 @@ class ReceiptRepository extends EntityRepository
         $qb = $this
             ->createQueryBuilder('r')
             ->where('r.id IN (:ids)')
-            ->setParameter('ids', $ids, Connection::PARAM_INT_ARRAY)
+            ->setParameter('ids', $ids)
         ;
 
         return $qb;
