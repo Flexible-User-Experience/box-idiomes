@@ -25,9 +25,11 @@ class EventAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Timetable';
     protected $baseRoutePattern = 'classrooms/timetable';
+    protected $maxPerPage = 400;
     protected $datagridValues = array(
         '_sort_by' => 'begin',
         '_sort_order' => 'desc',
+        '_per_page' => 400,
     );
 
     /**

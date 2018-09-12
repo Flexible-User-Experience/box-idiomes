@@ -6,6 +6,7 @@ use AppBundle\Entity\Person;
 use AppBundle\Entity\Receipt;
 use AppBundle\Entity\Student;
 use AppBundle\Enum\InvoiceYearMonthEnum;
+use AppBundle\Enum\StudentPaymentEnum;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -24,9 +25,11 @@ class ReceiptAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Receipt';
     protected $baseRoutePattern = 'billings/receipt';
+    protected $maxPerPage = 400;
     protected $datagridValues = array(
         '_sort_by' => 'id',
         '_sort_order' => 'desc',
+        '_per_page' => 400,
     );
 
     /**
@@ -316,6 +319,20 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.person',
+                )
+            )
+            ->add(
+                'student.payment',
+                null,
+                array(
+                    'label' => 'backend.admin.parent.payment',
+                ),
+                ChoiceType::class,
+                array(
+                    'choices' => StudentPaymentEnum::getEnumArray(),
+                    'choices_as_values' => false,
+                    'expanded' => false,
+                    'multiple' => false,
                 )
             )
             ->add(

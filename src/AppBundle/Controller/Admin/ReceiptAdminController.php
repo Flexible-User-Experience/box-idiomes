@@ -73,7 +73,6 @@ class ReceiptAdminController extends BaseAdminController
                 'action' => 'generate',
                 'year_month_form' => $yearMonthForm->createView(),
                 'form' => $form->createView(),
-                'generate_receipt' => $generateReceipt,
             )
         );
     }

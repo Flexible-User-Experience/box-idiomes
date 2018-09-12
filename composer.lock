@@ -2516,16 +2516,16 @@
         },
         {
             "name": "knplabs/knp-components",
-            "version": "v1.3.9",
+            "version": "v1.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/knp-components.git",
-                "reference": "f0f830361ff0ee83ea5c5ffe49b429d2b0ff4266"
+                "reference": "fc1755ba2b77f83a3d3c99e21f3026ba2a1429be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/knp-components/zipball/f0f830361ff0ee83ea5c5ffe49b429d2b0ff4266",
-                "reference": "f0f830361ff0ee83ea5c5ffe49b429d2b0ff4266",
+                "url": "https://api.github.com/repos/KnpLabs/knp-components/zipball/fc1755ba2b77f83a3d3c99e21f3026ba2a1429be",
+                "reference": "fc1755ba2b77f83a3d3c99e21f3026ba2a1429be",
                 "shasum": ""
             },
             "require": {
@@ -2578,7 +2578,7 @@
                 "pager",
                 "paginator"
             ],
-            "time": "2018-08-03T08:37:27+00:00"
+            "time": "2018-09-11T07:54:48+00:00"
         },
         {
             "name": "knplabs/knp-menu",
@@ -6086,7 +6086,7 @@
     "packages-dev": [
         {
             "name": "cypresslab/gitelephant",
-            "version": "v2.1.1",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matteosister/GitElephant.git",
