@@ -54,26 +54,6 @@ class GenerateReceiptYearMonthChooserType extends AbstractType
                     ),
                 )
             )
-            ->add(
-                'fast_generate',
-                SubmitType::class,
-                array(
-                    'label' => 'backend.admin.receipt.generate',
-                    'attr' => array(
-                        'class' => 'btn btn-info',
-                    ),
-                )
-            )
-            ->add(
-                'fast_generate_and_send',
-                SubmitType::class,
-                array(
-                    'label' => 'backend.admin.receipt.generate_and_send',
-                    'attr' => array(
-                        'class' => 'btn btn-info',
-                    ),
-                )
-            )
         ;
     }
 

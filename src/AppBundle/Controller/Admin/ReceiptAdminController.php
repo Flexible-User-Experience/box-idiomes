@@ -37,10 +37,9 @@ class ReceiptAdminController extends BaseAdminController
      *
      * @return Response|RedirectResponse
      *
-     * @throws NotFoundHttpException                 If the object does not exist
-     * @throws AccessDeniedException                 If access is not granted
-     * @throws NonUniqueResultException              If problem with unique entities
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws NotFoundHttpException    If the object does not exist
+     * @throws AccessDeniedException    If access is not granted
+     * @throws NonUniqueResultException If problem with unique entities
      */
     public function generateAction(Request $request)
     {
@@ -60,28 +59,12 @@ class ReceiptAdminController extends BaseAdminController
         $form->handleRequest($request);
 
         if ($yearMonthForm->isSubmitted() && $yearMonthForm->isValid()) {
-            /** @var Translator $translator */
-            $translator = $this->container->get('translator.default');
             $year = $generateReceiptYearMonthChooser->getYear();
             $month = $generateReceiptYearMonthChooser->getMonth();
-            if ($yearMonthForm->get('fast_generate')->isClicked()) {
-                // generate
-                $generatedReceiptsAmount = $grfm->fastGenerateReciptsForYearAndMonth($year, $month);
-                $this->addFlash('success', $translator->trans('backend.admin.receipt.generator.flash_success', array('%amount%' => $generatedReceiptsAmount), 'messages'));
-
-                return $this->redirectToList();
-            } elseif ($yearMonthForm->get('fast_generate_and_send')->isClicked()) {
-                // generate and send
-                $generatedReceiptsAmount = $grfm->fastGenerateReciptsForYearAndMonthAndDeliverEmail($year, $month);
-                $this->addFlash('success', $translator->trans('backend.admin.receipt.generator.flash_success', array('%amount%' => $generatedReceiptsAmount), 'messages'));
-
-                return $this->redirectToList();
-            } else {
-                // build preview view
-                $generateReceipt = $grfm->buildFullModelForm($year, $month);
-                /** @var Controller $this */
-                $form = $this->createForm(GenerateReceiptType::class, $generateReceipt);
-            }
+            // build preview view
+            $generateReceipt = $grfm->buildFullModelForm($year, $month);
+            /** @var Controller $this */
+            $form = $this->createForm(GenerateReceiptType::class, $generateReceipt);
         }
 
         return $this->renderWithExtraParams(
