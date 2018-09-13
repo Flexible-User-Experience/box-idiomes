@@ -64,18 +64,20 @@ class ReceiptAdminController extends BaseAdminController
             $translator = $this->container->get('translator.default');
             $year = $generateReceiptYearMonthChooser->getYear();
             $month = $generateReceiptYearMonthChooser->getMonth();
-            if ($form->get('fast_generate')->isClicked()) {
+            if ($yearMonthForm->get('fast_generate')->isClicked()) {
+                // generate
                 $generatedReceiptsAmount = $grfm->fastGenerateReciptsForYearAndMonth($year, $month);
                 $this->addFlash('success', $translator->trans('backend.admin.receipt.generator.flash_success', array('%amount%' => $generatedReceiptsAmount), 'messages'));
 
                 return $this->redirectToList();
-            } elseif ($form->get('fast_generate_and_send')->isClicked()) {
+            } elseif ($yearMonthForm->get('fast_generate_and_send')->isClicked()) {
+                // generate and send
                 $generatedReceiptsAmount = $grfm->fastGenerateReciptsForYearAndMonthAndDeliverEmail($year, $month);
                 $this->addFlash('success', $translator->trans('backend.admin.receipt.generator.flash_success', array('%amount%' => $generatedReceiptsAmount), 'messages'));
 
                 return $this->redirectToList();
-            } elseif ($form->get('preview')->isClicked()) {
-                // fill full items form
+            } else {
+                // build preview view
                 $generateReceipt = $grfm->buildFullModelForm($year, $month);
                 /** @var Controller $this */
                 $form = $this->createForm(GenerateReceiptType::class, $generateReceipt);
