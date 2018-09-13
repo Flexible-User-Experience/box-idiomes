@@ -77,13 +77,18 @@ class DeliverReceiptsBatchByEmailCommand extends ContainerAwareCommand
                 $logger->info('[DRBBEC] PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully build.');
                 if ($input->getOption('force')) {
                     $output->write('delivering PDF receipt number '.$receipt->getReceiptNumber().'... ');
-                    $result = $messenger->sendReceiptPdfNotification($receipt, $pdf);
-                    if (0 === $result) {
-                        $output->writeln('<error>KO</error>');
-                        $logger->error('[DRBBEC] delivering PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' failed.');
+                    if ($receipt->getMainEmail()) {
+                        $result = $messenger->sendReceiptPdfNotification($receipt, $pdf);
+                        if (0 === $result) {
+                            $output->writeln('<error>KO</error>');
+                            $logger->error('[DRBBEC] delivering PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' failed.');
+                        } else {
+                            $output->writeln('<info>OK</info>');
+                            $logger->info('[DRBBEC] PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully delivered.');
+                        }
                     } else {
-                        $output->writeln('<info>OK</info>');
-                        $logger->info('[DRBBEC] PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully delivered.');
+                        $output->writeln('<comment>KO</comment>');
+                        $logger->error('[DRBBEC] PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' not delivered. Missing email in '.$receipt->getMainSubject()->getFullCanonicalName().'.');
                     }
                 }
             }

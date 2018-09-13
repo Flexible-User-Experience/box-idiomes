@@ -35,7 +35,7 @@ class ReceiptAdminController extends BaseAdminController
      *
      * @param Request $request
      *
-     * @return Response
+     * @return Response|RedirectResponse
      *
      * @throws NotFoundHttpException    If the object does not exist
      * @throws AccessDeniedException    If access is not granted
@@ -61,7 +61,7 @@ class ReceiptAdminController extends BaseAdminController
         if ($yearMonthForm->isSubmitted() && $yearMonthForm->isValid()) {
             $year = $generateReceiptYearMonthChooser->getYear();
             $month = $generateReceiptYearMonthChooser->getMonth();
-            // fill full items form
+            // build preview view
             $generateReceipt = $grfm->buildFullModelForm($year, $month);
             /** @var Controller $this */
             $form = $this->createForm(GenerateReceiptType::class, $generateReceipt);
