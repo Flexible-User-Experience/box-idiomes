@@ -67,16 +67,21 @@ class DeliverInvoiceByEmailCommand extends ContainerAwareCommand
             if ($input->getOption('force')) {
                 /** @var Logger $logger */
                 $logger = $this->getContainer()->get('monolog.logger.email');
-                $output->write('delivering PDF invoice number '.$invoice->getInvoiceNumber().'... ');
                 /** @var NotificationService $messenger */
                 $messenger = $this->getContainer()->get('app.notification');
                 $result = $messenger->sendInvoicePdfNotification($invoice, $pdf);
-                if (0 === $result) {
-                    $output->writeln('<error>KO</error>');
-                    $logger->error('delivering PDF invoice number '.$invoice->getInvoiceNumber().' failed.');
+                $output->write('delivering PDF invoice number '.$invoice->getInvoiceNumber().'... ');
+                if ($invoice->getMainEmail()) {
+                    if (0 === $result) {
+                        $output->writeln('<error>KO</error>');
+                        $logger->error('[DIBEC] delivering PDF invoice number '.$invoice->getInvoiceNumber().' failed.');
+                    } else {
+                        $output->writeln('<info>OK</info>');
+                        $logger->info('[DIBEC] PDF invoice number '.$invoice->getInvoiceNumber().' succesfully delivered.');
+                    }
                 } else {
-                    $output->writeln('<info>OK</info>');
-                    $logger->info('PDF invoice number '.$invoice->getInvoiceNumber().' succesfully delivered.');
+                    $output->writeln('<comment>KO</comment>');
+                    $logger->error('[DIBEC] PDF receipt #'.$invoice->getId().' number '.$invoice->getReceiptNumber().' not delivered. Missing email in '.$invoice->getMainSubject()->getFullCanonicalName().'.');
                 }
             }
         } else {
