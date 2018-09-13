@@ -60,7 +60,7 @@ class GenerateReceiptYearMonthChooserType extends AbstractType
                 array(
                     'label' => 'backend.admin.receipt.generate',
                     'attr' => array(
-                        'class' => 'btn btn-success',
+                        'class' => 'btn btn-info',
                     ),
                 )
             )
@@ -70,7 +70,7 @@ class GenerateReceiptYearMonthChooserType extends AbstractType
                 array(
                     'label' => 'backend.admin.receipt.generate_and_send',
                     'attr' => array(
-                        'class' => 'btn btn-success',
+                        'class' => 'btn btn-info',
                     ),
                 )
             )

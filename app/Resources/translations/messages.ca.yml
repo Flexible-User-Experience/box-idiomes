@@ -254,7 +254,9 @@ backend:
             date: Data
             generate_only: Generar rebuts
             generate: Generar rebuts marcats
+            fast_generate: Generar rebuts
             generate_and_send: Generar rebuts marcats i enviar per email
+            fast_generate_and_send: Generar rebuts i enviar per email
             generate_batch: Generar rebuts mensuals
             preview_invoice: Mostrar rebuts a generar
             list: Llistat de rebuts disponibles a generar

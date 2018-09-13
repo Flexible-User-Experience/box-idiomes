@@ -59,12 +59,16 @@ class ReceiptAdminController extends BaseAdminController
         $form->handleRequest($request);
 
         if ($yearMonthForm->isSubmitted() && $yearMonthForm->isValid()) {
-            $year = $generateReceiptYearMonthChooser->getYear();
-            $month = $generateReceiptYearMonthChooser->getMonth();
-            // fill full items form
-            $generateReceipt = $grfm->buildFullModelForm($year, $month);
-            /** @var Controller $this */
-            $form = $this->createForm(GenerateReceiptType::class, $generateReceipt);
+            if ($form->get('fast_generate')->isClicked()) {
+            } elseif ($form->get('fast_generate_and_send')->isClicked()) {
+            } elseif ($form->get('preview')->isClicked()) {
+                $year = $generateReceiptYearMonthChooser->getYear();
+                $month = $generateReceiptYearMonthChooser->getMonth();
+                // fill full items form
+                $generateReceipt = $grfm->buildFullModelForm($year, $month);
+                /** @var Controller $this */
+                $form = $this->createForm(GenerateReceiptType::class, $generateReceipt);
+            }
         }
 
         return $this->renderWithExtraParams(
