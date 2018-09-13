@@ -98,13 +98,6 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     ->setMonth($month)
                     ->addLine($receiptLine)
                 ;
-                if ($enableEmailDelivery) {
-                    // TODO deliver it
-                    $receipt
-                        ->setIsSended(true)
-                        ->setSendDate(new \DateTime())
-                    ;
-                }
                 $this->em->persist($receipt);
             }
         }
@@ -144,12 +137,11 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     ->setIsPayed(false)
                     ->setIsSepaXmlGenerated(false)
                     ->setIsForPrivateLessons(true)
-                    ->setYear($year)
-                    ->setMonth($month)
+                    ->setYear($oldYear)
+                    ->setMonth($oldMonth)
                     ->addLine($receiptLine)
                 ;
                 if ($enableEmailDelivery) {
-                    // TODO deliver it
                     $receipt
                         ->setIsSended(true)
                         ->setSendDate(new \DateTime())
@@ -159,6 +151,37 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
             }
         }
         $this->em->flush();
+
+        if ($enableEmailDelivery) {
+            $ids = array();
+            $this->logger->info('[GRFM] commonFastGenerateReciptsForYearAndMonth call');
+            $this->logger->info('[GRFM] '.$generatedReceiptsAmount.' records managed');
+            $receipts = $this->rr->findBy(array(
+                'year' => $oldYear,
+                'month' => $oldMonth,
+                'isSended' => false,
+            ));
+            if (count($receipts) > 0) {
+                /** @var Receipt $receipt */
+                foreach ($receipts as $receipt) {
+                    $ids[] = $receipt->getId();
+                    $receipt
+                        ->setIsSended(true)
+                        ->setSendDate(new \DateTime())
+                    ;
+                }
+                $this->em->flush();
+                $phpBinaryFinder = new PhpExecutableFinder();
+                $phpBinaryPath = $phpBinaryFinder->find();
+                $command = 'nohup '.$phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipts:batch '.implode(' ', $ids).' --force --env='.$this->kernel->getEnvironment().' 2>&1 > /dev/null &';
+                $this->logger->info('[GRFM] '.$command);
+                $process = new Process($command);
+                $process->run();
+            } else {
+                $this->logger->info('[GRFM] commonFastGenerateReciptsForYearAndMonth nothing send, all receipts are preivously sended.');
+            }
+        }
+        $this->logger->info('[GRFM] commonFastGenerateReciptsForYearAndMonth EOF');
 
         return $generatedReceiptsAmount;
     }
