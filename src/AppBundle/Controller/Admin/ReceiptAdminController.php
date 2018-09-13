@@ -35,11 +35,12 @@ class ReceiptAdminController extends BaseAdminController
      *
      * @param Request $request
      *
-     * @return Response
+     * @return Response|RedirectResponse
      *
-     * @throws NotFoundHttpException    If the object does not exist
-     * @throws AccessDeniedException    If access is not granted
-     * @throws NonUniqueResultException If problem with unique entities
+     * @throws NotFoundHttpException                 If the object does not exist
+     * @throws AccessDeniedException                 If access is not granted
+     * @throws NonUniqueResultException              If problem with unique entities
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function generateAction(Request $request)
     {
@@ -59,11 +60,21 @@ class ReceiptAdminController extends BaseAdminController
         $form->handleRequest($request);
 
         if ($yearMonthForm->isSubmitted() && $yearMonthForm->isValid()) {
+            /** @var Translator $translator */
+            $translator = $this->container->get('translator.default');
+            $year = $generateReceiptYearMonthChooser->getYear();
+            $month = $generateReceiptYearMonthChooser->getMonth();
             if ($form->get('fast_generate')->isClicked()) {
+                $generatedReceiptsAmount = $grfm->fastGenerateReciptsForYearAndMonth($year, $month);
+                $this->addFlash('success', $translator->trans('backend.admin.receipt.generator.flash_success', array('%amount%' => $generatedReceiptsAmount), 'messages'));
+
+                return $this->redirectToList();
             } elseif ($form->get('fast_generate_and_send')->isClicked()) {
+                $generatedReceiptsAmount = $grfm->fastGenerateReciptsForYearAndMonthAndDeliverEmail($year, $month);
+                $this->addFlash('success', $translator->trans('backend.admin.receipt.generator.flash_success', array('%amount%' => $generatedReceiptsAmount), 'messages'));
+
+                return $this->redirectToList();
             } elseif ($form->get('preview')->isClicked()) {
-                $year = $generateReceiptYearMonthChooser->getYear();
-                $month = $generateReceiptYearMonthChooser->getMonth();
                 // fill full items form
                 $generateReceipt = $grfm->buildFullModelForm($year, $month);
                 /** @var Controller $this */
