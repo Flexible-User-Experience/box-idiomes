@@ -215,14 +215,17 @@ class XmlSepaBuilderService
         }
 
         $endToEndId = '';
+        $amount = 0;
         if ($ari instanceof Receipt) {
             $endToEndId = $ari->getSluggedReceiptNumber();
+            $amount = $ari->getBaseAmount();
         } elseif ($ari instanceof Invoice) {
             $endToEndId = $ari->getSluggedInvoiceNumber();
+            $amount = $ari->getTotalAmount();
         }
 
         $transferInformation = array(
-            'amount' => $ari->getTotalAmount(),
+            'amount' => $amount,
             'debtorIban' => $this->removeSpacesFrom($ari->getMainBank()->getAccountNumber()),
             'debtorName' => $ari->getMainEmailName(),
             'debtorMandate' => $ari->getDebtorMandate(),
