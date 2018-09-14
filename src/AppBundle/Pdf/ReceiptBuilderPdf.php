@@ -1,23 +1,23 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Pdf;
 
-use AppBundle\Entity\Invoice;
-use AppBundle\Entity\InvoiceLine;
+use AppBundle\Entity\Receipt;
+use AppBundle\Entity\ReceiptLine;
 use AppBundle\Enum\StudentPaymentEnum;
-use AppBundle\Pdf\BaseTcpdf;
+use AppBundle\Service\SmartAssetsHelperService;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 
 /**
- * Class InvoicePdfBuilderService.
+ * Class ReceiptBuilderPdf.
  *
  * @category Service
  */
-class InvoicePdfBuilderService extends AbstractReceiptInvoicePdfBuilderService
+class ReceiptBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
 {
     /**
-     * InvoicePdfBuilderService constructor.
+     * ReceiptPdfBuilderService constructor.
      *
      * @param TCPDFController          $tcpdf
      * @param SmartAssetsHelperService $sahs
@@ -36,11 +36,11 @@ class InvoicePdfBuilderService extends AbstractReceiptInvoicePdfBuilderService
     }
 
     /**
-     * @param Invoice $invoice
+     * @param Receipt $receipt
      *
      * @return \TCPDF
      */
-    public function build(Invoice $invoice)
+    public function build(Receipt $receipt)
     {
         if ($this->sahs->isCliContext()) {
             $this->ts->setLocale($this->locale);
@@ -52,8 +52,8 @@ class InvoicePdfBuilderService extends AbstractReceiptInvoicePdfBuilderService
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor($this->pwt);
-        $pdf->SetTitle($this->ts->trans('backend.admin.invoice.invoice').' '.$invoice->getInvoiceNumber());
-        $pdf->SetSubject($this->ts->trans('backend.admin.invoice.detail').' '.$this->ts->trans('backend.admin.invoice.invoice').' '.$invoice->getInvoiceNumber());
+        $pdf->SetTitle($this->ts->trans('backend.admin.receipt.receipt').' '.$receipt->getReceiptNumber());
+        $pdf->SetSubject($this->ts->trans('backend.admin.invoice.detail').' '.$this->ts->trans('backend.admin.invoice.invoice').' '.$receipt->getReceiptNumber());
         // set default font subsetting mode
         $pdf->setFontSubsetting(true);
         // remove default header/footer
@@ -71,40 +71,33 @@ class InvoicePdfBuilderService extends AbstractReceiptInvoicePdfBuilderService
         $pdf->setPrintFooter(true);
         $pdf->SetXY(BaseTcpdf::PDF_MARGIN_LEFT, BaseTcpdf::PDF_MARGIN_TOP);
 
-        // gaps
-        $column2Gap = 114;
-        $verticalTableGapSmall = 8;
-        $verticalTableGap = 14;
-
         // invoice header
+        $column2Gap = 114;
         $pdf->setFontStyle(null, 'B', 9);
-        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_data'), '', false, 'L', false);
+        $pdf->Write(0, $this->ts->trans('backend.admin.receipt.pdf.receipt_data_head'), '', false, 'L', false);
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.customer_data'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
-
-        // TODO fetch right customer name (student or parent)
         $pdf->setFontStyle(null, '', 9);
 
-        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_number').' '.$invoice->getInvoiceNumber(), '', false, 'L', false);
+        $pdf->Write(0, $this->ts->trans('backend.admin.receipt.pdf.receipt_number').' '.$receipt->getReceiptNumber(), '', false, 'L', false);
         $pdf->SetX($column2Gap);
-        $pdf->Write(0, $invoice->getStudent()->getFullName(), '', false, 'L', true);
+        $pdf->Write(0, $receipt->getMainSubject()->getFullName(), '', false, 'L', true);
 
-        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_date').' '.$invoice->getDateString(), '', false, 'L', false);
+        $pdf->Write(0, $this->ts->trans('backend.admin.receipt.pdf.receipt_date').' '.$receipt->getDateString(), '', false, 'L', false);
         $pdf->SetX($column2Gap);
-        $pdf->Write(0, $invoice->getStudent()->getDni(), '', false, 'L', true);
+        $pdf->Write(0, $receipt->getStudent()->getDni(), '', false, 'L', true);
 
-        $pdf->SetY($pdf->GetY() + 2);
-        $pdf->Write(0, $this->bn, '', false, 'L', false);
+//        $pdf->Write(0, $this->bn, '', false, 'L', false);
         $pdf->SetX($column2Gap);
-        $pdf->Write(0, $invoice->getStudent()->getAddress(), '', false, 'L', true);
+        $pdf->Write(0, $receipt->getStudent()->getAddress(), '', false, 'L', true);
 
-        $pdf->Write(0, $this->bd, '', false, 'L', false);
+//        $pdf->Write(0, $this->bd, '', false, 'L', false);
         $pdf->SetX($column2Gap);
-        $pdf->Write(0, $invoice->getStudent()->getCity()->getCanonicalPostalString(), '', false, 'L', true);
+        $pdf->Write(0, $receipt->getStudent()->getCity()->getCanonicalPostalString(), '', false, 'L', true);
 
-        $pdf->Write(0, $this->ba, '', false, 'L', true);
-        $pdf->Write(0, $this->bc, '', false, 'L', true);
+//        $pdf->Write(0, $this->ba, '', false, 'L', true);
+//        $pdf->Write(0, $this->bc, '', false, 'L', true);
 
         // TODO draw SVG
         // $pdf->drawSvg(30, 30, 30, 30);
@@ -114,7 +107,9 @@ class InvoicePdfBuilderService extends AbstractReceiptInvoicePdfBuilderService
         $pdf->drawInvoiceLineSeparator($pdf->GetY());
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
-        // invoice table header
+        // receipt table header
+        $verticalTableGapSmall = 8;
+        $verticalTableGap = 14;
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->Cell(80, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.description'), false, 0, 'L');
         $pdf->Cell(15, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.units'), false, 0, 'R');
@@ -123,15 +118,15 @@ class InvoicePdfBuilderService extends AbstractReceiptInvoicePdfBuilderService
         $pdf->Cell(15, $verticalTableGap, $this->ts->trans('backend.admin.invoiceLine.total'), false, 1, 'R');
         $pdf->setFontStyle(null, '', 9);
 
-        // invoice lines table rows
-        /** @var InvoiceLine $line */
-        foreach ($invoice->getLines() as $line) {
+        // receipt lines table rows
+        /** @var ReceiptLine $line */
+        foreach ($receipt->getLines() as $line) {
             // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
             $pdf->MultiCell(80, $verticalTableGapSmall, $line->getDescription(), 0, 'L', 0, 0, '', '', true, 0, false, true, 0, 'M');
             $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatStringFormat($line->getUnits()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
             $pdf->MultiCell(20, $verticalTableGapSmall, $this->floatStringFormat($line->getPriceUnit()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
             $pdf->MultiCell(20, $verticalTableGapSmall, $this->floatStringFormat($line->getDiscount()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-            $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatStringFormat($line->getTotal()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+            $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatStringFormat($line->calculateBaseAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
         }
 
         // horitzonal divider
@@ -139,20 +134,9 @@ class InvoicePdfBuilderService extends AbstractReceiptInvoicePdfBuilderService
         $pdf->drawInvoiceLineSeparator($pdf->GetY());
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
-        // invoice table footer
-        // base
-        $pdf->MultiCell(135, $verticalTableGapSmall, $this->ts->trans('backend.admin.invoice.baseAmount'), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-        $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatMoneyFormat($invoice->calculateBaseAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
-        // iva tax
-        $pdf->MultiCell(135, $verticalTableGapSmall, '+'.$invoice->getTaxPercentage().'% IVA', 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-        $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatMoneyFormat($invoice->calculateTaxPercentage()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
-        // irpf
-        $pdf->MultiCell(135, $verticalTableGapSmall, '-'.$invoice->getIrpfPercentage().'% IRPF', 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-        $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatMoneyFormat($invoice->calculateIrpfPercentatge()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
-        // total
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->MultiCell(135, $verticalTableGapSmall, strtoupper($this->ts->trans('backend.admin.invoiceLine.total')), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-        $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatMoneyFormat($invoice->getTotalAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+        $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatMoneyFormat($receipt->getBaseAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
         $pdf->setFontStyle(null, '', 9);
 
         // horitzonal divider
@@ -161,8 +145,8 @@ class InvoicePdfBuilderService extends AbstractReceiptInvoicePdfBuilderService
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG + $verticalTableGapSmall);
 
         // payment method
-        $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment_type').' '.strtoupper($this->ts->trans(StudentPaymentEnum::getEnumArray()[$invoice->getStudent()->getPayment()])), '', false, 'L', true);
-        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $invoice->getStudent()->getPayment()) {
+        $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment_type').' '.strtoupper($this->ts->trans(StudentPaymentEnum::getEnumArray()[$receipt->getStudent()->getPayment()])), '', false, 'L', true);
+        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $receipt->getStudent()->getPayment()) {
             $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.account_number').' '.$this->ib, '', false, 'L', true);
         }
 

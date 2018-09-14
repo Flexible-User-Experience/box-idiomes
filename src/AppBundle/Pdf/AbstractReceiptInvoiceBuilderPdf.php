@@ -1,16 +1,17 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Pdf;
 
+use AppBundle\Service\SmartAssetsHelperService;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 
 /**
- * Abstract class AbstractReceiptInvoicePdfBuilderService.
+ * Abstract class AbstractReceiptInvoiceBuilderPdf.
  *
  * @category Service
  */
-abstract class AbstractReceiptInvoicePdfBuilderService
+abstract class AbstractReceiptInvoiceBuilderPdf
 {
     /**
      * @var TCPDFController

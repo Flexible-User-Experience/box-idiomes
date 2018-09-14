@@ -1,19 +1,19 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Pdf;
 
 use AppBundle\Entity\Student;
-use AppBundle\Pdf\BaseTcpdf;
+use AppBundle\Service\SmartAssetsHelperService;
 use IntlDateFormatter;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 
 /**
- * Class StudentImageRightsPdfService.
+ * Class StudentImageRightsBuilderPdf.
  *
  * @category Service
  */
-class StudentImageRightsPdfService
+class StudentImageRightsBuilderPdf
 {
     /**
      * @var TCPDFController
