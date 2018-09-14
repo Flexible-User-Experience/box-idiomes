@@ -176,6 +176,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 $command = 'nohup '.$phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipts:batch '.implode(' ', $ids).' --force --env='.$this->kernel->getEnvironment().' 2>&1 > /dev/null &';
                 $this->logger->info('[GRFM] '.$command);
                 $process = new Process($command);
+                $process->setTimeout(null);
                 $process->run();
             } else {
                 $this->logger->info('[GRFM] commonFastGenerateReciptsForYearAndMonth nothing send, all receipts are preivously sended.');
@@ -504,6 +505,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 $command = 'nohup '.$phpBinaryPath.' '.$this->kernel->getRootDir().DIRECTORY_SEPARATOR.'console app:deliver:receipts:batch '.implode(' ', $ids).' --force --env='.$this->kernel->getEnvironment().' 2>&1 > /dev/null &';
                 $this->logger->info('[GRFM] '.$command);
                 $process = new Process($command);
+                $process->setTimeout(null);
                 $process->run();
             }
         }
