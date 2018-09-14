@@ -527,6 +527,25 @@ class ReceiptAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * @return array
+     */
+    public function getExportFields()
+    {
+        return array(
+            'receiptNumber',
+            'dateString',
+            'year',
+            'month',
+            'student.fullCanonicalName',
+            'baseAmountString',
+            'isForPrivateLessons',
+            'isSepaXmlGenerated',
+            'isSended',
+            'isPayed',
+        );
+    }
+
+    /**
      * @param Receipt $object
      */
     public function prePersist($object)
