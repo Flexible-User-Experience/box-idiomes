@@ -89,16 +89,12 @@ class ReceiptBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $subject->getDni(), '', false, 'L', true);
 
-//        $pdf->Write(0, $this->bn, '', false, 'L', false);
+        $pdf->Write(0, $this->ts->trans('Alumne').': '.$receipt->getStudent()->getFullName(), '', false, 'L', false);
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $subject->getAddress(), '', false, 'L', true);
 
-//        $pdf->Write(0, $this->bd, '', false, 'L', false);
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $subject->getCity()->getCanonicalPostalString(), '', false, 'L', true);
-
-//        $pdf->Write(0, $this->ba, '', false, 'L', true);
-//        $pdf->Write(0, $this->bc, '', false, 'L', true);
 
         // TODO draw SVG
         // $pdf->drawSvg(30, 30, 30, 30);

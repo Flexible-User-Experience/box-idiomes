@@ -132,6 +132,7 @@ class InvoiceBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
             $pdf->MultiCell(20, $verticalTableGapSmall, $this->floatStringFormat($line->getDiscount()), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
             $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatStringFormat($line->getTotal()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
         }
+        $pdf->MultiCell(150, $verticalTableGapSmall, $this->ts->trans('Alumne').': '.$invoice->getStudent()->getFullName(), 0, 'L', 0, 1, '', '', true, 0, false, true, 0, 'M');
 
         // horitzonal divider
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
