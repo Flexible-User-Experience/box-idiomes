@@ -168,7 +168,7 @@ abstract class AbstractReceiptInvoice extends AbstractBase
      */
     public function getDateString()
     {
-        return $this->date ? $this->date->format('d/m/Y') : '--/--/----';
+        return $this->getDate() ? $this->getDate()->format('d/m/Y') : '--/--/----';
     }
 
     /**
@@ -220,6 +220,14 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getPaymentDateString()
+    {
+        return $this->getPaymentDate() ? $this->getPaymentDate()->format('d/m/Y') : '--/--/----';
+    }
+
+    /**
      * @param \DateTime $paymentDate
      *
      * @return $this
@@ -268,6 +276,14 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getSendDateString()
+    {
+        return $this->getSendDate() ? $this->getSendDate()->format('d/m/Y') : '--/--/----';
+    }
+
+    /**
      * @param \DateTime|null $sendDate
      *
      * @return $this
@@ -313,6 +329,14 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     public function getSepaXmlGeneratedDate()
     {
         return $this->sepaXmlGeneratedDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSepaXmlGeneratedDateString()
+    {
+        return $this->getSepaXmlGeneratedDate() ? $this->getSepaXmlGeneratedDate()->format('d/m/Y') : '--/--/----';
     }
 
     /**

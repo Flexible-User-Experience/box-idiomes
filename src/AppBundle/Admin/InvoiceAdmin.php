@@ -613,11 +613,20 @@ class InvoiceAdmin extends AbstractBaseAdmin
             'month',
             'receipt.receiptNumber',
             'student.fullCanonicalName',
+            'person.fullCanonicalName',
+            'student.paymentString',
+            'discountApplied',
             'baseAmountString',
+            'taxPercentage',
+            'irpfPercentage',
             'totalAmountString',
+            'isForPrivateLessons',
             'isSepaXmlGenerated',
+            'sepaXmlGeneratedDateString',
             'isSended',
+            'sendDateString',
             'isPayed',
+            'paymentDateString',
         );
     }
 

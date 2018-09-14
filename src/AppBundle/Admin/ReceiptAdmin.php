@@ -537,11 +537,17 @@ class ReceiptAdmin extends AbstractBaseAdmin
             'year',
             'month',
             'student.fullCanonicalName',
+            'person.fullCanonicalName',
+            'student.paymentString',
+            'discountApplied',
             'baseAmountString',
             'isForPrivateLessons',
             'isSepaXmlGenerated',
+            'sepaXmlGeneratedDateString',
             'isSended',
+            'sendDateString',
             'isPayed',
+            'paymentDateString',
         );
     }
 
