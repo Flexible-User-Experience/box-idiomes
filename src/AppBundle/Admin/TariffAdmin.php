@@ -178,4 +178,17 @@ class TariffAdmin extends AbstractBaseAdmin
             )
         ;
     }
+
+    /**
+     * @return array
+     */
+    public function getExportFields()
+    {
+        return array(
+            'year',
+            'name',
+            'price',
+            'typeString',
+        );
+    }
 }

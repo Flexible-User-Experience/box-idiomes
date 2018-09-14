@@ -104,6 +104,14 @@ class Student extends AbstractPerson
     }
 
     /**
+     * @return string
+     */
+    public function getBirthDateString()
+    {
+        return $this->getBirthDate()->format('d/m/Y');
+    }
+
+    /**
      * @param \DateTime $birthDate
      *
      * @return Student

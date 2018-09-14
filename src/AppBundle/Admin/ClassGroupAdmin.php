@@ -219,4 +219,19 @@ class ClassGroupAdmin extends AbstractBaseAdmin
             )
         ;
     }
+
+    /**
+     * @return array
+     */
+    public function getExportFields()
+    {
+        return array(
+            'code',
+            'name',
+            'book',
+            'color',
+            'isForPrivateLessons',
+            'enabled',
+        );
+    }
 }

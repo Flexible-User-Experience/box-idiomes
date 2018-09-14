@@ -129,20 +129,20 @@ services:
             - "@app.event_repository"
             - "@app.tariff_repository"
             - "@app.invoice_repository"
-# Builders
+# PDF Builders
     app.base_tcpdf:
         class: AppBundle\Pdf\BaseTcpdf
         arguments:
             - "@app.smart_assets_helper"
     app.student_image_rights_pdf_builder:
-        class: AppBundle\Service\StudentImageRightsPdfService
+        class: AppBundle\Pdf\StudentImageRightsBuilderPdf
         arguments:
             - "@white_october.tcpdf"
             - "@app.smart_assets_helper"
             - "@translator.default"
             - "%project_web_title%"
     app.sepa_agreement_pdf_builder:
-        class: AppBundle\Service\SepaAgreementPdfService
+        class: AppBundle\Pdf\SepaAgreementBuilderPdf
         arguments:
             - "@white_october.tcpdf"
             - "@app.smart_assets_helper"
@@ -150,7 +150,7 @@ services:
             - "%project_web_title%"
             - "%boss_name%"
     app.receipt_pdf_builder:
-        class: AppBundle\Service\ReceiptPdfBuilderService
+        class: AppBundle\Pdf\ReceiptBuilderPdf
         arguments:
             - "@white_october.tcpdf"
             - "@app.smart_assets_helper"
@@ -163,7 +163,7 @@ services:
             - "%iban_business%"
             - "%locale%"
     app.invoice_pdf_builder:
-        class: AppBundle\Service\InvoicePdfBuilderService
+        class: AppBundle\Pdf\InvoiceBuilderPdf
         arguments:
             - "@white_october.tcpdf"
             - "@app.smart_assets_helper"
@@ -175,6 +175,7 @@ services:
             - "%boss_city%"
             - "%iban_business%"
             - "%locale%"
+# SEPA
     app.xml_sepa_builder:
         class: AppBundle\Service\XmlSepaBuilderService
         arguments:

@@ -1,18 +1,18 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Pdf;
 
 use AppBundle\Entity\Student;
-use AppBundle\Pdf\BaseTcpdf;
+use AppBundle\Service\SmartAssetsHelperService;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 
 /**
- * Class SepaAgreementPdfService.
+ * Class SepaAgreementBuilderPdf.
  *
  * @category Service
  */
-class SepaAgreementPdfService
+class SepaAgreementBuilderPdf
 {
     /**
      * @var TCPDFController

@@ -24,4 +24,16 @@ class StudentPaymentEnum
             self::BANK_TRANSFER => 'backend.admin.student.transfer',
         );
     }
+
+    /**
+     * @return array
+     */
+    public static function getEnumTranslatedArray()
+    {
+        return array(
+            self::BANK_ACCOUNT_NUMBER => 'gir bancari',
+            self::CASH => 'efectiu',
+            self::BANK_TRANSFER => 'transferencia',
+        );
+    }
 }

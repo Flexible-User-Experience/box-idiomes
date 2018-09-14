@@ -602,6 +602,35 @@ class InvoiceAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * @return array
+     */
+    public function getExportFields()
+    {
+        return array(
+            'invoiceNumber',
+            'dateString',
+            'year',
+            'month',
+            'receipt.receiptNumber',
+            'student.fullCanonicalName',
+            'person.fullCanonicalName',
+            'student.paymentString',
+            'discountApplied',
+            'baseAmountString',
+            'taxPercentage',
+            'irpfPercentage',
+            'totalAmountString',
+            'isForPrivateLessons',
+            'isSepaXmlGenerated',
+            'sepaXmlGeneratedDateString',
+            'isSended',
+            'sendDateString',
+            'isPayed',
+            'paymentDateString',
+        );
+    }
+
+    /**
      * @param Invoice $object
      */
     public function prePersist($object)

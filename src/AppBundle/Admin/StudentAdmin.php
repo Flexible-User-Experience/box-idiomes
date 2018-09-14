@@ -464,6 +464,34 @@ class StudentAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * @return array
+     */
+    public function getExportFields()
+    {
+        return array(
+            'dni',
+            'name',
+            'surname',
+            'parent.fullCanonicalName',
+            'comments',
+            'phone',
+            'email',
+            'address',
+            'city',
+            'paymentString',
+            'bank.name',
+            'bank.swiftCode',
+            'bank.accountNumber',
+            'birthDateString',
+            'schedule',
+            'tariff',
+            'hasImageRightsAccepted',
+            'hasSepaAgreementAccepted',
+            'enabled',
+        );
+    }
+
+    /**
      * @param Student $object
      */
     public function prePersist($object)
