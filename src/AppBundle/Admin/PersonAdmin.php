@@ -317,6 +317,27 @@ class PersonAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * @return array
+     */
+    public function getExportFields()
+    {
+        return array(
+            'dni',
+            'name',
+            'surname',
+            'phone',
+            'email',
+            'address',
+            'city',
+            'paymentString',
+            'bank.name',
+            'bank.swiftCode',
+            'bank.accountNumber',
+            'enabled',
+        );
+    }
+
+    /**
      * @param Person $object
      */
     public function prePersist($object)

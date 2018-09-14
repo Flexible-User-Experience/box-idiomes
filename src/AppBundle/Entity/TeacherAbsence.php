@@ -99,6 +99,14 @@ class TeacherAbsence extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getDayString()
+    {
+        return $this->getDay()->format('d/m/Y');
+    }
+
+    /**
      * @param \DateTime $day
      *
      * @return TeacherAbsence

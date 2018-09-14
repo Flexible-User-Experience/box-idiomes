@@ -215,6 +215,22 @@ class TeacherAdmin extends AbstractBaseAdmin
                     ),
                     'label' => 'backend.admin.actions',
                 )
-            );
+            )
+        ;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExportFields()
+    {
+        return array(
+            'name',
+            'position',
+            'color',
+            'description',
+            'showInHomepage',
+            'enabled',
+        );
     }
 }
