@@ -313,6 +313,22 @@ class EventAdmin extends AbstractBaseAdmin
     }
 
     /**
+     * @return array
+     */
+    public function getExportFields()
+    {
+        return array(
+            'beginString',
+            'endString',
+            'classroomString',
+            'teacher',
+            'group',
+            'studentsAmount',
+            'studentsString',
+        );
+    }
+
+    /**
      * Create event and all of his sibilings if there is a repeat frequency.
      *
      * @param Event $object

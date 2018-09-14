@@ -113,6 +113,14 @@ class Event extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getBeginString()
+    {
+        return $this->getBegin()->format('d/m/Y H:i');
+    }
+
+    /**
      * @param \DateTime $begin
      *
      * @return Event
@@ -130,6 +138,14 @@ class Event extends AbstractBase
     public function getEnd()
     {
         return $this->end;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEndString()
+    {
+        return $this->getEnd()->format('d/m/Y H:i');
     }
 
     /**
@@ -226,6 +242,28 @@ class Event extends AbstractBase
     public function getStudents()
     {
         return $this->students;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStudentsAmount()
+    {
+        return count($this->getStudents());
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getStudentsString()
+    {
+        $result = array();
+        /** @var Student $student */
+        foreach ($this->getStudents() as $student) {
+            $result[] = $student->getFullName();
+        }
+
+        return implode(' · ', $result);
     }
 
     /**
@@ -391,6 +429,6 @@ class Event extends AbstractBase
      */
     public function __toString()
     {
-        return $this->id ? $this->getBegin()->format('d/m/Y H:i').' · '.$this->getClassroomString().' · '.$this->getTeacher()->getName().' · '.$this->getGroup()->getCode() : '---';
+        return $this->id ? $this->getBeginString().' · '.$this->getClassroomString().' · '.$this->getTeacher()->getName().' · '.$this->getGroup()->getCode() : '---';
     }
 }
