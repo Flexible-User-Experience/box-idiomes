@@ -48,6 +48,7 @@ class InvoiceBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
 
         /** @var BaseTcpdf $pdf */
         $pdf = $this->tcpdf->create($this->sahs);
+        $subject = $invoice->getMainSubject();
 
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
@@ -90,16 +91,16 @@ class InvoiceBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
 
         $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_date').' '.$invoice->getDateString(), '', false, 'L', false);
         $pdf->SetX($column2Gap);
-        $pdf->Write(0, $invoice->getStudent()->getDni(), '', false, 'L', true);
+        $pdf->Write(0, $subject->getDni(), '', false, 'L', true);
 
         $pdf->SetY($pdf->GetY() + 2);
         $pdf->Write(0, $this->bn, '', false, 'L', false);
         $pdf->SetX($column2Gap);
-        $pdf->Write(0, $invoice->getStudent()->getAddress(), '', false, 'L', true);
+        $pdf->Write(0, $subject->getAddress(), '', false, 'L', true);
 
         $pdf->Write(0, $this->bd, '', false, 'L', false);
         $pdf->SetX($column2Gap);
-        $pdf->Write(0, $invoice->getStudent()->getCity()->getCanonicalPostalString(), '', false, 'L', true);
+        $pdf->Write(0, $subject->getCity()->getCanonicalPostalString(), '', false, 'L', true);
 
         $pdf->Write(0, $this->ba, '', false, 'L', true);
         $pdf->Write(0, $this->bc, '', false, 'L', true);
@@ -159,9 +160,16 @@ class InvoiceBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG + $verticalTableGapSmall);
 
         // payment method
-        $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment_type').' '.strtoupper($this->ts->trans(StudentPaymentEnum::getEnumArray()[$invoice->getStudent()->getPayment()])), '', false, 'L', true);
-        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $invoice->getStudent()->getPayment()) {
-            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.account_number').' '.$this->ib, '', false, 'L', true);
+        $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment_type').' '.strtoupper($this->ts->trans(StudentPaymentEnum::getEnumArray()[$subject->getPayment()])), '', false, 'L', true);
+        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $subject->getPayment()) {
+            // SEPA direct debit
+            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.account_number').' '.$subject->getBank()->getAccountNumber(), '', false, 'L', true);
+        } elseif (StudentPaymentEnum::CASH == $subject->getPayment()) {
+            // cash
+            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.cash'), '', false, 'L', true);
+        } elseif (StudentPaymentEnum::CASH == $subject->getPayment()) {
+            // bank transfer
+            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.bank_transfer').' '.$this->ib, '', false, 'L', true);
         }
 
         return $pdf;

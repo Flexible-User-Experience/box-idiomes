@@ -147,7 +147,6 @@ class ReceiptBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
 
         // payment method
         $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment_type').' '.strtoupper($this->ts->trans(StudentPaymentEnum::getEnumArray()[$subject->getPayment()])), '', false, 'L', true);
-
         if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $subject->getPayment()) {
             // SEPA direct debit
             $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.account_number').' '.$subject->getBank()->getAccountNumber(), '', false, 'L', true);
