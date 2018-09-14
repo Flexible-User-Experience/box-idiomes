@@ -226,6 +226,24 @@ class ContactMessageAdmin extends AbstractBaseAdmin
                         ),
                     ),
                 )
-            );
+            )
+        ;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExportFields()
+    {
+        return array(
+            'checked',
+            'createdAtString',
+            'name',
+            'email',
+            'subject',
+            'message',
+            'answered',
+            'description',
+        );
     }
 }

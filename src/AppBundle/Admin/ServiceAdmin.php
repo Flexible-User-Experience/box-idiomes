@@ -169,6 +169,20 @@ class ServiceAdmin extends AbstractBaseAdmin
                     ),
                     'label' => 'backend.admin.actions',
                 )
-            );
+            )
+        ;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExportFields()
+    {
+        return array(
+            'position',
+            'title',
+            'description',
+            'enabled',
+        );
     }
 }

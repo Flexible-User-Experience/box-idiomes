@@ -58,8 +58,6 @@ abstract class AbstractBase
      */
 
     /**
-     * Get id.
-     *
      * @return int
      */
     public function getId()
@@ -68,8 +66,6 @@ abstract class AbstractBase
     }
 
     /**
-     * Set createdAt.
-     *
      * @param \DateTime $createdAt
      *
      * @return $this
@@ -82,8 +78,6 @@ abstract class AbstractBase
     }
 
     /**
-     * Get createdAt.
-     *
      * @return \DateTime
      */
     public function getCreatedAt()
@@ -92,8 +86,14 @@ abstract class AbstractBase
     }
 
     /**
-     * Set updatedAt.
-     *
+     * @return string
+     */
+    public function getCreatedAtString()
+    {
+        return $this->getCreatedAt()->format('d/m/Y');
+    }
+
+    /**
      * @param \DateTime $updatedAt
      *
      * @return $this
@@ -106,8 +106,6 @@ abstract class AbstractBase
     }
 
     /**
-     * Get updatedAt.
-     *
      * @return \DateTime
      */
     public function getUpdatedAt()
@@ -116,8 +114,14 @@ abstract class AbstractBase
     }
 
     /**
-     * Set removedAt.
-     *
+     * @return string
+     */
+    public function getUpdatedAtString()
+    {
+        return $this->getUpdatedAt()->format('d/m/Y');
+    }
+
+    /**
      * @param \DateTime $removedAt
      *
      * @return $this
@@ -130,13 +134,19 @@ abstract class AbstractBase
     }
 
     /**
-     * Get removedAt.
-     *
      * @return \DateTime
      */
     public function getRemovedAt()
     {
         return $this->removedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRemovedAtString()
+    {
+        return $this->getRemovedAt()->format('d/m/Y');
     }
 
     /**
@@ -162,8 +172,6 @@ abstract class AbstractBase
     }
 
     /**
-     * Set Enabled.
-     *
      * @param bool $enabled
      *
      * @return $this
@@ -176,13 +184,19 @@ abstract class AbstractBase
     }
 
     /**
-     * Get Enabled.
-     *
      * @return bool
      */
     public function getEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->getEnabled();
     }
 
     /**
