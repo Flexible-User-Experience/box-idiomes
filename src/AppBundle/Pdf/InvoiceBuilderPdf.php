@@ -82,13 +82,11 @@ class InvoiceBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.customer_data'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
-
-        // TODO fetch right customer name (student or parent)
         $pdf->setFontStyle(null, '', 9);
 
         $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_number').' '.$invoice->getInvoiceNumber(), '', false, 'L', false);
         $pdf->SetX($column2Gap);
-        $pdf->Write(0, $invoice->getStudent()->getFullName(), '', false, 'L', true);
+        $pdf->Write(0, $invoice->getMainSubject()->getFullName(), '', false, 'L', true);
 
         $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_date').' '.$invoice->getDateString(), '', false, 'L', false);
         $pdf->SetX($column2Gap);
