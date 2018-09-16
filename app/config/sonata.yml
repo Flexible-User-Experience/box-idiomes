@@ -5,6 +5,7 @@ sonata_block:
         sonata.admin.block.admin_list: ~
         sonata.block.service.text:     ~
         app.block.event_calendar:      ~
+        app.block.charts:              ~
 
 # Sonata User
 sonata_user:
@@ -60,5 +61,10 @@ sonata_admin:
             -
                 position: top
                 type:     app.block.event_calendar
+                class:    "col-xs-12"
+                roles:    [ "ROLE_MANAGER" ]
+            -
+                position: top
+                type:     app.block.charts
                 class:    "col-xs-12"
                 roles:    [ "ROLE_MANAGER" ]
