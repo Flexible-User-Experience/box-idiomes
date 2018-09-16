@@ -47,15 +47,17 @@ class ChartsFactoryService
      */
     public function buildLastYearIncomingsChart()
     {
-        // TODO get incoming values from Receipts and Invoices repositories
         $dt = new DataTable();
         $dt->addColumnObject(new DataColumn('id1', 'title', 'string'));
         $dt->addColumnObject(new DataColumn('id2', 'incomings', 'number'));
 
-        $dt->addRowObject($this->buildIncomingCellsRow('jan', 10530));
-        $dt->addRowObject($this->buildIncomingCellsRow('feb', 9854));
-        $dt->addRowObject($this->buildIncomingCellsRow('mar', 12002));
-        $dt->addRowObject($this->buildIncomingCellsRow('abr', 120));
+        $today = new \DateTime();
+        $today->sub(new \DateInterval('P11M'));
+        $interval = new \DateInterval('P1M');
+        for ($i = 1; $i <= 12; ++$i) {
+            $dt->addRowObject($this->buildIncomingCellsRow($today->format('m/y'), 10530 + ($i * 100)));
+            $today->add($interval);
+        }
 
         return $dt;
     }
