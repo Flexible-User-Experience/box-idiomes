@@ -7,8 +7,8 @@
                 <div class="col-xs-12">
                     <div id="gchart_dashboard_widget_1"></div>
                     <script type="text/javascript">
-                        jQuery(function() {
-                            {{ gchart_line_chart(dt, 'gchart_dashboard_widget_1', 400, 200, 'coucou', {hAxis: {title: 'Hello', titleTextStyle: {color: '#FF0000'}}}) }}
+                        jQuery(document).ready(function() {
+                            {{ gchart_line_chart(dt, 'gchart_dashboard_widget_1', '100%', 500, '', {curveType: 'function', legend: {position: 'bottom'}}) }}
                         });
                     </script>
                 </div>
