@@ -32,3 +32,9 @@
         <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
     {% endstylesheets %}
 {% endblock %}
+
+{# override javascript includes #}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{% endblock %}
