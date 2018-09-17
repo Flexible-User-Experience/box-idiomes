@@ -365,7 +365,6 @@ class ReceiptRepository extends EntityRepository
      */
     public function getMonthlyIncomingsAmountForDate(\DateTime $date)
     {
-        $result = 0;
         $begin = clone $date;
         $end = clone $date;
         $begin->modify('first day of this month');
@@ -379,6 +378,6 @@ class ReceiptRepository extends EntityRepository
             ->getQuery()
         ;
 
-        return is_null($query->getOneOrNullResult(AbstractQuery::HYDRATE_SINGLE_SCALAR)) ? $result : floatval($query->getOneOrNullResult(AbstractQuery::HYDRATE_SINGLE_SCALAR));
+        return is_null($query->getOneOrNullResult(AbstractQuery::HYDRATE_SINGLE_SCALAR)) ? 0 : floatval($query->getOneOrNullResult(AbstractQuery::HYDRATE_SINGLE_SCALAR));
     }
 }

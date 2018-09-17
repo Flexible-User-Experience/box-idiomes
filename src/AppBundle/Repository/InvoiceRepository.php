@@ -123,20 +123,19 @@ class InvoiceRepository extends EntityRepository
      */
     public function getMonthlyIncomingsAmountForDate(\DateTime $date)
     {
-        $result = 0;
         $begin = clone $date;
         $end = clone $date;
         $begin->modify('first day of this month');
         $end->modify('last day of this month');
-        $query = $this->createQueryBuilder('r')
-            ->select('SUM(r.baseAmount) as amount')
-            ->where('r.date >= :begin')
-            ->andWhere('r.date <= :end')
+        $query = $this->createQueryBuilder('i')
+            ->select('SUM(i.baseAmount) as amount')
+            ->where('i.date >= :begin')
+            ->andWhere('i.date <= :end')
             ->setParameter('begin', $begin->format('Y-m-d'))
             ->setParameter('end', $end->format('Y-m-d'))
             ->getQuery()
         ;
 
-        return is_null($query->getOneOrNullResult(AbstractQuery::HYDRATE_SINGLE_SCALAR)) ? $result : floatval($query->getOneOrNullResult(AbstractQuery::HYDRATE_SINGLE_SCALAR));
+        return is_null($query->getOneOrNullResult(AbstractQuery::HYDRATE_SINGLE_SCALAR)) ? 0 : floatval($query->getOneOrNullResult(AbstractQuery::HYDRATE_SINGLE_SCALAR));
     }
 }
