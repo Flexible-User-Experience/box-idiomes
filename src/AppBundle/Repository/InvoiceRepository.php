@@ -112,4 +112,16 @@ class InvoiceRepository extends EntityRepository
     {
         return $this->findOnePreviousInvoiceByStudentIdYearAndMonthOrNullQ($studentId, $year, $month)->getOneOrNullResult();
     }
+
+    /**
+     * @param \DateTime $date
+     *
+     * @return int
+     */
+    public function getMonthlyIncomingsAmountForDate(\DateTime $date)
+    {
+        $result = 100;
+
+        return $result;
+    }
 }

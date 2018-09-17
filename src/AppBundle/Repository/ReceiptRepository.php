@@ -354,4 +354,16 @@ class ReceiptRepository extends EntityRepository
     {
         return $this->findByIdsArrayQ($ids)->getResult();
     }
+
+    /**
+     * @param \DateTime $date
+     *
+     * @return int
+     */
+    public function getMonthlyIncomingsAmountForDate(\DateTime $date)
+    {
+        $result = 100;
+
+        return $result;
+    }
 }

@@ -39,6 +39,7 @@ services:
     app.charts_factory_service:
         class: AppBundle\Service\ChartsFactoryService
         arguments:
+            - "@translator"
             - "@app.receipt_repository"
             - "@app.invoice_repository"
 # Menus

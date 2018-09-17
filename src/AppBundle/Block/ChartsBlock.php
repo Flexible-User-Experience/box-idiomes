@@ -41,6 +41,8 @@ class ChartsBlock extends AbstractBlockService
      * @param Response|null         $response
      *
      * @return Response
+     *
+     * @throws \SaadTazi\GChartBundle\DataTable\Exception\InvalidColumnTypeException
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
