@@ -5,6 +5,7 @@ namespace AppBundle\Repository;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Receipt;
 use AppBundle\Entity\Student;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -359,11 +360,25 @@ class ReceiptRepository extends EntityRepository
      * @param \DateTime $date
      *
      * @return int
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getMonthlyIncomingsAmountForDate(\DateTime $date)
     {
-        $result = 100;
+        $result = 0;
+        $begin = clone $date;
+        $end = clone $date;
+        $begin->modify('first day of this month');
+        $end->modify('last day of this month');
+        $query = $this->createQueryBuilder('r')
+            ->select('SUM(r.baseAmount) as amount')
+            ->where('r.date >= :begin')
+            ->andWhere('r.date <= :end')
+            ->setParameter('begin', $begin->format('Y-m-d'))
+            ->setParameter('end', $end->format('Y-m-d'))
+            ->getQuery()
+        ;
 
-        return $result;
+        return is_null($query->getOneOrNullResult(AbstractQuery::HYDRATE_SINGLE_SCALAR)) ? $result : floatval($query->getOneOrNullResult(AbstractQuery::HYDRATE_SINGLE_SCALAR));
     }
 }
