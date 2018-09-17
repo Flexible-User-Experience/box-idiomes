@@ -2,18 +2,38 @@
 
 namespace AppBundle\Block;
 
+use AppBundle\Service\ChartsFactoryService;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class EventCalendarBlock.
+ * Class ChartsBlock.
  *
  * @category Block
  */
-class EventCalendarBlock extends AbstractBlockService
+class ChartsBlock extends AbstractBlockService
 {
+    /**
+     * @var ChartsFactoryService
+     */
+    private $cfs;
+
+    /**
+     * ChartsBlock constructor.
+     *
+     * @param string|null               $name
+     * @param EngineInterface|null      $templating
+     * @param ChartsFactoryService|null $cfs
+     */
+    public function __construct($name = null, EngineInterface $templating = null, $cfs = null)
+    {
+        parent::__construct($name, $templating);
+        $this->cfs = $cfs;
+    }
+
     /**
      * Execute.
      *
@@ -21,6 +41,8 @@ class EventCalendarBlock extends AbstractBlockService
      * @param Response|null         $response
      *
      * @return Response
+     *
+     * @throws \SaadTazi\GChartBundle\DataTable\Exception\InvalidColumnTypeException
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
@@ -32,7 +54,8 @@ class EventCalendarBlock extends AbstractBlockService
             array(
                 'block' => $blockContext->getBlock(),
                 'settings' => $settings,
-                'title' => 'Calendar',
+                'title' => 'Charts',
+                'dt' => $this->cfs->buildLastYearIncomingsChart()->toArray(),
             ),
             $response
         );
@@ -45,7 +68,7 @@ class EventCalendarBlock extends AbstractBlockService
      */
     public function getName()
     {
-        return 'event_calendar';
+        return 'charts';
     }
 
     /**
@@ -54,9 +77,9 @@ class EventCalendarBlock extends AbstractBlockService
     public function configureSettings(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'title' => 'Calendar',
+            'title' => 'Charts',
             'content' => 'Default content',
-            'template' => ':Admin/Block:calendar.html.twig',
+            'template' => ':Admin/Block:charts.html.twig',
         ));
     }
 }

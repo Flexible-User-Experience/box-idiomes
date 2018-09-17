@@ -11,6 +11,14 @@ services:
             - "@templating"
         tags:
             - { name: sonata.block }
+    app.block.charts:
+        class: AppBundle\Block\ChartsBlock
+        arguments:
+            - "app.block.charts"
+            - "@templating"
+            - "@app.charts_factory_service"
+        tags:
+            - { name: sonata.block }
 # Messaging
     app.courier:
         class: AppBundle\Service\CourierService
@@ -28,6 +36,12 @@ services:
         class: AppBundle\Service\EventTrasnformerFactoryService
         arguments:
             - "@router"
+    app.charts_factory_service:
+        class: AppBundle\Service\ChartsFactoryService
+        arguments:
+            - "@translator"
+            - "@app.receipt_repository"
+            - "@app.invoice_repository"
 # Menus
     app.backend_top_nav_menu_builder:
         class: AppBundle\Menu\BackendTopNavMenuBuilder
