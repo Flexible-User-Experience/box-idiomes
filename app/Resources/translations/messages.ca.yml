@@ -349,7 +349,7 @@ backend:
                 logout: logout
         block:
             charts:
-                incomings: Vendes
+                incomings: Vendes últims 12 mesos
 
 month:
     january: gener
