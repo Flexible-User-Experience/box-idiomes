@@ -8,7 +8,7 @@
                     <div id="gchart_dashboard_widget_1"></div>
                     <script type="text/javascript">
                         jQuery(document).ready(function() {
-                            {{ gchart_line_chart(dt, 'gchart_dashboard_widget_1', '100%', 500, '', {curveType: 'none', legend: {position: 'top', alignment: 'center'}, chartArea: {left: 80, top: 60, right: 0, bottom: 40, width: '100%', height: '100%'}, colors: ['#64B660', '#D55552', '#377CB5'], pointSize: 5}) }}
+                            {{ gchart_line_chart(dt, 'gchart_dashboard_widget_1', '100%', 500, '', {curveType: 'none', vAxis: {format: '#,###€'}, legend: {position: 'top', alignment: 'center'}, chartArea: {left: 80, top: 60, right: 0, bottom: 40, width: '100%', height: '100%'}, colors: ['#64B660', '#D55552', '#377CB5'], pointSize: 5}) }}
                         });
                     </script>
                 </div>
