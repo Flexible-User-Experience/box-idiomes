@@ -87,7 +87,7 @@ class ChartsFactoryService
     private function buildIncomingCellsRow($key, $value)
     {
         return new DataRow(array(
-                new DataCell(ReceiptYearMonthEnum::getShortTranslatedMonthEnumArray()[intval($key->format('n'))].'\''.$key->format('y')),
+                new DataCell(ReceiptYearMonthEnum::getShortTranslatedMonthEnumArray()[intval($key->format('n'))].'. '.$key->format('y')),
                 new DataCell($value, number_format($value, 0, ',', '.').'€'),
                 new DataCell(0, '0€'),
             )
