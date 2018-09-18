@@ -16,4 +16,8 @@
     <script type="text/javascript" src="{{ asset('bundles/app/js/fullcalendar-locale-ca.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/app/js/fullcalendar.default-settings.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/app/js/gcal.min.js') }}"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load('visualization', '1', {packages:['corechart'], 'language': '{{ app.request.locale }}'});
+    </script>
 {% endblock %}

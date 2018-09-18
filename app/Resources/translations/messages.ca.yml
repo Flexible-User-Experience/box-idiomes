@@ -349,8 +349,9 @@ backend:
                 logout: logout
         block:
             charts:
-                incomings: Vendes
+                sales: Vendes
                 expenses: Despeses
+                results: Resultats
 
 month:
     january: gener
