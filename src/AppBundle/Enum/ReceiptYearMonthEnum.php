@@ -71,6 +71,27 @@ class ReceiptYearMonthEnum
     /**
      * @return array
      */
+    public static function getShortTranslatedMonthEnumArray()
+    {
+        return array(
+            self::JANUARY => 'gen',
+            self::FEBRAURY => 'feb',
+            self::MARCH => 'mar',
+            self::APRIL => 'abr',
+            self::MAY => 'mai',
+            self::JUNE => 'jun',
+            self::JULY => 'jul',
+            self::AUGUST => 'ago',
+            self::SEPTEMBER => 'set',
+            self::OCTOBER => 'oct',
+            self::NOVEMBER => 'nov',
+            self::DECEMBER => 'des',
+        );
+    }
+
+    /**
+     * @return array
+     */
     public static function getYearEnumArray()
     {
         $result = array();
