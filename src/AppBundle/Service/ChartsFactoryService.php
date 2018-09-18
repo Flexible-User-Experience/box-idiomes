@@ -63,6 +63,7 @@ class ChartsFactoryService
         $dt = new DataTable();
         $dt->addColumnObject(new DataColumn('id1', 'title', 'string'));
         $dt->addColumnObject(new DataColumn('id2', $this->ts->trans('backend.admin.block.charts.incomings', array(), 'messages'), 'number'));
+        $dt->addColumnObject(new DataColumn('id3', $this->ts->trans('backend.admin.block.charts.expenses', array(), 'messages'), 'number'));
 
         $date = new \DateTime();
         $date->sub(new \DateInterval('P12M'));
@@ -85,6 +86,11 @@ class ChartsFactoryService
      */
     private function buildIncomingCellsRow($key, $value)
     {
-        return new DataRow(array(new DataCell($key->format('U'), ReceiptYearMonthEnum::getShortTranslatedMonthEnumArray()[intval($key->format('n'))].'\''.$key->format('y')), new DataCell($value, number_format($value, 0, ',', '.').' €')));
+        return new DataRow(array(
+                new DataCell(ReceiptYearMonthEnum::getShortTranslatedMonthEnumArray()[intval($key->format('n'))].'\''.$key->format('y')),
+                new DataCell($value, number_format($value, 0, ',', '.').'€'),
+                new DataCell(0, '0€'),
+            )
+        );
     }
 }

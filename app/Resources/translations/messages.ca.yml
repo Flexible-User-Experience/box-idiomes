@@ -349,7 +349,8 @@ backend:
                 logout: logout
         block:
             charts:
-                incomings: Vendes últims 12 mesos
+                incomings: Vendes
+                expenses: Despeses
 
 month:
     january: gener
