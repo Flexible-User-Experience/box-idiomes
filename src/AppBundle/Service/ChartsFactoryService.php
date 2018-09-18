@@ -58,20 +58,20 @@ class ChartsFactoryService
      * @throws \SaadTazi\GChartBundle\DataTable\Exception\InvalidColumnTypeException
      * @throws \Exception
      */
-    public function buildLastYearIncomingsChart()
+    public function buildLastYearResultsChart()
     {
         $dt = new DataTable();
         $dt->addColumnObject(new DataColumn('id1', 'title', 'string'));
-        $dt->addColumnObject(new DataColumn('id2', $this->ts->trans('backend.admin.block.charts.incomings', array(), 'messages'), 'number'));
+        $dt->addColumnObject(new DataColumn('id2', $this->ts->trans('backend.admin.block.charts.sales', array(), 'messages'), 'number'));
         $dt->addColumnObject(new DataColumn('id3', $this->ts->trans('backend.admin.block.charts.expenses', array(), 'messages'), 'number'));
 
         $date = new \DateTime();
         $date->sub(new \DateInterval('P12M'));
         $interval = new \DateInterval('P1M');
         for ($i = 0; $i <= 12; ++$i) {
-            $receipts = $this->rr->getMonthlyIncomingsAmountForDate($date);
-            $invoices = $this->ir->getMonthlyIncomingsAmountForDate($date);
-            $dt->addRowObject($this->buildIncomingCellsRow($date, $receipts + $invoices));
+            $sales = $this->rr->getMonthlyIncomingsAmountForDate($date);
+            $sales = $sales + $this->ir->getMonthlyIncomingsAmountForDate($date);
+            $dt->addRowObject($this->buildResultsCellsRow($date, $sales, 0));
             $date->add($interval);
         }
 
@@ -80,16 +80,17 @@ class ChartsFactoryService
 
     /**
      * @param \DateTime $key
-     * @param float|int $value
+     * @param float|int $sales
+     * @param float|int $expenses
      *
      * @return DataRow
      */
-    private function buildIncomingCellsRow($key, $value)
+    private function buildResultsCellsRow($key, $sales, $expenses)
     {
         return new DataRow(array(
                 new DataCell(ReceiptYearMonthEnum::getShortTranslatedMonthEnumArray()[intval($key->format('n'))].'. '.$key->format('y')),
-                new DataCell($value, number_format($value, 0, ',', '.').'€'),
-                new DataCell(0, '0€'),
+                new DataCell($sales, number_format($sales, 0, ',', '.').'€'),
+                new DataCell($expenses, number_format($sales, 0, ',', '.').'€'),
             )
         );
     }

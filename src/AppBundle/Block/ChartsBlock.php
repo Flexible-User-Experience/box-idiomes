@@ -55,7 +55,7 @@ class ChartsBlock extends AbstractBlockService
                 'block' => $blockContext->getBlock(),
                 'settings' => $settings,
                 'title' => 'Charts',
-                'dt' => $this->cfs->buildLastYearIncomingsChart()->toArray(),
+                'dt' => $this->cfs->buildLastYearResultsChart()->toArray(),
             ),
             $response
         );

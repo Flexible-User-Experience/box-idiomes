@@ -32,12 +32,3 @@
         <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
     {% endstylesheets %}
 {% endblock %}
-
-{# override javascript includes #}
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-        google.load('visualization', '1', {packages:['corechart'], 'language': '{{ app.request.locale }}'});
-    </script>
-{% endblock %}
