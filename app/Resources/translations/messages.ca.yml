@@ -350,6 +350,7 @@ backend:
         block:
             charts:
                 incomings: Vendes
+                expenses: Despeses
 
 month:
     january: gener

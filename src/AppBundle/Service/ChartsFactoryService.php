@@ -2,6 +2,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Enum\ReceiptYearMonthEnum;
 use AppBundle\Repository\InvoiceRepository;
 use AppBundle\Repository\ReceiptRepository;
 use SaadTazi\GChartBundle\DataTable\DataRow;
@@ -62,6 +63,7 @@ class ChartsFactoryService
         $dt = new DataTable();
         $dt->addColumnObject(new DataColumn('id1', 'title', 'string'));
         $dt->addColumnObject(new DataColumn('id2', $this->ts->trans('backend.admin.block.charts.incomings', array(), 'messages'), 'number'));
+        $dt->addColumnObject(new DataColumn('id3', $this->ts->trans('backend.admin.block.charts.expenses', array(), 'messages'), 'number'));
 
         $date = new \DateTime();
         $date->sub(new \DateInterval('P12M'));
@@ -69,7 +71,7 @@ class ChartsFactoryService
         for ($i = 0; $i <= 12; ++$i) {
             $receipts = $this->rr->getMonthlyIncomingsAmountForDate($date);
             $invoices = $this->ir->getMonthlyIncomingsAmountForDate($date);
-            $dt->addRowObject($this->buildIncomingCellsRow($date->format('m/y'), $receipts + $invoices));
+            $dt->addRowObject($this->buildIncomingCellsRow($date, $receipts + $invoices));
             $date->add($interval);
         }
 
@@ -77,13 +79,18 @@ class ChartsFactoryService
     }
 
     /**
-     * @param string    $key
+     * @param \DateTime $key
      * @param float|int $value
      *
      * @return DataRow
      */
     private function buildIncomingCellsRow($key, $value)
     {
-        return new DataRow(array(new DataCell($key), new DataCell($value)));
+        return new DataRow(array(
+                new DataCell(ReceiptYearMonthEnum::getShortTranslatedMonthEnumArray()[intval($key->format('n'))].'\''.$key->format('y')),
+                new DataCell($value, number_format($value, 0, ',', '.').'€'),
+                new DataCell(0, '0€'),
+            )
+        );
     }
 }
