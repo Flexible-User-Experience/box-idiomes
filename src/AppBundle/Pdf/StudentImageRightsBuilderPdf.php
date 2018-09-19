@@ -85,7 +85,6 @@ class StudentImageRightsBuilderPdf
 
         // Add start page
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
-        $pdf->setPrintFooter(true);
 
         $pdf->SetXY(BaseTcpdf::PDF_MARGIN_LEFT, BaseTcpdf::PDF_MARGIN_TOP);
         $pdf->setFontStyle(null, '', 11);

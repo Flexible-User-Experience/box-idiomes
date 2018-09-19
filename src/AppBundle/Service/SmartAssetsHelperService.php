@@ -115,4 +115,18 @@ class SmartAssetsHelperService
 
         return $result;
     }
+
+    /**
+     * Returns absolute file path.
+     *
+     * @param string $assetPath
+     *
+     * @return string
+     */
+    public function getAbsoluteAssetFilePath($assetPath)
+    {
+        $result = $this->kernel->getRootDir().DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'web'.$assetPath;
+
+        return $result;
+    }
 }
