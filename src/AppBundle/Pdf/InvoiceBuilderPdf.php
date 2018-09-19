@@ -69,7 +69,6 @@ class InvoiceBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         // Add start page
         $pdf->AddPage(PDF_PAGE_ORIENTATION, PDF_PAGE_FORMAT, true, true);
-        $pdf->setPrintFooter(true);
         $pdf->SetXY(BaseTcpdf::PDF_MARGIN_LEFT, BaseTcpdf::PDF_MARGIN_TOP);
 
         // gaps
