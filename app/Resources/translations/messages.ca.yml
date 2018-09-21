@@ -136,6 +136,7 @@ backend:
             tariff: Tarifa
             discountApplied: Descompte
             total: Total
+            agenda: Horaris
         class_group:
             code: Codi
             name: Nom
