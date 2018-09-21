@@ -102,11 +102,11 @@ class FullCalendarListener
         } else {
             // student events
             /** @var Student $student */
-            $student = $this->srs->find(1);
-            $events = $this->srs->getFilteredByBeginAndEnd($student, $startDate, $endDate);
-            /** @var TeacherAbsence $event */
+            $student = $this->srs->find(191);
+            $events = $this->ers->getEnabledFilteredByBeginEndAndStudent($startDate, $endDate, $student);
+            /** @var AppEvent $event */
             foreach ($events as $event) {
-                $calendarEvent->addEvent($this->etfs->buildTeacherAbsence($event));
+                $calendarEvent->addEvent($this->etfs->build($event));
             }
         }
     }

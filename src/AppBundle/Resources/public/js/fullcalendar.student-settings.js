@@ -38,12 +38,6 @@ jQuery(function () {
         googleCalendarApiKey: 'AIzaSyCZZYZV-LqX2qDtggiEo1GmeNhxe3SAhfI',
         eventSources: [
             {
-                googleCalendarId: 'es.spain#holiday@group.v.calendar.google.com',
-                backgroundColor: '#FED3D7',
-                textColor: '#FF0000',
-                color: '#FED3D7'
-            },
-            {
                 url: Routing.generate('ancarebeca_full_calendar_load'),
                 type: 'POST',
                 data: {},
