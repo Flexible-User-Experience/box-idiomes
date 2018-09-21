@@ -1,1 +1,79 @@
 {% extends "::Admin/show.html.twig" %}
+
+{% block show %}
+    <div class="sonata-ba-view">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h4 class="box-title">{{ 'backend.admin.invoice.student' | trans }}</h4>
+                    </div>
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table">
+                            <tbody>
+                            <tr class="sonata-ba-view-container">
+                                <th>{{ 'backend.admin.student.name' | trans }}</th>
+                                <td>{{ object.name }}</td>
+                            </tr>
+                            <tr class="sonata-ba-view-container">
+                                <th>{{ 'backend.admin.student.surname' | trans }}</th>
+                                <td>{{ object.surname }}</td>
+                            </tr>
+                            <tr class="sonata-ba-view-container">
+                                <th>{{ 'backend.admin.student.parent' | trans }}</th>
+                                <td>{{ object.parent }}</td>
+                            </tr>
+                            {% if object.comments %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.comments' | trans }}</th>
+                                    <td>{{ object.comments }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if object.phone %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.phone' | trans }}</th>
+                                    <td>{{ object.phone }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if object.email %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.email' | trans }}</th>
+                                    <td><a href="mailto:{{ object.email }}">{{ object.email }}</a></td>
+                                </tr>
+                            {% endif %}
+                            {% if object.address %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.address' | trans }}</th>
+                                    <td>{{ object.address }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if object.city %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.city' | trans }}</th>
+                                    <td>{{ object.city }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if object.dni %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.dni' | trans }}</th>
+                                    <td>{{ object.dni }}</td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h4 class="box-title">{{ 'agenda' | trans }}</h4>
+                    </div>
+                    <div class="box-body">
+                        dd
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
