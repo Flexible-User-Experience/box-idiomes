@@ -74,4 +74,38 @@ class StudentAdminController extends BaseAdminController
 
         return new Response($pdf->Output('sepa_agreement_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
+
+    /**
+     * Show action.
+     *
+     * @param int|string|null $id
+     *
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
+     *
+     * @return Response
+     */
+    public function showAction($id = null)
+    {
+        $request = $this->getRequest();
+        $id = $request->get($this->admin->getIdParameter());
+
+        $object = $this->admin->getObject($id);
+
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
+        }
+
+        $this->admin->checkAccess('show', $object);
+        $this->admin->setSubject($object);
+
+        return $this->renderWithExtraParams(
+            '::Admin/Student/show.html.twig',
+            array(
+                'action' => 'show',
+                'object' => $object,
+                'elements' => $this->admin->getShow(),
+            )
+        );
+    }
 }
