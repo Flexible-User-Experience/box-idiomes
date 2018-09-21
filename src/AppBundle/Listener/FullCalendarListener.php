@@ -102,6 +102,7 @@ class FullCalendarListener
         } else {
             // student events
             /** @var Student $student */
+            // TODO get student ID from
             $student = $this->srs->find(191);
             $events = $this->ers->getEnabledFilteredByBeginEndAndStudent($startDate, $endDate, $student);
             /** @var AppEvent $event */
