@@ -20,15 +20,14 @@ class StudentAdminController extends BaseAdminController
     /**
      * Image rights pdf action.
      *
-     * @param int|string|null $id
-     * @param Request         $request
+     * @param Request $request
      *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
-    public function imagerightsAction($id = null, Request $request = null)
+    public function imagerightsAction(Request $request = null)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
@@ -50,15 +49,14 @@ class StudentAdminController extends BaseAdminController
     /**
      * Sepa agreement pdf action.
      *
-     * @param int|string|null $id
-     * @param Request         $request
+     * @param Request $request
      *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
-    public function sepaagreementAction($id = null, Request $request)
+    public function sepaagreementAction(Request $request)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());

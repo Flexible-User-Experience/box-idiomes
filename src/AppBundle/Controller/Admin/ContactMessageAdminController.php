@@ -66,15 +66,14 @@ class ContactMessageAdminController extends BaseAdminController
     /**
      * Answer message action.
      *
-     * @param int|string|null $id
-     * @param Request         $request
+     * @param Request $request
      *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
-    public function answerAction($id = null, Request $request = null)
+    public function answerAction(Request $request = null)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
