@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Student;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
@@ -278,5 +279,47 @@ class StudentRepository extends EntityRepository
     public function getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month)
     {
         return $this->getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQ($year, $month)->getResult();
+    }
+
+    /**
+     * @param Student   $student
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     *
+     * @return QueryBuilder
+     */
+    public function getFilteredByBeginAndEndQB(Student $student, \DateTime $startDate, \DateTime $endDate)
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.day BETWEEN :startDate AND :endDate')
+            ->andWhere('s.id = :id')
+            ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
+            ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
+            ->setParameter('id', $student->getId())
+        ;
+    }
+
+    /**
+     * @param Student   $student
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     *
+     * @return Query
+     */
+    public function getFilteredByBeginAndEndQ(Student $student, \DateTime $startDate, \DateTime $endDate)
+    {
+        return $this->getFilteredByBeginAndEndQB($student, $startDate, $endDate)->getQuery();
+    }
+
+    /**
+     * @param Student   $student
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     *
+     * @return array
+     */
+    public function getFilteredByBeginAndEnd(Student $student, \DateTime $startDate, \DateTime $endDate)
+    {
+        return $this->getFilteredByBeginAndEndQ($student, $startDate, $endDate)->getResult();
     }
 }
