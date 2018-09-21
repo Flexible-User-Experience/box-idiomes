@@ -59,6 +59,54 @@
                                     <td>{{ object.dni }}</td>
                                 </tr>
                             {% endif %}
+                            {% if object.birthDate %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.birthDate' | trans }}</th>
+                                    <td>{{ object.birthDateString }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if object.schedule %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.schedule' | trans }}</th>
+                                    <td>{{ object.schedule }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if object.tariff %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.tariff' | trans }}</th>
+                                    <td>{{ object.tariff }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr class="sonata-ba-view-container">
+                                <th>{{ 'backend.admin.imagerigths.checkbox_label' | trans }}</th>
+                                <td>
+                                    {% if object.hasImageRightsAccepted %}
+                                        <span class="label label-success">{{ 'backend.admin.yes' | trans }}</span>
+                                    {% else %}
+                                        <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr class="sonata-ba-view-container">
+                                <th>{{ 'backend.admin.sepaagreement.checkbox_label' | trans }}</th>
+                                <td>
+                                    {% if object.hasSepaAgreementAccepted %}
+                                        <span class="label label-success">{{ 'backend.admin.yes' | trans }}</span>
+                                    {% else %}
+                                        <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr class="sonata-ba-view-container">
+                                <th>{{ 'backend.admin.enabled' | trans }}</th>
+                                <td>
+                                    {% if object.enabled %}
+                                        <span class="label label-success">{{ 'backend.admin.yes' | trans }}</span>
+                                    {% else %}
+                                        <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
