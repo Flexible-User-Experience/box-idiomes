@@ -13,8 +13,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Class ContactMessageAdminController.
  *
  * @category Controller
- *
- * @author   David Romaní <david@flux.cat>
  */
 class ContactMessageAdminController extends BaseAdminController
 {
@@ -55,15 +53,13 @@ class ContactMessageAdminController extends BaseAdminController
         $em->persist($object);
         $em->flush();
 
-        return $this->render(
+        return $this->renderWithExtraParams(
             $this->admin->getTemplate('show'),
             array(
                 'action' => 'show',
                 'object' => $object,
                 'elements' => $this->admin->getShow(),
-            ),
-            null,
-            $request
+            )
         );
     }
 
@@ -108,16 +104,14 @@ class ContactMessageAdminController extends BaseAdminController
             return $this->redirectToRoute('admin_app_contactmessage_list');
         }
 
-        return $this->render(
+        return $this->renderWithExtraParams(
             '::Admin/ContactMessage/answer_form.html.twig',
             array(
                 'action' => 'answer',
                 'object' => $object,
                 'form' => $form->createView(),
                 'elements' => $this->admin->getShow(),
-            ),
-            null,
-            $request
+            )
         );
     }
 }
