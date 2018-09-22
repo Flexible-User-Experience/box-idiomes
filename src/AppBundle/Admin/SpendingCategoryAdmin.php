@@ -45,7 +45,8 @@ class SpendingCategoryAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->end();
+            ->end()
+        ;
     }
 
     /**
@@ -68,7 +69,8 @@ class SpendingCategoryAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.enabled',
                     'editable' => true,
                 )
-            );
+            )
+        ;
     }
 
     /**
@@ -104,6 +106,7 @@ class SpendingCategoryAdmin extends AbstractBaseAdmin
                         'delete' => array('template' => '::Admin/Buttons/list__action_delete_button.html.twig'),
                     ),
                 )
-            );
+            )
+        ;
     }
 }

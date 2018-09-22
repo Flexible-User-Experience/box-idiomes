@@ -125,7 +125,8 @@ class ProviderAdmin extends AbstractBaseAdmin
                     'required' => false,
                 )
             )
-            ->end();
+            ->end()
+        ;
     }
 
     /**
@@ -271,6 +272,7 @@ class ProviderAdmin extends AbstractBaseAdmin
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     ),
                 )
-            );
+            )
+        ;
     }
 }
