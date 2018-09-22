@@ -235,6 +235,36 @@ AppBundle\Entity\InvoiceLine:
     total: <randomFloat(1, 5)>
     invoice: @invoice<current()>
 
+# Spending Category
+AppBundle\Entity\SpendingCategory:
+  spendingcategory{1..2}:
+    name: <sentence()>
+
+# Spending
+AppBundle\Entity\Spending:
+  spending{1..2}:
+    date: <date()>
+    category: @spendingcategory1
+    provider: @provider1
+    description: <sentence()>
+    baseAmount: <randomFloat(1, 5)>
+    isPayed: <boolean()>
+    paymentMethod: <numberBetween(0, 2)>
+
+# Provider
+AppBundle\Entity\Provider:
+  provider{1..2}:
+    tic: <word()>
+    name: <word()>
+    address: <word()>
+    city: @city<numberBetween(1, 2)>
+    phone: <word()>
+    email: <safeEmail()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    paymentMethod: <numberBetween(0, 2)>
+    enabled: true
+
 ## Users
 AppBundle\Entity\User:
     admin:
