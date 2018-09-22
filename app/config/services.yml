@@ -42,6 +42,7 @@ services:
             - "@translator"
             - "@app.receipt_repository"
             - "@app.invoice_repository"
+            - "@app.spending_repository"
 # Menus
     app.backend_top_nav_menu_builder:
         class: AppBundle\Menu\BackendTopNavMenuBuilder

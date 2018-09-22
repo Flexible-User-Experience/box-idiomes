@@ -5,6 +5,7 @@ namespace AppBundle\Service;
 use AppBundle\Enum\ReceiptYearMonthEnum;
 use AppBundle\Repository\InvoiceRepository;
 use AppBundle\Repository\ReceiptRepository;
+use AppBundle\Repository\SpendingRepository;
 use SaadTazi\GChartBundle\DataTable\DataRow;
 use SaadTazi\GChartBundle\DataTable\DataCell;
 use SaadTazi\GChartBundle\DataTable\DataTable;
@@ -35,6 +36,11 @@ class ChartsFactoryService
     private $ir;
 
     /**
+     * @var SpendingRepository
+     */
+    private $sr;
+
+    /**
      * Methods.
      */
 
@@ -44,12 +50,14 @@ class ChartsFactoryService
      * @param TranslatorInterface $ts
      * @param ReceiptRepository   $rr
      * @param InvoiceRepository   $ir
+     * @param SpendingRepository  $sr
      */
-    public function __construct(TranslatorInterface $ts, ReceiptRepository $rr, InvoiceRepository $ir)
+    public function __construct(TranslatorInterface $ts, ReceiptRepository $rr, InvoiceRepository $ir, SpendingRepository $sr)
     {
         $this->ts = $ts;
         $this->rr = $rr;
         $this->ir = $ir;
+        $this->sr = $sr;
     }
 
     /**
@@ -71,7 +79,8 @@ class ChartsFactoryService
         for ($i = 0; $i <= 12; ++$i) {
             $sales = $this->rr->getMonthlyIncomingsAmountForDate($date);
             $sales = $sales + $this->ir->getMonthlyIncomingsAmountForDate($date);
-            $dt->addRowObject($this->buildResultsCellsRow($date, $sales, 0));
+            $expenses = $this->sr->getMonthlyExpensesAmountForDate($date);
+            $dt->addRowObject($this->buildResultsCellsRow($date, $sales, $expenses));
             $date->add($interval);
         }
 
