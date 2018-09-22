@@ -2,7 +2,7 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Enum\PaymentMethodEnum;
+use AppBundle\Enum\StudentPaymentEnum;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -78,7 +78,7 @@ class ProviderAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.customer.city',
-                    'query_builder' => $this->rm->getCityRepository()->getEnabledSortedByNameQB(),
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.city_repository')->getEnabledSortedByNameQB(),
                     'required' => true,
                 )
             )
@@ -103,7 +103,7 @@ class ProviderAdmin extends AbstractBaseAdmin
                 ChoiceType::class,
                 array(
                     'label' => 'backend.admin.customer.payment_method',
-                    'choices' => PaymentMethodEnum::getEnumArray(),
+                    'choices' => StudentPaymentEnum::getEnumArray(),
                     'required' => true,
                 )
             )

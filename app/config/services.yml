@@ -204,6 +204,12 @@ services:
             - "%bic_number%"
     app.spanish_sepa_helper:
         class: AppBundle\Service\SpanishSepaHelperService
+# File
+    app.file_service:
+        class: AppBundle\Service\FileService
+        arguments:
+            - "@vich_uploader.templating.helper.uploader_helper"
+            - "%kernel.root_dir%"
 # Forms
     app.form.type.generate_receipt:
         class: AppBundle\Form\Type\GenerateReceiptType
