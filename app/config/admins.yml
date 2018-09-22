@@ -7,7 +7,6 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Alumne", group: "Alumnes" }
         calls:
             - [ setTemplate, [ edit, "::Admin/Student/edit.html.twig" ] ]
-
     admin.parent:
         class: AppBundle\Admin\PersonAdmin
         arguments: [ ~, AppBundle\Entity\Person, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -22,7 +21,6 @@ services:
         arguments: [ ~, AppBundle\Entity\Teacher, AppBundle:Admin\TeacherAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Professor", group: "Professors" }
-
     admin.teacher_absence:
         class: AppBundle\Admin\TeacherAbsenceAdmin
         arguments: [ ~, AppBundle\Entity\TeacherAbsence, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -37,7 +35,6 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Grup", group: "Aules" }
         calls:
             - [ setTemplate, [ edit, "::Admin/ClassGroup/edit.html.twig" ] ]
-
     admin.event:
         class: AppBundle\Admin\EventAdmin
         arguments: [ ~, AppBundle\Entity\Event, AppBundle:Admin\EventAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -52,7 +49,6 @@ services:
         arguments: [ ~, AppBundle\Entity\Tariff, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Tarifa", group: "Facturació" }
-
     admin.receipt:
         class: AppBundle\Admin\ReceiptAdmin
         arguments: [ ~, AppBundle\Entity\Receipt, AppBundle:Admin\ReceiptAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -61,24 +57,41 @@ services:
         calls:
             - [ setTemplate, [ edit, "::Admin/Receipt/edit.html.twig" ] ]
             - [ setTemplate, [ list, "::Admin/Receipt/list.html.twig" ] ]
-
     admin.receipt_line:
         class: AppBundle\Admin\ReceiptLineAdmin
         arguments: [ ~, AppBundle\Entity\ReceiptLine, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Línies rebut", group: "Facturació", show_in_dashboard: false }
-
     admin.invoice:
         class: AppBundle\Admin\InvoiceAdmin
         arguments: [ ~, AppBundle\Entity\Invoice, AppBundle:Admin\InvoiceAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Factura", group: "Facturació" }
-
     admin.invoice_line:
         class: AppBundle\Admin\InvoiceLineAdmin
         arguments: [ ~, AppBundle\Entity\InvoiceLine, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Línies factura", group: "Facturació", show_in_dashboard: false }
+
+    # Purchases
+    admin.purchases.provider:
+        class: AppBundle\Admin\ProviderAdmin
+#        arguments: [ ~, AppBundle\Entity\Provider, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager", "@app.repositories_manager", "@templating", "@app.file_service" ]
+        arguments: [ ~, AppBundle\Entity\Invoice, AppBundle:Admin\InvoiceAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Proveïdor", group: "Despeses" }
+    admin.purchases.spending_category:
+        class: AppBundle\Admin\SpendingCategoryAdmin
+#        arguments: [ ~, AppBundle\Entity\SpendingCategory, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager", "@app.repositories_manager", "@templating", "@app.file_service" ]
+        arguments: [ ~, AppBundle\Entity\Invoice, AppBundle:Admin\InvoiceAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Tipus Despesa", group: "Despeses" }
+    admin.purchases.spending:
+        class: AppBundle\Admin\SpendingAdmin
+#        arguments: [ ~, AppBundle\Entity\Spending, AppBundle:Admin\SpendingAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager", "@app.repositories_manager", "@templating", "@app.file_service" ]
+        arguments: [ ~, AppBundle\Entity\Invoice, AppBundle:Admin\InvoiceAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "Despesa", group: "Despeses" }
 
     # Services
     admin.service:
@@ -93,7 +106,6 @@ services:
         arguments: [ ~, AppBundle\Entity\ContactMessage, AppBundle:Admin\ContactMessageAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Missatge de contacte", group: "Contactes" }
-
     admin.newslettercontact:
         class: AppBundle\Admin\NewsletterContactAdmin
         arguments: [ ~, AppBundle\Entity\NewsletterContact, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
@@ -106,19 +118,16 @@ services:
         arguments: [ ~, AppBundle\Entity\Province, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Província", group: "Configuració" }
-
     admin.city:
         class: AppBundle\Admin\CityAdmin
         arguments: [ ~, AppBundle\Entity\City, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Ciutat", group: "Configuració" }
-
     admin.user:
         class: AppBundle\Admin\UserAdmin
         arguments: [ ~, AppBundle\Entity\User, ~, "@fos_user.user_manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Usuari", group: "Configuració" }
-
     admin.bank:
         class: AppBundle\Admin\BankAdmin
         arguments: [ ~, AppBundle\Entity\Bank, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
