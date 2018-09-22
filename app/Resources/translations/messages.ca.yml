@@ -41,6 +41,15 @@ City Delete: Esborrar
 User List: Usuaris
 User Create: Crear
 User Delete: Esborrar
+Provider List: Proveïdors
+Provider Create: Crear
+Provider Delete: Esborrar
+"Spending Category List": Tipus de Despeses
+"Spending Category Create": Crear
+"Spending Category Delete": Esborrar
+"Spending List": Despeses
+"Spending Create": Crear
+"Spending Delete": Esborrar
 
 IBAN: IBAN
 Client: Client
@@ -92,6 +101,9 @@ backend:
         description: Descripció
         image_rigths_agreement: Dret d'imatge amb PDF
         sepa_agreement: Autorització domiciliació bancària amb PDF
+        pictures: Imatges
+        payments: Pagaments
+        documents: Documents
         user:
             user: Usuari
             editor: Editor
@@ -343,6 +355,27 @@ backend:
             generator:
                 group_lessons_line: "Classes en grup realitzades durant el mes de %month% de %year%"
                 private_lessons_line: "Classes particulars realitzades durant el mes de %month% de %year%"
+        customer:
+            tic: CIF/NIF
+            name: Nom fiscal
+            alias: Alias
+            address: Adreça
+            city: Població
+            phone: Telèfon
+            email: Email
+            is_enterprise: És empresa
+            coworkers: Coworkers
+            invoices_language: Idioma factura
+            payment_method: Forma de pagament
+            iban_for_bank_draft_payment: Número de compte gir bancari
+        spending_category:
+            name: Nom
+        spending:
+            date: Data
+            category: Categoria
+            provider: Proveïdor
+            description: Descripció
+            document: Document
         layout:
             top_nav_menu:
                 homepage: homepage
