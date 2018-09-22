@@ -4,7 +4,7 @@ namespace AppBundle\Admin;
 
 use AppBundle\Entity\Provider;
 use AppBundle\Entity\SpendingCategory;
-use AppBundle\Enum\PaymentMethodEnum;
+use AppBundle\Enum\StudentPaymentEnum;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -65,7 +65,7 @@ class SpendingAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.spending.category',
                     'required' => false,
                     'class' => SpendingCategory::class,
-                    'query_builder' => $this->rm->getSpendingCategoryRepository()->getEnabledSortedByNameQB(),
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.spending_category_repository')->getEnabledSortedByNameQB(),
                 )
             )
             ->add(
@@ -75,7 +75,7 @@ class SpendingAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.spending.provider',
                     'required' => true,
                     'class' => Provider::class,
-                    'query_builder' => $this->rm->getProviderRepository()->getEnabledSortedByNameQB(),
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.provider_repository')->getEnabledSortedByNameQB(),
                 )
             )
             ->add(
@@ -129,7 +129,7 @@ class SpendingAdmin extends AbstractBaseAdmin
                 ChoiceType::class,
                 array(
                     'label' => 'backend.admin.customer.payment_method',
-                    'choices' => PaymentMethodEnum::getEnumArray(),
+                    'choices' => StudentPaymentEnum::getEnumArray(),
                     'required' => true,
                 )
             )
@@ -168,7 +168,7 @@ class SpendingAdmin extends AbstractBaseAdmin
                     'expanded' => false,
                     'multiple' => false,
                     'class' => SpendingCategory::class,
-                    'query_builder' => $this->rm->getSpendingCategoryRepository()->getEnabledSortedByNameQB(),
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.spending_category_repository')->getEnabledSortedByNameQB(),
                 )
             )
             ->add(
@@ -182,7 +182,7 @@ class SpendingAdmin extends AbstractBaseAdmin
                     'expanded' => false,
                     'multiple' => false,
                     'class' => Provider::class,
-                    'query_builder' => $this->rm->getProviderRepository()->getEnabledSortedByNameQB(),
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.provider_repository')->getEnabledSortedByNameQB(),
                 )
             )
             ->add(
@@ -229,7 +229,7 @@ class SpendingAdmin extends AbstractBaseAdmin
                 ChoiceType::class,
                 array(
                     'label' => 'backend.admin.customer.payment_method',
-                    'choices' => PaymentMethodEnum::getEnumArray(),
+                    'choices' => StudentPaymentEnum::getEnumArray(),
                     'required' => true,
                 )
             )

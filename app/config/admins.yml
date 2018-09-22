@@ -86,7 +86,6 @@ services:
             - { name: sonata.admin, manager_type: orm, label: "Tipus Despesa", group: "Despeses" }
     admin.purchases.spending:
         class: AppBundle\Admin\SpendingAdmin
-#        arguments: [ ~, AppBundle\Entity\Spending, AppBundle:Admin\SpendingAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager", "@app.repositories_manager", "@templating", "@app.file_service" ]
         arguments: [ ~, AppBundle\Entity\Spending, AppBundle:Admin\SpendingAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Despesa", group: "Despeses" }
