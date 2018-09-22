@@ -44,7 +44,7 @@ class SepaAgreementBuilderPdf
      */
 
     /**
-     * SepaAgreementPdfService constructor.
+     * SepaAgreementBuilderPdf constructor.
      *
      * @param TCPDFController          $tcpdf
      * @param SmartAssetsHelperService $sahs

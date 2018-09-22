@@ -43,6 +43,9 @@ sonata_admin:
                 icon:     "<i class='fa fa-eur'></i>"
                 provider: "backend_invoice_menu"
                 roles:    [ "ROLE_ADMIN" ]
+            Despeses:
+                icon:  "<i class='fa fa-eur'></i>"
+                roles: [ "ROLE_ADMIN" ]
             Serveis:
                 icon: "<i class='fa fa-list-ul'></i>"
             Contactes:

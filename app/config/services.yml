@@ -42,6 +42,7 @@ services:
             - "@translator"
             - "@app.receipt_repository"
             - "@app.invoice_repository"
+            - "@app.spending_repository"
 # Menus
     app.backend_top_nav_menu_builder:
         class: AppBundle\Menu\BackendTopNavMenuBuilder
@@ -91,7 +92,10 @@ services:
         arguments:
             - "@app.event_repository"
             - "@app.teacher_absence_repository"
+            - "@app.student_repository"
             - "@app.event_transformer_factory"
+            - "@request_stack"
+            - "@router"
         tags:
             - { name: "kernel.event_listener", event: "fullcalendar.set_data", method: "loadData" }
 # Twig Extensions
@@ -200,6 +204,12 @@ services:
             - "%bic_number%"
     app.spanish_sepa_helper:
         class: AppBundle\Service\SpanishSepaHelperService
+# File
+    app.file_service:
+        class: AppBundle\Service\FileService
+        arguments:
+            - "@vich_uploader.templating.helper.uploader_helper"
+            - "%kernel.root_dir%"
 # Forms
     app.form.type.generate_receipt:
         class: AppBundle\Form\Type\GenerateReceiptType

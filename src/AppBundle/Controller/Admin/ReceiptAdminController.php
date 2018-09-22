@@ -8,7 +8,7 @@ use AppBundle\Form\Type\GenerateReceiptType;
 use AppBundle\Form\Type\GenerateReceiptYearMonthChooserType;
 use AppBundle\Manager\GenerateReceiptFormManager;
 use AppBundle\Service\NotificationService;
-use AppBundle\Service\ReceiptPdfBuilderService;
+use AppBundle\Pdf\ReceiptBuilderPdf;
 use AppBundle\Service\XmlSepaBuilderService;
 use Doctrine\ORM\NonUniqueResultException;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
@@ -167,7 +167,7 @@ class ReceiptAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
 
-        /** @var ReceiptPdfBuilderService $rps */
+        /** @var ReceiptBuilderPdf $rps */
         $rps = $this->container->get('app.receipt_pdf_builder');
         $pdf = $rps->build($object);
 
@@ -204,7 +204,7 @@ class ReceiptAdminController extends BaseAdminController
         $em = $this->container->get('doctrine')->getManager();
         $em->flush();
 
-        /** @var ReceiptPdfBuilderService $rps */
+        /** @var ReceiptBuilderPdf $rps */
         $rps = $this->container->get('app.receipt_pdf_builder');
         $pdf = $rps->build($object);
 

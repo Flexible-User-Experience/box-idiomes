@@ -7,7 +7,7 @@ use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Form\Type\GenerateInvoiceType;
 use AppBundle\Form\Type\GenerateInvoiceYearMonthChooserType;
 use AppBundle\Manager\GenerateInvoiceFormManager;
-use AppBundle\Service\InvoicePdfBuilderService;
+use AppBundle\Pdf\InvoiceBuilderPdf;
 use AppBundle\Service\NotificationService;
 use AppBundle\Service\XmlSepaBuilderService;
 use Doctrine\ORM\NonUniqueResultException;
@@ -129,7 +129,7 @@ class InvoiceAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
 
-        /** @var InvoicePdfBuilderService $ips */
+        /** @var InvoiceBuilderPdf $ips */
         $ips = $this->container->get('app.invoice_pdf_builder');
         $pdf = $ips->build($object);
 
@@ -166,7 +166,7 @@ class InvoiceAdminController extends BaseAdminController
         $em = $this->container->get('doctrine')->getManager();
         $em->flush();
 
-        /** @var InvoicePdfBuilderService $ips */
+        /** @var InvoiceBuilderPdf $ips */
         $ips = $this->container->get('app.invoice_pdf_builder');
         $pdf = $ips->build($object);
 
