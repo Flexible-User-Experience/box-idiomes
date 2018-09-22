@@ -298,7 +298,7 @@ class SpendingAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.invoice.isPayed',
-                    'editable' => true,
+                    'editable' => false,
                 )
             )
             ->add(
