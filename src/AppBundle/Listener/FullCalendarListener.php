@@ -12,7 +12,6 @@ use AppBundle\Repository\TeacherAbsenceRepository;
 use AppBundle\Service\EventTrasnformerFactoryService;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -84,8 +83,15 @@ class FullCalendarListener
         $startDate = $calendarEvent->getStart();
         $endDate = $calendarEvent->getEnd();
 
-        // Admin dashboard action
-        if ($this->rss->getCurrentRequest()->headers->get('referer') == $this->router->generate('sonata_admin_dashboard', array(), UrlGeneratorInterface::ABSOLUTE_URL)) {
+        $referer = $this->rss->getCurrentRequest()->headers->get('referer');
+        $path = substr($referer, strpos($referer, $this->rss->getCurrentRequest()->getBaseUrl()));
+        $path = str_replace($this->rss->getCurrentRequest()->getBaseUrl(), '', $path);
+        $matcher = $this->router->getMatcher();
+        $parameters = $matcher->match($path);
+        $route = $parameters['_route'];
+
+        if ('sonata_admin_dashboard' == $route) {
+            //// admin dashboard action
             // classroom events
             $events = $this->ers->getEnabledFilteredByBeginAndEnd($startDate, $endDate);
             /** @var AppEvent $event */
@@ -98,12 +104,11 @@ class FullCalendarListener
             foreach ($events as $event) {
                 $calendarEvent->addEvent($this->etfs->buildTeacherAbsence($event));
             }
-            // Admin student show action
-        } else {
+        } elseif ('admin_app_student_show' == $route) {
+            //// admin student show action
             // student events
             /** @var Student $student */
-            // TODO get student ID from
-            $student = $this->srs->find(191);
+            $student = $this->srs->find(intval($parameters['id']));
             $events = $this->ers->getEnabledFilteredByBeginEndAndStudent($startDate, $endDate, $student);
             /** @var AppEvent $event */
             foreach ($events as $event) {
