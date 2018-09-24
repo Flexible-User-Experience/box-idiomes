@@ -109,4 +109,15 @@ class SpendingCategoryAdmin extends AbstractBaseAdmin
             )
         ;
     }
+
+    /**
+     * @return array
+     */
+    public function getExportFields()
+    {
+        return array(
+            'name',
+            'enabled',
+        );
+    }
 }

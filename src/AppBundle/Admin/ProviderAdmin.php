@@ -275,4 +275,20 @@ class ProviderAdmin extends AbstractBaseAdmin
             )
         ;
     }
+
+    /**
+     * @return array
+     */
+    public function getExportFields()
+    {
+        return array(
+            'beginString',
+            'endString',
+            'classroomString',
+            'teacher',
+            'group',
+            'studentsAmount',
+            'studentsString',
+        );
+    }
 }
