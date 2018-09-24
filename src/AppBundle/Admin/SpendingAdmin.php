@@ -323,13 +323,15 @@ class SpendingAdmin extends AbstractBaseAdmin
     public function getExportFields()
     {
         return array(
-            'beginString',
-            'endString',
-            'classroomString',
-            'teacher',
-            'group',
-            'studentsAmount',
-            'studentsString',
+            'dateString',
+            'category',
+            'provider',
+            'description',
+            'baseAmountString',
+            'isPayed',
+            'paymentDateString',
+            'paymentString',
+            'document',
         );
     }
 }

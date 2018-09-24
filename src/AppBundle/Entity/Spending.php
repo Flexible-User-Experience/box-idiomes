@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Enum\StudentPaymentEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -104,6 +105,14 @@ class Spending extends AbstractBase
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateString()
+    {
+        return $this->getDate()->format('d/m/Y');
     }
 
     /**
@@ -235,6 +244,14 @@ class Spending extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getPaymentDateString()
+    {
+        return $this->getPaymentDate()->format('d/m/Y');
+    }
+
+    /**
      * @param \DateTime $paymentDate
      *
      * @return $this
@@ -252,6 +269,14 @@ class Spending extends AbstractBase
     public function getPaymentMethod()
     {
         return $this->paymentMethod;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPaymentString()
+    {
+        return StudentPaymentEnum::getEnumTranslatedArray()[$this->getPaymentMethod()];
     }
 
     /**

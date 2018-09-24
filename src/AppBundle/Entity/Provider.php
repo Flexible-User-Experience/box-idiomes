@@ -238,7 +238,7 @@ class Provider extends AbstractBase
      */
     public function getPaymentString()
     {
-        return StudentPaymentEnum::getEnumTranslatedArray()[$this->paymentMethod];
+        return StudentPaymentEnum::getEnumTranslatedArray()[$this->getPaymentMethod()];
     }
 
     /**
