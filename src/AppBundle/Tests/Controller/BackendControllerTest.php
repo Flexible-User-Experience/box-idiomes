@@ -123,7 +123,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/users/create'),
             array('/admin/users/1/edit'),
             array('/admin/users/1/delete'),
-//            array('/admin/full-calendar/load'),
+            array('/admin/full-calendar/load'),
         );
     }
 

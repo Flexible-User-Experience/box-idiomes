@@ -84,8 +84,16 @@ class FullCalendarListener
         $endDate = $calendarEvent->getEnd();
 
         $referer = $this->rss->getCurrentRequest()->headers->get('referer');
-        $path = substr($referer, strpos($referer, $this->rss->getCurrentRequest()->getBaseUrl()));
-        $path = str_replace($this->rss->getCurrentRequest()->getBaseUrl(), '', $path);
+
+        if ($this->rss->getCurrentRequest()->getBaseUrl()) {
+            // probably dev environment
+            $path = substr($referer, strpos($referer, $this->rss->getCurrentRequest()->getBaseUrl()));
+            $path = str_replace($this->rss->getCurrentRequest()->getBaseUrl(), '', $path);
+        } else {
+            // prod environment
+            $path = str_replace($this->rss->getCurrentRequest()->getSchemeAndHttpHost(), '', $referer);
+        }
+
         $matcher = $this->router->getMatcher();
         $parameters = $matcher->match($path);
         $route = $parameters['_route'];
