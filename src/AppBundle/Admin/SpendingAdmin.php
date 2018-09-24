@@ -73,7 +73,7 @@ class SpendingAdmin extends AbstractBaseAdmin
                 EntityType::class,
                 array(
                     'label' => 'backend.admin.spending.provider',
-                    'required' => true,
+                    'required' => false,
                     'class' => Provider::class,
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.provider_repository')->getEnabledSortedByNameQB(),
                 )
@@ -83,7 +83,7 @@ class SpendingAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.spending.description',
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->end()
