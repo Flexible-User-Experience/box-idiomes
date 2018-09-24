@@ -13,8 +13,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Class ContactMessageAdminController.
  *
  * @category Controller
- *
- * @author   David Romaní <david@flux.cat>
  */
 class ContactMessageAdminController extends BaseAdminController
 {
@@ -55,30 +53,27 @@ class ContactMessageAdminController extends BaseAdminController
         $em->persist($object);
         $em->flush();
 
-        return $this->render(
+        return $this->renderWithExtraParams(
             $this->admin->getTemplate('show'),
             array(
                 'action' => 'show',
                 'object' => $object,
                 'elements' => $this->admin->getShow(),
-            ),
-            null,
-            $request
+            )
         );
     }
 
     /**
      * Answer message action.
      *
-     * @param int|string|null $id
-     * @param Request         $request
+     * @param Request $request
      *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
-    public function answerAction($id = null, Request $request = null)
+    public function answerAction(Request $request = null)
     {
         $request = $this->resolveRequest($request);
         $id = $request->get($this->admin->getIdParameter());
@@ -108,16 +103,14 @@ class ContactMessageAdminController extends BaseAdminController
             return $this->redirectToRoute('admin_app_contactmessage_list');
         }
 
-        return $this->render(
+        return $this->renderWithExtraParams(
             '::Admin/ContactMessage/answer_form.html.twig',
             array(
                 'action' => 'answer',
                 'object' => $object,
                 'form' => $form->createView(),
                 'elements' => $this->admin->getShow(),
-            ),
-            null,
-            $request
+            )
         );
     }
 }

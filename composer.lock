@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "13be78f8c9a16f1dcf65b1508a261a2c",
+    "content-hash": "586b23c09ecba6e415d114f305506ff4",
     "packages": [
         {
             "name": "ancarebeca/full-calendar-bundle",
@@ -5564,16 +5564,16 @@
         },
         {
             "name": "tecnickcom/tcpdf",
-            "version": "6.2.22",
+            "version": "6.2.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tecnickcom/TCPDF.git",
-                "reference": "ac6e92fccc7d9383dfd787056831349621b1aca2"
+                "reference": "a5135e2cf02f8c935b71e9e7d676f0f1d31b1b9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/ac6e92fccc7d9383dfd787056831349621b1aca2",
-                "reference": "ac6e92fccc7d9383dfd787056831349621b1aca2",
+                "url": "https://api.github.com/repos/tecnickcom/TCPDF/zipball/a5135e2cf02f8c935b71e9e7d676f0f1d31b1b9d",
+                "reference": "a5135e2cf02f8c935b71e9e7d676f0f1d31b1b9d",
                 "shasum": ""
             },
             "require": {
@@ -5622,7 +5622,7 @@
                 "pdf417",
                 "qrcode"
             ],
-            "time": "2018-09-14T15:26:29+00:00"
+            "time": "2018-09-23T07:52:24+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

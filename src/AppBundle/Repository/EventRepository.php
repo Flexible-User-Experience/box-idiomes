@@ -86,6 +86,46 @@ class EventRepository extends EntityRepository
     }
 
     /**
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     * @param Student   $student
+     *
+     * @return QueryBuilder
+     */
+    public function getEnabledFilteredByBeginEndAndStudentQB(\DateTime $startDate, \DateTime $endDate, Student $student)
+    {
+        return $this->getEnabledFilteredByBeginAndEndQB($startDate, $endDate)
+            ->join('e.students', 's')
+            ->andWhere('s.id = :sid')
+            ->setParameter('sid', $student->getId())
+        ;
+    }
+
+    /**
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     * @param Student   $student
+     *
+     * @return Query
+     */
+    public function getEnabledFilteredByBeginEndAndStudentQ(\DateTime $startDate, \DateTime $endDate, Student $student)
+    {
+        return $this->getEnabledFilteredByBeginEndAndStudentQB($startDate, $endDate, $student)->getQuery();
+    }
+
+    /**
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     * @param Student   $student
+     *
+     * @return array
+     */
+    public function getEnabledFilteredByBeginEndAndStudent(\DateTime $startDate, \DateTime $endDate, Student $student)
+    {
+        return $this->getEnabledFilteredByBeginEndAndStudentQ($startDate, $endDate, $student)->getResult();
+    }
+
+    /**
      * @param Student $student
      * @param int     $year
      * @param int     $month

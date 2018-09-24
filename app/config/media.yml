@@ -14,14 +14,12 @@ liip_imagine:
                 thumbnail: { size: [ 585, 756 ], mode: outbound }
                 watermark:
                     image: Resources/Watermark/teacher-mask-big.png
-#                    size: 1
                     position: center
         480x620_teacher_mask:
             filters:
                 thumbnail: { size: [ 480, 620 ], mode: outbound }
                 watermark:
                     image: Resources/Watermark/teacher-mask.png
-#                    size: 1
                     position: center
         2400xY:
             quality: 75
@@ -67,4 +65,8 @@ vich_uploader:
         service:
             uri_prefix:         /uploads/images/service
             upload_destination: '%kernel.root_dir%/../web/uploads/images/service'
+            namer:              vich_uploader.namer_uniqid
+        spending:
+            uri_prefix:         /uploads/documents/spending
+            upload_destination: "%kernel.root_dir%/../web/uploads/documents/spending"
             namer:              vich_uploader.namer_uniqid

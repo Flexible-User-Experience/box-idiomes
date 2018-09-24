@@ -60,6 +60,21 @@ services:
         factory: [ "@doctrine", getRepository ]
         arguments:
             - "AppBundle:Invoice"
+    app.provider_repository:
+        class: AppBundle\Repository\ProviderRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Provider"
+    app.spending_category_repository:
+        class: AppBundle\Repository\SpendingCategoryRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:SpendingCategory"
+    app.spending_repository:
+        class: AppBundle\Repository\SpendingRepository
+        factory: [ "@doctrine", getRepository ]
+        arguments:
+            - "AppBundle:Spending"
     app.contact_message_repository:
         class: AppBundle\Repository\ContactMessageRepository
         factory: [ "@doctrine", getRepository ]

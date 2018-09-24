@@ -137,6 +137,9 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
             ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">amplada mínima 1200px (màx. 10MB amb JPG o PNG)</span>';
     }
 
+    /**
+     * @return string
+     */
     protected function getImageHelperFormMapperWithThumbnailGif()
     {
         return ($this->getSubject() ? $this->getSubject()->getGifName() ? '<img src="'.$this->lis->getBrowserPath(
@@ -145,11 +148,51 @@ abstract class AbstractBaseAdmin extends AbstractAdmin
             ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">mida 780x1168px (màx. 10MB amb GIF)</span>';
     }
 
+    /**
+     * @return string
+     */
     protected function getImageHelperFormMapperWithThumbnailAspectRatio()
     {
         return ($this->getSubject() ? $this->getSubject()->getImageName() ? '<img src="'.$this->lis->getBrowserPath(
                     $this->vus->asset($this->getSubject(), 'imageFile'),
                     '480xY'
                 ).'" class="admin-preview img-responsive" alt="thumbnail"/>' : '' : '').'<span style="width:100%;display:block;">Les imatges han de ser verticals i amplada mínima 600px (màx. 10MB)</span>';
+    }
+
+    /**
+     * Get image helper form mapper with thumbnail.
+     *
+     * @param string $attribute
+     * @param string $uploaderMapping
+     *
+     * @return string
+     *
+     * @throws \Twig\Error\Error
+     */
+    protected function getSmartHelper($attribute, $uploaderMapping)
+    {
+        $fs = $this->getConfigurationPool()->getContainer()->get('app.file_service');
+        $tes = $this->getConfigurationPool()->getContainer()->get('templating');
+
+        if ($this->getSubject() && $this->getSubject()->$attribute()) {
+            if ($fs->isPdf($this->getSubject(), $uploaderMapping)) {
+                // PDF case
+                return $tes->render(':Admin/Helpers:pdf.html.twig', [
+                    'attribute' => $this->getSubject()->$attribute(),
+                    'subject' => $this->getSubject(),
+                    'uploaderMapping' => $uploaderMapping,
+                ]);
+            } else {
+                // Image case
+                return $tes->render(':Admin/Helpers:image.html.twig', [
+                    'attribute' => $this->getSubject()->$attribute(),
+                    'subject' => $this->getSubject(),
+                    'uploaderMapping' => $uploaderMapping,
+                ]);
+            }
+        } else {
+            // Undefined case
+            return '<span style="width:100%;display:block;">Pots adjuntar un PDF o una imatge. Pes màxim 10MB.</span>';
+        }
     }
 }

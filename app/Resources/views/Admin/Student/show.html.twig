@@ -1,0 +1,149 @@
+{% extends "::Admin/show.html.twig" %}
+
+{# override css includes #}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/fullcalendar.min.css') }}" />
+{% endblock %}
+
+{% block show %}
+    <div class="sonata-ba-view">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h4 class="box-title">{{ 'backend.admin.invoice.student' | trans }}</h4>
+                    </div>
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table">
+                            <tbody>
+                            <tr class="sonata-ba-view-container">
+                                <th>{{ 'backend.admin.student.name' | trans }}</th>
+                                <td>{{ object.name }}</td>
+                            </tr>
+                            <tr class="sonata-ba-view-container">
+                                <th>{{ 'backend.admin.student.surname' | trans }}</th>
+                                <td>{{ object.surname }}</td>
+                            </tr>
+                            <tr class="sonata-ba-view-container">
+                                <th>{{ 'backend.admin.student.parent' | trans }}</th>
+                                <td>{{ object.parent }}</td>
+                            </tr>
+                            {% if object.comments %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.comments' | trans }}</th>
+                                    <td>{{ object.comments }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if object.phone %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.phone' | trans }}</th>
+                                    <td>{{ object.phone }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if object.email %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.email' | trans }}</th>
+                                    <td><a href="mailto:{{ object.email }}">{{ object.email }}</a></td>
+                                </tr>
+                            {% endif %}
+                            {% if object.address %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.address' | trans }}</th>
+                                    <td>{{ object.address }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if object.city %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.city' | trans }}</th>
+                                    <td>{{ object.city }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if object.dni %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.dni' | trans }}</th>
+                                    <td>{{ object.dni }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if object.birthDate %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.birthDate' | trans }}</th>
+                                    <td>{{ object.birthDateString }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if object.schedule %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.schedule' | trans }}</th>
+                                    <td>{{ object.schedule }}</td>
+                                </tr>
+                            {% endif %}
+                            {% if object.tariff %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.tariff' | trans }}</th>
+                                    <td>{{ object.tariff }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr class="sonata-ba-view-container">
+                                <th>{{ 'backend.admin.imagerigths.checkbox_label' | trans }}</th>
+                                <td>
+                                    {% if object.hasImageRightsAccepted %}
+                                        <span class="label label-success">{{ 'backend.admin.yes' | trans }}</span>
+                                    {% else %}
+                                        <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr class="sonata-ba-view-container">
+                                <th>{{ 'backend.admin.sepaagreement.checkbox_label' | trans }}</th>
+                                <td>
+                                    {% if object.hasSepaAgreementAccepted %}
+                                        <span class="label label-success">{{ 'backend.admin.yes' | trans }}</span>
+                                    {% else %}
+                                        <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr class="sonata-ba-view-container">
+                                <th>{{ 'backend.admin.enabled' | trans }}</th>
+                                <td>
+                                    {% if object.enabled %}
+                                        <span class="label label-success">{{ 'backend.admin.yes' | trans }}</span>
+                                    {% else %}
+                                        <span class="label label-danger">{{ 'backend.admin.no' | trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h4 class="box-title">{{ 'backend.admin.student.agenda' | trans }}</h4>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-12 margin-bottom">
+                                {% include "@FullCalendar/Calendar/calendar.html.twig" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{# override javascript includes #}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script type="text/javascript" src="{{ path('fos_js_routing_js', {callback: 'fos.Router.setData'}) }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/fullcalendar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/fullcalendar-locale-ca.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/fullcalendar.student-settings.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/gcal.min.js') }}"></script>
+{% endblock %}

@@ -17,7 +17,7 @@ use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
 class InvoiceBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
 {
     /**
-     * InvoicePdfBuilderService constructor.
+     * InvoiceBuilderPdf constructor.
      *
      * @param TCPDFController          $tcpdf
      * @param SmartAssetsHelperService $sahs

@@ -64,6 +64,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/students/student/list'),
             array('/admin/students/student/create'),
             array('/admin/students/student/1/edit'),
+            array('/admin/students/student/1/show'),
             array('/admin/students/parent/list'),
             array('/admin/students/parent/create'),
             array('/admin/students/parent/1/edit'),
@@ -107,11 +108,22 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/billings/invoice-line/list'),
             array('/admin/billings/invoice-line/create'),
             array('/admin/billings/invoice-line/1/edit'),
+            array('/admin/purchases/provider/list'),
+            array('/admin/purchases/provider/create'),
+            array('/admin/purchases/provider/1/edit'),
+            array('/admin/purchases/spending-category/list'),
+            array('/admin/purchases/spending-category/create'),
+            array('/admin/purchases/spending-category/1/edit'),
+            array('/admin/purchases/spending-category/1/delete'),
+            array('/admin/purchases/spending/list'),
+            array('/admin/purchases/spending/create'),
+            array('/admin/purchases/spending/1/edit'),
+            array('/admin/purchases/spending/1/delete'),
             array('/admin/users/list'),
             array('/admin/users/create'),
             array('/admin/users/1/edit'),
             array('/admin/users/1/delete'),
-            array('/admin/full-calendar/load'),
+//            array('/admin/full-calendar/load'),
         );
     }
 
@@ -148,6 +160,7 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/students/student/batch'),
             array('/admin/students/student/1/delete'),
             array('/admin/students/parent/1/delete'),
+            array('/admin/students/parent/1/show'),
             array('/admin/services/service/batch'),
             array('/admin/administrations/province/batch'),
             array('/admin/administrations/province/1/delete'),
@@ -156,6 +169,13 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/classrooms/tariff/1/delete'),
             array('/admin/classrooms/timetable/1/delete'),
             array('/admin/billings/invoice/generate'),
+            array('/admin/purchases/provider/batch'),
+            array('/admin/purchases/provider/1/show'),
+            array('/admin/purchases/provider/1/delete'),
+            array('/admin/purchases/spending-category/batch'),
+            array('/admin/purchases/spending-category/1/show'),
+            array('/admin/purchases/spending/batch'),
+            array('/admin/purchases/spending/1/show'),
         );
     }
 }

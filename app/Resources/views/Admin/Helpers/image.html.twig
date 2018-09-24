@@ -1,0 +1,2 @@
+<img src="{{ vich_uploader_asset(subject, uploaderMapping) | imagine_filter('480xY') }}" class="admin-preview img-responsive" alt="thumbnail">
+<a class="btn btn-warning btn-xs" href="{{ vich_uploader_asset(subject, uploaderMapping) }}" download="{{ attribute }}"><i class="fa fa-cloud-download"></i> {{ 'backend.admin.invoice.download' | trans({}, 'messages') }}</a>

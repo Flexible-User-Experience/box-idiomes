@@ -40,7 +40,7 @@ class StudentImageRightsBuilderPdf
      */
 
     /**
-     * StudentImageRightsPdfService constructor.
+     * StudentImageRightsBuilderPdf constructor.
      *
      * @param TCPDFController          $tcpdf
      * @param SmartAssetsHelperService $sahs
