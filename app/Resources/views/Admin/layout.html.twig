@@ -31,6 +31,7 @@
     {% stylesheets filter="cssrewrite,less" "@mybackendcss" %}
         <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
     {% endstylesheets %}
+    <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}"/>
 {% endblock %}
 
 {# override javascript includes #}
