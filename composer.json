@@ -57,6 +57,7 @@
         "whiteoctober/tcpdf-bundle": "^1.0"
     },
     "require-dev": {
+        "cypresslab/gitelephant": "3.0.0",
         "cypresslab/gitelephant-bundle": "^0.0.6",
         "sensio/generator-bundle": "~3.0",
         "phpunit/phpunit": "^5.0"
