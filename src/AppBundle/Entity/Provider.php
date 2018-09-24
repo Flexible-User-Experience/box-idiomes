@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Enum\StudentPaymentEnum;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -230,6 +231,14 @@ class Provider extends AbstractBase
     public function getPaymentMethod()
     {
         return $this->paymentMethod;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPaymentString()
+    {
+        return StudentPaymentEnum::getEnumTranslatedArray()[$this->paymentMethod];
     }
 
     /**

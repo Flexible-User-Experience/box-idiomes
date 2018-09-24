@@ -282,13 +282,16 @@ class ProviderAdmin extends AbstractBaseAdmin
     public function getExportFields()
     {
         return array(
-            'beginString',
-            'endString',
-            'classroomString',
-            'teacher',
-            'group',
-            'studentsAmount',
-            'studentsString',
+            'tic',
+            'name',
+            'alias',
+            'address',
+            'city',
+            'phone',
+            'email',
+            'paymentString',
+            'ibanForBankDraftPayment',
+            'enabled',
         );
     }
 }
