@@ -148,7 +148,7 @@ class ReceiptBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         } elseif (StudentPaymentEnum::CASH == $subject->getPayment()) {
             // cash
             $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.cash'), '', false, 'L', true);
-        } elseif (StudentPaymentEnum::CASH == $subject->getPayment()) {
+        } elseif (StudentPaymentEnum::BANK_TRANSFER == $subject->getPayment()) {
             // bank transfer
             $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.bank_transfer').' '.$this->ib, '', false, 'L', true);
         }
