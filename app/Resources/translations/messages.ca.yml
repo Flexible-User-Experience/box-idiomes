@@ -341,7 +341,7 @@ backend:
                 payment:
                     account_number: "Durant els pròxims dies s'efectuarà un càrrec al número de compte:"
                     cash: "Durant els pròxims dies hauràs de venir a l'acadèmia a pagar el rebut."
-                    bank_transfer: "Durant els pròxims dies hauràs d'efectuar una transferència al número de compte:"
+                    bank_transfer: "Durant els pròxims dies hauràs de efectuar una transferència al número de compte:"
         invoiceLine:
             invoice: Factura
             description: Descripció
