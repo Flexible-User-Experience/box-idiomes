@@ -72,6 +72,7 @@ class ChartsFactoryService
         $dt->addColumnObject(new DataColumn('id1', 'title', 'string'));
         $dt->addColumnObject(new DataColumn('id2', $this->ts->trans('backend.admin.block.charts.sales', array(), 'messages'), 'number'));
         $dt->addColumnObject(new DataColumn('id3', $this->ts->trans('backend.admin.block.charts.expenses', array(), 'messages'), 'number'));
+        $dt->addColumnObject(new DataColumn('id4', $this->ts->trans('backend.admin.block.charts.results', array(), 'messages'), 'number'));
 
         $date = new \DateTime();
         $date->sub(new \DateInterval('P12M'));
@@ -80,7 +81,8 @@ class ChartsFactoryService
             $sales = $this->rr->getMonthlyIncomingsAmountForDate($date);
             $sales = $sales + $this->ir->getMonthlyIncomingsAmountForDate($date);
             $expenses = $this->sr->getMonthlyExpensesAmountForDate($date);
-            $dt->addRowObject($this->buildResultsCellsRow($date, $sales, $expenses));
+            $results = $sales - $expenses;
+            $dt->addRowObject($this->buildResultsCellsRow($date, $sales, $expenses, $results));
             $date->add($interval);
         }
 
@@ -91,15 +93,17 @@ class ChartsFactoryService
      * @param \DateTime $key
      * @param float|int $sales
      * @param float|int $expenses
+     * @param float|int $results
      *
      * @return DataRow
      */
-    private function buildResultsCellsRow($key, $sales, $expenses)
+    private function buildResultsCellsRow($key, $sales, $expenses, $results)
     {
         return new DataRow(array(
                 new DataCell(ReceiptYearMonthEnum::getShortTranslatedMonthEnumArray()[intval($key->format('n'))].'. '.$key->format('y')),
                 new DataCell($sales, number_format($sales, 0, ',', '.').'€'),
                 new DataCell($expenses, number_format($sales, 0, ',', '.').'€'),
+                new DataCell($results, number_format($results, 0, ',', '.').'€'),
             )
         );
     }
