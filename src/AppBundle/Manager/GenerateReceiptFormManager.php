@@ -309,13 +309,13 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                 }
             } else {
                 // new
-                $privateLessonsAmount = $this->er->getPrivateLessonsAmountByStudentYearAndMonth($student, $year, $month);
+                $privateLessons = $this->er->getPrivateLessonsByStudentYearAndMonth($student, $year, $month);
                 $generateReceiptItem = new GenerateReceiptItemModel();
                 $generateReceiptItem
                     ->setStudentId($student->getId())
                     ->setStudentName($student->getFullCanonicalName())
-                    ->setUnits($privateLessonsAmount)
-                    ->setUnitPrice($this->eem->getCurrentPrivateLessonsTariffForEvents($studentsInPrivateLessons)->getPrice())
+                    ->setUnits(floatval(count($privateLessons)))
+                    ->setUnitPrice($this->eem->getCurrentPrivateLessonsTariffForEvents($privateLessons)->getPrice())
                     ->setDiscount(0)
                     ->setIsReadyToGenerate(true)
                     ->setIsPreviouslyGenerated(false)
