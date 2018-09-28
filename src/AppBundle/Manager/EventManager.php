@@ -149,4 +149,22 @@ class EventManager
 
         return $result;
     }
+
+    /**
+     * @param Event[]|array $events
+     *
+     * @return bool
+     */
+    public function decidePrivateLessonsTariff($events)
+    {
+        $isPrivateLesson = false;
+        /** @var Event $event */
+        foreach ($events as $event) {
+            if (count($event->getStudents()) > 1) {
+                $isPrivateLesson = true;
+            }
+        }
+
+        return $isPrivateLesson;
+    }
 }

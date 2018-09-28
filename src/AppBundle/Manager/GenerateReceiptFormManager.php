@@ -281,6 +281,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
             $year = $year - 1;
         }
         $currentPrivateLessonTariff = $this->tr->findCurrentPrivateLessonTariff();
+        $currentSharedPrivateLessonTariff = $this->tr->findCurrentSharedPrivateLessonTariff();
         $studentsInPrivateLessons = $this->sr->getPrivateLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month);
         /** @var Student $student */
         foreach ($studentsInPrivateLessons as $student) {

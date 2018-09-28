@@ -132,7 +132,7 @@ class EventRepository extends EntityRepository
      *
      * @return QueryBuilder
      */
-    public function getPrivateLessonsAmountByStudentYearAndMonthQB(Student $student, $year, $month)
+    public function getPrivateLessonsByStudentYearAndMonthQB(Student $student, $year, $month)
     {
         return $this->createQueryBuilder('e')
             ->join('e.students', 's')
@@ -156,9 +156,21 @@ class EventRepository extends EntityRepository
      *
      * @return Query
      */
-    public function getPrivateLessonsAmountByStudentYearAndMonthQ(Student $student, $year, $month)
+    public function getPrivateLessonsByStudentYearAndMonthQ(Student $student, $year, $month)
     {
-        return $this->getPrivateLessonsAmountByStudentYearAndMonthQB($student, $year, $month)->getQuery();
+        return $this->getPrivateLessonsByStudentYearAndMonthQB($student, $year, $month)->getQuery();
+    }
+
+    /**
+     * @param Student $student
+     * @param int     $year
+     * @param int     $month
+     *
+     * @return array
+     */
+    public function getPrivateLessonsByStudentYearAndMonth(Student $student, $year, $month)
+    {
+        return $this->getPrivateLessonsByStudentYearAndMonthQ($student, $year, $month)->getResult();
     }
 
     /**
@@ -170,6 +182,6 @@ class EventRepository extends EntityRepository
      */
     public function getPrivateLessonsAmountByStudentYearAndMonth(Student $student, $year, $month)
     {
-        return floatval(count($this->getPrivateLessonsAmountByStudentYearAndMonthQ($student, $year, $month)->getResult()));
+        return floatval(count($this->getPrivateLessonsByStudentYearAndMonth($student, $year, $month)));
     }
 }
