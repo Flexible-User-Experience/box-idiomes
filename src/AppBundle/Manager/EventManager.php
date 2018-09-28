@@ -3,6 +3,8 @@
 namespace AppBundle\Manager;
 
 use AppBundle\Entity\Event;
+use AppBundle\Entity\Tariff;
+use AppBundle\Repository\TariffRepository;
 
 /**
  * Class EventManager.
@@ -11,6 +13,25 @@ use AppBundle\Entity\Event;
  */
 class EventManager
 {
+    /**
+     * @var TariffRepository
+     */
+    private $tr;
+
+    /**
+     * Methods.
+     */
+
+    /**
+     * EventManager constructor.
+     *
+     * @param TariffRepository $tr
+     */
+    public function __construct(TariffRepository $tr)
+    {
+        $this->tr = $tr;
+    }
+
     /**
      * @param Event $event
      *
@@ -148,5 +169,37 @@ class EventManager
         }
 
         return $result;
+    }
+
+    /**
+     * @param Event[]|array $events
+     *
+     * @return bool true if there is at least one event with only one student in class, false elsewhere because is a shared private class
+     */
+    public function decidePrivateLessonsTariff($events)
+    {
+        $isPrivateLesson = false;
+        /** @var Event $event */
+        foreach ($events as $event) {
+            if (1 == count($event->getStudents())) {
+                $isPrivateLesson = true;
+
+                break;
+            }
+        }
+
+        return $isPrivateLesson;
+    }
+
+    /**
+     * @param Event[]|array $events
+     *
+     * @return Tariff last current Tariff for private or shared private lessons
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getCurrentPrivateLessonsTariffForEvents($events)
+    {
+        return $this->decidePrivateLessonsTariff($events) ? $this->tr->findCurrentPrivateLessonTariff() : $this->tr->findCurrentSharedPrivateLessonTariff();
     }
 }

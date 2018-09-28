@@ -11,7 +11,6 @@ use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Repository\EventRepository;
 use AppBundle\Repository\ReceiptRepository;
 use AppBundle\Repository\StudentRepository;
-use AppBundle\Repository\TariffRepository;
 use Doctrine\ORM\EntityManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -32,6 +31,11 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
     private $rr;
 
     /**
+     * @var EventManager
+     */
+    private $eem;
+
+    /**
      * Methods.
      */
 
@@ -44,13 +48,14 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
      * @param TranslatorInterface $ts
      * @param StudentRepository   $sr
      * @param EventRepository     $er
-     * @param TariffRepository    $tr
      * @param ReceiptRepository   $rr
+     * @param EventManager        $eem
      */
-    public function __construct(LoggerInterface $logger, KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, EventRepository $er, TariffRepository $tr, ReceiptRepository $rr)
+    public function __construct(LoggerInterface $logger, KernelInterface $kernel, EntityManager $em, TranslatorInterface $ts, StudentRepository $sr, EventRepository $er, ReceiptRepository $rr, EventManager $eem)
     {
-        parent::__construct($logger, $kernel, $em, $ts, $sr, $er, $tr);
+        parent::__construct($logger, $kernel, $em, $ts, $sr, $er);
         $this->rr = $rr;
+        $this->eem = $eem;
     }
 
     /**
@@ -110,7 +115,6 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
             $month = 12;
             $year = $year - 1;
         }
-        $currentPrivateLessonTariff = $this->tr->findCurrentPrivateLessonTariff();
         $studentsInPrivateLessons = $this->sr->getPrivateLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month);
         /** @var Student $student */
         foreach ($studentsInPrivateLessons as $student) {
@@ -125,7 +129,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     ->setStudent($student)
                     ->setDescription($description)
                     ->setUnits($this->er->getPrivateLessonsAmountByStudentYearAndMonth($student, $year, $month))
-                    ->setPriceUnit($currentPrivateLessonTariff->getPrice())
+                    ->setPriceUnit($this->eem->getCurrentPrivateLessonsTariffForEvents($studentsInPrivateLessons)->getPrice())
                     ->setDiscount(0)
                     ->setTotal($receiptLine->getPriceUnit() - $receiptLine->getDiscount())
                 ;
@@ -280,7 +284,6 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
             $month = 12;
             $year = $year - 1;
         }
-        $currentPrivateLessonTariff = $this->tr->findCurrentPrivateLessonTariff();
         $studentsInPrivateLessons = $this->sr->getPrivateLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month);
         /** @var Student $student */
         foreach ($studentsInPrivateLessons as $student) {
@@ -312,7 +315,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     ->setStudentId($student->getId())
                     ->setStudentName($student->getFullCanonicalName())
                     ->setUnits($privateLessonsAmount)
-                    ->setUnitPrice($currentPrivateLessonTariff->getPrice())
+                    ->setUnitPrice($this->eem->getCurrentPrivateLessonsTariffForEvents($studentsInPrivateLessons)->getPrice())
                     ->setDiscount(0)
                     ->setIsReadyToGenerate(true)
                     ->setIsPreviouslyGenerated(false)

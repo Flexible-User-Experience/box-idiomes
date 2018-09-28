@@ -125,6 +125,8 @@ services:
             - "@app.invoice_repository"
     app.event_manager:
         class: AppBundle\Manager\EventManager
+        arguments:
+            - "@app.tariff_repository"
     app.generate_receipt_form_manager:
         class: AppBundle\Manager\GenerateReceiptFormManager
         arguments:
@@ -134,8 +136,8 @@ services:
             - "@translator.default"
             - "@app.student_repository"
             - "@app.event_repository"
-            - "@app.tariff_repository"
             - "@app.receipt_repository"
+            - "@app.event_manager"
     app.generate_invoice_form_manager:
         class: AppBundle\Manager\GenerateInvoiceFormManager
         arguments:
@@ -145,7 +147,6 @@ services:
             - "@translator.default"
             - "@app.student_repository"
             - "@app.event_repository"
-            - "@app.tariff_repository"
             - "@app.invoice_repository"
 # PDF Builders
     app.base_tcpdf:
