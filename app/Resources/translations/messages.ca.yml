@@ -164,6 +164,7 @@ backend:
             tariff_3: 3h / setmana
             tariff_4: 1'5h / setmana
             tariff_5: hora particular
+            tariff_6: hora particular compartida
         event:
             range: Limitar l'abast dels canvis a la data
             begin: Inici
