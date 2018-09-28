@@ -37,7 +37,7 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
      */
     protected $isPayed;
 
@@ -51,7 +51,7 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
      */
     protected $isSended;
 
@@ -65,7 +65,7 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
      */
     protected $isSepaXmlGenerated;
 
@@ -86,7 +86,7 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     /**
      * @var bool
      *
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
      */
     protected $discountApplied;
 

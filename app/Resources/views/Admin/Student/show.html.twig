@@ -25,10 +25,6 @@
                                 <th>{{ 'backend.admin.student.surname' | trans }}</th>
                                 <td>{{ object.surname }}</td>
                             </tr>
-                            <tr class="sonata-ba-view-container">
-                                <th>{{ 'backend.admin.student.parent' | trans }}</th>
-                                <td>{{ object.parent }}</td>
-                            </tr>
                             {% if object.comments %}
                                 <tr class="sonata-ba-view-container">
                                     <th>{{ 'backend.admin.student.comments' | trans }}</th>
@@ -41,29 +37,18 @@
                                     <td>{{ object.phone }}</td>
                                 </tr>
                             {% endif %}
-                            {% if object.email %}
+                            {% include ":Admin/Helpers:common_student_parent_show_include.html.twig" with {object: object} %}
+                            {% if object.parent is null %}
                                 <tr class="sonata-ba-view-container">
-                                    <th>{{ 'backend.admin.student.email' | trans }}</th>
-                                    <td><a href="mailto:{{ object.email }}">{{ object.email }}</a></td>
+                                    <th>{{ 'backend.admin.student.payment' | trans }}</th>
+                                    <td>{{ object.paymentString }}</td>
                                 </tr>
-                            {% endif %}
-                            {% if object.address %}
-                                <tr class="sonata-ba-view-container">
-                                    <th>{{ 'backend.admin.student.address' | trans }}</th>
-                                    <td>{{ object.address }}</td>
-                                </tr>
-                            {% endif %}
-                            {% if object.city %}
-                                <tr class="sonata-ba-view-container">
-                                    <th>{{ 'backend.admin.student.city' | trans }}</th>
-                                    <td>{{ object.city }}</td>
-                                </tr>
-                            {% endif %}
-                            {% if object.dni %}
-                                <tr class="sonata-ba-view-container">
-                                    <th>{{ 'backend.admin.student.dni' | trans }}</th>
-                                    <td>{{ object.dni }}</td>
-                                </tr>
+                                {% if object.payment == constant('AppBundle\\Enum\\StudentPaymentEnum::BANK_ACCOUNT_NUMBER') %}
+                                    <tr class="sonata-ba-view-container">
+                                        <th>{{ 'backend.admin.bank.accountNumber' | trans }}</th>
+                                        <td>{{ object.bank.accountNumber }}</td>
+                                    </tr>
+                                {% endif %}
                             {% endif %}
                             {% if object.birthDate %}
                                 <tr class="sonata-ba-view-container">
@@ -116,6 +101,32 @@
                             </tbody>
                         </table>
                     </div>
+                    {% if object.parent is not null %}
+                        <div class="box-header">
+                            <h4 class="box-title" style="margin-top:40px">{{ 'backend.admin.student.parent' | trans }}</h4>
+                        </div>
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table">
+                                <tbody>
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.name' | trans }}</th>
+                                    <td>{{ object.parent }}</td>
+                                </tr>
+                                {% include ":Admin/Helpers:common_student_parent_show_include.html.twig" with {object: object.parent} %}
+                                <tr class="sonata-ba-view-container">
+                                    <th>{{ 'backend.admin.student.payment' | trans }}</th>
+                                    <td>{{ object.parent.paymentString }}</td>
+                                </tr>
+                                {% if object.parent.payment == constant('AppBundle\\Enum\\StudentPaymentEnum::BANK_ACCOUNT_NUMBER') %}
+                                    <tr class="sonata-ba-view-container">
+                                        <th>{{ 'backend.admin.bank.accountNumber' | trans }}</th>
+                                        <td>{{ object.parent.bank.accountNumber }}</td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="col-md-8">

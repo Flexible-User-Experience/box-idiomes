@@ -164,6 +164,7 @@ backend:
             tariff_3: 3h / setmana
             tariff_4: 1'5h / setmana
             tariff_5: hora particular
+            tariff_6: hora particular compartida
         event:
             range: Limitar l'abast dels canvis a la data
             begin: Inici
@@ -341,7 +342,7 @@ backend:
                 payment:
                     account_number: "Durant els pròxims dies s'efectuarà un càrrec al número de compte:"
                     cash: "Durant els pròxims dies hauràs de venir a l'acadèmia a pagar el rebut."
-                    bank_transfer: "Durant els pròxims dies hauràs d'efectuar una transferència al número de compte:"
+                    bank_transfer: "Durant els pròxims dies hauràs de efectuar una transferència al número de compte:"
         invoiceLine:
             invoice: Factura
             description: Descripció

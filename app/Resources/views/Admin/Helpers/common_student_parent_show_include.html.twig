@@ -1,0 +1,24 @@
+{% if object.email %}
+    <tr class="sonata-ba-view-container">
+        <th>{{ 'backend.admin.student.email' | trans }}</th>
+        <td><a href="mailto:{{ object.email }}">{{ object.email }}</a></td>
+    </tr>
+{% endif %}
+{% if object.address %}
+    <tr class="sonata-ba-view-container">
+        <th>{{ 'backend.admin.student.address' | trans }}</th>
+        <td>{{ object.address }}</td>
+    </tr>
+{% endif %}
+{% if object.city %}
+    <tr class="sonata-ba-view-container">
+        <th>{{ 'backend.admin.student.city' | trans }}</th>
+        <td>{{ object.city }}</td>
+    </tr>
+{% endif %}
+{% if object.dni %}
+    <tr class="sonata-ba-view-container">
+        <th>{{ 'backend.admin.student.dni' | trans }}</th>
+        <td>{{ object.dni }}</td>
+    </tr>
+{% endif %}
