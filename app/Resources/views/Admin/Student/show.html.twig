@@ -43,6 +43,12 @@
                                     <th>{{ 'backend.admin.student.payment' | trans }}</th>
                                     <td>{{ object.paymentString }}</td>
                                 </tr>
+                                {% if object.payment == constant('AppBundle\\Enum\\StudentPaymentEnum::BANK_ACCOUNT_NUMBER') %}
+                                    <tr class="sonata-ba-view-container">
+                                        <th>{{ 'backend.admin.bank.accountNumber' | trans }}</th>
+                                        <td>{{ object.bank.accountNumber }}</td>
+                                    </tr>
+                                {% endif %}
                             {% endif %}
                             {% if object.birthDate %}
                                 <tr class="sonata-ba-view-container">
@@ -109,8 +115,14 @@
                                 {% include ":Admin/Helpers:common_student_parent_show_include.html.twig" with {object: object.parent} %}
                                 <tr class="sonata-ba-view-container">
                                     <th>{{ 'backend.admin.student.payment' | trans }}</th>
-                                    <td>{{ object.paymentString }}</td>
+                                    <td>{{ object.parent.paymentString }}</td>
                                 </tr>
+                                {% if object.parent.payment == constant('AppBundle\\Enum\\StudentPaymentEnum::BANK_ACCOUNT_NUMBER') %}
+                                    <tr class="sonata-ba-view-container">
+                                        <th>{{ 'backend.admin.bank.accountNumber' | trans }}</th>
+                                        <td>{{ object.parent.bank.accountNumber }}</td>
+                                    </tr>
+                                {% endif %}
                                 </tbody>
                             </table>
                         </div>
