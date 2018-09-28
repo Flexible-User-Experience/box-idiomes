@@ -39,7 +39,7 @@ abstract class AbstractReceiptInvoice extends AbstractBase
      *
      * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
      */
-    protected $isPayed;
+    protected $isPayed = false;
 
     /**
      * @var \DateTime
@@ -53,7 +53,7 @@ abstract class AbstractReceiptInvoice extends AbstractBase
      *
      * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
      */
-    protected $isSended;
+    protected $isSended = false;
 
     /**
      * @var \DateTime
@@ -67,7 +67,7 @@ abstract class AbstractReceiptInvoice extends AbstractBase
      *
      * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
      */
-    protected $isSepaXmlGenerated;
+    protected $isSepaXmlGenerated = false;
 
     /**
      * @var \DateTime

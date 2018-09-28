@@ -205,6 +205,8 @@ class GenerateInvoiceFormManager extends AbstractGenerateReceiptInvoiceFormManag
                         ->setPerson($student->getParent() ? $student->getParent() : null)
                         ->setDate(new \DateTime())
                         ->setIsPayed(false)
+                        ->setIsSepaXmlGenerated(false)
+                        ->setIsSended(false)
                         ->setYear($generateInvoiceModel->getYear())
                         ->setMonth($generateInvoiceModel->getMonth())
                         ->addLine($invoiceLine)

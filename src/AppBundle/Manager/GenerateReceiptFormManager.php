@@ -99,10 +99,17 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     ->setIsPayed(false)
                     ->setIsSepaXmlGenerated(false)
                     ->setIsForPrivateLessons(false)
+                    ->setIsSended(false)
                     ->setYear($year)
                     ->setMonth($month)
                     ->addLine($receiptLine)
                 ;
+                if ($enableEmailDelivery) {
+                    $receipt
+                        ->setIsSended(true)
+                        ->setSendDate(new \DateTime())
+                    ;
+                }
                 $this->em->persist($receipt);
             }
         }
@@ -141,6 +148,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     ->setIsPayed(false)
                     ->setIsSepaXmlGenerated(false)
                     ->setIsForPrivateLessons(true)
+                    ->setIsSended(false)
                     ->setYear($oldYear)
                     ->setMonth($oldMonth)
                     ->addLine($receiptLine)
@@ -451,6 +459,8 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                         ->setStudent($student)
                         ->setPerson($student->getParent() ? $student->getParent() : null)
                         ->setIsPayed(false)
+                        ->setIsSepaXmlGenerated(false)
+                        ->setIsSended(false)
                         ->setYear($generateReceiptModel->getYear())
                         ->setMonth($generateReceiptModel->getMonth())
                         ->addLine($receiptLine)
