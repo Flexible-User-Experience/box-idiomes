@@ -144,6 +144,7 @@ backend:
             city: Ciutat
             payment: Pagament
             payment_no_parent_help: vàlid sempre i quan l'alumne no tingui un pare assignat
+            is_payment_excempt: Exempt de pagament
             schedule: Horari
             comments: Comentaris
             tariff: Tarifa

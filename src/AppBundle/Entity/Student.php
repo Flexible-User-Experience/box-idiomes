@@ -84,6 +84,13 @@ class Student extends AbstractPerson
     private $hasSepaAgreementAccepted = false;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
+     */
+    private $isPaymentExempt = false;
+
+    /**
      * Methods.
      */
 
@@ -306,6 +313,34 @@ class Student extends AbstractPerson
     public function setHasSepaAgreementAccepted($hasSepaAgreementAccepted)
     {
         $this->hasSepaAgreementAccepted = $hasSepaAgreementAccepted;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPaymentExempt()
+    {
+        return $this->isPaymentExempt;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsPaymentExempt()
+    {
+        return $this->isPaymentExempt();
+    }
+
+    /**
+     * @param bool $isPaymentExempt
+     *
+     * @return $this
+     */
+    public function setIsPaymentExempt($isPaymentExempt)
+    {
+        $this->isPaymentExempt = $isPaymentExempt;
 
         return $this;
     }

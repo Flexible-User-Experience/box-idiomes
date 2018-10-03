@@ -210,6 +210,14 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'isPaymentExempt',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.student.is_payment_excempt',
+                    'required' => false,
+                )
+            )
+            ->add(
                 'enabled',
                 CheckboxType::class,
                 array(
@@ -366,6 +374,13 @@ class StudentAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.sepaagreement.checkbox_label',
+                )
+            )
+            ->add(
+                'isPaymentExempt',
+                null,
+                array(
+                    'label' => 'backend.admin.student.is_payment_excempt',
                 )
             )
             ->add(
