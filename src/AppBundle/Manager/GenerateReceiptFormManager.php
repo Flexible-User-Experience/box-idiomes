@@ -280,7 +280,9 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     ->setIsPreviouslyGenerated(false)
                     ->setIsPrivateLessonType(false)
                 ;
-                $generateReceipt->addItem($generateReceiptItem);
+                if ($generateReceiptItem->getUnitPrice() > 0 && $generateReceiptItem->getUnitPrice() > $generateReceiptItem->getDiscount()) {
+                    $generateReceipt->addItem($generateReceiptItem);
+                }
             }
         }
 
@@ -329,7 +331,9 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
                     ->setIsPreviouslyGenerated(false)
                     ->setIsPrivateLessonType(true)
                 ;
-                $generateReceipt->addItem($generateReceiptItem);
+                if ($generateReceiptItem->getUnits() > 0 && $generateReceiptItem->getUnitPrice() > 0) {
+                    $generateReceipt->addItem($generateReceiptItem);
+                }
             }
         }
 

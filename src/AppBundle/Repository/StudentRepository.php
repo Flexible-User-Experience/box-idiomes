@@ -183,6 +183,8 @@ class StudentRepository extends EntityRepository
     {
         return $this->getStudentsInEventsByYearAndMonthSortedBySurnameQB($year, $month)
             ->andWhere('s.tariff IS NOT NULL')
+            ->andWhere('s.isPaymentExempt = :exempt')
+            ->setParameter('exempt', false)
         ;
     }
 
