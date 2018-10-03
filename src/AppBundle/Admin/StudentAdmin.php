@@ -134,34 +134,31 @@ class StudentAdmin extends AbstractBaseAdmin
                     'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.city_repository')->getEnabledSortedByNameQB(),
                 )
             )
-            ->end();
-        if (!$this->getSubject()->getParent()) {
-            $formMapper
-                ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
-                ->add(
-                    'payment',
-                    ChoiceType::class,
-                    array(
-                        'label' => 'backend.admin.student.payment',
-                        'choices' => StudentPaymentEnum::getEnumArray(),
-                        'multiple' => false,
-                        'expanded' => false,
-                        'required' => true,
-                    )
+            ->end()
+            ->with('backend.admin.student.payment_information', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'payment',
+                ChoiceType::class,
+                array(
+                    'label' => 'backend.admin.student.payment',
+                    'choices' => StudentPaymentEnum::getEnumArray(),
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => true,
+                    'help' => 'backend.admin.student.payment_no_parent_help',
                 )
-                ->add(
-                    'bank',
-                    AdminType::class,
-                    array(
-                        'label' => ' ',
-                        'required' => false,
-                        'btn_add' => false,
-                        'by_reference' => false,
-                    )
+            )
+            ->add(
+                'bank',
+                AdminType::class,
+                array(
+                    'label' => ' ',
+                    'required' => false,
+                    'btn_add' => false,
+                    'by_reference' => false,
                 )
-                ->end();
-        }
-        $formMapper
+            )
+            ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
                 'dni',

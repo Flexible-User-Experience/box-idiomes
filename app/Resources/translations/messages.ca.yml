@@ -143,6 +143,7 @@ backend:
             address: Adreça
             city: Ciutat
             payment: Pagament
+            payment_no_parent_help: vàlid sempre i quan l'alumne no tingui un pare assignat
             schedule: Horari
             comments: Comentaris
             tariff: Tarifa
