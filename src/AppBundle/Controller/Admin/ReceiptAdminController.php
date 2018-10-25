@@ -168,10 +168,10 @@ class ReceiptAdminController extends BaseAdminController
         }
 
         /** @var ReceiptBuilderPdf $rps */
-        $rps = $this->container->get('app.receipt_pdf_builder');
+        $rps = $this->container->get('app.receipt_reminder_pdf_builder');
         $pdf = $rps->build($object);
 
-        return new Response($pdf->Output('box_idiomes_receipt_'.$object->getSluggedReceiptNumber().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
+        return new Response($pdf->Output('box_idiomes_receipt_reminder_'.$object->getSluggedReceiptNumber().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
 
     /**
