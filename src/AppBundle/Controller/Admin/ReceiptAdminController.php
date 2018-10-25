@@ -147,6 +147,34 @@ class ReceiptAdminController extends BaseAdminController
     }
 
     /**
+     * Generate PDF reminder receipt action.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
+     */
+    public function reminderAction(Request $request)
+    {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Receipt $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
+        }
+
+        /** @var ReceiptBuilderPdf $rps */
+        $rps = $this->container->get('app.receipt_pdf_builder');
+        $pdf = $rps->build($object);
+
+        return new Response($pdf->Output('box_idiomes_receipt_'.$object->getSluggedReceiptNumber().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
+    }
+
+    /**
      * Generate PDF receipt action.
      *
      * @param Request $request

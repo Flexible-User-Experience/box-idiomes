@@ -43,6 +43,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
             ->add('generate')
             ->add('creator')
             ->add('createInvoice', $this->getRouterIdParameter().'/create-invoice')
+            ->add('reminder', $this->getRouterIdParameter().'/reminder-pdf')
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
             ->add('send', $this->getRouterIdParameter().'/send')
             ->add('generateDirectDebit', $this->getRouterIdParameter().'/generate-direct-debit-xml')
