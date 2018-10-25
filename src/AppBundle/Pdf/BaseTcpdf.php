@@ -16,6 +16,10 @@ class BaseTcpdf extends \TCPDF
     const PDF_MARGIN_RIGHT = 30;
     const PDF_MARGIN_TOP = 70;
     const PDF_MARGIN_BOTTOM = 25;
+    const PDF_A5_MARGIN_LEFT = 25;
+    const PDF_A5_MARGIN_RIGHT = 25;
+    const PDF_A5_MARGIN_TOP = 25;
+    const PDF_A5_MARGIN_BOTTOM = 25;
     const MARGIN_VERTICAL_SMALL = 3;
     const MARGIN_VERTICAL_BIG = 8;
 
