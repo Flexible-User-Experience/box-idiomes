@@ -14,6 +14,9 @@
                 isPayedNode.on('ifUnchecked', function(){
                     paymentDateNode.addClass("hidden");
                 });
+                {% if form.vars.value.isPayed == 0 %}
+                    paymentDateNode.addClass("hidden");
+                {% endif %}
             {% endif %}
         });
     </script>
