@@ -4,7 +4,7 @@ namespace AppBundle\Command;
 
 use AppBundle\Entity\Invoice;
 use AppBundle\Service\NotificationService;
-use AppBundle\Pdf\InvoiceBuilderPdf as InvoicePdfBuilderService;
+use AppBundle\Pdf\InvoiceBuilderPdf;
 use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -60,9 +60,9 @@ class DeliverInvoiceByEmailCommand extends ContainerAwareCommand
         $invoice = $this->getContainer()->get('doctrine')->getRepository('AppBundle:Invoice')->find(intval($input->getArgument('invoice')));
         if ($invoice) {
             $output->write('building PDF invoice number '.$invoice->getInvoiceNumber().'... ');
-            /** @var InvoicePdfBuilderService $ips */
-            $ips = $this->getContainer()->get('app.invoice_pdf_builder');
-            $pdf = $ips->build($invoice);
+            /** @var InvoiceBuilderPdf $ibp */
+            $ibp = $this->getContainer()->get('app.invoice_pdf_builder');
+            $pdf = $ibp->build($invoice);
             $output->writeln('<info>OK</info>');
             if ($input->getOption('force')) {
                 /** @var Logger $logger */

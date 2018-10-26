@@ -4,7 +4,7 @@ namespace AppBundle\Command;
 
 use AppBundle\Entity\Receipt;
 use AppBundle\Service\NotificationService;
-use AppBundle\Pdf\ReceiptBuilderPdf as ReceiptPdfBuilderService;
+use AppBundle\Pdf\ReceiptBuilderPdf;
 use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -61,8 +61,8 @@ class DeliverReceiptsBatchByEmailCommand extends ContainerAwareCommand
         if (count($receipts) > 0) {
             /** @var Logger $logger */
             $logger = $this->getContainer()->get('monolog.logger.email');
-            /** @var ReceiptPdfBuilderService $rps */
-            $rps = $this->getContainer()->get('app.receipt_pdf_builder');
+            /** @var ReceiptBuilderPdf $rbp */
+            $rbp = $this->getContainer()->get('app.receipt_pdf_builder');
             /** @var NotificationService $messenger */
             $messenger = $this->getContainer()->get('app.notification');
 
@@ -72,7 +72,7 @@ class DeliverReceiptsBatchByEmailCommand extends ContainerAwareCommand
             /** @var Receipt $receipt */
             foreach ($receipts as $receipt) {
                 $output->write('building PDF receipt number '.$receipt->getReceiptNumber().'... ');
-                $pdf = $rps->build($receipt);
+                $pdf = $rbp->build($receipt);
                 $output->writeln('<info>OK</info>');
                 $logger->info('[DRBBEC] PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully build.');
                 if ($input->getOption('force')) {
