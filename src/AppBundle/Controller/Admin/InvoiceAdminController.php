@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\DefaultController;
 use AppBundle\Entity\Invoice;
+use AppBundle\Enum\StudentPaymentEnum;
 use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Form\Type\GenerateInvoiceType;
 use AppBundle\Form\Type\GenerateInvoiceYearMonthChooserType;
@@ -254,10 +255,12 @@ class InvoiceAdminController extends BaseAdminController
 
             /** @var Invoice $selectedModel */
             foreach ($selectedModels as $selectedModel) {
-                $selectedModel
-                    ->setIsSepaXmlGenerated(true)
-                    ->setSepaXmlGeneratedDate(new \DateTime())
-                ;
+                if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $selectedModel->getMainSubject()->getPayment() && !$selectedModel->getStudent()->getIsPaymentExempt()) {
+                    $selectedModel
+                        ->setIsSepaXmlGenerated(true)
+                        ->setSepaXmlGeneratedDate(new \DateTime())
+                    ;
+                }
             }
             $em->flush();
 

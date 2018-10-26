@@ -28,7 +28,6 @@ sonata_admin:
         layout:    "::Admin/layout.html.twig"
         dashboard: "::Admin/dashboard.html.twig"
         list:      "::Admin/list.html.twig"
-        batch:     "::Admin/batch.html.twig"
         edit:      "::Admin/edit.html.twig"
         show:      "::Admin/show.html.twig"
     dashboard:

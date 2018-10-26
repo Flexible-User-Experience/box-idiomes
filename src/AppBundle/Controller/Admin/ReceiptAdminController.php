@@ -369,10 +369,12 @@ class ReceiptAdminController extends BaseAdminController
 
             /** @var Receipt $selectedModel */
             foreach ($selectedModels as $selectedModel) {
-                $selectedModel
-                    ->setIsSepaXmlGenerated(true)
-                    ->setSepaXmlGeneratedDate(new \DateTime())
-                ;
+                if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $selectedModel->getMainSubject()->getPayment() && !$selectedModel->getStudent()->getIsPaymentExempt()) {
+                    $selectedModel
+                        ->setIsSepaXmlGenerated(true)
+                        ->setSepaXmlGeneratedDate(new \DateTime())
+                    ;
+                }
             }
             $em->flush();
 

@@ -60,6 +60,11 @@ class ReceiptAdmin extends AbstractBaseAdmin
     public function configureBatchActions($actions)
     {
         if ($this->hasRoute('edit') && $this->hasAccess('edit')) {
+            $actions['generatereminderspdf'] = array(
+                'label' => 'backend.admin.receipt_reminder.batch_action',
+                'translation_domain' => 'messages',
+                'ask_confirmation' => false,
+            );
             $actions['generatesepaxmls'] = array(
                 'label' => 'backend.admin.invoice.batch_action',
                 'translation_domain' => 'messages',
