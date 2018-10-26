@@ -18,6 +18,14 @@
                     paymentDateNode.addClass("hidden");
                 {% endif %}
             {% endif %}
+            {% if form.isSepaXmlGenerated is defined and form.vars.value.isSepaXmlGenerated == 0 %}
+                var sepaXmlGeneratedDateNode = jQuery('#sonata-ba-field-container-{{ form.sepaXmlGeneratedDate.vars.id }}');
+                sepaXmlGeneratedDateNode.addClass("hidden");
+            {% endif %}
+            {% if form.isSended is defined and form.vars.value.isSended == 0 %}
+                var sendDateNode = jQuery('#sonata-ba-field-container-{{ form.sendDate.vars.id }}');
+                sendDateNode.addClass("hidden");
+            {% endif %}
         });
     </script>
 {% endblock %}

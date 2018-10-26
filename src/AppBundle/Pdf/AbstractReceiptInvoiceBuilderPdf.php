@@ -64,7 +64,7 @@ abstract class AbstractReceiptInvoiceBuilderPdf
     protected $locale;
 
     /**
-     * AbstractReceiptInvoicePdfBuilderService constructor.
+     * AbstractReceiptInvoiceBuilderPdf constructor.
      *
      * @param TCPDFController          $tcpdf
      * @param SmartAssetsHelperService $sahs

@@ -4,7 +4,7 @@ namespace AppBundle\Command;
 
 use AppBundle\Entity\Invoice;
 use AppBundle\Service\NotificationService;
-use AppBundle\Service\InvoicePdfBuilderService;
+use AppBundle\Pdf\InvoiceBuilderPdf;
 use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -60,9 +60,9 @@ class DeliverInvoiceByEmailCommand extends ContainerAwareCommand
         $invoice = $this->getContainer()->get('doctrine')->getRepository('AppBundle:Invoice')->find(intval($input->getArgument('invoice')));
         if ($invoice) {
             $output->write('building PDF invoice number '.$invoice->getInvoiceNumber().'... ');
-            /** @var InvoicePdfBuilderService $ips */
-            $ips = $this->getContainer()->get('app.invoice_pdf_builder');
-            $pdf = $ips->build($invoice, true);
+            /** @var InvoiceBuilderPdf $ibp */
+            $ibp = $this->getContainer()->get('app.invoice_pdf_builder');
+            $pdf = $ibp->build($invoice);
             $output->writeln('<info>OK</info>');
             if ($input->getOption('force')) {
                 /** @var Logger $logger */
@@ -81,7 +81,7 @@ class DeliverInvoiceByEmailCommand extends ContainerAwareCommand
                     }
                 } else {
                     $output->writeln('<comment>KO</comment>');
-                    $logger->error('[DIBEC] PDF receipt #'.$invoice->getId().' number '.$invoice->getReceiptNumber().' not delivered. Missing email in '.$invoice->getMainSubject()->getFullCanonicalName().'.');
+                    $logger->error('[DIBEC] PDF receipt #'.$invoice->getId().' number '.$invoice->getInvoiceNumber().' not delivered. Missing email in '.$invoice->getMainSubject()->getFullCanonicalName().'.');
                 }
             }
         } else {

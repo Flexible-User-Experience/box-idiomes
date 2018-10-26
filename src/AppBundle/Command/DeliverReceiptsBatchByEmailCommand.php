@@ -3,8 +3,10 @@
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Receipt;
+use AppBundle\Enum\StudentPaymentEnum;
 use AppBundle\Service\NotificationService;
-use AppBundle\Service\ReceiptPdfBuilderService;
+use AppBundle\Pdf\ReceiptBuilderPdf;
+use AppBundle\Pdf\ReceiptReminderBuilderPdf;
 use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -61,8 +63,10 @@ class DeliverReceiptsBatchByEmailCommand extends ContainerAwareCommand
         if (count($receipts) > 0) {
             /** @var Logger $logger */
             $logger = $this->getContainer()->get('monolog.logger.email');
-            /** @var ReceiptPdfBuilderService $rps */
-            $rps = $this->getContainer()->get('app.receipt_pdf_builder');
+            /** @var ReceiptReminderBuilderPdf $rrbp */
+            $rrbp = $this->getContainer()->get('app.receipt_reminder_pdf_builder');
+            /** @var ReceiptBuilderPdf $rbp */
+            $rbp = $this->getContainer()->get('app.receipt_pdf_builder');
             /** @var NotificationService $messenger */
             $messenger = $this->getContainer()->get('app.notification');
 
@@ -72,13 +76,25 @@ class DeliverReceiptsBatchByEmailCommand extends ContainerAwareCommand
             /** @var Receipt $receipt */
             foreach ($receipts as $receipt) {
                 $output->write('building PDF receipt number '.$receipt->getReceiptNumber().'... ');
-                $pdf = $rps->build($receipt);
+                if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $receipt->getMainSubject()->getPayment()) {
+                    // build receipt PDF
+                    $pdf = $rbp->build($receipt);
+                } else {
+                    // build receipt reminder PDF
+                    $pdf = $rrbp->build($receipt);
+                }
                 $output->writeln('<info>OK</info>');
                 $logger->info('[DRBBEC] PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' succesfully build.');
                 if ($input->getOption('force')) {
                     $output->write('delivering PDF receipt number '.$receipt->getReceiptNumber().'... ');
                     if ($receipt->getMainEmail()) {
-                        $result = $messenger->sendReceiptPdfNotification($receipt, $pdf);
+                        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $receipt->getMainSubject()->getPayment()) {
+                            // send receipt PDF
+                            $result = $messenger->sendReceiptPdfNotification($receipt, $pdf);
+                        } else {
+                            // send receipt reminder PDF
+                            $result = $messenger->sendReceiptReminderPdfNotification($receipt, $pdf);
+                        }
                         if (0 === $result) {
                             $output->writeln('<error>KO</error>');
                             $logger->error('[DRBBEC] delivering PDF receipt #'.$receipt->getId().' number '.$receipt->getReceiptNumber().' failed.');
