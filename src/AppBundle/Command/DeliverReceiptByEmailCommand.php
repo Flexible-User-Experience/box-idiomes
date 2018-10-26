@@ -4,7 +4,7 @@ namespace AppBundle\Command;
 
 use AppBundle\Entity\Receipt;
 use AppBundle\Service\NotificationService;
-use AppBundle\Service\ReceiptPdfBuilderService;
+use AppBundle\Pdf\ReceiptBuilderPdf as ReceiptPdfBuilderService;
 use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
