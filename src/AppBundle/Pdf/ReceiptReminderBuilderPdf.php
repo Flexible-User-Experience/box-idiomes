@@ -47,18 +47,18 @@ class ReceiptReminderBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
 
         /** @var BaseTcpdf $pdf */
         $pdf = $this->tcpdf->create($this->sahs);
-        $subject = $receipt->getMainSubject();
+        $subject = $receipt->getStudent();
 
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor($this->pwt);
-        $pdf->SetTitle($this->ts->trans('backend.admin.receipt.receipt').' '.$receipt->getReceiptNumber());
-        $pdf->SetSubject($this->ts->trans('backend.admin.invoice.detail').' '.$this->ts->trans('backend.admin.invoice.invoice').' '.$receipt->getReceiptNumber());
+        $pdf->SetTitle($this->ts->trans('backend.admin.receipt_reminder.title').' '.$receipt->getReceiptNumber());
+        $pdf->SetSubject($this->ts->trans('backend.admin.invoice.detail').' '.$this->ts->trans('backend.admin.receipt_reminder.title').' '.$receipt->getReceiptNumber());
         // set default font subsetting mode
         $pdf->setFontSubsetting(true);
         // remove default header/footer
-        $pdf->setPrintHeader(true);
-        $pdf->setPrintFooter(true);
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
         // set default monospaced font
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
         // set margins
@@ -68,70 +68,64 @@ class ReceiptReminderBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         // Add start page
         $pdf->AddPage('L', 'A5', true, true);
-        $pdf->SetXY(BaseTcpdf::PDF_A5_MARGIN_LEFT, BaseTcpdf::PDF_A5_MARGIN_TOP);
+
+        // logo
+        $pdf->Image($this->sahs->getAbsoluteAssetFilePath('/bundles/app/img/logo-pdf.png'), BaseTcpdf::PDF_A5_MARGIN_LEFT, BaseTcpdf::PDF_A5_MARGIN_TOP, 40);
+        $pdf->SetXY(BaseTcpdf::PDF_A5_MARGIN_LEFT, BaseTcpdf::PDF_A5_MARGIN_TOP * 2 + BaseTcpdf::MARGIN_VERTICAL_SMALL);
 
         // invoice header
-        $column2Gap = 114;
-        $pdf->setFontStyle(null, 'B', 9);
-        $pdf->Write(0, $this->ts->trans('backend.admin.receipt.pdf.receipt_data_head'), '', false, 'L', false);
-        $pdf->SetX($column2Gap);
-        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.customer_data'), '', false, 'L', true);
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
-        $pdf->setFontStyle(null, '', 9);
-
-        $pdf->Write(0, $this->ts->trans('backend.admin.receipt.pdf.receipt_number').' '.$receipt->getReceiptNumber(), '', false, 'L', false);
-        $pdf->SetX($column2Gap);
+        $pdf->setFontStyle(null, '', 11);
+        $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.greetings').' ', '', false, 'L', false);
+        $pdf->setFontStyle(null, 'B', 11);
         $pdf->Write(0, $subject->getFullName(), '', false, 'L', true);
-
-        $pdf->Write(0, $this->ts->trans('backend.admin.receipt.pdf.receipt_date').' '.$receipt->getDateString(), '', false, 'L', false);
-        $pdf->SetX($column2Gap);
-        $pdf->Write(0, $subject->getDni(), '', false, 'L', true);
-
-        $pdf->Write(0, $this->ts->trans('Alumne').': '.$receipt->getStudent()->getFullName(), '', false, 'L', false);
-        $pdf->SetX($column2Gap);
-        $pdf->Write(0, $subject->getAddress(), '', false, 'L', true);
-
-        $pdf->SetX($column2Gap);
-        $pdf->Write(0, $subject->getCity()->getCanonicalPostalString(), '', false, 'L', true);
-
-        // TODO draw SVG
-        // $pdf->drawSvg(30, 30, 30, 30);
-
-        // horitzonal divider
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG * 3);
-        $pdf->drawInvoiceLineSeparator($pdf->GetY());
+        $pdf->setFontStyle(null, '', 11);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
-        // receipt table header
-        $verticalTableGapSmall = 8;
-
-        // horitzonal divider
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
-        $pdf->drawInvoiceLineSeparator($pdf->GetY());
+        $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.first_paragraph'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
-        $pdf->setFontStyle(null, 'B', 9);
-        $pdf->MultiCell(135, $verticalTableGapSmall, strtoupper($this->ts->trans('backend.admin.invoiceLine.total')), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-        $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatMoneyFormat($receipt->getBaseAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
-        $pdf->setFontStyle(null, '', 9);
+        $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.second_paragraph'), '', false, 'L', true);
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG * 2);
+
+        $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.third_paragraph'), '', false, 'L', true);
+        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG * 0.5);
+
+        $pdf->Write(0, $this->bn, '', false, 'L', true);
+
+//
+//        $pdf->Write(0, $this->ts->trans('backend.admin.receipt.pdf.receipt_date').' '.$receipt->getDateString(), '', false, 'L', false);
+//        $pdf->SetX($column2Gap);
+//        $pdf->Write(0, $subject->getDni(), '', false, 'L', true);
+//
+//        $pdf->Write(0, $this->ts->trans('Alumne').': '.$receipt->getStudent()->getFullName(), '', false, 'L', false);
+//        $pdf->SetX($column2Gap);
+//        $pdf->Write(0, $subject->getAddress(), '', false, 'L', true);
+//
+//        $pdf->SetX($column2Gap);
+//        $pdf->Write(0, $subject->getCity()->getCanonicalPostalString(), '', false, 'L', true);
+
+//        $pdf->setFontStyle(null, 'B', 9);
+//        $pdf->MultiCell(135, $verticalTableGapSmall, strtoupper($this->ts->trans('backend.admin.invoiceLine.total')), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
+//        $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatMoneyFormat($receipt->getBaseAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+//        $pdf->setFontStyle(null, '', 9);
 
         // horitzonal divider
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL + 1);
-        $pdf->drawInvoiceLineSeparator($pdf->GetY());
-        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG + $verticalTableGapSmall);
+//        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL + 1);
+//        $pdf->drawInvoiceLineSeparator($pdf->GetY());
+//        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG + $verticalTableGapSmall);
 
         // payment method
-        $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment_type').' '.strtoupper($this->ts->trans(StudentPaymentEnum::getEnumArray()[$subject->getPayment()])), '', false, 'L', true);
-        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $subject->getPayment()) {
-            // SEPA direct debit
-            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.account_number').' '.$subject->getBank()->getAccountNumber(), '', false, 'L', true);
-        } elseif (StudentPaymentEnum::CASH == $subject->getPayment()) {
-            // cash
-            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.cash'), '', false, 'L', true);
-        } elseif (StudentPaymentEnum::BANK_TRANSFER == $subject->getPayment()) {
-            // bank transfer
-            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.bank_transfer').' '.$this->ib, '', false, 'L', true);
-        }
+//        $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment_type').' '.strtoupper($this->ts->trans(StudentPaymentEnum::getEnumArray()[$subject->getPayment()])), '', false, 'L', true);
+//        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $subject->getPayment()) {
+//            // SEPA direct debit
+//            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.account_number').' '.$subject->getBank()->getAccountNumber(), '', false, 'L', true);
+//        } elseif (StudentPaymentEnum::CASH == $subject->getPayment()) {
+//            // cash
+//            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.cash'), '', false, 'L', true);
+//        } elseif (StudentPaymentEnum::BANK_TRANSFER == $subject->getPayment()) {
+//            // bank transfer
+//            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.bank_transfer').' '.$this->ib, '', false, 'L', true);
+//        }
 
         return $pdf;
     }
