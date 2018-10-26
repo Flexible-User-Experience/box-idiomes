@@ -6,8 +6,6 @@ namespace AppBundle\Enum;
  * Class ReceiptYearMonthEnum.
  *
  * @category Enum
- *
- * @author   David Romaní <david@flux.cat>
  */
 class ReceiptYearMonthEnum
 {
@@ -97,9 +95,9 @@ class ReceiptYearMonthEnum
         $result = array();
         $now = new \DateTime();
         $currentYear = intval($now->format('Y'));
-//        TODO
-//        $firstYearAvailable = $currentYear + 1;
-//        $result["$firstYearAvailable"] = $firstYearAvailable;
+        if (12 == intval($now->format('m'))) {
+            ++$currentYear;
+        }
         $steps = $currentYear - self::APP_FIRST_YEAR + 1;
         for ($i = 0; $i < $steps; ++$i) {
             $year = $currentYear - $i;
