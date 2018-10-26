@@ -54,7 +54,7 @@ class ReceiptBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor($this->pwt);
         $pdf->SetTitle($this->ts->trans('backend.admin.receipt.receipt').' '.$receipt->getReceiptNumber());
-        $pdf->SetSubject($this->ts->trans('backend.admin.invoice.detail').' '.$this->ts->trans('backend.admin.invoice.invoice').' '.$receipt->getReceiptNumber());
+        $pdf->SetSubject($this->ts->trans('backend.admin.invoice.detail').' '.$this->ts->trans('backend.admin.receipt.receipt').' '.$receipt->getReceiptNumber());
         // set default font subsetting mode
         $pdf->setFontSubsetting(true);
         // remove default header/footer

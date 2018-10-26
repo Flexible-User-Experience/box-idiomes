@@ -168,6 +168,19 @@ services:
             - "@translator.default"
             - "%project_web_title%"
             - "%boss_name%"
+    app.receipt_reminder_pdf_builder:
+        class: AppBundle\Pdf\ReceiptReminderBuilderPdf
+        arguments:
+            - "@white_october.tcpdf"
+            - "@app.smart_assets_helper"
+            - "@translator.default"
+            - "%project_web_title%"
+            - "%boss_name%"
+            - "%boss_dni%"
+            - "%boss_address%"
+            - "%boss_city%"
+            - "%iban_business%"
+            - "%locale%"
     app.receipt_pdf_builder:
         class: AppBundle\Pdf\ReceiptBuilderPdf
         arguments:

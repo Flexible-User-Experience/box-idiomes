@@ -208,6 +208,33 @@ class NotificationService
     }
 
     /**
+     * Send attached remainder receipt PDF to customer.
+     *
+     * @param Receipt $receipt
+     * @param \TCPDF  $pdf
+     *
+     * @return int If is 0 failure otherwise amount of recipients
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function sendReceiptReminderPdfNotification(Receipt $receipt, \TCPDF $pdf)
+    {
+        return $this->messenger->sendEmailWithPdfAttached(
+            $this->amd,
+            $receipt->getMainEmail(),
+            $receipt->getMainEmailName(),
+            'Recordatori de pagament rebut Box Idiomes núm. '.$receipt->getReceiptNumber(),
+            $this->twig->render(':Mails:receipt_reminder_pdf_notification.html.twig', array(
+                'receipt' => $receipt,
+            )),
+            'receipt_'.$receipt->getSluggedReceiptNumber().'.pdf',
+            $pdf
+        );
+    }
+
+    /**
      * Send attached receipt PDF to customer.
      *
      * @param Receipt $receipt

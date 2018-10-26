@@ -43,6 +43,8 @@ class ReceiptAdmin extends AbstractBaseAdmin
             ->add('generate')
             ->add('creator')
             ->add('createInvoice', $this->getRouterIdParameter().'/create-invoice')
+            ->add('reminder', $this->getRouterIdParameter().'/reminder-pdf')
+            ->add('sendReminder', $this->getRouterIdParameter().'/reminder-send')
             ->add('pdf', $this->getRouterIdParameter().'/pdf')
             ->add('send', $this->getRouterIdParameter().'/send')
             ->add('generateDirectDebit', $this->getRouterIdParameter().'/generate-direct-debit-xml')
@@ -58,6 +60,11 @@ class ReceiptAdmin extends AbstractBaseAdmin
     public function configureBatchActions($actions)
     {
         if ($this->hasRoute('edit') && $this->hasAccess('edit')) {
+            $actions['generatereminderspdf'] = array(
+                'label' => 'backend.admin.receipt_reminder.batch_action',
+                'translation_domain' => 'messages',
+                'ask_confirmation' => false,
+            );
             $actions['generatesepaxmls'] = array(
                 'label' => 'backend.admin.invoice.batch_action',
                 'translation_domain' => 'messages',
@@ -515,6 +522,8 @@ class ReceiptAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'reminder' => array('template' => '::Admin/Buttons/list__action_receipt_reminder_button.html.twig'),
+                        'sendReminder' => array('template' => '::Admin/Buttons/list__action_receipt_reminder_send_button.html.twig'),
                         'pdf' => array('template' => '::Admin/Buttons/list__action_receipt_pdf_button.html.twig'),
                         'send' => array('template' => '::Admin/Buttons/list__action_receipt_send_button.html.twig'),
                         'createInvoice' => array('template' => '::Admin/Buttons/list__action_receipt_create_invoice_button.html.twig'),

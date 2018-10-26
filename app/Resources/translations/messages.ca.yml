@@ -265,6 +265,17 @@ backend:
             city: Ciutat
             payment: Pagament
             bank: Banc
+        receipt_reminder:
+            list_button: "Recordatori pagament"
+            batch_action: "Generar recordatoris de pagament del elements seleccionats"
+            title: "Recordatori rebut"
+            greetings: "Benvolgut alumne/a"
+            first_paragraph: "Us recordem que el pagament mensual en efectiu s'ha de fer durant la primera setmana del mes en curs."
+            second_paragraph_1: "A dia "
+            second_paragraph_2: " esteu pendents de pagament del rebut número "
+            second_paragraph_3: ", del mes "
+            second_paragraph_4: ", amb una quantitat de "
+            third_paragraph: "Atentament,"
         receipt:
             receipt: Rebut
             date: Data

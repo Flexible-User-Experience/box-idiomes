@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Enum\InvoiceYearMonthEnum;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -405,6 +406,14 @@ abstract class AbstractReceiptInvoice extends AbstractBase
     public function getMonth()
     {
         return $this->month;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMonthNameString()
+    {
+        return InvoiceYearMonthEnum::getTranslatedMonthEnumArray()[$this->getMonth()];
     }
 
     /**

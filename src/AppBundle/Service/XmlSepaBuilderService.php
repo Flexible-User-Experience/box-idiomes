@@ -111,8 +111,10 @@ class XmlSepaBuilderService
         $this->addPaymentInfo($directDebit, $paymentId, $dueDate);
         /** @var Receipt $receipt */
         foreach ($receipts as $receipt) {
-            $this->validate($receipt);
-            $this->addTransfer($directDebit, $paymentId, $receipt);
+            if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $receipt->getMainSubject()->getPayment() && !$receipt->getStudent()->getIsPaymentExempt()) {
+                $this->validate($receipt);
+                $this->addTransfer($directDebit, $paymentId, $receipt);
+            }
         }
 
         return $directDebit->asXML();
@@ -154,8 +156,10 @@ class XmlSepaBuilderService
         $this->addPaymentInfo($directDebit, $paymentId, $dueDate);
         /** @var Invoice $invoice */
         foreach ($invoices as $invoice) {
-            $this->validate($invoice);
-            $this->addTransfer($directDebit, $paymentId, $invoice);
+            if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $invoice->getMainSubject()->getPayment() && !$invoice->getStudent()->getIsPaymentExempt()) {
+                $this->validate($invoice);
+                $this->addTransfer($directDebit, $paymentId, $invoice);
+            }
         }
 
         return $directDebit->asXML();

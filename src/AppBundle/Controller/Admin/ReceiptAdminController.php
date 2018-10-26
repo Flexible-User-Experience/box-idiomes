@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Controller\DefaultController;
 use AppBundle\Entity\Receipt;
+use AppBundle\Enum\StudentPaymentEnum;
 use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Form\Type\GenerateReceiptType;
 use AppBundle\Form\Type\GenerateReceiptYearMonthChooserType;
@@ -147,6 +149,82 @@ class ReceiptAdminController extends BaseAdminController
     }
 
     /**
+     * Generate PDF reminder receipt action.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     *
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws AccessDeniedException If access is not granted
+     */
+    public function reminderAction(Request $request)
+    {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Receipt $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
+        }
+        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $object->getMainSubject()->getPayment()) {
+            throw $this->createNotFoundException(sprintf('invalid payment type for object with id: %s', $id));
+        }
+
+        /** @var ReceiptBuilderPdf $rps */
+        $rps = $this->container->get('app.receipt_reminder_pdf_builder');
+        $pdf = $rps->build($object);
+
+        return new Response($pdf->Output('box_idiomes_receipt_reminder_'.$object->getSluggedReceiptNumber().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
+    }
+
+    /**
+     * Send PDF reminder receipt action.
+     *
+     * @param Request $request
+     *
+     * @return RedirectResponse
+     *
+     * @throws NotFoundHttpException If the object does not exist
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function sendReminderAction(Request $request)
+    {
+        $request = $this->resolveRequest($request);
+        $id = $request->get($this->admin->getIdParameter());
+
+        /** @var Receipt $object */
+        $object = $this->admin->getObject($id);
+        if (!$object) {
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
+        }
+        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $object->getMainSubject()->getPayment()) {
+            throw $this->createNotFoundException(sprintf('invalid payment type for object with id: %s', $id));
+        }
+
+        /** @var ReceiptBuilderPdf $rps */
+        $rps = $this->container->get('app.receipt_reminder_pdf_builder');
+        $pdf = $rps->build($object);
+
+        /** @var NotificationService $messenger */
+        $messenger = $this->container->get('app.notification');
+        $result = $messenger->sendReceiptReminderPdfNotification($object, $pdf);
+
+        if (0 === $result) {
+            /* @var Controller $this */
+            $this->addFlash('danger', 'S\'ha produït un error durant l\'enviament del recordatori de pagament del rebut núm. '.$object->getReceiptNumber().'. La persona '.$object->getMainEmailName().' no ha rebut cap missatge a la seva bústia.');
+        } else {
+            /* @var Controller $this */
+            $this->addFlash('success', 'S\'ha enviat el recordatori de pagament del rebut núm. '.$object->getReceiptNumber().' amb PDF a la bústia '.$object->getMainEmail());
+        }
+
+        return $this->redirectToList();
+    }
+
+    /**
      * Generate PDF receipt action.
      *
      * @param Request $request
@@ -256,7 +334,7 @@ class ReceiptAdminController extends BaseAdminController
         $em = $this->container->get('doctrine')->getManager();
         $em->flush();
 
-        if ('dev' == $this->getParameter('kernel.environment')) {
+        if (DefaultController::ENV_DEV == $this->getParameter('kernel.environment')) {
             return new Response($xml, 200, array('Content-type' => 'application/xml'));
         }
 
@@ -291,14 +369,16 @@ class ReceiptAdminController extends BaseAdminController
 
             /** @var Receipt $selectedModel */
             foreach ($selectedModels as $selectedModel) {
-                $selectedModel
-                    ->setIsSepaXmlGenerated(true)
-                    ->setSepaXmlGeneratedDate(new \DateTime())
-                ;
+                if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $selectedModel->getMainSubject()->getPayment() && !$selectedModel->getStudent()->getIsPaymentExempt()) {
+                    $selectedModel
+                        ->setIsSepaXmlGenerated(true)
+                        ->setSepaXmlGeneratedDate(new \DateTime())
+                    ;
+                }
             }
             $em->flush();
 
-            if ('dev' == $this->getParameter('kernel.environment')) {
+            if (DefaultController::ENV_DEV == $this->getParameter('kernel.environment')) {
                 return new Response($xmls, 200, array('Content-type' => 'application/xml'));
             }
 

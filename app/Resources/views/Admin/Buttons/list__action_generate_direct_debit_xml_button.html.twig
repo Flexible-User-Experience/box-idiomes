@@ -1,4 +1,4 @@
-{% if app.environment == 'dev' %}
+{% if app.environment == constant('AppBundle\\Controller\\DefaultController::ENV_DEV') and object.mainSubject.payment == constant('AppBundle\\Enum\\StudentPaymentEnum::BANK_ACCOUNT_NUMBER') and not object.student.isPaymentExempt %}
     <a class="btn btn-sm btn-default" href="{{ admin.generateObjectUrl('generateDirectDebit', object) }}" title="{{ 'backend.admin.invoice.generate_direct_debit_xml' | trans }}">
         <i class="fa fa-file-excel-o"></i>
     </a>
