@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Controller\DefaultController;
 use AppBundle\Entity\Receipt;
 use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Form\Type\GenerateReceiptType;
@@ -284,7 +285,7 @@ class ReceiptAdminController extends BaseAdminController
         $em = $this->container->get('doctrine')->getManager();
         $em->flush();
 
-        if ('dev' == $this->getParameter('kernel.environment')) {
+        if (DefaultController::ENV_DEV == $this->getParameter('kernel.environment')) {
             return new Response($xml, 200, array('Content-type' => 'application/xml'));
         }
 
@@ -326,7 +327,7 @@ class ReceiptAdminController extends BaseAdminController
             }
             $em->flush();
 
-            if ('dev' == $this->getParameter('kernel.environment')) {
+            if (DefaultController::ENV_DEV == $this->getParameter('kernel.environment')) {
                 return new Response($xmls, 200, array('Content-type' => 'application/xml'));
             }
 

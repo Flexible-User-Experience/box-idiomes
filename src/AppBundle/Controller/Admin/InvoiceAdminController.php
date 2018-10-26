@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Controller\DefaultController;
 use AppBundle\Entity\Invoice;
 use AppBundle\Form\Model\GenerateInvoiceModel;
 use AppBundle\Form\Type\GenerateInvoiceType;
@@ -218,7 +219,7 @@ class InvoiceAdminController extends BaseAdminController
         $em = $this->container->get('doctrine')->getManager();
         $em->flush();
 
-        if ('dev' == $this->getParameter('kernel.environment')) {
+        if (DefaultController::ENV_DEV == $this->getParameter('kernel.environment')) {
             return new Response($xml, 200, array('Content-type' => 'application/xml'));
         }
 
@@ -260,7 +261,7 @@ class InvoiceAdminController extends BaseAdminController
             }
             $em->flush();
 
-            if ('dev' == $this->getParameter('kernel.environment')) {
+            if (DefaultController::ENV_DEV == $this->getParameter('kernel.environment')) {
                 return new Response($xmls, 200, array('Content-type' => 'application/xml'));
             }
 

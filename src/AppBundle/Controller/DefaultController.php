@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class DefaultController extends Controller
 {
+    const ENV_DEV = 'dev';
+
     /**
      * @Route("/", name="app_homepage")
      *
