@@ -95,7 +95,7 @@ class ReceiptYearMonthEnum
         $result = array();
         $now = new \DateTime();
         $currentYear = intval($now->format('Y'));
-        if (12 == intval($now->format('m'))) {
+        if (12 == intval($now->format('m')) && 15 < intval($now->format('d'))) {
             ++$currentYear;
         }
         $steps = $currentYear - self::APP_FIRST_YEAR + 1;
