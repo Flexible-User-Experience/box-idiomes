@@ -273,7 +273,6 @@ backend:
             second_paragraph_2: " esteu pendents de pagament del rebut número "
             second_paragraph_3: ", del mes "
             second_paragraph_4: ", amb una quantitat de "
-            second_paragraph_5: " euros."
             third_paragraph: "Atentament,"
         receipt:
             receipt: Rebut

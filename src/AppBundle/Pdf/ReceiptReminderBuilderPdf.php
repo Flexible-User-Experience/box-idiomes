@@ -3,7 +3,6 @@
 namespace AppBundle\Pdf;
 
 use AppBundle\Entity\Receipt;
-use AppBundle\Enum\StudentPaymentEnum;
 use AppBundle\Service\SmartAssetsHelperService;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use WhiteOctober\TCPDFBundle\Controller\TCPDFController;
@@ -98,50 +97,14 @@ class ReceiptReminderBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $pdf->setFontStyle(null, '', 11);
         $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.second_paragraph_4'), '', false, 'L', false);
         $pdf->setFontStyle(null, 'B', 11);
-        $pdf->Write(0, 'XXX', '', false, 'L', false);
+        $pdf->Write(0, $receipt->getBaseAmountString(), '', false, 'L', false);
         $pdf->setFontStyle(null, '', 11);
-        $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.second_paragraph_5'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG * 2);
 
         $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.third_paragraph'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG * 0.5);
 
         $pdf->Write(0, $this->bn, '', false, 'L', true);
-
-//
-//        $pdf->Write(0, $this->ts->trans('backend.admin.receipt.pdf.receipt_date').' '.$receipt->getDateString(), '', false, 'L', false);
-//        $pdf->SetX($column2Gap);
-//        $pdf->Write(0, $subject->getDni(), '', false, 'L', true);
-//
-//        $pdf->Write(0, $this->ts->trans('Alumne').': '.$receipt->getStudent()->getFullName(), '', false, 'L', false);
-//        $pdf->SetX($column2Gap);
-//        $pdf->Write(0, $subject->getAddress(), '', false, 'L', true);
-//
-//        $pdf->SetX($column2Gap);
-//        $pdf->Write(0, $subject->getCity()->getCanonicalPostalString(), '', false, 'L', true);
-
-//        $pdf->setFontStyle(null, 'B', 9);
-//        $pdf->MultiCell(135, $verticalTableGapSmall, strtoupper($this->ts->trans('backend.admin.invoiceLine.total')), 0, 'R', 0, 0, '', '', true, 0, false, true, 0, 'M');
-//        $pdf->MultiCell(15, $verticalTableGapSmall, $this->floatMoneyFormat($receipt->getBaseAmount()), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
-//        $pdf->setFontStyle(null, '', 9);
-
-        // horitzonal divider
-//        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL + 1);
-//        $pdf->drawInvoiceLineSeparator($pdf->GetY());
-//        $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG + $verticalTableGapSmall);
-
-        // payment method
-//        $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment_type').' '.strtoupper($this->ts->trans(StudentPaymentEnum::getEnumArray()[$subject->getPayment()])), '', false, 'L', true);
-//        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $subject->getPayment()) {
-//            // SEPA direct debit
-//            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.account_number').' '.$subject->getBank()->getAccountNumber(), '', false, 'L', true);
-//        } elseif (StudentPaymentEnum::CASH == $subject->getPayment()) {
-//            // cash
-//            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.cash'), '', false, 'L', true);
-//        } elseif (StudentPaymentEnum::BANK_TRANSFER == $subject->getPayment()) {
-//            // bank transfer
-//            $pdf->Write(7, $this->ts->trans('backend.admin.invoice.pdf.payment.bank_transfer').' '.$this->ib, '', false, 'L', true);
-//        }
 
         return $pdf;
     }
