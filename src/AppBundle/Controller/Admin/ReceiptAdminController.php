@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\DefaultController;
 use AppBundle\Entity\Receipt;
+use AppBundle\Enum\StudentPaymentEnum;
 use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Form\Type\GenerateReceiptType;
 use AppBundle\Form\Type\GenerateReceiptYearMonthChooserType;
@@ -166,6 +167,9 @@ class ReceiptAdminController extends BaseAdminController
         $object = $this->admin->getObject($id);
         if (!$object) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
+        }
+        if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER == $object->getMainSubject()->getPayment()) {
+            throw $this->createNotFoundException(sprintf('invalid payment type for object with id: %s', $id));
         }
 
         /** @var ReceiptBuilderPdf $rps */
