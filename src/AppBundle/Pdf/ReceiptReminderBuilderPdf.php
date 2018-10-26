@@ -84,7 +84,23 @@ class ReceiptReminderBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.first_paragraph'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
-        $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.second_paragraph'), '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.second_paragraph_1'), '', false, 'L', false);
+        $pdf->setFontStyle(null, 'B', 11);
+        $pdf->Write(0, (new \DateTime())->format('d/m/Y'), '', false, 'L', false);
+        $pdf->setFontStyle(null, '', 11);
+        $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.second_paragraph_2'), '', false, 'L', false);
+        $pdf->setFontStyle(null, 'B', 11);
+        $pdf->Write(0, $receipt->getReceiptNumber(), '', false, 'L', false);
+        $pdf->setFontStyle(null, '', 11);
+        $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.second_paragraph_3'), '', false, 'L', false);
+        $pdf->setFontStyle(null, 'B', 11);
+        $pdf->Write(0, $receipt->getMonthNameString(), '', false, 'L', false);
+        $pdf->setFontStyle(null, '', 11);
+        $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.second_paragraph_4'), '', false, 'L', false);
+        $pdf->setFontStyle(null, 'B', 11);
+        $pdf->Write(0, 'XXX', '', false, 'L', false);
+        $pdf->setFontStyle(null, '', 11);
+        $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.second_paragraph_5'), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG * 2);
 
         $pdf->Write(0, $this->ts->trans('backend.admin.receipt_reminder.third_paragraph'), '', false, 'L', true);

@@ -11,7 +11,6 @@ use AppBundle\Entity\Teacher;
 use AppBundle\Entity\TeacherAbsence;
 use AppBundle\Entity\User;
 use AppBundle\Enum\EventClassroomTypeEnum;
-use AppBundle\Enum\InvoiceYearMonthEnum;
 use AppBundle\Enum\TariffTypeEnum;
 use AppBundle\Enum\TeacherAbsenceTypeEnum;
 use AppBundle\Enum\TeacherColorEnum;
@@ -237,7 +236,7 @@ class AppExtension extends \Twig_Extension
      */
     public function drawInvoiceMonth($object)
     {
-        return InvoiceYearMonthEnum::getTranslatedMonthEnumArray()[$object->getMonth()];
+        return $object->getMonthNameString();
     }
 
     /**

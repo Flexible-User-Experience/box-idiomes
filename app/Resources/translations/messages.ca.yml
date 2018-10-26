@@ -269,7 +269,11 @@ backend:
             title: "Recordatori rebut"
             greetings: "Benvolgut alumne/a"
             first_paragraph: "Us recordem que el pagament mensual en efectiu s'ha de fer durant la primera setmana del mes en curs."
-            second_paragraph: "A dia %day% esteu pendents de pagament del mes %month%, amb una quantitat de %amount% euros."
+            second_paragraph_1: "A dia "
+            second_paragraph_2: " esteu pendents de pagament del rebut número "
+            second_paragraph_3: ", del mes "
+            second_paragraph_4: ", amb una quantitat de "
+            second_paragraph_5: " euros."
             third_paragraph: "Atentament,"
         receipt:
             receipt: Rebut
