@@ -6,8 +6,6 @@ namespace AppBundle\Enum;
  * Class TariffTypeEnum.
  *
  * @category Enum
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class TariffTypeEnum
 {

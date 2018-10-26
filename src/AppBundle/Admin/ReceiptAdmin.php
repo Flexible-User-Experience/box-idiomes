@@ -187,62 +187,67 @@ class ReceiptAdmin extends AbstractBaseAdmin
                     'disabled' => false,
                 )
             )
-            ->add(
-                'isSepaXmlGenerated',
-                CheckboxType::class,
-                array(
-                    'label' => 'backend.admin.receipt.isSepaXmlGenerated',
-                    'required' => false,
-                    'disabled' => true,
+        ;
+        if (($this->id($this->getSubject()) && !$this->getSubject()->getStudent()->isPaymentExempt()) || !$this->id($this->getSubject())) {
+            $formMapper
+                ->add(
+                    'isSepaXmlGenerated',
+                    CheckboxType::class,
+                    array(
+                        'label' => 'backend.admin.receipt.isSepaXmlGenerated',
+                        'required' => false,
+                        'disabled' => true,
+                    )
                 )
-            )
-            ->add(
-                'sepaXmlGeneratedDate',
-                DatePickerType::class,
-                array(
-                    'label' => 'backend.admin.receipt.sepaXmlGeneratedDate',
-                    'format' => 'd/M/y',
-                    'required' => false,
-                    'disabled' => true,
+                ->add(
+                    'sepaXmlGeneratedDate',
+                    DatePickerType::class,
+                    array(
+                        'label' => 'backend.admin.receipt.sepaXmlGeneratedDate',
+                        'format' => 'd/M/y',
+                        'required' => false,
+                        'disabled' => true,
+                    )
                 )
-            )
-            ->add(
-                'isSended',
-                CheckboxType::class,
-                array(
-                    'label' => 'backend.admin.receipt.isSended',
-                    'required' => false,
-                    'disabled' => true,
+                ->add(
+                    'isSended',
+                    CheckboxType::class,
+                    array(
+                        'label' => 'backend.admin.receipt.isSended',
+                        'required' => false,
+                        'disabled' => true,
+                    )
                 )
-            )
-            ->add(
-                'sendDate',
-                DatePickerType::class,
-                array(
-                    'label' => 'backend.admin.invoice.sendDate',
-                    'format' => 'd/M/y',
-                    'required' => false,
-                    'disabled' => true,
+                ->add(
+                    'sendDate',
+                    DatePickerType::class,
+                    array(
+                        'label' => 'backend.admin.invoice.sendDate',
+                        'format' => 'd/M/y',
+                        'required' => false,
+                        'disabled' => true,
+                    )
                 )
-            )
-            ->add(
-                'isPayed',
-                CheckboxType::class,
-                array(
-                    'label' => 'backend.admin.receipt.isPayed',
-                    'required' => false,
+                ->add(
+                    'isPayed',
+                    CheckboxType::class,
+                    array(
+                        'label' => 'backend.admin.receipt.isPayed',
+                        'required' => false,
+                    )
                 )
-            )
-            ->add(
-                'paymentDate',
-                DatePickerType::class,
-                array(
-                    'label' => 'backend.admin.invoice.paymentDate',
-                    'format' => 'd/M/y',
-                    'required' => false,
+                ->add(
+                    'paymentDate',
+                    DatePickerType::class,
+                    array(
+                        'label' => 'backend.admin.invoice.paymentDate',
+                        'format' => 'd/M/y',
+                        'required' => false,
+                    )
                 )
-            )
-            ->end();
+            ;
+        }
+        $formMapper->end();
         if ($this->id($this->getSubject())) { // is edit mode, disable on new subjetcs
             $formMapper
                 ->with('backend.admin.receipt.lines', $this->getFormMdSuccessBoxArray(12))

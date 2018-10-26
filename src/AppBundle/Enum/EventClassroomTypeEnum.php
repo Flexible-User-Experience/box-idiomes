@@ -6,8 +6,6 @@ namespace AppBundle\Enum;
  * Class EventClassroomTypeEnum.
  *
  * @category Enum
- *
- * @author   Wils Iglesias <wiglesias83@gmail.com>
  */
 class EventClassroomTypeEnum
 {
