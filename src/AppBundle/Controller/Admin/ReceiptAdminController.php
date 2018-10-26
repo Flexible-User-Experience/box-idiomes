@@ -9,6 +9,7 @@ use AppBundle\Form\Model\GenerateReceiptModel;
 use AppBundle\Form\Type\GenerateReceiptType;
 use AppBundle\Form\Type\GenerateReceiptYearMonthChooserType;
 use AppBundle\Manager\GenerateReceiptFormManager;
+use AppBundle\Pdf\ReceiptReminderBuilderPdf;
 use AppBundle\Service\NotificationService;
 use AppBundle\Pdf\ReceiptBuilderPdf;
 use AppBundle\Service\XmlSepaBuilderService;
@@ -348,6 +349,43 @@ class ReceiptAdminController extends BaseAdminController
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);
 
         return $response;
+    }
+
+    /**
+     * @param ProxyQueryInterface $selectedModelQuery
+     *
+     * @return Response|RedirectResponse
+     */
+    public function batchActionGeneratereminderspdf(ProxyQueryInterface $selectedModelQuery)
+    {
+        $this->admin->checkAccess('edit');
+        $selectedModels = $selectedModelQuery->execute();
+
+        try {
+            /** @var ReceiptReminderBuilderPdf $rps */
+            $rrps = $this->container->get('app.receipt_reminder_pdf_builder');
+            $pdf = $rrps->buildBatchReminder();
+
+            /** @var Receipt $selectedModel */
+            foreach ($selectedModels as $selectedModel) {
+                if (StudentPaymentEnum::BANK_ACCOUNT_NUMBER != $selectedModel->getMainSubject()->getPayment() && !$selectedModel->getStudent()->getIsPaymentExempt()) {
+                    // add page
+                    $pdf->AddPage('L', 'A5', true, true);
+                    $rrps->buildReceiptRemainderPageForItem($pdf, $selectedModel);
+                }
+            }
+
+            return new Response($pdf->Output('box_idiomes_receipt_reminders.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'S\'ha produït un error al generar l\'arxiu de recordatoris de pagaments de rebut amb format PDF. Revisa els rebuts seleccionats.');
+            $this->addFlash('error', $e->getMessage());
+
+            return new RedirectResponse(
+                $this->admin->generateUrl('list', [
+                    'filter' => $this->admin->getFilterParameters(),
+                ])
+            );
+        }
     }
 
     /**
