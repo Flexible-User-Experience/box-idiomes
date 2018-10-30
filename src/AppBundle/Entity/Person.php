@@ -79,8 +79,16 @@ class Person extends AbstractPerson
     /**
      * @return int
      */
-    public function getExtraSonsAmount()
+    public function getEnabledSonsAmount()
     {
-        return $this->getSonsAmount() - 1;
+        $result = 0;
+        /** @var Student $student */
+        foreach ($this->getStudents() as $student) {
+            if ($student->getEnabled() && !$student->getIsPaymentExempt()) {
+                ++$result;
+            }
+        }
+
+        return $result;
     }
 }
