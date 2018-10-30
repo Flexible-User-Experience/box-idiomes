@@ -79,14 +79,6 @@ class Person extends AbstractPerson
     /**
      * @return int
      */
-    public function getExtraSonsAmount()
-    {
-        return $this->getSonsAmount() - 1;
-    }
-
-    /**
-     * @return int
-     */
     public function getEnabledSonsAmount()
     {
         $result = 0;
@@ -98,13 +90,5 @@ class Person extends AbstractPerson
         }
 
         return $result;
-    }
-
-    /**
-     * @return int
-     */
-    public function getEnabledExtraSonsAmount()
-    {
-        return $this->getEnabledSonsAmount() - 1;
     }
 }
