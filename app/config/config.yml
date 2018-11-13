@@ -85,7 +85,7 @@ doctrine:
         dql:
             datetime_functions:
                 month: DoctrineExtensions\Query\Mysql\Month
-                year:   DoctrineExtensions\Query\Mysql\Year
+                year:  DoctrineExtensions\Query\Mysql\Year
 
 doctrine_migrations:
     dir_name:  "%kernel.root_dir%/../src/AppBundle/DoctrineMigrations"
