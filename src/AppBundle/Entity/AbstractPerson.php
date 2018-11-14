@@ -98,6 +98,14 @@ abstract class AbstractPerson extends AbstractBase
     }
 
     /**
+     * @return string
+     */
+    public function getDischargeDateString()
+    {
+        return $this->getDischargeDate()->format('d/m/Y');
+    }
+
+    /**
      * @param \DateTime $dischargeDate
      *
      * @return $this

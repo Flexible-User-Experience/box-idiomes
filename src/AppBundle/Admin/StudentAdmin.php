@@ -177,6 +177,15 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'dischargeDate',
+                DatePickerType::class,
+                array(
+                    'label' => 'backend.admin.student.dischargeDate',
+                    'format' => 'd/M/y',
+                    'required' => false,
+                )
+            )
+            ->add(
                 'schedule',
                 null,
                 array(
@@ -333,12 +342,25 @@ class StudentAdmin extends AbstractBaseAdmin
                     'label' => 'IBAN',
                 )
             )
-
             ->add(
                 'birthDate',
                 'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.student.birthDate',
+                    'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
+                )
+            )
+            ->add(
+                'dischargeDate',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'backend.admin.student.dischargeDate',
                     'field_type' => 'sonata_type_date_picker',
                     'format' => 'd-m-Y',
                 ),
@@ -496,6 +518,7 @@ class StudentAdmin extends AbstractBaseAdmin
             'bank.swiftCode',
             'bank.accountNumber',
             'birthDateString',
+            'dischargeDateString',
             'schedule',
             'tariff',
             'hasImageRightsAccepted',
