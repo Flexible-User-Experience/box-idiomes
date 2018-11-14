@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\AdminType;
+use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Sonata\AdminBundle\Route\RouteCollection;
@@ -145,6 +146,15 @@ class PersonAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'dischargeDate',
+                DatePickerType::class,
+                array(
+                    'label' => 'backend.admin.student.dischargeDate',
+                    'format' => 'd/M/y',
+                    'required' => false,
+                )
+            )
+            ->add(
                 'enabled',
                 CheckboxType::class,
                 array(
@@ -247,6 +257,20 @@ class PersonAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'dischargeDate',
+                'doctrine_orm_date',
+                array(
+                    'label' => 'backend.admin.student.dischargeDate',
+                    'field_type' => 'sonata_type_date_picker',
+                    'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
+                )
+            )
+            ->add(
                 'enabled',
                 null,
                 array(
@@ -333,6 +357,7 @@ class PersonAdmin extends AbstractBaseAdmin
             'bank.name',
             'bank.swiftCode',
             'bank.accountNumber',
+            'dischargeDateString',
             'enabled',
         );
     }

@@ -12,21 +12,21 @@ web_profiler:
     intercept_redirects: false
 
 monolog:
-    channels: [ 'email' ]
+    channels: [ "email" ]
     handlers:
         email:
             type:     stream
             path:     "%kernel.logs_dir%/%kernel.environment%_emails.log"
             level:    info
-            channels: [ 'email' ]
+            channels: [ "email" ]
         main:
             type:     stream
             path:     "%kernel.logs_dir%/%kernel.environment%.log"
             level:    debug
-            channels: [ '!event' ]
+            channels: [ "!event" ]
         console:
             type:     console
-            channels: [ '!event', '!doctrine' ]
+            channels: [ "!event", "!doctrine" ]
 
 assetic:
     use_controller: true

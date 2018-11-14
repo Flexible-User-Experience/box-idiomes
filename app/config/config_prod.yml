@@ -2,20 +2,21 @@ imports:
     - { resource: config.yml }
 
 monolog:
-    channels: [ 'email' ]
+    channels: [ "email" ]
     handlers:
         email:
             type:     stream
             path:     "%kernel.logs_dir%/%kernel.environment%_emails.log"
             level:    info
-            channels: [ 'email' ]
+            channels: [ "email" ]
         main:
             type:         fingers_crossed
             action_level: error
             handler:      nested
         nested:
-            type:  stream
-            path:  "%kernel.logs_dir%/%kernel.environment%.log"
-            level: debug
+            type:      rotating_file
+            path:      "%kernel.logs_dir%/%kernel.environment%.log"
+            level:     debug
+            max_files: 10
         console:
             type:  console

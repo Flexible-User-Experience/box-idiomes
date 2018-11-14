@@ -134,6 +134,7 @@ backend:
             name: Nom
             surname: Cognoms
             birthDate: Data naixement
+            dischargeDate: Data alta
             bank: Rebut bancari
             cash: Efectiu
             transfer: Transferència bancaria

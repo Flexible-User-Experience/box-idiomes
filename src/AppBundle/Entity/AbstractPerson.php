@@ -17,6 +17,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 abstract class AbstractPerson extends AbstractBase
 {
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $dischargeDate;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
@@ -81,6 +88,34 @@ abstract class AbstractPerson extends AbstractBase
     /**
      * Methods.
      */
+
+    /**
+     * @return \DateTime
+     */
+    public function getDischargeDate()
+    {
+        return $this->dischargeDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDischargeDateString()
+    {
+        return $this->getDischargeDate()->format('d/m/Y');
+    }
+
+    /**
+     * @param \DateTime $dischargeDate
+     *
+     * @return $this
+     */
+    public function setDischargeDate($dischargeDate)
+    {
+        $this->dischargeDate = $dischargeDate;
+
+        return $this;
+    }
 
     /**
      * @return string
