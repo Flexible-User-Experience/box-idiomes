@@ -95,8 +95,9 @@ class ReceiptBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $subject->getCity()->getCanonicalPostalString(), '', false, 'L', true);
 
-        // TODO draw SVG
-        // $pdf->drawSvg(30, 30, 30, 30);
+        // svg globles
+        $pdf->drawSvg($this->sahs->getAbsoluteAssetFilePath('/bundles/app/svg/globe-violet.svg'), BaseTcpdf::PDF_MARGIN_LEFT, $pdf->GetY(), 70, 30);
+        $pdf->drawSvg($this->sahs->getAbsoluteAssetFilePath('/bundles/app/svg/globe-blue.svg'), BaseTcpdf::PDF_MARGIN_LEFT + 90, $pdf->GetY(), 70, 30);
 
         // horitzonal divider
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG * 3);

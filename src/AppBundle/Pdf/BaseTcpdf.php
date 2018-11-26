@@ -88,13 +88,14 @@ class BaseTcpdf extends \TCPDF
     }
 
     /**
-     * @param float $x
-     * @param float $y
-     * @param float $w
-     * @param float $h
+     * @param string       $file
+     * @param float|string $x
+     * @param float|string $y
+     * @param float|int    $w
+     * @param float|int    $h
      */
-    public function drawSvg($x, $y, $w, $h)
+    public function drawSvg($file, $x = '', $y = '', $w = 0, $h = 0)
     {
-        $this->ImageSVG($this->sahs->getAbsoluteAssetPathByContext('/bundles/app/svg/compass.svg'), $x, $y, $w, $h, '', '', '', 0, false);
+        $this->ImageSVG($file, $x, $y, $w);
     }
 }
