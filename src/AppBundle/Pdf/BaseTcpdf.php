@@ -82,7 +82,7 @@ class BaseTcpdf extends \TCPDF
                 'cap' => 'butt',
                 'join' => 'miter',
                 'dash' => 0,
-                'color' => array(125, 20, 126),
+                'color' => array(179, 110, 171),
             )
         );
     }
@@ -96,6 +96,6 @@ class BaseTcpdf extends \TCPDF
      */
     public function drawSvg($file, $x = '', $y = '', $w = 0, $h = 0)
     {
-        $this->ImageSVG($file, $x, $y, $w);
+        $this->ImageSVG($file, $x, $y, $w, $h);
     }
 }
