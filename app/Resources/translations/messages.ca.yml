@@ -347,10 +347,10 @@ backend:
                 ready: "{0}factures|{1}factura|]1,Inf]factures"
                 no_records_presisted: "Atenció: no s'ha creat cap factura nova, recorda que has de marcar la casella 'Facturar'."
             pdf:
-                invoice_data: "Dades factura:"
+                invoice_data: "Dades factura"
                 invoice_number: "Núm."
                 invoice_date: "Data:"
-                customer_data: "Dades client:"
+                customer_data: "Dades client"
                 payment_type: "Modalitat de pagament:"
                 account_number: "Número de compte:"
                 payment:
