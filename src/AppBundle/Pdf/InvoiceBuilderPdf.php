@@ -77,35 +77,38 @@ class InvoiceBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $verticalTableGap = 14;
 
         // invoice header
+        $retainedYForGlobes = $pdf->GetY() - 4;
         $pdf->setFontStyle(null, 'B', 9);
-        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_data'), '', false, 'L', false);
+        $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
+        $pdf->Write(0, strtoupper($this->ts->trans('backend.admin.invoice.pdf.invoice_data')), '', false, 'L', false);
         $pdf->SetX($column2Gap);
-        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.customer_data'), '', false, 'L', true);
+        $pdf->Write(0, strtoupper($this->ts->trans('backend.admin.invoice.pdf.customer_data')), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
         $pdf->setFontStyle(null, '', 9);
 
+        $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
         $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_number').' '.$invoice->getInvoiceNumber(), '', false, 'L', false);
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $invoice->getMainSubject()->getFullName(), '', false, 'L', true);
 
+        $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
         $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_date').' '.$invoice->getDateString(), '', false, 'L', false);
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $subject->getDni(), '', false, 'L', true);
 
-        $pdf->SetY($pdf->GetY() + 2);
+        $pdf->SetXY(BaseTcpdf::PDF_MARGIN_LEFT + 4, $pdf->GetY() + 2);
         $pdf->Write(0, $this->bn, '', false, 'L', false);
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $subject->getAddress(), '', false, 'L', true);
 
+        $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
         $pdf->Write(0, $this->bd, '', false, 'L', false);
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $subject->getCity()->getCanonicalPostalString(), '', false, 'L', true);
 
-        $pdf->Write(0, $this->ba, '', false, 'L', true);
-        $pdf->Write(0, $this->bc, '', false, 'L', true);
-
-        // TODO draw SVG
-        // $pdf->drawSvg(30, 30, 30, 30);
+        // svg globles
+        $pdf->drawSvg($this->sahs->getAbsoluteAssetFilePath('/bundles/app/svg/globe-violet.svg'), BaseTcpdf::PDF_MARGIN_LEFT, $retainedYForGlobes, 70, 35);
+        $pdf->drawSvg($this->sahs->getAbsoluteAssetFilePath('/bundles/app/svg/globe-blue.svg'), BaseTcpdf::PDF_MARGIN_LEFT + 80, $retainedYForGlobes, 70, 35);
 
         // horitzonal divider
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG * 3);

@@ -55,6 +55,20 @@ class BaseTcpdf extends \TCPDF
     }
 
     /**
+     * Page header.
+     */
+    public function footer()
+    {
+        // logo
+        $this->SetXY(self::PDF_MARGIN_LEFT, 297 - self::PDF_MARGIN_BOTTOM + self::MARGIN_VERTICAL_BIG);
+        $this->SetTextColor(128, 128, 128);
+        $this->setFontStyle(null, '', 8);
+        $this->Write(0, 'C. Góngora, 40 · 43870 Amposta', '', false, 'C', true);
+        $this->Write(0, 'info@boxidiomes.cat', '', false, 'C', true);
+        $this->Write(0, '650 539 324', '', false, 'C', false);
+    }
+
+    /**
      * @param string $font
      * @param string $style
      * @param int    $size
@@ -82,19 +96,20 @@ class BaseTcpdf extends \TCPDF
                 'cap' => 'butt',
                 'join' => 'miter',
                 'dash' => 0,
-                'color' => array(125, 20, 126),
+                'color' => array(179, 110, 171),
             )
         );
     }
 
     /**
-     * @param float $x
-     * @param float $y
-     * @param float $w
-     * @param float $h
+     * @param string       $file
+     * @param float|string $x
+     * @param float|string $y
+     * @param float|int    $w
+     * @param float|int    $h
      */
-    public function drawSvg($x, $y, $w, $h)
+    public function drawSvg($file, $x = '', $y = '', $w = 0, $h = 0)
     {
-        $this->ImageSVG($this->sahs->getAbsoluteAssetPathByContext('/bundles/app/svg/compass.svg'), $x, $y, $w, $h, '', '', '', 0, false);
+        $this->ImageSVG($file, $x, $y, $w, $h);
     }
 }
