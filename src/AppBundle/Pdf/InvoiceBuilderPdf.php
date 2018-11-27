@@ -97,7 +97,6 @@ class InvoiceBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $pdf->Write(0, $subject->getDni(), '', false, 'L', true);
 
         $pdf->SetXY(BaseTcpdf::PDF_MARGIN_LEFT + 4, $pdf->GetY() + 2);
-//        $pdf->SetY($pdf->GetY() + 2);
         $pdf->Write(0, $this->bn, '', false, 'L', false);
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $subject->getAddress(), '', false, 'L', true);
@@ -106,11 +105,6 @@ class InvoiceBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $pdf->Write(0, $this->bd, '', false, 'L', false);
         $pdf->SetX($column2Gap);
         $pdf->Write(0, $subject->getCity()->getCanonicalPostalString(), '', false, 'L', true);
-
-//        $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
-//        $pdf->Write(0, $this->ba, '', false, 'L', true);
-//        $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
-//        $pdf->Write(0, $this->bc, '', false, 'L', true);
 
         // svg globles
         $pdf->drawSvg($this->sahs->getAbsoluteAssetFilePath('/bundles/app/svg/globe-violet.svg'), BaseTcpdf::PDF_MARGIN_LEFT, $retainedYForGlobes, 70, 35);
