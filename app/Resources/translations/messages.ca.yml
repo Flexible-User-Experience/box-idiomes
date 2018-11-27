@@ -304,10 +304,10 @@ backend:
                 ready: "{0}rebuts|{1}rebut|]1,Inf]rebuts"
                 no_records_presisted: "Atenció: no s'ha creat cap rebut nou, recorda que has de marcar la casella de la primera columna."
             pdf:
-                receipt_data_head: "Dades rebut:"
+                receipt_data_head: "Dades rebut"
                 receipt_number: "Núm."
                 receipt_date: "Data:"
-                receipt_data: "Dades client:"
+                receipt_data: "Dades client"
         receiptLine:
             isPreviouslyGenerated: Nou
         invoice:
@@ -361,7 +361,7 @@ backend:
             invoice: Factura
             description: Descripció
             units: Unitats
-            priceUnit: Preu Unitat
+            priceUnit: Preu unitat
             isReadyToGenerate: Facturar
             isPreviouslyGenerated: Nova
             isPrivateLessonType: Particular

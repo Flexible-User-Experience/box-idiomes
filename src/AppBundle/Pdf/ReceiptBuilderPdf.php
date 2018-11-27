@@ -76,9 +76,9 @@ class ReceiptBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $column2Gap = 114;
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
-        $pdf->Write(0, $this->ts->trans('backend.admin.receipt.pdf.receipt_data_head'), '', false, 'L', false);
+        $pdf->Write(0, strtoupper($this->ts->trans('backend.admin.receipt.pdf.receipt_data_head')), '', false, 'L', false);
         $pdf->SetX($column2Gap);
-        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.customer_data'), '', false, 'L', true);
+        $pdf->Write(0, strtoupper($this->ts->trans('backend.admin.invoice.pdf.customer_data')), '', false, 'L', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
         $pdf->setFontStyle(null, '', 9);
 
