@@ -55,6 +55,20 @@ class BaseTcpdf extends \TCPDF
     }
 
     /**
+     * Page header.
+     */
+    public function footer()
+    {
+        // logo
+        $this->SetXY(self::PDF_MARGIN_LEFT, 297 - self::PDF_MARGIN_BOTTOM + self::MARGIN_VERTICAL_BIG);
+        $this->SetTextColor(128, 128, 128);
+        $this->setFontStyle(null, '', 8);
+        $this->Write(0, 'C. Góngora, 40 · 43870 Amposta', '', false, 'C', true);
+        $this->Write(0, 'info@boxidiomes.cat', '', false, 'C', true);
+        $this->Write(0, '650 539 324', '', false, 'C', false);
+    }
+
+    /**
      * @param string $font
      * @param string $style
      * @param int    $size
