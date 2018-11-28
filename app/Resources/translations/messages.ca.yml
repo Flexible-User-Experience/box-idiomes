@@ -353,6 +353,7 @@ backend:
                 customer_data: "Dades client"
                 payment_type: "Modalitat de pagament:"
                 account_number: "Número de compte:"
+                tax_excemption_legal_ad: "* Factura exempta d'IVA segons l'Art. 20-Uno-9º de la llei 37/1992"
                 payment:
                     account_number: "Durant els pròxims dies s'efectuarà un càrrec al número de compte:"
                     cash: "Durant els pròxims dies hauràs de venir a l'acadèmia a pagar el rebut."
