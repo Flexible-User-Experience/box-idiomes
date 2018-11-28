@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class Invoice.
@@ -13,7 +12,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Entity(repositoryClass="AppBundle\Repository\InvoiceRepository")
  * @ORM\Table(name="invoice")
- * @UniqueEntity(fields={"month", "year", "student", "person", "isForPrivateLessons"})
  */
 class Invoice extends AbstractReceiptInvoice
 {
@@ -222,6 +220,8 @@ class Invoice extends AbstractReceiptInvoice
 
     /**
      * @return string
+     *
+     * @throws \Exception
      */
     public function getInvoiceNumber()
     {
@@ -235,6 +235,8 @@ class Invoice extends AbstractReceiptInvoice
 
     /**
      * @return string
+     *
+     * @throws \Exception
      */
     public function getSluggedInvoiceNumber()
     {
@@ -248,6 +250,8 @@ class Invoice extends AbstractReceiptInvoice
 
     /**
      * @return string
+     *
+     * @throws \Exception
      */
     public function getUnderscoredInvoiceNumber()
     {
@@ -309,6 +313,8 @@ class Invoice extends AbstractReceiptInvoice
 
     /**
      * @return string
+     *
+     * @throws \Exception
      */
     public function __toString()
     {
