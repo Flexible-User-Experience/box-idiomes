@@ -133,7 +133,7 @@ class EventType extends AbstractType
                     'multiple' => true,
                     'class' => Student::class,
                     'choice_label' => 'fullCanonicalName',
-                    'query_builder' => $this->sr->getEnabledSortedBySurnameQB(),
+                    'query_builder' => $this->sr->getAllSortedBySurnameQB(),
                 )
             )
             ->add(
