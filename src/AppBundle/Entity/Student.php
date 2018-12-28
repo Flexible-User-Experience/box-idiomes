@@ -132,6 +132,8 @@ class Student extends AbstractPerson
 
     /**
      * @return int
+     *
+     * @throws \Exception
      */
     public function getYearsOld()
     {
@@ -353,7 +355,8 @@ class Student extends AbstractPerson
         $price = $this->getTariff()->getPrice();
         if ($this->getParent()) {
             $enabledSonsAmount = $this->getParent()->getEnabledSonsAmount();
-            $price = $price - ((($enabledSonsAmount - 1) * self::DISCOUNT_PER_EXTRA_SON) / $enabledSonsAmount);
+            $discount = $enabledSonsAmount ? ((($enabledSonsAmount - 1) * self::DISCOUNT_PER_EXTRA_SON) / $enabledSonsAmount) : 0;
+            $price = $price - $discount;
         }
 
         return $price;
@@ -367,7 +370,7 @@ class Student extends AbstractPerson
         $discount = 0;
         if ($this->getParent()) {
             $enabledSonsAmount = $this->getParent()->getEnabledSonsAmount();
-            $discount = round(($enabledSonsAmount - 1) * self::DISCOUNT_PER_EXTRA_SON / $enabledSonsAmount, 2);
+            $discount = $enabledSonsAmount ? round(($enabledSonsAmount - 1) * self::DISCOUNT_PER_EXTRA_SON / $enabledSonsAmount, 2) : 0;
         }
 
         return $discount;
