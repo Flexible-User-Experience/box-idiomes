@@ -18,11 +18,9 @@ class StudentRepository extends EntityRepository
      */
     public function getEnabledSortedByNameQB()
     {
-        return $this->createQueryBuilder('s')
+        return $this->getAllSortedByNameQB()
             ->where('s.enabled = :enabled')
             ->setParameter('enabled', true)
-            ->orderBy('s.name', 'ASC')
-            ->addOrderBy('s.surname', 'ASC')
         ;
     }
 
@@ -45,13 +43,38 @@ class StudentRepository extends EntityRepository
     /**
      * @return QueryBuilder
      */
-    public function getEnabledSortedBySurnameQB()
+    public function getAllSortedByNameQB()
     {
         return $this->createQueryBuilder('s')
+            ->orderBy('s.name', 'ASC')
+            ->addOrderBy('s.surname', 'ASC')
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getAllSortedByNameQ()
+    {
+        return $this->getAllSortedByNameQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllSortedByName()
+    {
+        return $this->getAllSortedByNameQ()->getResult();
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getEnabledSortedBySurnameQB()
+    {
+        return $this->getAllSortedBySurnameQB()
             ->where('s.enabled = :enabled')
             ->setParameter('enabled', true)
-            ->orderBy('s.surname', 'ASC')
-            ->addOrderBy('s.name', 'ASC')
         ;
     }
 
@@ -69,6 +92,33 @@ class StudentRepository extends EntityRepository
     public function getEnabledSortedBySurname()
     {
         return $this->getEnabledSortedBySurnameQ()->getResult();
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getAllSortedBySurnameQB()
+    {
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.surname', 'ASC')
+            ->addOrderBy('s.name', 'ASC')
+        ;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getAllSortedBySurnameQ()
+    {
+        return $this->getAllSortedBySurnameQB()->getQuery();
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllSortedBySurname()
+    {
+        return $this->getAllSortedBySurnameQ()->getResult();
     }
 
     /**
