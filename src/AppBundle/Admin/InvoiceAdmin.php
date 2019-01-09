@@ -12,7 +12,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Sonata\Form\Type\CollectionType;
+use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -86,6 +87,8 @@ class InvoiceAdmin extends AbstractBaseAdmin
 
     /**
      * @param FormMapper $formMapper
+     *
+     * @throws \Exception
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -276,7 +279,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 ->with('backend.admin.invoice.lines', $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'lines',
-                    'sonata_type_collection',
+                    CollectionType::class,
                     array(
                         'label' => 'backend.admin.invoice.line',
                         'required' => true,
@@ -312,7 +315,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.receipt.date',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                     'format' => 'd-m-Y',
                 ),
                 null,
@@ -445,7 +448,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.invoice.sendDate',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                     'format' => 'd-m-Y',
                 ),
                 null,
@@ -466,7 +469,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.invoice.paymentDate',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                     'format' => 'd-m-Y',
                 ),
                 null,

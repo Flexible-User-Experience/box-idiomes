@@ -59,6 +59,8 @@ class StudentImageRightsBuilderPdf
      * @param Student $student
      *
      * @return \TCPDF
+     *
+     * @throws \Exception
      */
     public function build(Student $student)
     {

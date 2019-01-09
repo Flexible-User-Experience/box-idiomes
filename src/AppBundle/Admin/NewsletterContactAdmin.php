@@ -5,6 +5,7 @@ namespace AppBundle\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\Form\Type\DateTimePickerType;
 
 /**
  * Class NewsletterContactAdmin.
@@ -47,7 +48,7 @@ class NewsletterContactAdmin extends AbstractBaseAdmin
                 'doctrine_orm_datetime',
                 array(
                     'label' => 'backend.admin.date',
-                    'field_type' => 'sonata_type_datetime_picker',
+                    'field_type' => DateTimePickerType::class,
                     'format' => 'd-m-Y H:i',
                 ),
                 null,
