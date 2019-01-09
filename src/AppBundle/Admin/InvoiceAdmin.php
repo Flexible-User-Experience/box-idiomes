@@ -12,6 +12,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\Form\Type\CollectionType;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -86,6 +87,8 @@ class InvoiceAdmin extends AbstractBaseAdmin
 
     /**
      * @param FormMapper $formMapper
+     *
+     * @throws \Exception
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -276,7 +279,7 @@ class InvoiceAdmin extends AbstractBaseAdmin
                 ->with('backend.admin.invoice.lines', $this->getFormMdSuccessBoxArray(12))
                 ->add(
                     'lines',
-                    'sonata_type_collection',
+                    CollectionType::class,
                     array(
                         'label' => 'backend.admin.invoice.line',
                         'required' => true,
