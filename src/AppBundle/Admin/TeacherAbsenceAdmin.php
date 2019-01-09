@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -90,7 +90,7 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 'doctrine_orm_date',
                 array(
                     'label' => 'backend.admin.teacher_absence.day',
-                    'field_type' => 'sonata_type_date_picker',
+                    'field_type' => DatePickerType::class,
                     'format' => 'd-m-Y',
                 ),
                 null,
