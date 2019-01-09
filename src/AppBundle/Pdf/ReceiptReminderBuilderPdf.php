@@ -70,6 +70,8 @@ class ReceiptReminderBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
      * @param Receipt $receipt
      *
      * @return \TCPDF
+     *
+     * @throws \Exception
      */
     public function build(Receipt $receipt)
     {
@@ -108,6 +110,8 @@ class ReceiptReminderBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
     /**
      * @param BaseTcpdf|\TCPDF $pdf
      * @param Receipt          $receipt
+     *
+     * @throws \Exception
      */
     public function buildReceiptRemainderPageForItem($pdf, Receipt $receipt)
     {
