@@ -11,6 +11,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\DoctrineORMAdminBundle\Filter\DateFilter;
+use Sonata\DoctrineORMAdminBundle\Filter\ModelAutocompleteFilter;
 use Sonata\Form\Type\CollectionType;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -96,6 +98,8 @@ class ReceiptAdmin extends AbstractBaseAdmin
 
     /**
      * @param FormMapper $formMapper
+     *
+     * @throws \Exception
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -287,7 +291,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'date',
-                'doctrine_orm_date',
+                DateFilter::class,
                 array(
                     'label' => 'backend.admin.receipt.date',
                     'field_type' => DatePickerType::class,
@@ -322,16 +326,26 @@ class ReceiptAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'student',
-                null,
+                ModelAutocompleteFilter::class,
                 array(
                     'label' => 'backend.admin.invoice.student',
+                ),
+                null,
+                array(
+                    'class' => Student::class,
+                    'property' => array('name', 'surname'),
                 )
             )
             ->add(
                 'person',
-                null,
+                ModelAutocompleteFilter::class,
                 array(
                     'label' => 'backend.admin.invoice.person',
+                ),
+                null,
+                array(
+                    'class' => Person::class,
+                    'property' => array('name', 'surname'),
                 )
             )
             ->add(
@@ -392,7 +406,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'sendDate',
-                'doctrine_orm_date',
+                DateFilter::class,
                 array(
                     'label' => 'backend.admin.invoice.sendDate',
                     'field_type' => DatePickerType::class,
@@ -413,7 +427,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'paymentDate',
-                'doctrine_orm_date',
+                DateFilter::class,
                 array(
                     'label' => 'backend.admin.invoice.paymentDate',
                     'field_type' => DatePickerType::class,
