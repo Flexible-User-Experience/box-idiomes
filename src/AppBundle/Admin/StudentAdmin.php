@@ -12,6 +12,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\AdminType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\DoctrineORMAdminBundle\Filter\ModelAutocompleteFilter;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -267,9 +268,14 @@ class StudentAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'parent',
-                null,
+                ModelAutocompleteFilter::class,
                 array(
                     'label' => 'backend.admin.student.parent',
+                ),
+                null,
+                array(
+                    'class' => Person::class,
+                    'property' => array('name', 'surname'),
                 )
             )
             ->add(
