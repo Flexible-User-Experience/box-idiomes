@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\AdminType;
+use Sonata\DoctrineORMAdminBundle\Filter\ModelAutocompleteFilter;
 use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -216,9 +217,14 @@ class PersonAdmin extends AbstractBaseAdmin
             )
             ->add(
                 'city',
-                null,
+                ModelAutocompleteFilter::class,
                 array(
                     'label' => 'backend.admin.parent.city',
+                ),
+                null,
+                array(
+                    'class' => City::class,
+                    'property' => array('name', 'postalCode'),
                 )
             )
             ->add(

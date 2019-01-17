@@ -271,7 +271,6 @@ class StudentAdmin extends AbstractBaseAdmin
                 ModelAutocompleteFilter::class,
                 array(
                     'label' => 'backend.admin.student.parent',
-                    'class' => Person::class,
                 ),
                 null,
                 array(
