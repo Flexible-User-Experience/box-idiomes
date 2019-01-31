@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Controller\DefaultController;
+use AppBundle\Entity\Invoice;
 use AppBundle\Entity\Receipt;
 use AppBundle\Enum\StudentPaymentEnum;
 use AppBundle\Form\Model\GenerateReceiptModel;
@@ -126,6 +127,7 @@ class ReceiptAdminController extends BaseAdminController
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
+     * @throws \Exception
      */
     public function createInvoiceAction(Request $request)
     {
@@ -137,7 +139,7 @@ class ReceiptAdminController extends BaseAdminController
         if (!$object) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
-
+        /** @var Invoice $invoice */
         $invoice = $this->container->get('app.receipt_manager')->createInvoiceFromReceipt($object);
 
         $em = $this->container->get('doctrine')->getManager();
