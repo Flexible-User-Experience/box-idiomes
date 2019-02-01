@@ -173,6 +173,7 @@ backend:
             tariff_9: 4'5h / setmana
             tariff_10: 5h / setmana
             tariff_11: 5'5h / setmana
+            tariff_12: 2'5h / setmana
         event:
             range: Limitar l'abast dels canvis a la data
             begin: Inici
