@@ -89,6 +89,8 @@ class ReceiptYearMonthEnum
 
     /**
      * @return array
+     *
+     * @throws \Exception
      */
     public static function getYearEnumArray()
     {

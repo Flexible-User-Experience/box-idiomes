@@ -67,6 +67,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
      *
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     private function commonFastGenerateReciptsForYearAndMonth($year, $month, $enableEmailDelivery = false)
     {
@@ -391,6 +392,7 @@ class GenerateReceiptFormManager extends AbstractGenerateReceiptInvoiceFormManag
      *
      * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Exception
      */
     public function persistFullModelForm(GenerateReceiptModel $generateReceiptModel, $markReceiptAsSended = false)
     {
