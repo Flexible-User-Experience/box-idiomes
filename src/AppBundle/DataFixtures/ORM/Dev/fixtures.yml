@@ -51,7 +51,6 @@ AppBundle\Entity\Student:
     email: <safeEmail()>
     address: <address()>
     payment: <numberBetween(0, 1)>
-    address: <address()>
     city: @city<numberBetween(1,10)>
     bank: @bank<numberBetween(1,10)>
     tariff: @tariff<numberBetween(1,5)>
@@ -70,12 +69,20 @@ AppBundle\Entity\Student:
     email: <safeEmail()>
     address: <address()>
     payment: <numberBetween(0, 1)>
-    address: <address()>
     city: @city<numberBetween(1,10)>
     bank: @bank1
     tariff: @tariff1
     schedule: <name()>
     comments: <paragraph()>
+    createdAt: <dateTimeBetween('-2 months', '-1 months')>
+    updatedAt: <dateTimeThisMonth()>
+    enabled: true
+
+# StudentAbsence
+AppBundle\Entity\StudentAbsence:
+  studentabsence{1..5}:
+    student: @student<numberBetween(1,10)>
+    day: <dateTimeThisMonth()>
     createdAt: <dateTimeBetween('-2 months', '-1 months')>
     updatedAt: <dateTimeThisMonth()>
     enabled: true
