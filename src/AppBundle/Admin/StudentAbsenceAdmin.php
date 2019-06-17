@@ -2,25 +2,23 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Teacher;
-use AppBundle\Enum\TeacherAbsenceTypeEnum;
+use AppBundle\Entity\Student;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
- * Class TeacherAbsenceAdmin.
+ * Class StudentAbsenceAdmin.
  *
  * @category Admin
  */
-class TeacherAbsenceAdmin extends AbstractBaseAdmin
+class StudentAbsenceAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Absence';
-    protected $baseRoutePattern = 'teachers/absence';
+    protected $baseRoutePattern = 'students/absence';
     protected $datagridValues = array(
         '_sort_by' => 'day',
         '_sort_order' => 'desc',
@@ -54,25 +52,14 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'type',
-                ChoiceType::class,
-                array(
-                    'label' => 'backend.admin.teacher_absence.type',
-                    'choices' => TeacherAbsenceTypeEnum::getEnumArray(),
-                    'multiple' => false,
-                    'expanded' => false,
-                    'required' => true,
-                )
-            )
-            ->add(
-                'teacher',
+                'student',
                 EntityType::class,
                 array(
                     'label' => 'backend.admin.teacher_absence.teacher',
                     'required' => true,
-                    'class' => Teacher::class,
+                    'class' => Student::class,
                     'choice_label' => 'name',
-                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.teacher_repository')->getEnabledSortedByNameQB(),
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedByNameQB(),
                 )
             )
             ->end()
@@ -100,20 +87,7 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'type',
-                null,
-                array(
-                    'label' => 'backend.admin.teacher_absence.type',
-                ),
-                ChoiceType::class,
-                array(
-                    'expanded' => false,
-                    'multiple' => false,
-                    'choices' => TeacherAbsenceTypeEnum::getEnumArray(),
-                )
-            )
-            ->add(
-                'teacher',
+                'student',
                 null,
                 array(
                     'label' => 'backend.admin.teacher_absence.teacher',
@@ -134,11 +108,11 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.image',
-                    'template' => '::Admin/Cells/list__cell_teacher_absence_image_field.html.twig',
+                    'template' => '::Admin/Cells/list__cell_student_absence_image_field.html.twig',
                 )
             )
             ->add(
-                'teacher',
+                'student',
                 null,
                 array(
                     'label' => 'backend.admin.teacher_absence.teacher',
@@ -146,7 +120,7 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                     'associated_property' => 'name',
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'teacher')),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'student')),
                 )
             )
             ->add(
@@ -156,14 +130,6 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.teacher_absence.day',
                     'format' => 'd/m/Y',
                     'editable' => true,
-                )
-            )
-            ->add(
-                'type',
-                null,
-                array(
-                    'label' => 'backend.admin.teacher_absence.type',
-                    'template' => '::Admin/Cells/list__cell_teacher_absence_type.html.twig',
                 )
             )
             ->add(
@@ -186,8 +152,7 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
     {
         return array(
             'dayString',
-            'typeString',
-            'teacher',
+            'student',
         );
     }
 }
