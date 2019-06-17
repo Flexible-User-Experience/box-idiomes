@@ -7,22 +7,22 @@ imports:
 
 # Symfony
 framework:
-    translator:      { fallbacks: ["%locale%"] }
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    form:            ~
+    csrf_protection: ~
+    fragments:       ~
+    default_locale:  "%locale%"
     secret:          "%secret%"
+    validation:      { enable_annotations: true }
+    translator:      { fallbacks: [ "%locale%" ] }
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
-    form:            ~
-    csrf_protection: ~
-    validation:      { enable_annotations: true }
     templating:
         engines: [ "twig" ]
-    default_locale:  "%locale%"
-    trusted_hosts:   ~
-    trusted_proxies: ~
     session:
-        handler_id:  ~
-    fragments:       ~
+        handler_id: ~
     http_method_override: true
 
 # Twig
@@ -44,10 +44,10 @@ twig:
 # Assetic
 assetic:
     debug:          "%kernel.debug%"
-    use_controller: false
-    bundles:        [ AppBundle ]
     java:           "%path_java%"
     node:           "%path_node%"
+    use_controller: false
+    bundles:        [ AppBundle ]
     filters:
         cssrewrite: ~
         less:
