@@ -9,7 +9,7 @@ services:
             - [ setTemplate, [ edit, "::Admin/Student/edit.html.twig" ] ]
     admin.student_absence:
         class: AppBundle\Admin\StudentAbsenceAdmin
-        arguments: [ ~, AppBundle\Entity\StudentAbsence, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\StudentAbsence, AppBundle:Admin\StudentAbsenceAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Absència alumne", group: "Alumnes" }
     admin.parent:
