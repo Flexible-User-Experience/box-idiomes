@@ -45,6 +45,20 @@ class StudentAbsence extends AbstractBase
     private $notificationDate;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
+     */
+    private $hasBeenAccepted = false;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $acceptedDate;
+
+    /**
      * Methods.
      */
 
@@ -156,6 +170,62 @@ class StudentAbsence extends AbstractBase
     public function setNotificationDate($notificationDate)
     {
         $this->notificationDate = $notificationDate;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHasBeenAccepted()
+    {
+        return $this->hasBeenAccepted;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHasBeenAccepted()
+    {
+        return $this->isHasBeenAccepted();
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasBeenAccepted()
+    {
+        return $this->isHasBeenAccepted();
+    }
+
+    /**
+     * @param bool $hasBeenAccepted
+     *
+     * @return $this
+     */
+    public function setHasBeenAccepted($hasBeenAccepted)
+    {
+        $this->hasBeenAccepted = $hasBeenAccepted;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getAcceptedDate()
+    {
+        return $this->acceptedDate;
+    }
+
+    /**
+     * @param \DateTime $acceptedDate
+     *
+     * @return $this
+     */
+    public function setAcceptedDate($acceptedDate)
+    {
+        $this->acceptedDate = $acceptedDate;
 
         return $this;
     }

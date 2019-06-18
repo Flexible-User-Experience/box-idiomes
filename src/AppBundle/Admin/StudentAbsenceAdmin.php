@@ -55,11 +55,11 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
                 'student',
                 EntityType::class,
                 array(
-                    'label' => 'backend.admin.teacher_absence.teacher',
+                    'label' => 'backend.admin.student.student',
                     'required' => true,
                     'class' => Student::class,
-                    'choice_label' => 'name',
-                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getEnabledSortedByNameQB(),
+                    'choice_label' => 'getFullCanonicalName',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getAllSortedBySurnameQB(),
                 )
             )
             ->end()
@@ -93,6 +93,28 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.teacher_absence.teacher',
                 )
             )
+            ->add(
+                'notificationDate',
+                null,
+                array(
+                    'label' => 'backend.admin.student.notification_date',
+                    'field_type' => DatePickerType::class,
+                    'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
+                )
+            )
+            ->add(
+                'hasBeenNotified',
+                null,
+                array(
+                    'label' => 'backend.admin.student.has_been_notified',
+                    'editable' => false,
+                )
+            )
         ;
     }
 
@@ -104,18 +126,10 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'image',
-                null,
-                array(
-                    'label' => 'backend.admin.image',
-                    'template' => '::Admin/Cells/list__cell_student_absence_image_field.html.twig',
-                )
-            )
-            ->add(
                 'student',
                 null,
                 array(
-                    'label' => 'backend.admin.teacher_absence.teacher',
+                    'label' => 'backend.admin.student.student',
                     'editable' => false,
                     'associated_property' => 'name',
                     'sortable' => true,
@@ -130,6 +144,23 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
                     'label' => 'backend.admin.teacher_absence.day',
                     'format' => 'd/m/Y',
                     'editable' => true,
+                )
+            )
+            ->add(
+                'notificationDate',
+                'date',
+                array(
+                    'label' => 'backend.admin.student.notification_date',
+                    'format' => 'd/m/Y H:i',
+                    'editable' => false,
+                )
+            )
+            ->add(
+                'hasBeenNotified',
+                null,
+                array(
+                    'label' => 'backend.admin.student.has_been_notified',
+                    'editable' => false,
                 )
             )
             ->add(
