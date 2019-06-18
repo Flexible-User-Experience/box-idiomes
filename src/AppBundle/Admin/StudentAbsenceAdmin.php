@@ -33,7 +33,10 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->remove('delete');
+        $collection
+            ->add('notification', $this->getRouterIdParameter().'/notification')
+            ->remove('delete')
+        ;
     }
 
     /**
@@ -79,7 +82,7 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
                 DatePickerType::class,
                 array(
                     'label' => 'backend.admin.student.notification_date',
-                    'format' => 'd/M/y',
+                    'format' => 'd/M/y H:m',
                     'required' => false,
                     'disabled' => true,
                 )
@@ -191,6 +194,7 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'notification' => array('template' => '::Admin/Buttons/list__action_student_absence_notification_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )

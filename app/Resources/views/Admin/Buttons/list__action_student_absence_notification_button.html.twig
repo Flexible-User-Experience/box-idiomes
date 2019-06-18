@@ -1,0 +1,9 @@
+{% if not object.hasBeenNotified %}
+    <a class="btn btn-sm btn-default" href="{{ admin.generateObjectUrl('notification', object) }}" title="{{ 'backend.admin.invoice.send' | trans }}">
+        <i class="fa fa-envelope-o"></i>
+    </a>
+{% else %}
+    <a class="btn btn-sm btn-default" href="{{ admin.generateObjectUrl('notification', object) }}" title="{{ 'backend.admin.invoice.resend' | trans }}">
+        <i class="fa fa-envelope-open-o"></i>
+    </a>
+{% endif %}
