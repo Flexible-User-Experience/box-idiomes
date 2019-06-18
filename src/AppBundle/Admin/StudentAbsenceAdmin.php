@@ -66,20 +66,20 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
             ->end()
             ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
             ->add(
-                'notificationDate',
-                DatePickerType::class,
+                'hasBeenNotified',
+                CheckboxType::class,
                 array(
-                    'label' => 'backend.admin.student.notification_date',
-                    'format' => 'd/M/y',
+                    'label' => 'backend.admin.student.has_been_notified',
                     'required' => false,
                     'disabled' => true,
                 )
             )
             ->add(
-                'hasBeenNotified',
-                CheckboxType::class,
+                'notificationDate',
+                DatePickerType::class,
                 array(
-                    'label' => 'backend.admin.student.has_been_notified',
+                    'label' => 'backend.admin.student.notification_date',
+                    'format' => 'd/M/y',
                     'required' => false,
                     'disabled' => true,
                 )
@@ -116,6 +116,14 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'hasBeenNotified',
+                null,
+                array(
+                    'label' => 'backend.admin.student.has_been_notified',
+                    'editable' => false,
+                )
+            )
+            ->add(
                 'notificationDate',
                 null,
                 array(
@@ -127,14 +135,6 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
                 array(
                     'widget' => 'single_text',
                     'format' => 'dd-MM-yyyy',
-                )
-            )
-            ->add(
-                'hasBeenNotified',
-                null,
-                array(
-                    'label' => 'backend.admin.student.has_been_notified',
-                    'editable' => false,
                 )
             )
         ;
@@ -169,19 +169,19 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'hasBeenNotified',
+                null,
+                array(
+                    'label' => 'backend.admin.student.has_been_notified',
+                    'editable' => false,
+                )
+            )
+            ->add(
                 'notificationDate',
                 'date',
                 array(
                     'label' => 'backend.admin.student.notification_date',
                     'format' => 'd/m/Y H:i',
-                    'editable' => false,
-                )
-            )
-            ->add(
-                'hasBeenNotified',
-                null,
-                array(
-                    'label' => 'backend.admin.student.has_been_notified',
                     'editable' => false,
                 )
             )

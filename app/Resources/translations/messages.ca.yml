@@ -152,8 +152,8 @@ backend:
             discountApplied: Descompte
             total: Total
             agenda: Horaris
-            notification_date: Data notificació
-            has_been_notified: Notificació enviada
+            notification_date: Data notificació per email
+            has_been_notified: Notificació enviada per email
         class_group:
             code: Codi
             name: Nom
