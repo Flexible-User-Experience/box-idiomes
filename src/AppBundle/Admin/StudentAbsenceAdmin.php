@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Class StudentAbsenceAdmin.
@@ -63,6 +64,27 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
                 )
             )
             ->end()
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'notificationDate',
+                DatePickerType::class,
+                array(
+                    'label' => 'backend.admin.student.notification_date',
+                    'format' => 'd/M/y',
+                    'required' => false,
+                    'disabled' => true,
+                )
+            )
+            ->add(
+                'hasBeenNotified',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.student.has_been_notified',
+                    'required' => false,
+                    'disabled' => true,
+                )
+            )
+            ->end()
         ;
     }
 
@@ -90,7 +112,7 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
                 'student',
                 null,
                 array(
-                    'label' => 'backend.admin.teacher_absence.teacher',
+                    'label' => 'backend.admin.student.student',
                 )
             )
             ->add(
@@ -131,7 +153,7 @@ class StudentAbsenceAdmin extends AbstractBaseAdmin
                 array(
                     'label' => 'backend.admin.student.student',
                     'editable' => false,
-                    'associated_property' => 'name',
+                    'associated_property' => 'getFullCanonicalName',
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'name'),
                     'sort_parent_association_mappings' => array(array('fieldName' => 'student')),
