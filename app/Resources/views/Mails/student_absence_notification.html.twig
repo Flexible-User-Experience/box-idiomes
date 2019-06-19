@@ -1,0 +1,30 @@
+{% extends ':Mails:base.html.twig' %}
+
+{% block subject %}Falta a classe {{ studentAbsence.dayString }}{% endblock %}
+
+{% block content %}
+    <table class="row">
+        <tbody>
+        <tr>
+            <th class="small-12 large-12 columns first last vertical-padding">
+                <table>
+                    <tr>
+                        <th>
+                            <h4 class="grey-color text-center">Avís important!</h4>
+                            <p class="text-center normal-m-top">
+                                Us informem que amb data {{ studentAbsence.dayString }} l'alumne {{ studentAbsence.student.fullName }} <strong>no</strong> ha assistit a la seva classe prevista.<br>
+                                Com que no teníem constància, previ avís, de la seva absència, agriríem que us poseu en contacte com més aviat millor amb la direcció de l'acadèmia.
+                            </p>
+                            <hr>
+                            <p class="text-center normal-m-top">
+                                Moltes gràcies per confiar amb Box Idiomes.
+                            </p>
+                        </th>
+                        <th class="expander"></th>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

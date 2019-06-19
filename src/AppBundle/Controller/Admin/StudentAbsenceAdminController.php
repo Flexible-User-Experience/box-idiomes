@@ -32,7 +32,6 @@ class StudentAbsenceAdminController extends BaseAdminController
 
         /** @var StudentAbsence $object */
         $object = $this->admin->getObject($id);
-
         if (!$object) {
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
@@ -46,7 +45,10 @@ class StudentAbsenceAdminController extends BaseAdminController
         $em = $this->container->get('doctrine')->getManager();
         $em->flush();
 
-        $this->addFlash('success', 'S\'ha enviat un notificació per correu electrònic a l\'adreça '.$object->getStudent()->getMainEmailSubject().' advertint que l\'alumne '.$object->getStudent()->getFullName().' no ha assistit el dia '.$object->getDayString().' a classe.');
+        $messenger = $this->container->get('app.notification');
+        $messenger->sendStudentAbsenceNotification($object);
+
+        $this->addFlash('success', 'S\'ha enviat un notificació per correu electrònic a l\'adreça '.$object->getStudent()->getMainEmailSubject().' advertint que l\'alumne '.$object->getStudent()->getFullName().' no ha assistit a la classe del dia '.$object->getDayString().'.');
 
         return $this->redirectToList();
     }

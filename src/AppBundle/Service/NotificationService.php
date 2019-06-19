@@ -6,6 +6,7 @@ use AppBundle\Entity\ContactMessage;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\NewsletterContact;
 use AppBundle\Entity\Receipt;
+use AppBundle\Entity\StudentAbsence;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -288,6 +289,29 @@ class NotificationService
             )),
             'invoice_'.$invoice->getSluggedInvoiceNumber().'.pdf',
             $pdf
+        );
+    }
+
+    /**
+     * Send a student absence notification mail to student or parent email.
+     *
+     * @param StudentAbsence $studentAbsence
+     *
+     * @return int If is 0 failure otherwise amount of recipients
+     *
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
+     */
+    public function sendStudentAbsenceNotification(StudentAbsence $studentAbsence)
+    {
+        return $this->messenger->sendEmail(
+            $this->amd,
+            $studentAbsence->getStudent()->getMainEmailSubject(),
+            'Falta a classe el dia '.$studentAbsence->getDayString(),
+            $this->twig->render(':Mails:student_absence_notification.html.twig', array(
+                'studentAbsence' => $studentAbsence,
+            ))
         );
     }
 }
