@@ -6,6 +6,9 @@ use AppBundle\Entity\ContactMessage;
 use AppBundle\Entity\Invoice;
 use AppBundle\Entity\NewsletterContact;
 use AppBundle\Entity\Receipt;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 /**
  * Class NotificationService.
@@ -61,9 +64,9 @@ class NotificationService
      *
      * @return int If is 0 failure otherwise amount of recipients
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function sendCommonUserNotification(ContactMessage $contactMessage)
     {
@@ -82,9 +85,9 @@ class NotificationService
      *
      * @param ContactMessage $contactMessage
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function sendAdminNotification(ContactMessage $contactMessage)
     {
@@ -103,9 +106,9 @@ class NotificationService
      *
      * @param ContactMessage $contactMessage
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function sendContactAdminNotification(ContactMessage $contactMessage)
     {
@@ -124,9 +127,9 @@ class NotificationService
      *
      * @param ContactMessage $contactMessage
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function sendUserBackendNotification(ContactMessage $contactMessage)
     {
@@ -145,9 +148,9 @@ class NotificationService
      *
      * @param NewsletterContact $newsletterContact
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function sendNewsletterSubscriptionAdminNotification(NewsletterContact $newsletterContact)
     {
@@ -167,9 +170,9 @@ class NotificationService
      *
      * @param NewsletterContact $newsletterContact
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function sendFailureNewsletterSubscriptionAdminNotification(NewsletterContact $newsletterContact)
     {
@@ -191,9 +194,9 @@ class NotificationService
      *
      * @return int If is 0 failure otherwise amount of recipients
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function sendCommonNewsletterUserNotification(NewsletterContact $newsletterContact)
     {
@@ -215,9 +218,9 @@ class NotificationService
      *
      * @return int If is 0 failure otherwise amount of recipients
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function sendReceiptReminderPdfNotification(Receipt $receipt, \TCPDF $pdf)
     {
@@ -242,9 +245,9 @@ class NotificationService
      *
      * @return int If is 0 failure otherwise amount of recipients
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function sendReceiptPdfNotification(Receipt $receipt, \TCPDF $pdf)
     {
@@ -269,9 +272,9 @@ class NotificationService
      *
      * @return int If is 0 failure otherwise amount of recipients
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function sendInvoicePdfNotification(Invoice $invoice, \TCPDF $pdf)
     {

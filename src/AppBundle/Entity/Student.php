@@ -387,4 +387,17 @@ class Student extends AbstractPerson
 
         return false;
     }
+
+    /**
+     * @return string
+     */
+    public function getMainEmailSubject()
+    {
+        $email = $this->getEmail();
+        if ($this->getParent() && $this->getParent()->getEmail()) {
+            $email = $this->getParent()->getEmail();
+        }
+
+        return $email;
+    }
 }

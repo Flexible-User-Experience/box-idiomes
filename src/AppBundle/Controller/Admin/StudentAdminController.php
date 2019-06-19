@@ -26,6 +26,7 @@ class StudentAdminController extends BaseAdminController
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
+     * @throws \Exception
      */
     public function imagerightsAction(Request $request = null)
     {
@@ -80,10 +81,10 @@ class StudentAdminController extends BaseAdminController
      *
      * @param int|string|null $id
      *
+     * @return Response
+     *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
-     *
-     * @return Response
      */
     public function showAction($id = null)
     {

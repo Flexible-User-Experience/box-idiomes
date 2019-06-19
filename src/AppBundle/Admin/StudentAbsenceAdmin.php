@@ -2,25 +2,24 @@
 
 namespace AppBundle\Admin;
 
-use AppBundle\Entity\Teacher;
-use AppBundle\Enum\TeacherAbsenceTypeEnum;
+use AppBundle\Entity\Student;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\CoreBundle\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
- * Class TeacherAbsenceAdmin.
+ * Class StudentAbsenceAdmin.
  *
  * @category Admin
  */
-class TeacherAbsenceAdmin extends AbstractBaseAdmin
+class StudentAbsenceAdmin extends AbstractBaseAdmin
 {
     protected $classnameLabel = 'Absence';
-    protected $baseRoutePattern = 'teachers/absence';
+    protected $baseRoutePattern = 'students/absence';
     protected $datagridValues = array(
         '_sort_by' => 'day',
         '_sort_order' => 'desc',
@@ -34,7 +33,10 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->remove('delete');
+        $collection
+            ->add('notification', $this->getRouterIdParameter().'/notification')
+            ->remove('delete')
+        ;
     }
 
     /**
@@ -54,25 +56,35 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'type',
-                ChoiceType::class,
+                'student',
+                EntityType::class,
                 array(
-                    'label' => 'backend.admin.teacher_absence.type',
-                    'choices' => TeacherAbsenceTypeEnum::getEnumArray(),
-                    'multiple' => false,
-                    'expanded' => false,
+                    'label' => 'backend.admin.student.student',
                     'required' => true,
+                    'class' => Student::class,
+                    'choice_label' => 'getFullCanonicalName',
+                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.student_repository')->getAllSortedBySurnameQB(),
+                )
+            )
+            ->end()
+            ->with('backend.admin.controls', $this->getFormMdSuccessBoxArray(3))
+            ->add(
+                'hasBeenNotified',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.student.has_been_notified',
+                    'required' => false,
+                    'disabled' => true,
                 )
             )
             ->add(
-                'teacher',
-                EntityType::class,
+                'notificationDate',
+                DatePickerType::class,
                 array(
-                    'label' => 'backend.admin.teacher_absence.teacher',
-                    'required' => true,
-                    'class' => Teacher::class,
-                    'choice_label' => 'name',
-                    'query_builder' => $this->getConfigurationPool()->getContainer()->get('app.teacher_repository')->getEnabledSortedByNameQB(),
+                    'label' => 'backend.admin.student.notification_date',
+                    'format' => 'd/M/y H:m',
+                    'required' => false,
+                    'disabled' => true,
                 )
             )
             ->end()
@@ -100,23 +112,32 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'type',
+                'student',
                 null,
                 array(
-                    'label' => 'backend.admin.teacher_absence.type',
-                ),
-                ChoiceType::class,
-                array(
-                    'expanded' => false,
-                    'multiple' => false,
-                    'choices' => TeacherAbsenceTypeEnum::getEnumArray(),
+                    'label' => 'backend.admin.student.student',
                 )
             )
             ->add(
-                'teacher',
+                'hasBeenNotified',
                 null,
                 array(
-                    'label' => 'backend.admin.teacher_absence.teacher',
+                    'label' => 'backend.admin.student.has_been_notified',
+                    'editable' => false,
+                )
+            )
+            ->add(
+                'notificationDate',
+                null,
+                array(
+                    'label' => 'backend.admin.student.notification_date',
+                    'field_type' => DatePickerType::class,
+                    'format' => 'd-m-Y',
+                ),
+                null,
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
                 )
             )
         ;
@@ -130,23 +151,15 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
         unset($this->listModes['mosaic']);
         $listMapper
             ->add(
-                'image',
+                'student',
                 null,
                 array(
-                    'label' => 'backend.admin.image',
-                    'template' => '::Admin/Cells/list__cell_teacher_absence_image_field.html.twig',
-                )
-            )
-            ->add(
-                'teacher',
-                null,
-                array(
-                    'label' => 'backend.admin.teacher_absence.teacher',
+                    'label' => 'backend.admin.student.student',
                     'editable' => false,
-                    'associated_property' => 'name',
+                    'associated_property' => 'getFullCanonicalName',
                     'sortable' => true,
                     'sort_field_mapping' => array('fieldName' => 'name'),
-                    'sort_parent_association_mappings' => array(array('fieldName' => 'teacher')),
+                    'sort_parent_association_mappings' => array(array('fieldName' => 'student')),
                 )
             )
             ->add(
@@ -159,11 +172,20 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
-                'type',
+                'hasBeenNotified',
                 null,
                 array(
-                    'label' => 'backend.admin.teacher_absence.type',
-                    'template' => '::Admin/Cells/list__cell_teacher_absence_type.html.twig',
+                    'label' => 'backend.admin.student.has_been_notified',
+                    'editable' => false,
+                )
+            )
+            ->add(
+                'notificationDate',
+                'date',
+                array(
+                    'label' => 'backend.admin.student.notification_date',
+                    'format' => 'd/m/Y H:i',
+                    'editable' => false,
                 )
             )
             ->add(
@@ -172,6 +194,7 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'notification' => array('template' => '::Admin/Buttons/list__action_student_absence_notification_button.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )
@@ -186,8 +209,7 @@ class TeacherAbsenceAdmin extends AbstractBaseAdmin
     {
         return array(
             'dayString',
-            'typeString',
-            'teacher',
+            'student',
         );
     }
 }
