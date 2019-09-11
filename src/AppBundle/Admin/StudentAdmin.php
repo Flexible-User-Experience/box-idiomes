@@ -13,7 +13,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\AdminType;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\DoctrineORMAdminBundle\Filter\ModelAutocompleteFilter;
-use Sonata\CoreBundle\Form\Type\DatePickerType;
+use Sonata\Form\Type\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -228,6 +228,14 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'hasAcceptedInternalRegulations',
+                CheckboxType::class,
+                array(
+                    'label' => 'backend.admin.internalregulations.checkbox_label',
+                    'required' => false,
+                )
+            )
+            ->add(
                 'enabled',
                 CheckboxType::class,
                 array(
@@ -412,6 +420,13 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'hasAcceptedInternalRegulations',
+                null,
+                array(
+                    'label' => 'backend.admin.internalregulations.checkbox_label',
+                )
+            )
+            ->add(
                 'enabled',
                 null,
                 array(
@@ -477,6 +492,14 @@ class StudentAdmin extends AbstractBaseAdmin
                 )
             )
             ->add(
+                'hasAcceptedInternalRegulations',
+                null,
+                array(
+                    'label' => 'backend.admin.internalregulations.checkbox_label',
+                    'editable' => true,
+                )
+            )
+            ->add(
                 'enabled',
                 null,
                 array(
@@ -529,6 +552,7 @@ class StudentAdmin extends AbstractBaseAdmin
             'tariff',
             'hasImageRightsAccepted',
             'hasSepaAgreementAccepted',
+            'hasAcceptedInternalRegulations',
             'enabled',
         );
     }

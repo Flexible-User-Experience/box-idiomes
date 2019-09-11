@@ -193,6 +193,7 @@ backend:
             classroom_2: Aula 2
             classroom_3: Aula 3
             classroom_4: Aula 4
+            classroom_5: Aula 5
             button:
                 previous: Esdeveniment anterior
                 next: Següent esdeveniment
@@ -232,6 +233,8 @@ backend:
             name: Nom
             postalCode: Codi postal
             province: Província
+        internalregulations:
+            checkbox_label: Normativa Interna Acceptada
         imagerigths:
             checkbox_label: Drets Imatge Acceptats
             pdf_metadata_title: Drets Imatge
