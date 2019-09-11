@@ -233,6 +233,8 @@ backend:
             name: Nom
             postalCode: Codi postal
             province: Província
+        internalregulations:
+            checkbox_label: Normativa Interna Acceptada
         imagerigths:
             checkbox_label: Drets Imatge Acceptats
             pdf_metadata_title: Drets Imatge
