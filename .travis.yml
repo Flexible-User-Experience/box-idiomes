@@ -3,6 +3,12 @@ language: php
 php:
   - 7.1
 
+addons:
+  apt:
+    packages:
+      - mysql-server
+      - mysql-client
+
 before_script:
   - mysql -e 'create database IF NOT EXISTS symfony;'
   - cp app/config/parameters.yml.dist app/config/parameters.yml
