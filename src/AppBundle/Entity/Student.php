@@ -91,6 +91,13 @@ class Student extends AbstractPerson
     private $isPaymentExempt = false;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", nullable=true, options={"default"=0})
+     */
+    private $hasAcceptedInternalRegulations = false;
+
+    /**
      * Methods.
      */
 
@@ -343,6 +350,42 @@ class Student extends AbstractPerson
     public function setIsPaymentExempt($isPaymentExempt)
     {
         $this->isPaymentExempt = $isPaymentExempt;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHasAcceptedInternalRegulations()
+    {
+        return $this->hasAcceptedInternalRegulations;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHasAcceptedInternalRegulations()
+    {
+        return $this->getHasAcceptedInternalRegulations();
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasAcceptedInternalRegulations()
+    {
+        return $this->getHasAcceptedInternalRegulations();
+    }
+
+    /**
+     * @param bool $hasAcceptedInternalRegulations
+     *
+     * @return $this
+     */
+    public function setHasAcceptedInternalRegulations($hasAcceptedInternalRegulations)
+    {
+        $this->hasAcceptedInternalRegulations = $hasAcceptedInternalRegulations;
 
         return $this;
     }
