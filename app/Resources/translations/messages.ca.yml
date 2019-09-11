@@ -193,6 +193,7 @@ backend:
             classroom_2: Aula 2
             classroom_3: Aula 3
             classroom_4: Aula 4
+            classroom_5: Aula 5
             button:
                 previous: Esdeveniment anterior
                 next: Següent esdeveniment
