@@ -32,7 +32,7 @@ class ReceiptAdmin extends AbstractBaseAdmin
     protected $datagridValues = array(
         '_sort_by' => 'id',
         '_sort_order' => 'desc',
-        '_per_page' => 400,
+        '_per_page' => 500,
     );
 
     /**
