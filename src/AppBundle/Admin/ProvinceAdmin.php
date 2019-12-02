@@ -31,7 +31,11 @@ class ProvinceAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->remove('delete');
+        $collection
+            ->remove('create')
+            ->remove('edit')
+            ->remove('delete')
+        ;
     }
 
     /**
@@ -158,7 +162,7 @@ class ProvinceAdmin extends AbstractBaseAdmin
                 'actions',
                 array(
                     'actions' => array(
-                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+//                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )
