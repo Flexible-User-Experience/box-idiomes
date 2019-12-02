@@ -2,12 +2,12 @@
 
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Province;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
 
 /**
  * Class ProvinceAdmin.
@@ -31,11 +31,7 @@ class ProvinceAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection
-            ->remove('create')
-            ->remove('edit')
-            ->remove('delete')
-        ;
+        $collection->remove('delete');
     }
 
     /**
@@ -57,14 +53,6 @@ class ProvinceAdmin extends AbstractBaseAdmin
                 null,
                 array(
                     'label' => 'backend.admin.province.name',
-                )
-            )
-            ->add(
-                'country',
-                CountryType::class,
-                array(
-                    'label' => 'backend.admin.province.country',
-                    'preferred_choices' => array('ES'),
                 )
             )
             ->end()
@@ -162,11 +150,19 @@ class ProvinceAdmin extends AbstractBaseAdmin
                 'actions',
                 array(
                     'actions' => array(
-//                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
                     ),
                     'label' => 'Accions',
                 )
             )
         ;
+    }
+
+    /**
+     * @param Province $object
+     */
+    public function prePersist($object)
+    {
+        $object->setCountry('ES');
     }
 }
