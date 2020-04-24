@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\ClassGroup;
-use AppBundle\Pdf\InvoiceBuilderPdf;
+use AppBundle\Pdf\ClassGroupBuilderPdf;
 use AppBundle\Repository\StudentRepository;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -50,10 +50,11 @@ class ClassGroupAdminController extends BaseAdminController
             $this->addFlash('warning', $translator->trans('backend.admin.class_group.emails_generator.flash_success'));
         }
 
-        /* @var InvoiceBuilderPdf $ips */
-//        $ips = $this->container->get('app.invoice_pdf_builder');
-//        $pdf = $ips->build($object);
+        /* @var ClassGroupBuilderPdf $cgpbs */
+        $cgpbs = $this->container->get('app.class_group_pdf_builder');
+        $pdf = $cgpbs->build($object, $students);
 
-        return $this->redirectToList();
+//        return $this->redirectToList();
+        return new Response($pdf->Output('box_idiomes_class_group_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
 }

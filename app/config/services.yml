@@ -207,6 +207,19 @@ services:
             - "%boss_city%"
             - "%iban_business%"
             - "%locale%"
+    app.class_group_pdf_builder:
+        class: AppBundle\Pdf\ClassGroupBuilderPdf
+        arguments:
+            - "@white_october.tcpdf"
+            - "@app.smart_assets_helper"
+            - "@translator.default"
+            - "%project_web_title%"
+            - "%boss_name%"
+            - "%boss_dni%"
+            - "%boss_address%"
+            - "%boss_city%"
+            - "%iban_business%"
+            - "%locale%"
 # SEPA
     app.xml_sepa_builder:
         class: AppBundle\Service\XmlSepaBuilderService
