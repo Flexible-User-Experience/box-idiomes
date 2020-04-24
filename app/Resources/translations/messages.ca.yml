@@ -94,6 +94,7 @@ backend:
         dates: Dates
         enabled: Actiu
         is_for_private_lessons: Classe particular
+        is_not_for_private_lessons: Classe en grup
         submit: Enviar
         published_date: Data de publicació
         image: Imatge
