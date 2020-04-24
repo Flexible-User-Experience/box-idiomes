@@ -76,30 +76,40 @@ class ClassGroupBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $verticalTableGapSmall = 8;
         $verticalTableGap = 14;
 
+        // today
+        $today = new \DateTimeImmutable();
+
         // invoice header
         $retainedYForGlobes = $pdf->GetY() - 4;
         $pdf->setFontStyle(null, 'B', 9);
         $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
-        $pdf->Write(0, strtoupper($this->ts->trans('backend.admin.invoice.pdf.invoice_data')), '', false, 'L', false);
+        $pdf->Write(0, strtoupper($this->ts->trans('backend.admin.class_group.pdf.title')), '', false, 'L', false);
         $pdf->SetX($column2Gap);
-        $pdf->Write(0, strtoupper($this->ts->trans('backend.admin.invoice.pdf.customer_data')), '', false, 'L', true);
+        $pdf->Write(0, $today->format('d/m/Y').'    ', '', false, 'R', true);
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
         $pdf->setFontStyle(null, '', 9);
 
         $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
-        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_number').' '.$classGroup->getId(), '', false, 'L', false);
+        $pdf->Write(0, $this->ts->trans('backend.admin.class_group.pdf.group').' '.$classGroup->getCode(), '', false, 'L', false);
         $pdf->SetX($column2Gap);
-        $pdf->Write(0, $classGroup->getName(), '', false, 'L', true);
+        $pdf->Write(0, $this->ts->trans('backend.admin.class_group.pdf.total').' '.count($students).'    ', '', false, 'R', true);
 
-        $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
-        $pdf->Write(0, $this->ts->trans('backend.admin.invoice.pdf.invoice_date').' '.$classGroup->getBook(), '', false, 'L', false);
-        $pdf->SetX($column2Gap);
-        $pdf->Write(0, $classGroup->getCode(), '', false, 'L', true);
+        if ($classGroup->getName()) {
+            $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
+            $pdf->Write(0, $this->ts->trans('backend.admin.class_group.name').': '.$classGroup->getName(), '', false, 'L', false);
+            $pdf->SetX($column2Gap);
+            $pdf->Write(0, 'Color    '/* TODO */, '', false, 'R', true);
+        } else {
+            $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
+            $pdf->Write(0, '', '', false, 'L', false);
+            $pdf->SetX($column2Gap);
+            $pdf->Write(0, 'Color    '/* TODO */, '', false, 'R', true);
+        }
 
-        $pdf->SetXY(BaseTcpdf::PDF_MARGIN_LEFT + 4, $pdf->GetY() + 2);
-        $pdf->Write(0, $this->bn, '', false, 'L', false);
-        $pdf->SetX($column2Gap);
-        $pdf->Write(0, $classGroup->getColor(), '', false, 'L', true);
+        if ($classGroup->getBook()) {
+            $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
+            $pdf->Write(0, $this->ts->trans('backend.admin.class_group.book').': '.$classGroup->getBook(), '', false, 'L', true);
+        }
 
         // svg globles
         $pdf->drawSvg($this->sahs->getAbsoluteAssetFilePath('/bundles/app/svg/globe-violet.svg'), BaseTcpdf::PDF_MARGIN_LEFT, $retainedYForGlobes, 70, 35);
