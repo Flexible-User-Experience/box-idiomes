@@ -18,13 +18,10 @@ class ServiceRepository extends EntityRepository
      */
     public function findAllEnabledSortedByPositionQB()
     {
-        $query = $this
-            ->createQueryBuilder('s')
+        return $this->createQueryBuilder('s')
             ->where('s.enabled = :enabled')
             ->setParameter('enabled', true)
             ->orderBy('s.position', 'ASC');
-
-        return $query;
     }
 
     /**

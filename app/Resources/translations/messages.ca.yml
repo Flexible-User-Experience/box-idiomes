@@ -159,6 +159,14 @@ backend:
             name: Nom
             book: Llibre
             color: Color
+            pdf:
+                title: 'Llistat d''alumnes'
+                group: 'Grup'
+                total: 'Total'
+            emails_generator:
+                flash_success: 'S''han afegit %amount% alumnes al llistat del grup.'
+                flash_warning: 'No s''han trobat cap alumne en aquest grup.'
+
         tariff:
             year: Any
             price: Preu

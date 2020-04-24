@@ -35,7 +35,7 @@ services:
     # Classrooms
     admin.class_group:
         class: AppBundle\Admin\ClassGroupAdmin
-        arguments: [ ~, AppBundle\Entity\ClassGroup, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        arguments: [ ~, AppBundle\Entity\ClassGroup, AppBundle:Admin\ClassGroupAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Grup", group: "Aules" }
         calls:

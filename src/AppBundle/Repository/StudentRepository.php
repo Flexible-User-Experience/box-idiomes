@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\ClassGroup;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
@@ -330,5 +331,71 @@ class StudentRepository extends EntityRepository
     public function getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month)
     {
         return $this->getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQ($year, $month)->getResult();
+    }
+
+    /**
+     * @param ClassGroup $classGroup
+     *
+     * @return QueryBuilder
+     */
+    public function getStudentsInClassGroupQB(ClassGroup $classGroup)
+    {
+        return $this->createQueryBuilder('s')
+            ->join('s.events', 'e')
+            ->join('e.group', 'cg')
+            ->where('cg.id = :id')
+            ->setParameter('id', $classGroup->getId());
+    }
+
+    /**
+     * @param ClassGroup $classGroup
+     *
+     * @return Query
+     */
+    public function getStudentsInClassGroupQ(ClassGroup $classGroup)
+    {
+        return $this->getStudentsInClassGroupQB($classGroup)->getQuery();
+    }
+
+    /**
+     * @param ClassGroup $classGroup
+     *
+     * @return array
+     */
+    public function getStudentsInClassGroup(ClassGroup $classGroup)
+    {
+        return $this->getStudentsInClassGroupQ($classGroup)->getResult();
+    }
+
+    /**
+     * @param ClassGroup $classGroup
+     *
+     * @return QueryBuilder
+     */
+    public function getStudentsInClassGroupSortedByNameQB(ClassGroup $classGroup)
+    {
+        return $this->getStudentsInClassGroupQB($classGroup)
+            ->orderBy('s.surname')
+            ->addOrderBy('s.name');
+    }
+
+    /**
+     * @param ClassGroup $classGroup
+     *
+     * @return Query
+     */
+    public function getStudentsInClassGroupSortedByNameQ(ClassGroup $classGroup)
+    {
+        return $this->getStudentsInClassGroupSortedByNameQB($classGroup)->getQuery();
+    }
+
+    /**
+     * @param ClassGroup $classGroup
+     *
+     * @return array
+     */
+    public function getStudentsInClassGroupSortedByName(ClassGroup $classGroup)
+    {
+        return $this->getStudentsInClassGroupSortedByNameQ($classGroup)->getResult();
     }
 }
