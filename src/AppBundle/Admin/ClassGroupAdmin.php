@@ -31,7 +31,10 @@ class ClassGroupAdmin extends AbstractBaseAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         parent::configureRoutes($collection);
-        $collection->remove('delete');
+        $collection
+            ->add('emails', $this->getRouterIdParameter().'/get-group-emails')
+            ->remove('delete')
+        ;
     }
 
     /**
@@ -213,6 +216,7 @@ class ClassGroupAdmin extends AbstractBaseAdmin
                 array(
                     'actions' => array(
                         'edit' => array('template' => '::Admin/Buttons/list__action_edit_button.html.twig'),
+                        'emails' => array('template' => '::Admin/Cells/list__action_group_emails.html.twig'),
                     ),
                     'label' => 'backend.admin.actions',
                 )
