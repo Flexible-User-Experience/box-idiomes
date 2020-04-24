@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\ClassGroup;
 use AppBundle\Pdf\InvoiceBuilderPdf;
+use AppBundle\Repository\StudentRepository;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,8 @@ class ClassGroupAdminController extends BaseAdminController
      */
     public function emailsAction(Request $request)
     {
+        /** @var StudentRepository $srs */
+        $srs = $this->container->get('app.student_repository');
         /** @var Translator $translator */
         $translator = $this->container->get('translator.default');
         $request = $this->resolveRequest($request);
@@ -37,10 +40,14 @@ class ClassGroupAdminController extends BaseAdminController
         /** @var ClassGroup $object */
         $object = $this->admin->getObject($id);
         if (!$object) {
-//            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
-            $this->addFlash('warning', $translator->trans('backend.admin.invoice.generator.no_records_presisted'));
+            throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
+        }
+
+        $students = $srs->getStudentsInClassGroup($object);
+        if (count($students) > 0) {
+            $this->addFlash('success', $translator->trans('backend.admin.class_group.emails_generator.flash_success', array('%amount%' => count($students)), 'messages'));
         } else {
-            $this->addFlash('success', $translator->trans('backend.admin.invoice.generator.flash_success', array('%amount%' => $object->getId()), 'messages'));
+            $this->addFlash('warning', $translator->trans('backend.admin.class_group.emails_generator.flash_success'));
         }
 
         /* @var InvoiceBuilderPdf $ips */

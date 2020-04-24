@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\ClassGroup;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query;
@@ -330,5 +331,35 @@ class StudentRepository extends EntityRepository
     public function getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariff($year, $month)
     {
         return $this->getGroupLessonStudentsInEventsForYearAndMonthSortedBySurnameWithValidTariffQ($year, $month)->getResult();
+    }
+
+    /**
+     * @param ClassGroup $classGroup
+     *
+     * @return QueryBuilder
+     */
+    public function getStudentsInClassGroupQB(ClassGroup $classGroup)
+    {
+        return $this->createQueryBuilder('s');
+    }
+
+    /**
+     * @param ClassGroup $classGroup
+     *
+     * @return Query
+     */
+    public function getStudentsInClassGroupQ(ClassGroup $classGroup)
+    {
+        return $this->getStudentsInClassGroupQB($classGroup)->getQuery();
+    }
+
+    /**
+     * @param ClassGroup $classGroup
+     *
+     * @return array
+     */
+    public function getStudentsInClassGroup(ClassGroup $classGroup)
+    {
+        return $this->getStudentsInClassGroupQ($classGroup)->getResult();
     }
 }

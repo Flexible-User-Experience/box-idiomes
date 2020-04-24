@@ -159,6 +159,10 @@ backend:
             name: Nom
             book: Llibre
             color: Color
+            emails_generator:
+                flash_success: 'S''han afegit %amount% alumnes al llistat del group.'
+                flash_warning: 'No s''han trobat cap alumne en aquest group.'
+
         tariff:
             year: Any
             price: Preu
