@@ -340,7 +340,11 @@ class StudentRepository extends EntityRepository
      */
     public function getStudentsInClassGroupQB(ClassGroup $classGroup)
     {
-        return $this->createQueryBuilder('s');
+        return $this->createQueryBuilder('s')
+            ->join('s.events', 'e')
+            ->join('e.group', 'cg')
+            ->where('cg.id = :id')
+            ->setParameter('id', $classGroup->getId());
     }
 
     /**
