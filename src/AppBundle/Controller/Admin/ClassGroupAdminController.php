@@ -43,7 +43,7 @@ class ClassGroupAdminController extends BaseAdminController
             throw $this->createNotFoundException(sprintf('unable to find the object with id: %s', $id));
         }
 
-        $students = $srs->getStudentsInClassGroup($object);
+        $students = $srs->getStudentsInClassGroupSortedByName($object);
         if (count($students) > 0) {
             $this->addFlash('success', $translator->trans('backend.admin.class_group.emails_generator.flash_success', array('%amount%' => count($students)), 'messages'));
         } else {

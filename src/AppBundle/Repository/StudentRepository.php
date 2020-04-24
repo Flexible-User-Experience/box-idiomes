@@ -366,4 +366,36 @@ class StudentRepository extends EntityRepository
     {
         return $this->getStudentsInClassGroupQ($classGroup)->getResult();
     }
+
+    /**
+     * @param ClassGroup $classGroup
+     *
+     * @return QueryBuilder
+     */
+    public function getStudentsInClassGroupSortedByNameQB(ClassGroup $classGroup)
+    {
+        return $this->getStudentsInClassGroupQB($classGroup)
+            ->orderBy('s.surname')
+            ->addOrderBy('s.name');
+    }
+
+    /**
+     * @param ClassGroup $classGroup
+     *
+     * @return Query
+     */
+    public function getStudentsInClassGroupSortedByNameQ(ClassGroup $classGroup)
+    {
+        return $this->getStudentsInClassGroupSortedByNameQB($classGroup)->getQuery();
+    }
+
+    /**
+     * @param ClassGroup $classGroup
+     *
+     * @return array
+     */
+    public function getStudentsInClassGroupSortedByName(ClassGroup $classGroup)
+    {
+        return $this->getStudentsInClassGroupSortedByNameQ($classGroup)->getResult();
+    }
 }

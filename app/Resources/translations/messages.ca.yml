@@ -164,8 +164,8 @@ backend:
                 group: 'Grup'
                 total: 'Total'
             emails_generator:
-                flash_success: 'S''han afegit %amount% alumnes al llistat del group.'
-                flash_warning: 'No s''han trobat cap alumne en aquest group.'
+                flash_success: 'S''han afegit %amount% alumnes al llistat del grup.'
+                flash_warning: 'No s''han trobat cap alumne en aquest grup.'
 
         tariff:
             year: Any
