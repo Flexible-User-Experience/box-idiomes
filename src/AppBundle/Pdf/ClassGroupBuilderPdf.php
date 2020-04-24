@@ -73,7 +73,7 @@ class ClassGroupBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
 
         // gaps
         $column2Gap = 114;
-        $verticalTableGapSmall = 6;
+        $verticalTableGapSmall = 7;
         $verticalTableGap = 10;
 
         // today
@@ -120,17 +120,25 @@ class ClassGroupBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $pdf->drawInvoiceLineSeparator($pdf->GetY());
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_BIG);
 
-        if (0 == count($students)) {
+        if (0 < count($students)) {
+            $pdf->SetLineStyle(array(
+                'width' => 0.15,
+                'cap' => 'butt',
+                'join' => 'miter',
+                'dash' => 0,
+                'color' => array(0, 0, 0),
+            ));
             // students table header
             $pdf->setFontStyle(null, 'B', 9);
-            $pdf->Cell(78, $verticalTableGap, $this->ts->trans('backend.admin.student.name'), false, 0, 'L');
-            $pdf->Cell(72, $verticalTableGap, $this->ts->trans('backend.admin.student.email'), false, 1, 'R');
+            $pdf->Cell(78, $verticalTableGap, $this->ts->trans('backend.admin.student.name'), 0, 0, 'L');
+            $pdf->Cell(72, $verticalTableGap, $this->ts->trans('backend.admin.student.email'), 0, 1, 'R');
             $pdf->setFontStyle(null, '', 9);
             // students lines table rows
             /** @var Student $student */
             foreach ($students as $student) {
-                $pdf->MultiCell(78, $verticalTableGapSmall, $student->getFullCanonicalName(), 0, 'L', 0, 0, '', '', true, 0, false, true, 0, 'M');
-                $pdf->MultiCell(72, $verticalTableGapSmall, $student->getEmail(), 0, 'R', 0, 1, '', '', true, 0, false, true, 0, 'M');
+                // MultiCell($w, $h, $txt, $border=0, $align='J', $fill=0, $ln=1, $x='', $y='', $reseth=true, $stretch=0, $ishtml=false, $autopadding=true, $maxh=0)
+                $pdf->MultiCell(78, $verticalTableGapSmall, $student->getFullCanonicalName(), 'T', 'L', 0, 0, '', '', true, 0, false, false, 0, 'M');
+                $pdf->MultiCell(72, $verticalTableGapSmall, $student->getEmail(), 'T', 'R', 0, 1, '', '', true, 0, false, false, 0, 'M');
             }
         } else {
             $pdf->Cell(150, $verticalTableGap, $this->ts->trans('backend.admin.class_group.emails_generator.flash_warning'), false, 1, 'L');
