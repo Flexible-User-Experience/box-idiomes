@@ -96,14 +96,14 @@ class ClassGroupBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
 
         if ($classGroup->getName()) {
             $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
-            $pdf->Write(0, $this->ts->trans('backend.admin.class_group.name').': '.$classGroup->getName(), '', false, 'L', false);
+            $pdf->Write(0, $this->ts->trans('backend.admin.class_group.name').': '.$classGroup->getName(), '', false, 'L', true);
             $pdf->SetX($column2Gap);
-            $pdf->Write(0, 'Color    '/* TODO */, '', false, 'R', true);
+            $pdf->RoundedRect($pdf->GetX(), $pdf->GetY(), 61.5, 3, 1, '1111', 'F', array(), $this->hex2RGBarray($classGroup->getColor()));
         } else {
             $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
-            $pdf->Write(0, '', '', false, 'L', false);
+            $pdf->Write(0, '', '', false, 'L', true);
             $pdf->SetX($column2Gap);
-            $pdf->Write(0, 'Color    '/* TODO */, '', false, 'R', true);
+            $pdf->RoundedRect($pdf->GetX(), $pdf->GetY(), 61.5, 3, 1, '1111', 'F', array(), $this->hex2RGBarray($classGroup->getColor()));
         }
 
         if ($classGroup->getBook()) {
