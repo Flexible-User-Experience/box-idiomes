@@ -44,17 +44,16 @@ class ClassGroupAdminController extends BaseAdminController
         }
 
         $students = $srs->getStudentsInClassGroupSortedByName($object);
-        if (count($students) > 0) {
-            $this->addFlash('success', $translator->trans('backend.admin.class_group.emails_generator.flash_success', array('%amount%' => count($students)), 'messages'));
-        } else {
-            $this->addFlash('warning', $translator->trans('backend.admin.class_group.emails_generator.flash_success'));
+        if (0 == count($students)) {
+            $this->addFlash('warning', $translator->trans('backend.admin.class_group.emails_generator.flash_warning'));
+
+            return $this->redirectToList();
         }
 
         /* @var ClassGroupBuilderPdf $cgpbs */
         $cgpbs = $this->container->get('app.class_group_pdf_builder');
         $pdf = $cgpbs->build($object, $students);
 
-//        return $this->redirectToList();
         return new Response($pdf->Output('box_idiomes_class_group_'.$object->getId().'.pdf', 'I'), 200, array('Content-type' => 'application/pdf'));
     }
 }

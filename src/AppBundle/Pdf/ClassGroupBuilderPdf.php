@@ -89,27 +89,26 @@ class ClassGroupBuilderPdf extends AbstractReceiptInvoiceBuilderPdf
         $pdf->Ln(BaseTcpdf::MARGIN_VERTICAL_SMALL);
         $pdf->setFontStyle(null, '', 9);
 
+        // left header
+        $lockedY = $pdf->GetY();
         $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
-        $pdf->Write(0, $this->ts->trans('backend.admin.class_group.pdf.group').' '.$classGroup->getCode(), '', false, 'L', false);
-        $pdf->SetX($column2Gap);
-        $pdf->Write(0, $this->ts->trans('backend.admin.class_group.pdf.total').' '.count($students).'    ', '', false, 'R', true);
-
+        $pdf->Write(6, $this->ts->trans('backend.admin.class_group.pdf.group').' '.$classGroup->getCode(), '', false, 'L', true);
         if ($classGroup->getName()) {
             $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
-            $pdf->Write(0, $this->ts->trans('backend.admin.class_group.name').': '.$classGroup->getName(), '', false, 'L', true);
-            $pdf->SetX($column2Gap);
-            $pdf->RoundedRect($pdf->GetX(), $pdf->GetY(), 61.5, 3, 1, '1111', 'F', array(), $this->hex2RGBarray($classGroup->getColor()));
-        } else {
-            $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
-            $pdf->Write(0, '', '', false, 'L', true);
-            $pdf->SetX($column2Gap);
-            $pdf->RoundedRect($pdf->GetX(), $pdf->GetY(), 61.5, 3, 1, '1111', 'F', array(), $this->hex2RGBarray($classGroup->getColor()));
+            $pdf->Write(6, $this->ts->trans('backend.admin.class_group.name').' '.$classGroup->getName(), '', false, 'L', true);
         }
-
         if ($classGroup->getBook()) {
             $pdf->SetX(BaseTcpdf::PDF_MARGIN_LEFT + 4);
-            $pdf->Write(0, $this->ts->trans('backend.admin.class_group.book').': '.$classGroup->getBook(), '', false, 'L', true);
+            $pdf->Write(6, $this->ts->trans('backend.admin.class_group.book').' '.$classGroup->getBook(), '', false, 'L', true);
         }
+
+        // right header
+        $pdf->SetXY($column2Gap, $lockedY);
+        $pdf->Write(6, $this->ts->trans('backend.admin.class_group.pdf.total').' '.count($students).'    ', '', false, 'R', true);
+        $pdf->SetX($column2Gap);
+        $pdf->Write(6, ($classGroup->isForPrivateLessons() ? $this->ts->trans('backend.admin.is_for_private_lessons') : $this->ts->trans('backend.admin.is_not_for_private_lessons')).'    ', '', false, 'R', true);
+        $pdf->SetX($column2Gap);
+        $pdf->RoundedRect($pdf->GetX(), $pdf->GetY() + 2, 61.5, 3, 1, '1111', 'F', array(), $this->hex2RGBarray($classGroup->getColor()));
 
         // svg globles
         $pdf->drawSvg($this->sahs->getAbsoluteAssetFilePath('/bundles/app/svg/globe-violet.svg'), BaseTcpdf::PDF_MARGIN_LEFT, $retainedYForGlobes, 70, 35);

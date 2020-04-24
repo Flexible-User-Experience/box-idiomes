@@ -94,6 +94,7 @@ backend:
         dates: Dates
         enabled: Actiu
         is_for_private_lessons: Classe particular
+        is_not_for_private_lessons: Classe en grup
         submit: Enviar
         published_date: Data de publicació
         image: Imatge
@@ -165,7 +166,7 @@ backend:
                 total: 'Total'
             emails_generator:
                 flash_success: 'S''han afegit %amount% alumnes al llistat del grup.'
-                flash_warning: 'No s''han trobat cap alumne en aquest grup.'
+                flash_warning: 'No s''ha trobat cap alumne en aquest grup.'
 
         tariff:
             year: Any
