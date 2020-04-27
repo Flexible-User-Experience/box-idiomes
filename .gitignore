@@ -19,8 +19,12 @@
 !/web/js/.gitkeep
 /web/media/*
 !/web/media/.gitkeep
-/web/uploads/*
-!/web/uploads/.gitkeep
+/web/uploads/documents/*
+!/web/uploads/documents/.gitkeep
+/web/uploads/images/*
+!/web/uploads/images/.gitkeep
+/web/uploads/files-manager/*
+!/web/uploads/files-manager/.gitkeep
 /web/images/*
 !/web/images/.gitkeep
 /Capfile

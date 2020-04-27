@@ -66,6 +66,17 @@ services:
             - "@request_stack"
         tags:
             - { name: knp_menu.menu, alias: backend_invoice_menu }
+    app.backend_files_manager_menu_builder:
+        class: AppBundle\Menu\BackendFilesManagerMenuBuilder
+        arguments:
+            - "@knp_menu.factory"
+    app.backend_files_manager_menu:
+        class: Knp\Menu\MenuItem
+        factory: [ "@app.backend_files_manager_menu_builder", createSideMenu ]
+        arguments:
+            - "@request_stack"
+        tags:
+            - { name: knp_menu.menu, alias: backend_files_manager_menu }
     app.frontend_menu_builder:
         class: AppBundle\Menu\FrontendMenuBuilder
         arguments:
