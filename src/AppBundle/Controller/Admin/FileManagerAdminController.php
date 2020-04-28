@@ -15,6 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class FileManagerAdminController extends BaseAdminController
 {
+//    public $admin = 'admin.file_manager';
+
     /**
      * Show File manager view.
      *
@@ -31,6 +33,7 @@ class FileManagerAdminController extends BaseAdminController
         return $this->renderWithExtraParams(
             '::Admin/Invoice/generate_invoice_form.html.twig',
             array(
+                '_sonata_admin' => 'admin.file_manager',
                 'action' => 'generate',
                 'year_month_form' => 1980,
                 'form' => [],
