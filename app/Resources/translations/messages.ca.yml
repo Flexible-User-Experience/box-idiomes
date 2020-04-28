@@ -161,6 +161,7 @@ backend:
             book: Llibre
             color: Color
             pdf:
+                button: 'Generar PDF amb llistat d''alumnes'
                 title: 'Llistat d''alumnes'
                 group: 'Grup'
                 total: 'Total'
