@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Model\FileDummy;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -27,12 +26,8 @@ class FileManagerAdminController extends BaseAdminController
         return $this->renderWithExtraParams(
             '::Admin/FileManager/show_file_manager.html.twig',
             array(
-                '_sonata_admin' => 'admin.file_manager',
-//                'object' => new FileDummy('name'),
+                '_sonata_admin' => 'admin.file_manager_dummy',
                 'action' => 'show',
-                'year_month_form' => 1980,
-                'form' => [],
-                'generate_invoice' => [],
             )
         );
     }
