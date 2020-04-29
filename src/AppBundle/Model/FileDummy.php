@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Model;
 
 /**
  * Dummy class File to use as a faked entity. (Only for FileManager integration backend pourpose).

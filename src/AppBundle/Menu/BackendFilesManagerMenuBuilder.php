@@ -46,11 +46,8 @@ class BackendFilesManagerMenuBuilder
                 'files',
                 array(
                     'label' => 'backend.admin.files',
-                    'route' => 'file_manager_sonata',
-                    'routeParameters' => array(
-                        '_sonata_admin' => 'admin.file_manager',
-                    ),
-                    'current' => 'file_manager_sonata' == $route || 'file_manager' == $route || 'file_manager_rename' == $route || 'file_manager_upload' == $route,
+                    'route' => 'admin_app_filedummy_handler',
+                    'current' => 'admin_app_filedummy_handler' == $route || 'file_manager' == $route || 'file_manager_rename' == $route || 'file_manager_upload' == $route,
                 )
             )
         ;

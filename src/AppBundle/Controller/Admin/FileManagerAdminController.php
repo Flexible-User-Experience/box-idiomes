@@ -2,11 +2,9 @@
 
 namespace AppBundle\Controller\Admin;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class FileManagerAdminController.
@@ -15,20 +13,15 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class FileManagerAdminController extends BaseAdminController
 {
-//    public $admin = 'admin.file_manager';
-
     /**
      * Show File manager view.
-     *
-     * @Route("/admin/files-manager/show", name="file_manager_sonata")
-     * @Method("GET")
      *
      * @return Response
      *
      * @throws NotFoundHttpException If the object does not exist
      * @throws AccessDeniedException If access is not granted
      */
-    public function showFileManagerAction()
+    public function handlerAction()
     {
         return $this->renderWithExtraParams(
             '::Admin/Invoice/generate_invoice_form.html.twig',
