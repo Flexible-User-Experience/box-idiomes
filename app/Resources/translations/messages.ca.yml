@@ -105,6 +105,7 @@ backend:
         pictures: Imatges
         payments: Pagaments
         documents: Documents
+        files: Gestor de documents
         user:
             user: Usuari
             editor: Editor
