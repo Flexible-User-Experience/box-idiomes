@@ -1,5 +1,5 @@
 <div class="table-responsive list-blk">
-    <table class="table">
+    <table class="table table-bordered">
         <colgroup>
             <col>
             <col>
@@ -17,16 +17,16 @@
                 {% endblock %}
             </th>
             <th></th>
-            <th>
+            <th style="min-width:50px">
                 {{ order(fileManager, 'name') }}
             </th>
-            <th class="hidden-xs">
+            <th style="min-width:50px" class="hidden-xs">
                 {{ order(fileManager, 'date') }}
             </th>
-            <th class="hidden-xs">
+            <th style="min-width:50px" class="hidden-xs">
                 {{ order(fileManager, 'size') }}
             </th>
-            <th class="hidden-xs">
+            <th style="min-width:100px" class="hidden-xs">
                 {{ order(fileManager, 'dimension') }}
             </th>
             <th class="text-right">{{ 'table.actions'|trans }}</th>
