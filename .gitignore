@@ -25,6 +25,7 @@
 !/web/uploads/images/.gitkeep
 /web/uploads/files-manager/*
 !/web/uploads/files-manager/.gitkeep
+!/web/uploads/disc/.gitignore
 /web/images/*
 !/web/images/.gitkeep
 /Capfile
