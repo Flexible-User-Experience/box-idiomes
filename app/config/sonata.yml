@@ -50,8 +50,7 @@ sonata_admin:
             Fitxers:
                 icon:     "<i class='fa fa-file'></i>"
                 provider: "backend_files_manager_menu"
-                on_top:   true
-                roles:    [ "ROLE_ADMIN" ]
+                roles:    [ "ROLE_MANAGER" ]
             Contactes:
                 icon: "<i class='fa fa-envelope'></i>"
             Configuració:
