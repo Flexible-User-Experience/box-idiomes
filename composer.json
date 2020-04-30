@@ -15,6 +15,7 @@
     "require": {
         "ancarebeca/full-calendar-bundle": "^2.0",
         "apoutchika/loremipsum-bundle": "^1.0",
+        "artgris/filemanager-bundle": "^1.6",
         "beberlei/doctrineextensions": "^1.0",
         "components/font-awesome": "^4.0",
         "components/jquery": "^2.0",

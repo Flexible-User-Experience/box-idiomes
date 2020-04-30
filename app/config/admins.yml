@@ -137,3 +137,10 @@ services:
         arguments: [ ~, AppBundle\Entity\Bank, ~, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
         tags:
             - { name: sonata.admin, manager_type: orm, label: "Bank", group: "Configuració", show_in_dashboard: false }
+
+    # Dummies
+    admin.file_manager_dummy:
+        class: AppBundle\Admin\FileDummyAdmin
+        arguments: [ ~, AppBundle\Model\FileDummy, AppBundle:Admin\FileManagerAdmin, "@vich_uploader.templating.helper.uploader_helper", "@liip_imagine.cache.manager" ]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "File Manager", group: "Dummy", show_in_dashboard: false }

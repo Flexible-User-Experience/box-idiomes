@@ -33,6 +33,7 @@ class AppKernel extends Kernel
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             // Vendors
             new AncaRebeca\FullCalendarBundle\FullCalendarBundle(),
+            new Artgris\Bundle\FileManagerBundle\ArtgrisFileManagerBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new Fenrizbes\ColorPickerTypeBundle\FenrizbesColorPickerTypeBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),

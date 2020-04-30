@@ -127,6 +127,8 @@ class BackendControllerTest extends AbstractBaseTest
             array('/admin/users/1/edit'),
             array('/admin/users/1/delete'),
             array('/admin/full-calendar/load'),
+            array('/admin/fitxers/gestor'),
+            array('/admin/fitxers/gestor/handler/?conf=default'),
         );
     }
 
