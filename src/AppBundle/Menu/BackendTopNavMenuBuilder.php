@@ -2,10 +2,12 @@
 
 namespace AppBundle\Menu;
 
+use AppBundle\Enum\UserRolesEnum;
 use AppBundle\Repository\ContactMessageRepository;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 /**
  * Class BackendTopNavMenuBuilder.
@@ -25,6 +27,11 @@ class BackendTopNavMenuBuilder
     private $ts;
 
     /**
+     * @var AuthorizationChecker
+     */
+    private $ac;
+
+    /**
      * @var ContactMessageRepository
      */
     private $cmr;
@@ -35,15 +42,12 @@ class BackendTopNavMenuBuilder
 
     /**
      * Constructor.
-     *
-     * @param FactoryInterface         $factory
-     * @param TokenStorageInterface    $ts
-     * @param ContactMessageRepository $cmr
      */
-    public function __construct(FactoryInterface $factory, TokenStorageInterface $ts, ContactMessageRepository $cmr)
+    public function __construct(FactoryInterface $factory, TokenStorageInterface $ts, AuthorizationChecker $ac, ContactMessageRepository $cmr)
     {
         $this->factory = $factory;
         $this->ts = $ts;
+        $this->ac = $ac;
         $this->cmr = $cmr;
     }
 
@@ -57,57 +61,69 @@ class BackendTopNavMenuBuilder
         $menu
             ->addChild(
                 'homepage',
-                array(
+                [
                     'label' => '<i class="fa fa-globe"></i>',
                     'route' => 'app_homepage',
-                )
+                ]
             )
             ->setExtras(
-                array(
+                [
                     'safe_label' => true,
-                )
+                ]
             )
         ;
         if ($this->cmr->getNotReadMessagesAmount() > 0) {
             $menu
                 ->addChild(
                     'messages',
-                    array(
+                    [
                         'label' => '<i class="fa fa-envelope text-danger"></i> <span class="text-danger">'.$this->cmr->getNotReadMessagesAmount().'</span>',
                         'route' => 'admin_app_contactmessage_list',
-                    )
+                    ]
                 )
                 ->setExtras(
-                    array(
+                    [
                         'safe_label' => true,
-                    )
+                    ]
+                )
+            ;
+        }
+        if ($this->ac->isGranted(UserRolesEnum::ROLE_ADMIN)) {
+            $menu
+                ->addChild(
+                    'username',
+                    [
+                        'label' => $this->ts->getToken()->getUser()->getFullname(),
+                        'route' => 'admin_app_user_edit',
+                        'routeParameters' => [
+                            'id' => $this->ts->getToken()->getUser()->getId(),
+                        ],
+                    ]
+                )
+            ;
+        } else {
+            $menu
+                ->addChild(
+                    'username',
+                    [
+                        'label' => $this->ts->getToken()->getUser()->getFullname(),
+                        'uri' => '#',
+                    ]
                 )
             ;
         }
         $menu
             ->addChild(
-                'username',
-                array(
-                    'label' => $this->ts->getToken()->getUser()->getFullname(),
-                    'route' => 'admin_app_user_edit',
-                    'routeParameters' => array(
-                        'id' => $this->ts->getToken()->getUser()->getId(),
-                    ),
-                )
-            )
-        ;
-        $menu
-            ->addChild(
                 'logout',
-                array(
+                [
                     'label' => '<i class="fa fa-power-off text-success"></i>',
                     'route' => 'sonata_user_admin_security_logout',
-                )
+                ]
             )
             ->setExtras(
-                array(
+                [
                     'safe_label' => true,
-                )
+                ]
             )
         ;
 
