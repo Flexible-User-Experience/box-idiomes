@@ -8,14 +8,13 @@ security:
             - ROLE_ADMIN_CONTACTMESSAGE_ALL
             - ROLE_ADMIN_NEWSLETTERCONTACT_ALL
         ROLE_SONATA_MANAGER:
+            - ROLE_ADMIN_TEACHER_ALL
             - ROLE_ADMIN_TEACHER_ABSENCE_ALL
             - ROLE_ADMIN_CLASS_GROUP_ALL
             - ROLE_ADMIN_EVENT_ALL
             - ROLE_ADMIN_STUDENT_ALL
             - ROLE_ADMIN_STUDENT_ABSENCE_ALL
             - ROLE_ADMIN_PARENT_ALL
-            - ROLE_ADMIN_PROVINCE_ALL
-            - ROLE_ADMIN_CITY_ALL
             - ROLE_ADMIN_BANK_ALL
             - ROLE_ADMIN_FILE_MANAGER_DUMMY_ALL
         ROLE_SONATA_CUSTOM_ADMIN:
@@ -27,13 +26,16 @@ security:
             - ROLE_ADMIN_PURCHASES_PROVIDER_ALL
             - ROLE_ADMIN_PURCHASES_SPENDING_CATEGORY_ALL
             - ROLE_ADMIN_PURCHASES_SPENDING_ALL
+            - ROLE_ADMIN_PROVINCE_ALL
+            - ROLE_ADMIN_CITY_ALL
             - ROLE_ADMIN_USER_ALL
         ROLE_CMS:
             - ROLE_USER
             - ROLE_SONATA_CMS
             - ROLE_SONATA_ADMIN
         ROLE_MANAGER:
-            - ROLE_CMS
+            - ROLE_USER
+            - ROLE_SONATA_ADMIN
             - ROLE_SONATA_MANAGER
         ROLE_ADMIN:
             - ROLE_MANAGER
