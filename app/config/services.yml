@@ -49,6 +49,7 @@ services:
         arguments:
             - "@knp_menu.factory"
             - "@security.token_storage"
+            - "@security.authorization_checker"
             - "@app.contact_message_repository"
     app.backend_top_nav_menu:
         class: Knp\Menu\MenuItem
