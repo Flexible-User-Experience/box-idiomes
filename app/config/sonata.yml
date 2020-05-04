@@ -33,28 +33,28 @@ sonata_admin:
     dashboard:
         groups:
             Alumnes:
-                icon: "<i class='fa fa-graduation-cap'></i>"
+                icon:     "<i class='fa fa-graduation-cap'></i>"
             Professors:
-                icon: "<i class='fa fa-user'></i>"
+                icon:     "<i class='fa fa-user'></i>"
             Aules:
-                icon: "<i class='fa fa-window-maximize'></i>"
+                icon:     "<i class='fa fa-window-maximize'></i>"
             Facturació:
                 icon:     "<i class='fa fa-eur'></i>"
                 provider: "backend_invoice_menu"
                 roles:    [ "ROLE_ADMIN" ]
             Despeses:
-                icon:  "<i class='fa fa-eur'></i>"
-                roles: [ "ROLE_ADMIN" ]
+                icon:     "<i class='fa fa-eur'></i>"
+                roles:    [ "ROLE_ADMIN" ]
             Serveis:
-                icon: "<i class='fa fa-list-ul'></i>"
+                icon:     "<i class='fa fa-list-ul'></i>"
             Fitxers:
                 icon:     "<i class='fa fa-file'></i>"
                 provider: "backend_files_manager_menu"
                 roles:    [ "ROLE_MANAGER" ]
             Contactes:
-                icon: "<i class='fa fa-envelope'></i>"
+                icon:     "<i class='fa fa-envelope'></i>"
             Configuració:
-                icon: "<i class='fa fa-cogs'></i>"
+                icon:     "<i class='fa fa-cogs'></i>"
         blocks:
             -
                 position: top
@@ -73,4 +73,4 @@ sonata_admin:
                 position: top
                 type:     app.block.charts
                 class:    "col-xs-12"
-                roles:    [ "ROLE_MANAGER" ]
+                roles:    [ "ROLE_ADMIN" ]

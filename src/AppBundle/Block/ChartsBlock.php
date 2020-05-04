@@ -3,6 +3,7 @@
 namespace AppBundle\Block;
 
 use AppBundle\Service\ChartsFactoryService;
+use SaadTazi\GChartBundle\DataTable\Exception\InvalidColumnTypeException;
 use Sonata\BlockBundle\Block\BlockContextInterface;
 use Sonata\BlockBundle\Block\Service\AbstractBlockService;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -25,7 +26,6 @@ class ChartsBlock extends AbstractBlockService
      * ChartsBlock constructor.
      *
      * @param string|null               $name
-     * @param EngineInterface|null      $templating
      * @param ChartsFactoryService|null $cfs
      */
     public function __construct($name = null, EngineInterface $templating = null, $cfs = null)
@@ -37,12 +37,9 @@ class ChartsBlock extends AbstractBlockService
     /**
      * Execute.
      *
-     * @param BlockContextInterface $blockContext
-     * @param Response|null         $response
-     *
      * @return Response
      *
-     * @throws \SaadTazi\GChartBundle\DataTable\Exception\InvalidColumnTypeException
+     * @throws InvalidColumnTypeException
      */
     public function execute(BlockContextInterface $blockContext, Response $response = null)
     {
@@ -51,12 +48,12 @@ class ChartsBlock extends AbstractBlockService
 
         return $this->renderResponse(
             $blockContext->getTemplate(),
-            array(
+            [
                 'block' => $blockContext->getBlock(),
                 'settings' => $settings,
                 'title' => 'Charts',
                 'dt' => $this->cfs->buildLastYearResultsChart()->toArray(),
-            ),
+            ],
             $response
         );
     }
@@ -71,15 +68,12 @@ class ChartsBlock extends AbstractBlockService
         return 'charts';
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
     public function configureSettings(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'title' => 'Charts',
             'content' => 'Default content',
             'template' => ':Admin/Block:charts.html.twig',
-        ));
+        ]);
     }
 }
