@@ -20,4 +20,3 @@
         follow: yes
         owner: "{{ local_system_user }}"
         group: "{{ local_system_group }}"
-
